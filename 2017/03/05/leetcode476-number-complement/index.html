@@ -1,0 +1,624 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="dns-prefetch" href="//cdn.bootcss.com" />
+<link rel="dns-prefetch" href="//cdn.mathjax.org" />
+
+  
+    <title>【leetcode】476 number complement | Siyao&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Siyao">
+    
+
+    
+    <meta name="description" content="刷题第二天，好巧哦又是一道bit manipulation的 题目：Given a positive integer, output its complement number. The complement strategy is to flip the bits of its binary representation. Note:The given integer is guaranteed">
+<meta name="keywords" content="bit manipulation">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【leetcode】476 number complement">
+<meta property="og:url" content="http://yoursite.com/2017/03/05/leetcode476-number-complement/index.html">
+<meta property="og:site_name" content="Siyao&#39;s Blog">
+<meta property="og:description" content="刷题第二天，好巧哦又是一道bit manipulation的 题目：Given a positive integer, output its complement number. The complement strategy is to flip the bits of its binary representation. Note:The given integer is guaranteed">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/05/58bbc628a6a75.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/05/58bbc6f6a6428.png">
+<meta property="og:updated_time" content="2017-03-15T05:56:44.730Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【leetcode】476 number complement">
+<meta name="twitter:description" content="刷题第二天，好巧哦又是一道bit manipulation的 题目：Given a positive integer, output its complement number. The complement strategy is to flip the bits of its binary representation. Note:The given integer is guaranteed">
+<meta name="twitter:image" content="https://ooo.0o0.ooo/2017/03/05/58bbc628a6a75.png">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Siyao&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/小鸡.png">
+    
+    
+    <link rel="apple-touch-icon" href="/img/小鸡.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/小鸡.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+  <body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/小鸡.png" alt="Siyao&#39;s Blog" title="Siyao&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Siyao&#39;s Blog">Siyao&#39;s Blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/../categories">categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/03/05/leetcode476-number-complement/" title="【leetcode】476 number complement" itemprop="url">【leetcode】476 number complement</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Siyao" target="_blank" itemprop="author">Siyao</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-05T07:36:02.000Z" itemprop="datePublished"> 发表于 2017-03-05</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#题目："><span class="toc-number">1.</span> <span class="toc-text">题目：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#问题陈述："><span class="toc-number">1.1.</span> <span class="toc-text">问题陈述：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#题目思路："><span class="toc-number">1.2.</span> <span class="toc-text">题目思路：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#代码："><span class="toc-number">1.3.</span> <span class="toc-text">代码：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运行结果："><span class="toc-number">1.4.</span> <span class="toc-text">运行结果：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结："><span class="toc-number">1.5.</span> <span class="toc-text">总结：</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<p>刷题第二天，好巧哦又是一道bit manipulation的</p>
+<h3 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h3><p>Given a positive integer, output its complement number. The complement strategy is to flip the bits of its binary representation.</p>
+<p>Note:<br>The given integer is guaranteed to fit within the range of a 32-bit signed integer.<br>You could assume no leading zero bit in the integer’s binary representation.<br>Example 1:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Input: 5</div><div class="line">Output: 2</div><div class="line">Explanation: The binary representation of 5 is 101 (no leading zero bits), and its complement is 010. So you need to output 2.</div></pre></td></tr></table></figure>
+<p>Example 2:<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Input: 1</div><div class="line">Output: 0</div><div class="line">Explanation: The binary representation of 1 is 1 (no leading zero bits), and its complement is 0.</div></pre></td></tr></table></figure></p>
+<p>The above arrows point to positions where the corresponding bits are different.<br>Subscribe to see which companies asked this question.</p>
+<h4 id="问题陈述："><a href="#问题陈述：" class="headerlink" title="问题陈述："></a>问题陈述：</h4><p>就是要将一个整数的二进制表示做取反操作，输出取反后的十进制表示。</p>
+<p>需要注意的是二进制表示前面的0，比如5的二进制表示是00000101，如果直接取反得到的是11111010，而我们所要求的是不含前面的占位0的取反十进制表示，也就是(00000)010。</p>
+<h4 id="题目思路："><a href="#题目思路：" class="headerlink" title="题目思路："></a>题目思路：</h4><ol>
+<li>首先要求出来输入的整形数字二进制表示的位数n，也就是不含前导0的二进制表达的位数（如5的二进制表达是101，就是三位）</li>
+<li>然后将输入数字与n个1做异或操作，就相当于取反了</li>
+</ol>
+<p>例：<br>int = 5， 二进制表达为  00000101，位数为3，与00000111做异或运算得到00000010</p>
+<p>第2步很好求，知道了位数n之后，${2^n}-1$就是末位为n个1的十进制表示</p>
+<p>关键是第1步求十进制表示所占的位数，最开始我尝试了用数学的方式来求解，但是费尽周折仍有bug，于是乎上网搜了搜，发现可以用向右移位判断是否为0的方法，记录下移动的位数，就是十进制表示所占位数，哎，我怎么就没想到</p>
+<h4 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int findComplement(int num) &#123;</div><div class="line">        int numm = num;</div><div class="line">        int bitnum = 0;</div><div class="line">        while (num) &#123;</div><div class="line">            bitnum++;</div><div class="line">            num = num &gt;&gt; 1;</div><div class="line">        &#125;</div><div class="line">        int sec = pow(2, bitnum)-1;</div><div class="line">        int a = numm^sec; </div><div class="line">        return a;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h4 id="运行结果："><a href="#运行结果：" class="headerlink" title="运行结果："></a>运行结果：</h4><p><img src="https://ooo.0o0.ooo/2017/03/05/58bbc628a6a75.png" alt=""> </p>
+<h4 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h4><p>对于二进制的运算以及位操作符还是不够熟练，不能做到手到擒来，看来这个表要牢记在心<br><img src="https://ooo.0o0.ooo/2017/03/05/58bbc6f6a6428.png" alt=""> </p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/bit-manipulation/">bit manipulation</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2017/03/05/leetcode476-number-complement/" data-title="【leetcode】476 number complement | Siyao&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/03/07/leetcode500-Keyboard-Row/" title="【leetcode】500. Keyboard Row">
+  <strong>上一篇：</strong><br/>
+  <span>
+  【leetcode】500. Keyboard Row</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/03/05/决策树（三）：多变量决策树/"  title="决策树（三）：多变量决策树">
+ <strong>下一篇：</strong><br/> 
+ <span>决策树（三）：多变量决策树
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#题目："><span class="toc-number">1.</span> <span class="toc-text">题目：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#问题陈述："><span class="toc-number">1.1.</span> <span class="toc-text">问题陈述：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#题目思路："><span class="toc-number">1.2.</span> <span class="toc-text">题目思路：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#代码："><span class="toc-number">1.3.</span> <span class="toc-text">代码：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运行结果："><span class="toc-number">1.4.</span> <span class="toc-text">运行结果：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结："><span class="toc-number">1.5.</span> <span class="toc-text">总结：</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="siyaozhang" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/ACM/" title="ACM">ACM<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/RTB/" title="RTB">RTB<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/binary-tree/" title="binary tree">binary tree<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/blog-config/" title="blog config">blog config<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/c/" title="c++">c++<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/deep-learning/" title="deep learning">deep learning<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/leetcode/" title="leetcode">leetcode<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/machine-learning/" title="machine learning">machine learning<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/test/" title="test">test<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/tips/" title="tips">tips<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/排序算法/" title="排序算法">排序算法<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面经/" title="面经">面经<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/bit-manipulation/" title="bit manipulation">bit manipulation<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Array/" title="Array">Array<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/DP/" title="DP">DP<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hash-table/" title="hash table">hash table<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/c/" title="c++">c++<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tree/" title="tree">tree<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/FFM/" title="FFM">FFM<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hash-table/" title="hash_table">hash_table<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/array/" title="array">array<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/two-pointers/" title="two pointers">two pointers<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Dynamic-Programming/" title="Dynamic Programming">Dynamic Programming<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Divide-and-Conquer/" title="Divide and Conquer">Divide and Conquer<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/fm/" title="fm">fm<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> To be better me. <br/>
+			</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2975270917" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/siyaozhang" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:zsybupt@qq.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="Siyao">Siyao</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End --><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+  </body>
+</html>

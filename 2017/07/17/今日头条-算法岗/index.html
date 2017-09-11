@@ -1,0 +1,611 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="dns-prefetch" href="//cdn.bootcss.com" />
+<link rel="dns-prefetch" href="//cdn.mathjax.org" />
+
+  
+    <title>今日头条-算法岗 | Siyao&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Siyao">
+    
+
+    
+    <meta name="description" content="昨天去头条面试了，意料之中的挂了23333 没怎么考察算法，就做了个自我介绍，简单介绍了一下项目，问了问ffm的原理，跟fm比起来有哪些优势 紧接着上了两道算法题，两道题都很基础，但自己真心不扎实，难怪人家看不上== 字符串翻转给一个句子，把句子翻转但单词不翻转input:&amp;quot;I am a coder&amp;quot;output:&amp;quot;coder a am I&amp;quot; 对字符串、字符">
+<meta property="og:type" content="article">
+<meta property="og:title" content="今日头条-算法岗">
+<meta property="og:url" content="http://yoursite.com/2017/07/17/今日头条-算法岗/index.html">
+<meta property="og:site_name" content="Siyao&#39;s Blog">
+<meta property="og:description" content="昨天去头条面试了，意料之中的挂了23333 没怎么考察算法，就做了个自我介绍，简单介绍了一下项目，问了问ffm的原理，跟fm比起来有哪些优势 紧接着上了两道算法题，两道题都很基础，但自己真心不扎实，难怪人家看不上== 字符串翻转给一个句子，把句子翻转但单词不翻转input:&amp;quot;I am a coder&amp;quot;output:&amp;quot;coder a am I&amp;quot; 对字符串、字符">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-07-18T03:39:02.725Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="今日头条-算法岗">
+<meta name="twitter:description" content="昨天去头条面试了，意料之中的挂了23333 没怎么考察算法，就做了个自我介绍，简单介绍了一下项目，问了问ffm的原理，跟fm比起来有哪些优势 紧接着上了两道算法题，两道题都很基础，但自己真心不扎实，难怪人家看不上== 字符串翻转给一个句子，把句子翻转但单词不翻转input:&amp;quot;I am a coder&amp;quot;output:&amp;quot;coder a am I&amp;quot; 对字符串、字符">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Siyao&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/小鸡.png">
+    
+    
+    <link rel="apple-touch-icon" href="/img/小鸡.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/小鸡.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+  <body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/小鸡.png" alt="Siyao&#39;s Blog" title="Siyao&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Siyao&#39;s Blog">Siyao&#39;s Blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/../categories">categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/07/17/今日头条-算法岗/" title="今日头条-算法岗" itemprop="url">今日头条-算法岗</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Siyao" target="_blank" itemprop="author">Siyao</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-17T06:06:32.000Z" itemprop="datePublished"> 发表于 2017-07-17</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串翻转"><span class="toc-number">1.</span> <span class="toc-text">字符串翻转</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#思路"><span class="toc-number">1.1.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码"><span class="toc-number">1.2.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二分查找"><span class="toc-number">2.</span> <span class="toc-text">二分查找</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#关键思路"><span class="toc-number">2.1.</span> <span class="toc-text">关键思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码-1"><span class="toc-number">2.2.</span> <span class="toc-text">代码</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<p>昨天去头条面试了，意料之中的挂了23333</p>
+<p>没怎么考察算法，就做了个自我介绍，简单介绍了一下项目，问了问ffm的原理，跟fm比起来有哪些优势</p>
+<p>紧接着上了两道算法题，两道题都很基础，但自己真心不扎实，难怪人家看不上==</p>
+<h2 id="字符串翻转"><a href="#字符串翻转" class="headerlink" title="字符串翻转"></a>字符串翻转</h2><p>给一个句子，把句子翻转但单词不翻转<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">input:&quot;I am a coder&quot;</div><div class="line">output:&quot;coder a am I&quot;</div></pre></td></tr></table></figure></p>
+<p>对字符串、字符数组这里一直都很懵逼，看到题就知道自己写不出来了，挣扎了一会投降了==<br>而且我的重点都放在了要怎么读进来啊！不会读进来啊！怎么读啊！要好好看c++了啊喂！</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p><strong>先翻转整个句子，再把每一个单词翻转过来。翻转字符串的时候前后对换，能减少一半的时间复杂度</strong></p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">#include &lt;iostream&gt;</div><div class="line">#include &lt;fstream&gt;</div><div class="line">#include &lt;vector&gt;</div><div class="line">using namespace std;</div><div class="line">FILE *fin;</div><div class="line"></div><div class="line">//反转字符串</div><div class="line">void ReverseString(char *begin, char *end) &#123;</div><div class="line">    while (begin &lt; end) &#123;</div><div class="line">        char temp = *begin;</div><div class="line">        *begin = *end;</div><div class="line">        *end = temp;</div><div class="line">        begin++;</div><div class="line">        end--;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//反转句子</div><div class="line">char* ReverseSentance(char *ch) &#123;</div><div class="line">    char *begin = ch;</div><div class="line">    char *end = ch;</div><div class="line"></div><div class="line">    while (*end != &apos;\0&apos;)</div><div class="line">        end++;</div><div class="line">    end--;</div><div class="line">    //反转整个句子</div><div class="line">    ReverseString(begin, end);</div><div class="line"></div><div class="line">    //逐个反转单词</div><div class="line">    begin = ch;</div><div class="line">    end = ch;</div><div class="line">    while ((*begin != &apos;\0&apos;)) &#123;</div><div class="line">        while ((*end != &apos; &apos;) &amp;&amp; (*end != &apos;\0&apos;)) &#123;</div><div class="line">            end++;</div><div class="line">        &#125;</div><div class="line">        ReverseString(begin, end - 1);</div><div class="line">        if (*end != &apos;\0&apos;) &#123;</div><div class="line">            end++;</div><div class="line">        &#125;</div><div class="line">        begin = end;</div><div class="line">    &#125;</div><div class="line">    return ch;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int main() &#123;</div><div class="line">    /*fin = fopen(&quot;test.txt&quot;, &quot;r&quot;);</div><div class="line">    char str[1024];</div><div class="line">    int i = 0;</div><div class="line">    while ((str[i] = getchar()) != &apos;\n&apos;) &#123;</div><div class="line">        i++;</div><div class="line">    &#125; </div><div class="line">    int length = sizeof(str)/sizeof(str[0]);</div><div class="line">    char *array = str;*/</div><div class="line">    char a[] = &quot;I am a coder&quot;;</div><div class="line">    char *array = a;</div><div class="line">    int length = sizeof(a) / sizeof(a[0]);</div><div class="line">    cout &lt;&lt; length;</div><div class="line">    array = ReverseSentance(array);</div><div class="line">    for (int i = 0; i &lt; length-1; i++)</div><div class="line">    &#123;</div><div class="line">        cout &lt;&lt; *array;</div><div class="line">        array++;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    system(&quot;pause&quot;);</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h2><p>给定一个有序数组和一个数字，统计该数字在数组中出现的次数</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">input:3</div><div class="line">1 2 3 3 4 5 6</div><div class="line">output:2</div></pre></td></tr></table></figure>
+<p>我想到了用二分查找来解决，然后我竟然找到了这个数字时候左右分别递归再找==</p>
+<p>其实找到了之后就向左向右遍历就可以了，因为数组本身已经是有序的了嘛。。。。</p>
+<h3 id="关键思路"><a href="#关键思路" class="headerlink" title="关键思路"></a>关键思路</h3><p><strong>二分查找该数字是否在数组中出现，如果找到了就分别向左侧和右侧探测连续出现了几次</strong></p>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">#include &lt;iostream&gt;</div><div class="line">#include &lt;fstream&gt;</div><div class="line">#include &lt;vector&gt;</div><div class="line">using namespace std;</div><div class="line">FILE *fin;</div><div class="line"></div><div class="line">//二分查找</div><div class="line">int midfind(vector&lt;int&gt; &amp;vec,int head,int tail,int n) &#123;</div><div class="line">    if (head &gt; tail)</div><div class="line">        return -1;</div><div class="line">    else &#123;</div><div class="line">        int mid = (head + tail) / 2;</div><div class="line">        if (vec[mid] == n)</div><div class="line">            return mid;</div><div class="line">        else if (vec[mid] &lt; n) &#123;</div><div class="line">            return midfind(vec, mid + 1, tail, n);</div><div class="line">        &#125;</div><div class="line">        else &#123;</div><div class="line">            return midfind(vec, head, mid - 1, n);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int main() &#123;</div><div class="line">    fin = fopen(&quot;test.txt&quot;, &quot;r&quot;);</div><div class="line">    int n;</div><div class="line">    int temp;</div><div class="line">    vector&lt;int&gt; vec;</div><div class="line">    fscanf(fin,&quot;%d&quot;,&amp;n);</div><div class="line">    while (fscanf(fin, &quot;%d&quot;,&amp;temp)!=EOF) &#123;</div><div class="line">        vec.push_back(temp);</div><div class="line">    &#125;</div><div class="line">    int len = vec.size();</div><div class="line">    int pos = midfind(vec, 0, len - 1, n);</div><div class="line">    if (pos == -1)</div><div class="line">        cout &lt;&lt; &quot;0&quot; &lt;&lt; endl;</div><div class="line">    else &#123;</div><div class="line">        int pos1 = pos - 1;</div><div class="line">        int pos2 = pos + 1;</div><div class="line">        int sum = 1;</div><div class="line">        while ((pos1&gt;=0) &amp;&amp; (vec[pos1]==n))</div><div class="line">        &#123;</div><div class="line">            sum++;</div><div class="line">            pos1--;</div><div class="line">        &#125;</div><div class="line">        while ((pos2&lt;len) &amp;&amp; (vec[pos2] == n))</div><div class="line">        &#123;</div><div class="line">            sum++;</div><div class="line">            pos2++;</div><div class="line">        &#125;</div><div class="line">        cout &lt;&lt; sum &lt;&lt; endl;</div><div class="line">    &#125;</div><div class="line">    system(&quot;pause&quot;);</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>立flag 好好刷算法了要！！！！！基础很重要！</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/面经/">面经</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2017/07/17/今日头条-算法岗/" data-title="今日头条-算法岗 | Siyao&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/07/17/快速排序/" title="快速排序">
+  <strong>上一篇：</strong><br/>
+  <span>
+  快速排序</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/07/17/Optimal-Real-Time-Bidding-for-Display-Advertising论文笔记/"  title="Optimal Real-Time Bidding for Display Advertising论文笔记">
+ <strong>下一篇：</strong><br/> 
+ <span>Optimal Real-Time Bidding for Display Advertising论文笔记
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串翻转"><span class="toc-number">1.</span> <span class="toc-text">字符串翻转</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#思路"><span class="toc-number">1.1.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码"><span class="toc-number">1.2.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二分查找"><span class="toc-number">2.</span> <span class="toc-text">二分查找</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#关键思路"><span class="toc-number">2.1.</span> <span class="toc-text">关键思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码-1"><span class="toc-number">2.2.</span> <span class="toc-text">代码</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="siyaozhang" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/ACM/" title="ACM">ACM<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/RTB/" title="RTB">RTB<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/binary-tree/" title="binary tree">binary tree<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/blog-config/" title="blog config">blog config<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/c/" title="c++">c++<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/deep-learning/" title="deep learning">deep learning<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/leetcode/" title="leetcode">leetcode<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/machine-learning/" title="machine learning">machine learning<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/test/" title="test">test<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/tips/" title="tips">tips<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/排序算法/" title="排序算法">排序算法<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面经/" title="面经">面经<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/bit-manipulation/" title="bit manipulation">bit manipulation<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Array/" title="Array">Array<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/DP/" title="DP">DP<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hash-table/" title="hash table">hash table<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/c/" title="c++">c++<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tree/" title="tree">tree<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/FFM/" title="FFM">FFM<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hash-table/" title="hash_table">hash_table<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/array/" title="array">array<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/two-pointers/" title="two pointers">two pointers<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Dynamic-Programming/" title="Dynamic Programming">Dynamic Programming<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Divide-and-Conquer/" title="Divide and Conquer">Divide and Conquer<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/fm/" title="fm">fm<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> To be better me. <br/>
+			</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2975270917" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/siyaozhang" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:zsybupt@qq.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="Siyao">Siyao</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End --><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+  </body>
+</html>

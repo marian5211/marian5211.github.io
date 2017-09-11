@@ -1,0 +1,620 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="dns-prefetch" href="//cdn.bootcss.com" />
+<link rel="dns-prefetch" href="//cdn.mathjax.org" />
+
+  
+    <title>腾讯2017笔试——二叉排序树 | Siyao&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Siyao">
+    
+
+    
+    <meta name="description" content="题目  思路 对于二叉排序树的任何一个节点，其左子树的元素都小于右子树的元素 满二叉排序树树，树的结构可以确定  如果树的深度是$k$，满二叉树有$2^k-1$个元素，按从小到大的顺序排列为：$[a_1,a2,…,a{2^k-1}]$，则该满二叉树的结构如下：  根节点的元素为$a_{\frac{2^k}{2}}$，$[a_1,a2,…,a{\frac{2^k}{2}-1}]$中的元素在根节点的左">
+<meta property="og:type" content="article">
+<meta property="og:title" content="腾讯2017笔试——二叉排序树">
+<meta property="og:url" content="http://yoursite.com/2017/04/04/腾讯2017笔试——二叉排序树/index.html">
+<meta property="og:site_name" content="Siyao&#39;s Blog">
+<meta property="og:description" content="题目  思路 对于二叉排序树的任何一个节点，其左子树的元素都小于右子树的元素 满二叉排序树树，树的结构可以确定  如果树的深度是$k$，满二叉树有$2^k-1$个元素，按从小到大的顺序排列为：$[a_1,a2,…,a{2^k-1}]$，则该满二叉树的结构如下：  根节点的元素为$a_{\frac{2^k}{2}}$，$[a_1,a2,…,a{\frac{2^k}{2}-1}]$中的元素在根节点的左">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/04/03/58e250806556e.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/04/03/58e260ca6dcb7.png">
+<meta property="og:updated_time" content="2017-04-05T01:43:36.140Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="腾讯2017笔试——二叉排序树">
+<meta name="twitter:description" content="题目  思路 对于二叉排序树的任何一个节点，其左子树的元素都小于右子树的元素 满二叉排序树树，树的结构可以确定  如果树的深度是$k$，满二叉树有$2^k-1$个元素，按从小到大的顺序排列为：$[a_1,a2,…,a{2^k-1}]$，则该满二叉树的结构如下：  根节点的元素为$a_{\frac{2^k}{2}}$，$[a_1,a2,…,a{\frac{2^k}{2}-1}]$中的元素在根节点的左">
+<meta name="twitter:image" content="https://ooo.0o0.ooo/2017/04/03/58e250806556e.png">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Siyao&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/小鸡.png">
+    
+    
+    <link rel="apple-touch-icon" href="/img/小鸡.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/小鸡.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+  <body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/小鸡.png" alt="Siyao&#39;s Blog" title="Siyao&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Siyao&#39;s Blog">Siyao&#39;s Blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/../categories">categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/04/04/腾讯2017笔试——二叉排序树/" title="腾讯2017笔试——二叉排序树" itemprop="url">腾讯2017笔试——二叉排序树</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Siyao" target="_blank" itemprop="author">Siyao</a>
+		
+  <p class="article-time">
+    <time datetime="2017-04-03T16:13:13.000Z" itemprop="datePublished"> 发表于 2017-04-04</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-number">1.</span> <span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-number">2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码"><span class="toc-number">3.</span> <span class="toc-text">代码</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="https://ooo.0o0.ooo/2017/04/03/58e250806556e.png" alt=""> </p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ul>
+<li>对于二叉排序树的任何一个节点，其<strong>左子树的元素都小于右子树的元素</strong></li>
+<li><strong>满二叉排序树树</strong>，树的结构可以确定</li>
+</ul>
+<p>如果树的深度是$k$，满二叉树有$2^k-1$个元素，按从小到大的顺序排列为：$[a_1,a<em>2,…,a</em>{2^k-1}]$，则该满二叉树的结构如下：</p>
+<ol>
+<li>根节点的元素为$a_{\frac{2^k}{2}}$，$[a_1,a<em>2,…,a</em>{\frac{2^k}{2}-1}]$中的元素在根节点的左子树中，$[a<em>{\frac{2^k}{2}+1},…,a</em>{2^k-1}]$中的元素在根节点的右子树中</li>
+<li>对左子树、右子树两个区间再分别做1中的操作，得到最终的二叉排序树</li>
+</ol>
+<p>给定三个节点，根据二叉排序树的性质，可以知道<strong>包含这三个节点的最小子树的根节点的值，一定在这三个节点值构成的区间$[min,max]$内</strong></p>
+<p><img src="https://ooo.0o0.ooo/2017/04/03/58e260ca6dcb7.png" alt=""> </p>
+<p>所以我们可以从上至下遍历二叉排序树</p>
+<ol>
+<li>如果根节点root值包含在三个节点值构成的最大区间内，则根节root点就是所求</li>
+<li>如果根节点值小于min，则令右子树的根节点为root</li>
+<li>如果根节点值大于min，则对左子树的根节点为root</li>
+</ol>
+<p>重复上述操作，直到找到一个节点值为$t$，$t\in[min,max]$，该节点即为所求</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">#include&quot;stdafx.h&quot;</div><div class="line">#include&lt;iostream&gt;</div><div class="line">#include &lt;fstream&gt;</div><div class="line">#include &lt;stdio.h&gt;</div><div class="line">using namespace std;</div><div class="line"></div><div class="line">FILE *fin;</div><div class="line">int main()</div><div class="line">&#123;</div><div class="line">    fin = fopen(&quot;in.txt&quot;, &quot;r&quot;);</div><div class="line">    int k ,a,b,c;</div><div class="line">    int max, min;</div><div class="line">    fscanf(fin,&quot;%d&quot;, &amp;k);</div><div class="line">    fscanf(fin, &quot;%d&quot;, &amp;a);</div><div class="line">    fscanf(fin, &quot;%d&quot;, &amp;b);</div><div class="line">    fscanf(fin, &quot;%d&quot;, &amp;c);</div><div class="line">    //求三个节点值最大的max和最小的min</div><div class="line">    if (a &gt; b&amp;&amp;a &gt; c) &#123;</div><div class="line">        max = a;</div><div class="line">        if (b &gt; c) &#123;</div><div class="line">            min = c;</div><div class="line">        &#125;</div><div class="line">        else</div><div class="line">            min = b;</div><div class="line">    &#125;</div><div class="line">    if (b &gt; c&amp;&amp;b &gt; a) &#123;</div><div class="line">        max = b;</div><div class="line">        if (a &gt; c) &#123;</div><div class="line">            min = c;</div><div class="line">        &#125;</div><div class="line">        else</div><div class="line">            min = a;</div><div class="line">    &#125;</div><div class="line">    if (c &gt; b&amp;&amp;c &gt; a) &#123;</div><div class="line">        max = c;</div><div class="line">        if (b &gt; a) &#123;</div><div class="line">            min = a;</div><div class="line">        &#125;</div><div class="line">        else</div><div class="line">            min = b;</div><div class="line">    &#125;</div><div class="line">    //搜索</div><div class="line">    int low = 0;</div><div class="line">    int high = pow(2, k);</div><div class="line">    while (true) &#123;</div><div class="line">        int root = (low+high) / 2;</div><div class="line">        if ((max - root)*(min - root) &lt; 0)&#123;</div><div class="line">            cout &lt;&lt; root;</div><div class="line">            break;</div><div class="line">        &#125;</div><div class="line">        else&#123;</div><div class="line">            if (max &lt; root) &#123;</div><div class="line">                high = root;</div><div class="line">            &#125;</div><div class="line">            else &#123;</div><div class="line">                low = root;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    system(&quot;pause&quot;);</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/binary-tree/">binary tree</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2017/04/04/腾讯2017笔试——二叉排序树/" data-title="腾讯2017笔试——二叉排序树 | Siyao&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/04/04/腾讯2017笔试——16进制/" title="腾讯2017笔试——16进制">
+  <strong>上一篇：</strong><br/>
+  <span>
+  腾讯2017笔试——16进制</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/04/04/c-取反运算符“-”/"  title="c++ 取反运算符“~”">
+ <strong>下一篇：</strong><br/> 
+ <span>c++ 取反运算符“~”
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-number">1.</span> <span class="toc-text">题目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-number">2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码"><span class="toc-number">3.</span> <span class="toc-text">代码</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="siyaozhang" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/ACM/" title="ACM">ACM<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/RTB/" title="RTB">RTB<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/binary-tree/" title="binary tree">binary tree<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/blog-config/" title="blog config">blog config<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/c/" title="c++">c++<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/deep-learning/" title="deep learning">deep learning<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/leetcode/" title="leetcode">leetcode<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/machine-learning/" title="machine learning">machine learning<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/test/" title="test">test<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/tips/" title="tips">tips<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/排序算法/" title="排序算法">排序算法<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面经/" title="面经">面经<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/bit-manipulation/" title="bit manipulation">bit manipulation<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Array/" title="Array">Array<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/DP/" title="DP">DP<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hash-table/" title="hash table">hash table<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/c/" title="c++">c++<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tree/" title="tree">tree<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/FFM/" title="FFM">FFM<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hash-table/" title="hash_table">hash_table<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/array/" title="array">array<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/two-pointers/" title="two pointers">two pointers<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Dynamic-Programming/" title="Dynamic Programming">Dynamic Programming<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Divide-and-Conquer/" title="Divide and Conquer">Divide and Conquer<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/fm/" title="fm">fm<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> To be better me. <br/>
+			</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2975270917" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/siyaozhang" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:zsybupt@qq.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="Siyao">Siyao</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End --><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+  </body>
+</html>

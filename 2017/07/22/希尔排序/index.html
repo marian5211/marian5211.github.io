@@ -1,0 +1,656 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="dns-prefetch" href="//cdn.bootcss.com" />
+<link rel="dns-prefetch" href="//cdn.mathjax.org" />
+
+  
+    <title>希尔排序 | Siyao&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Siyao">
+    
+
+    
+    <meta name="description" content="思想希尔排序的实质是分组插入排序，又称缩小增量排序。 该方法的基本思想是：  先将整个待排元素序列分割成若干个子序列（由相隔某个“增量”的元素组成的），对这些子序列分别进行直接插入排序 依次缩减增量再进行排序 待整个序列中的元素基本有序（增量足够小）时，再对全体元素进行一次直接插入排序。  因为直接插入排序在元素基本有序的情况下（接近最好情况），效率是很高的，因此希尔排序在时间效率上比前两种方法有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="希尔排序">
+<meta property="og:url" content="http://yoursite.com/2017/07/22/希尔排序/index.html">
+<meta property="og:site_name" content="Siyao&#39;s Blog">
+<meta property="og:description" content="思想希尔排序的实质是分组插入排序，又称缩小增量排序。 该方法的基本思想是：  先将整个待排元素序列分割成若干个子序列（由相隔某个“增量”的元素组成的），对这些子序列分别进行直接插入排序 依次缩减增量再进行排序 待整个序列中的元素基本有序（增量足够小）时，再对全体元素进行一次直接插入排序。  因为直接插入排序在元素基本有序的情况下（接近最好情况），效率是很高的，因此希尔排序在时间效率上比前两种方法有">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.loli.net/2017/07/20/59701858e5e96.png">
+<meta property="og:image" content="https://i.loli.net/2017/07/20/59701a2be3ef5.png">
+<meta property="og:image" content="https://i.loli.net/2017/07/20/59701b9f8c66f.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/07/20/59701bfe5a204.png">
+<meta property="og:image" content="https://i.loli.net/2017/07/20/59701d3805da5.png">
+<meta property="og:image" content="https://i.loli.net/2017/07/20/59701e32a8bb1.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/07/20/59701fd2c547a.png">
+<meta property="og:image" content="https://i.loli.net/2017/07/22/59731239a3cd2.png">
+<meta property="og:image" content="https://i.loli.net/2017/07/22/59731264440fc.png">
+<meta property="og:image" content="https://i.loli.net/2017/07/22/59731282140fd.png">
+<meta property="og:image" content="https://i.loli.net/2017/07/22/597312a912c5c.png">
+<meta property="og:image" content="https://i.loli.net/2017/07/22/597312ca290dc.png">
+<meta property="og:updated_time" content="2017-07-22T09:09:54.542Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="希尔排序">
+<meta name="twitter:description" content="思想希尔排序的实质是分组插入排序，又称缩小增量排序。 该方法的基本思想是：  先将整个待排元素序列分割成若干个子序列（由相隔某个“增量”的元素组成的），对这些子序列分别进行直接插入排序 依次缩减增量再进行排序 待整个序列中的元素基本有序（增量足够小）时，再对全体元素进行一次直接插入排序。  因为直接插入排序在元素基本有序的情况下（接近最好情况），效率是很高的，因此希尔排序在时间效率上比前两种方法有">
+<meta name="twitter:image" content="https://i.loli.net/2017/07/20/59701858e5e96.png">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Siyao&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/小鸡.png">
+    
+    
+    <link rel="apple-touch-icon" href="/img/小鸡.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/小鸡.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+  <body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/小鸡.png" alt="Siyao&#39;s Blog" title="Siyao&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Siyao&#39;s Blog">Siyao&#39;s Blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/../categories">categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/07/22/希尔排序/" title="希尔排序" itemprop="url">希尔排序</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Siyao" target="_blank" itemprop="author">Siyao</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-22T09:09:32.000Z" itemprop="datePublished"> 发表于 2017-07-22</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#思想"><span class="toc-number">1.</span> <span class="toc-text">思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例子"><span class="toc-number">2.</span> <span class="toc-text">例子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码"><span class="toc-number">3.</span> <span class="toc-text">代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优化"><span class="toc-number">4.</span> <span class="toc-text">优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h2><p>希尔排序的实质是分组插入排序，又称缩小增量排序。</p>
+<p>该方法的基本思想是：</p>
+<ol>
+<li>先将整个待排元素序列分割成若干个子序列（由相隔某个“增量”的元素组成的），对这些子序列分别进行直接插入排序</li>
+<li>依次缩减增量再进行排序</li>
+<li>待整个序列中的元素基本有序（增量足够小）时，再对全体元素进行一次直接插入排序。</li>
+</ol>
+<p>因为直接插入排序在元素基本有序的情况下（接近最好情况），效率是很高的，因此希尔排序在时间效率上比前两种方法有较大提高。</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>现在我们要将这样一个数组排序，一共有10个元素</p>
+<p><img src="https://i.loli.net/2017/07/20/59701858e5e96.png" alt=""> </p>
+<ul>
+<li><strong>第一次 增量 gap = 10/2 = 5</strong></li>
+</ul>
+<p><img src="https://i.loli.net/2017/07/20/59701a2be3ef5.png" alt=""> </p>
+<p>整个数组被分成了5个子数组，分别是[49,13]，[38,27]，[65,49]，[97,55]，[26,4]<br>然后对这五个子数组进行插入排序，得到下面结果</p>
+<p><img src="https://i.loli.net/2017/07/20/59701b9f8c66f.png" alt=""> </p>
+<ul>
+<li><strong>第二次 增量 gap = 5/2 = 2</strong></li>
+</ul>
+<p><img src="https://ooo.0o0.ooo/2017/07/20/59701bfe5a204.png" alt=""> </p>
+<p>这次我们把整个数组分成了两个子数组，分别是[13,49,4,38,97],[27,55,49,65,26]<br>对这个两个子数组排序，结果如下：<br><img src="https://i.loli.net/2017/07/20/59701d3805da5.png" alt=""> </p>
+<ul>
+<li><strong>第三次 增量 gap = 2/2 = 1</strong><br>此时整个数组已经接近有序，对整个数组进行全排列</li>
+</ul>
+<p><img src="https://i.loli.net/2017/07/20/59701e32a8bb1.png" alt=""> </p>
+<p>最终得到数组有序</p>
+<p><img src="https://ooo.0o0.ooo/2017/07/20/59701fd2c547a.png" alt=""> </p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//希尔排序</div><div class="line">void HillSort(int a[], int len) &#123;</div><div class="line">    int delta = len/2;</div><div class="line">    while (delta &gt; 0) &#123;</div><div class="line">        for (int i = 0; i &lt; delta; i++) &#123;//分成了delta个子序列</div><div class="line">            //对每个子序列进行插入排序</div><div class="line">            for (int j = i + delta; j &lt; len; j = j + delta) &#123;</div><div class="line">                int jj = j - delta;</div><div class="line">                int temp = a[j];</div><div class="line">                while ((a[jj] &gt; temp)&amp;&amp;(jj&gt;=0)) &#123;</div><div class="line">                    a[jj + delta] = a[jj];</div><div class="line">                    jj -= delta;</div><div class="line">                &#125;</div><div class="line">                //插入</div><div class="line">                a[jj + delta] = temp;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        delta = delta / 2;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p><a href="http://blog.csdn.net/MoreWindows/article/details/6668714" target="_blank" rel="external">白话经典算法系列</a>原文是这么说的</p>
+<blockquote>
+<p>很明显，上面的shellsort1代码虽然对直观的理解希尔排序有帮助，但代码量太大了，不够简洁清晰。因此进行下改进和优化，以第二次排序为例，原来是每次从1A到1E，从2A到2E，可以改成从1B开始，先和1A比较，然后取2B与2A比较，再取1C与前面自己组内的数据比较…….。这种每次从数组第gap个元素开始，每个元素与自己组内的数据进行直接插入排序显然也是正确的。</p>
+</blockquote>
+<p>我理解了一下，思路就是把在序列中提取子序列的过程简化了，我们可以从第gap个元素开始，向后遍历到序列末尾，可以个元素都跟其所在的子序列中位于它前面的数字做插入排序，最终就会得到一个有序数列了~</p>
+<p>画个图表示一下吧，还是刚才那个序列，比如说此时进行到第二次排序了，gap=2的情况：</p>
+<p>从a[2]开始遍历，此时a[2]所在的子序列为[a[0],a[2],a[4],a[6],a[8]]，需要将a[2]和位于它前面的a[0]比较，插入到合适的位置：</p>
+<p><img src="https://i.loli.net/2017/07/22/59731239a3cd2.png" alt=""> </p>
+<p>指针后移一位， 同上此时a[3]所在的子序列为[a[1],a[3],a[5],a[7],a[9]]，需要将a[3]和位于它前面的a[1]比较，插入合适的位置：</p>
+<p><img src="https://i.loli.net/2017/07/22/59731264440fc.png" alt=""> </p>
+<p>接下来指针指向a[4],此时需要将a[4]和位于它前面的a[2]、a[0]比较，插入合适的位置：</p>
+<p><img src="https://i.loli.net/2017/07/22/59731282140fd.png" alt=""> </p>
+<p>下面重复上面的步骤：</p>
+<p><img src="https://i.loli.net/2017/07/22/597312a912c5c.png" alt=""> </p>
+<p><img src="https://i.loli.net/2017/07/22/597312ca290dc.png" alt=""> </p>
+<p>此处省略剩余步骤…..最终可以将数组排列至有序状态</p>
+<p>现在可以上代码了~<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//希尔排序</div><div class="line">void HillSort(int a[], int len) &#123;</div><div class="line">    int delta = len/2;</div><div class="line">    while (delta &gt; 0) &#123;</div><div class="line">        for (int i = delta; i &lt; len; i++) &#123;//遍历</div><div class="line">            //对该元素子前面的子数组进行插入排序</div><div class="line">            int temp = a[i];</div><div class="line">            int jj = i - delta;</div><div class="line">            while ((jj &gt;=0)&amp;&amp;(a[jj]&gt;temp))&#123;</div><div class="line">                swap(a[jj], a[jj+delta]);</div><div class="line">                jj -= delta;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        delta = delta / 2;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.csdn.net/MoreWindows/article/details/6668714" target="_blank" rel="external">MoreWindows Blog 白话经典算法系列</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/排序算法/">排序算法</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2017/07/22/希尔排序/" data-title="希尔排序 | Siyao&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/07/22/选择排序/" title="选择排序">
+  <strong>上一篇：</strong><br/>
+  <span>
+  选择排序</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/07/20/插入排序/"  title="插入排序">
+ <strong>下一篇：</strong><br/> 
+ <span>插入排序
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#思想"><span class="toc-number">1.</span> <span class="toc-text">思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例子"><span class="toc-number">2.</span> <span class="toc-text">例子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码"><span class="toc-number">3.</span> <span class="toc-text">代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优化"><span class="toc-number">4.</span> <span class="toc-text">优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="siyaozhang" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/ACM/" title="ACM">ACM<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/RTB/" title="RTB">RTB<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/binary-tree/" title="binary tree">binary tree<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/blog-config/" title="blog config">blog config<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/c/" title="c++">c++<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/deep-learning/" title="deep learning">deep learning<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/leetcode/" title="leetcode">leetcode<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/machine-learning/" title="machine learning">machine learning<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/test/" title="test">test<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/tips/" title="tips">tips<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/排序算法/" title="排序算法">排序算法<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面经/" title="面经">面经<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/bit-manipulation/" title="bit manipulation">bit manipulation<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Array/" title="Array">Array<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/DP/" title="DP">DP<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hash-table/" title="hash table">hash table<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/c/" title="c++">c++<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tree/" title="tree">tree<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/FFM/" title="FFM">FFM<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hash-table/" title="hash_table">hash_table<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/array/" title="array">array<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/two-pointers/" title="two pointers">two pointers<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Dynamic-Programming/" title="Dynamic Programming">Dynamic Programming<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Divide-and-Conquer/" title="Divide and Conquer">Divide and Conquer<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/fm/" title="fm">fm<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> To be better me. <br/>
+			</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2975270917" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/siyaozhang" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:zsybupt@qq.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="Siyao">Siyao</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End --><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+  </body>
+</html>

@@ -1,0 +1,721 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="dns-prefetch" href="//cdn.bootcss.com" />
+<link rel="dns-prefetch" href="//cdn.mathjax.org" />
+
+  
+    <title>FFM（field-aware Factorization Machine）——升级版FM | Siyao&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Siyao">
+    
+
+    
+    <meta name="description" content="背景 FFM（Field-aware Factorization Machine）最初的概念来自Yu-Chin Juan（阮毓钦，毕业于中国台湾大学，现在美国Criteo工作）与其比赛队员，是他们借鉴了来自Michael Jahrer的论文中的field概念提出了FM的升级版模型  原理线性模型对于给定的数据我们进行训练，进而对测试集进行预测，首先我们想到利用线性模型进行拟合（也就是一维特征）：">
+<meta name="keywords" content="FFM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FFM（field-aware Factorization Machine）——升级版FM">
+<meta property="og:url" content="http://yoursite.com/2017/03/22/FFM（field-aware-Factorization-Machine）——升级版FM/index.html">
+<meta property="og:site_name" content="Siyao&#39;s Blog">
+<meta property="og:description" content="背景 FFM（Field-aware Factorization Machine）最初的概念来自Yu-Chin Juan（阮毓钦，毕业于中国台湾大学，现在美国Criteo工作）与其比赛队员，是他们借鉴了来自Michael Jahrer的论文中的field概念提出了FM的升级版模型  原理线性模型对于给定的数据我们进行训练，进而对测试集进行预测，首先我们想到利用线性模型进行拟合（也就是一维特征）：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/21/58d0e965ec210.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/21/58d0e99b2f719.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/21/58d0e9cb62988.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/13/58c6aa26b83c6.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/21/58d0e9fe74136.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/21/58d1361058228.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/21/58d13b9c6f3d1.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/21/58d13cd0e100e.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/21/58d13d13d9ec3.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/21/58d13d21ddd24.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/21/58d13d2db61d3.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/21/58d13cf17aac5.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/21/58d1401cb9e37.png">
+<meta property="og:updated_time" content="2017-03-22T01:47:54.655Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="FFM（field-aware Factorization Machine）——升级版FM">
+<meta name="twitter:description" content="背景 FFM（Field-aware Factorization Machine）最初的概念来自Yu-Chin Juan（阮毓钦，毕业于中国台湾大学，现在美国Criteo工作）与其比赛队员，是他们借鉴了来自Michael Jahrer的论文中的field概念提出了FM的升级版模型  原理线性模型对于给定的数据我们进行训练，进而对测试集进行预测，首先我们想到利用线性模型进行拟合（也就是一维特征）：">
+<meta name="twitter:image" content="https://ooo.0o0.ooo/2017/03/21/58d0e965ec210.png">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Siyao&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/小鸡.png">
+    
+    
+    <link rel="apple-touch-icon" href="/img/小鸡.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/小鸡.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+  <body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/小鸡.png" alt="Siyao&#39;s Blog" title="Siyao&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Siyao&#39;s Blog">Siyao&#39;s Blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/../categories">categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/03/22/FFM（field-aware-Factorization-Machine）——升级版FM/" title="FFM（field-aware Factorization Machine）——升级版FM" itemprop="url">FFM（field-aware Factorization Machine）——升级版FM</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Siyao" target="_blank" itemprop="author">Siyao</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-22T01:06:09.000Z" itemprop="datePublished"> 发表于 2017-03-22</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#背景"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理"><span class="toc-number">2.</span> <span class="toc-text">原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#线性模型"><span class="toc-number">2.1.</span> <span class="toc-text">线性模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM"><span class="toc-number">2.2.</span> <span class="toc-text">FM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FFM"><span class="toc-number">2.3.</span> <span class="toc-text">FFM</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FFM实现"><span class="toc-number">3.</span> <span class="toc-text">FFM实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例"><span class="toc-number">4.</span> <span class="toc-text">实例</span></a></li></ol>
+		
+		</div>
+		
+		<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><blockquote>
+<p>FFM（Field-aware Factorization Machine）最初的概念来自Yu-Chin Juan（阮毓钦，毕业于中国台湾大学，现在美国Criteo工作）与其比赛队员，是他们借鉴了来自<a href="https://kaggle2.blob.core.windows.net/competitions/kddcup2012/2748/media/Opera.pdf" target="_blank" rel="external">Michael Jahrer的论文</a>中的field概念提出了<strong>FM的升级版</strong>模型</p>
+</blockquote>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><h4 id="线性模型"><a href="#线性模型" class="headerlink" title="线性模型"></a>线性模型</h4><p>对于给定的数据我们进行训练，进而对测试集进行预测，首先我们想到利用<strong>线性模型</strong>进行拟合（也就是一维特征）：</p>
+<p><img src="https://ooo.0o0.ooo/2017/03/21/58d0e965ec210.png" alt=""> </p>
+<p>进一步，我们考虑加入<strong>二维组合特征</strong>进行拟合：</p>
+<h4 id="FM"><a href="#FM" class="headerlink" title="FM"></a>FM</h4><p><img src="https://ooo.0o0.ooo/2017/03/21/58d0e99b2f719.png" alt=""> </p>
+<p>也就是<strong>FM</strong>中的交叉特征（二次项），采用<strong>矩阵分解</strong>得到如下形式：</p>
+<p><img src="https://ooo.0o0.ooo/2017/03/21/58d0e9cb62988.png" alt=""> </p>
+<p>其中$w_{j<em>1}$和$w</em>{j_2}$分别为特征$j_1$和$j_1$对应的<strong>隐向量</strong>，对应下图中左边两个矩阵的一行或一列即是一个隐向量。</p>
+<p><img src="https://ooo.0o0.ooo/2017/03/13/58c6aa26b83c6.png" alt=""> </p>
+<h4 id="FFM"><a href="#FFM" class="headerlink" title="FFM"></a>FFM</h4><p>现在在FM的基础之上，我们<strong>引入field-aware的概念</strong>，可以推得<strong>FFM的二次项形式</strong>如下：</p>
+<p><img src="https://ooo.0o0.ooo/2017/03/21/58d0e9fe74136.png" alt=""> </p>
+<p>其中$w_{j<em>1,f</em>{j_2}}$为<strong>特征$j_1$针对$j<em>2$所在的类别$f</em>{j_2}$的隐向量</strong></p>
+<p>$w_{j<em>2,f</em>{j_1}}$为<strong>特征$j_2$针对$j<em>1$所在的类别$f</em>{j_1}$的隐向量</strong></p>
+<p>FFM完整的模型方程为</p>
+<p><img src="https://ooo.0o0.ooo/2017/03/21/58d1361058228.png" alt=""> </p>
+<p>为了便于理解，先看下面的例子</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Clicked?</th>
+<th style="text-align:center">Country</th>
+<th style="text-align:center">Day</th>
+<th style="text-align:center">Ad_type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">USA</td>
+<td style="text-align:center">26/11/15</td>
+<td style="text-align:center">Movie</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">China</td>
+<td style="text-align:center">1/7/14</td>
+<td style="text-align:center">Game</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Clicked?</th>
+<th style="text-align:center">Country=USA</th>
+<th style="text-align:center">Country=China</th>
+<th style="text-align:center">Day=26/11/15</th>
+<th style="text-align:center">Day=1/7/14</th>
+<th style="text-align:center">Day=19/2/15</th>
+<th style="text-align:center">Ad_type=Movie</th>
+<th style="text-align:center">Ad_type=Game</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+<p>我们对原始数据进行One-Hot编码生成数值特征，这时引入field的概念，把同一个categorical特征经过One-Hot编码生成的数值特征都放到同一个field中。比如：“Day=26/11/15”、“Day=1/7/14”、“Day=19/2/15”这三个特征是由“日期”这一categorical特征生成的，可以放到同一个field中。这时我们再计算隐向量的时候，<strong>隐向量不仅与特征相关，还与field相关</strong>。每一维特征$x_i$针对其它特征的每一种field<br>$f<em>j$，都会学习一个隐向量 $w</em>{i,f_j}$。</p>
+<p>假设样本的n个特征属于 f 个field，那么FFM的二次项有  nf 个隐向量，如果隐向量的长度为 k ，那么FFM的二次参数有 nfk 个。而在FM模型中，每一维特征的隐向量只有一个<strong>，FM可以看作FFM的特例，是把所有特征都归属到一个field时的FFM模型</strong>。此外，由于隐向量与field相关，FFM二次项并不能够化简，其预测<strong>复杂度是 $O(kn^2)$。</strong></p>
+<h3 id="FFM实现"><a href="#FFM实现" class="headerlink" title="FFM实现"></a>FFM实现</h3><p>Yu-Chin Juan实现了一个C++版的FFM模型，源码可从Github下载<a href="https://github.com/guestwalk/libffm" target="_blank" rel="external">https://github.com/guestwalk/libffm</a></p>
+<p>该<strong>FFM模型采用logistic loss作为损失函数，和L2惩罚项</strong>，因此只能用于<strong>二元分类</strong>问题。</p>
+<p><img src="https://ooo.0o0.ooo/2017/03/21/58d13b9c6f3d1.png" alt=""> </p>
+<p>模型<strong>采用SGD进行优化</strong>。</p>
+<hr>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p><img src="https://ooo.0o0.ooo/2017/03/21/58d13cd0e100e.png" alt=""> </p>
+<p>这条记录可以编码成5个特征，其中“Genre=Comedy”和“Genre=Drama”属于同一个field，“Price”是数值型，不用One-Hot编码转换。<br>利用线性模型进行拟合：</p>
+<p><img src="https://ooo.0o0.ooo/2017/03/21/58d13d13d9ec3.png" alt=""> </p>
+<p>二维组合特征拟合：<br><img src="https://ooo.0o0.ooo/2017/03/21/58d13d21ddd24.png" alt=""> </p>
+<p>FM（隐向量）拟合：<br><img src="https://ooo.0o0.ooo/2017/03/21/58d13d2db61d3.png" alt=""> </p>
+<p>FFM拟合：</p>
+<p>为了方便说明FFM的样本格式，我们将所有的特征和对应的field映射成整数编号。</p>
+<p><img src="https://ooo.0o0.ooo/2017/03/21/58d13cf17aac5.png" alt="">  </p>
+<p>FFM的组合特征有10项，如下图所示<br><img src="https://ooo.0o0.ooo/2017/03/21/58d1401cb9e37.png" alt=""> </p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/machine-learning/">machine learning</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/FFM/">FFM</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2017/03/22/FFM（field-aware-Factorization-Machine）——升级版FM/" data-title="FFM（field-aware Factorization Machine）——升级版FM | Siyao&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/03/22/Hexo下Markdown与MathJax冲突问题/" title="Hexo下Markdown与MathJax冲突问题">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Hexo下Markdown与MathJax冲突问题</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/03/18/【leetcode】371-Sum-of-Two-Integers/"  title="【leetcode】371. Sum of Two Integers">
+ <strong>下一篇：</strong><br/> 
+ <span>【leetcode】371. Sum of Two Integers
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#背景"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理"><span class="toc-number">2.</span> <span class="toc-text">原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#线性模型"><span class="toc-number">2.1.</span> <span class="toc-text">线性模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM"><span class="toc-number">2.2.</span> <span class="toc-text">FM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FFM"><span class="toc-number">2.3.</span> <span class="toc-text">FFM</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FFM实现"><span class="toc-number">3.</span> <span class="toc-text">FFM实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例"><span class="toc-number">4.</span> <span class="toc-text">实例</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="siyaozhang" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/ACM/" title="ACM">ACM<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/RTB/" title="RTB">RTB<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/binary-tree/" title="binary tree">binary tree<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/blog-config/" title="blog config">blog config<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/c/" title="c++">c++<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/deep-learning/" title="deep learning">deep learning<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/leetcode/" title="leetcode">leetcode<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/machine-learning/" title="machine learning">machine learning<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/test/" title="test">test<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/tips/" title="tips">tips<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/排序算法/" title="排序算法">排序算法<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面经/" title="面经">面经<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/bit-manipulation/" title="bit manipulation">bit manipulation<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Array/" title="Array">Array<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/DP/" title="DP">DP<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hash-table/" title="hash table">hash table<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/c/" title="c++">c++<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tree/" title="tree">tree<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/FFM/" title="FFM">FFM<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hash-table/" title="hash_table">hash_table<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/array/" title="array">array<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/two-pointers/" title="two pointers">two pointers<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Dynamic-Programming/" title="Dynamic Programming">Dynamic Programming<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Divide-and-Conquer/" title="Divide and Conquer">Divide and Conquer<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/fm/" title="fm">fm<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> To be better me. <br/>
+			</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2975270917" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/siyaozhang" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:zsybupt@qq.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="Siyao">Siyao</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End --><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+  </body>
+</html>

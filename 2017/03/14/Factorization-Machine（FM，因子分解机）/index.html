@@ -1,0 +1,739 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="dns-prefetch" href="//cdn.bootcss.com" />
+<link rel="dns-prefetch" href="//cdn.mathjax.org" />
+
+  
+    <title>Factorization Machine（FM，因子分解机） | Siyao&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Siyao">
+    
+
+    
+    <meta name="description" content="背景 Steffen Rendle于2012年提出FM模型，旨在解决稀疏矩阵下的特征组合问题。传统机器学习问题，一般仅考虑如何对特征赋予权重，而没有考虑特征间存在相互作用，FM模型的提出较好地解决了该问题。  相比于SVM的优势 对于稀疏数据有更强的学习能力 线性时间复杂度，不依赖于支撑向量  应用 回归问题 二分类问题 排序  原理传统线性回归模型我们用广告的CTR（点击率）预估问题引出FM模型">
+<meta name="keywords" content="fm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Factorization Machine（FM，因子分解机）">
+<meta property="og:url" content="http://yoursite.com/2017/03/14/Factorization-Machine（FM，因子分解机）/index.html">
+<meta property="og:site_name" content="Siyao&#39;s Blog">
+<meta property="og:description" content="背景 Steffen Rendle于2012年提出FM模型，旨在解决稀疏矩阵下的特征组合问题。传统机器学习问题，一般仅考虑如何对特征赋予权重，而没有考虑特征间存在相互作用，FM模型的提出较好地解决了该问题。  相比于SVM的优势 对于稀疏数据有更强的学习能力 线性时间复杂度，不依赖于支撑向量  应用 回归问题 二分类问题 排序  原理传统线性回归模型我们用广告的CTR（点击率）预估问题引出FM模型">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/13/58c68f490519b.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/13/58c6943ecf1aa.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/13/58c694663d2ce.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/13/58c6aa26b83c6.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/13/58c6ab23c0775.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/13/58c6ad4950dc3.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/13/58c6943ecf1aa.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/14/58c758f677ff9.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/14/58c79e8acccee.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/14/58c7a443cf54c.png">
+<meta property="og:updated_time" content="2017-03-14T12:19:52.572Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Factorization Machine（FM，因子分解机）">
+<meta name="twitter:description" content="背景 Steffen Rendle于2012年提出FM模型，旨在解决稀疏矩阵下的特征组合问题。传统机器学习问题，一般仅考虑如何对特征赋予权重，而没有考虑特征间存在相互作用，FM模型的提出较好地解决了该问题。  相比于SVM的优势 对于稀疏数据有更强的学习能力 线性时间复杂度，不依赖于支撑向量  应用 回归问题 二分类问题 排序  原理传统线性回归模型我们用广告的CTR（点击率）预估问题引出FM模型">
+<meta name="twitter:image" content="https://ooo.0o0.ooo/2017/03/13/58c68f490519b.png">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Siyao&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/小鸡.png">
+    
+    
+    <link rel="apple-touch-icon" href="/img/小鸡.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/小鸡.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+  <body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/小鸡.png" alt="Siyao&#39;s Blog" title="Siyao&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Siyao&#39;s Blog">Siyao&#39;s Blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/../categories">categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/03/14/Factorization-Machine（FM，因子分解机）/" title="Factorization Machine（FM，因子分解机）" itemprop="url">Factorization Machine（FM，因子分解机）</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Siyao" target="_blank" itemprop="author">Siyao</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-14T00:55:44.000Z" itemprop="datePublished"> 发表于 2017-03-14</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#背景"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相比于SVM的优势"><span class="toc-number">2.</span> <span class="toc-text">相比于SVM的优势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#应用"><span class="toc-number">3.</span> <span class="toc-text">应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理"><span class="toc-number">4.</span> <span class="toc-text">原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#传统线性回归模型"><span class="toc-number">4.1.</span> <span class="toc-text">传统线性回归模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM模型"><span class="toc-number">4.2.</span> <span class="toc-text">FM模型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FM模型复杂度"><span class="toc-number">5.</span> <span class="toc-text">FM模型复杂度</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#求解复杂度"><span class="toc-number">5.1.</span> <span class="toc-text">求解复杂度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#模型训练复杂度"><span class="toc-number">5.2.</span> <span class="toc-text">模型训练复杂度</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开源代码库"><span class="toc-number">6.</span> <span class="toc-text">开源代码库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考文献"><span class="toc-number">7.</span> <span class="toc-text">参考文献</span></a></li></ol>
+		
+		</div>
+		
+		<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><blockquote>
+<p>Steffen Rendle于2012年提出FM模型，旨在解决<strong>稀疏矩阵</strong>下的<strong>特征组合</strong>问题。传统机器学习问题，一般仅考虑如何对特征赋予权重，而没有考虑<strong>特征间存在相互作用</strong>，FM模型的提出较好地解决了该问题。</p>
+</blockquote>
+<h3 id="相比于SVM的优势"><a href="#相比于SVM的优势" class="headerlink" title="相比于SVM的优势"></a>相比于SVM的优势</h3><ol>
+<li>对于<strong>稀疏数据</strong>有更强的学习能力</li>
+<li><strong>线性时间复杂度</strong>，不依赖于支撑向量</li>
+</ol>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><ol>
+<li>回归问题</li>
+<li>二分类问题</li>
+<li>排序</li>
+</ol>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><h4 id="传统线性回归模型"><a href="#传统线性回归模型" class="headerlink" title="传统线性回归模型"></a>传统线性回归模型</h4><p>我们用广告的CTR（点击率）预估问题引出FM模型：根据用户和广告位等相关特征，预测用户是否点击广告。源数据如下</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Clicked?</th>
+<th style="text-align:center">Country</th>
+<th style="text-align:center">Day</th>
+<th style="text-align:center">Ad_type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">USA</td>
+<td style="text-align:center">26/11/15</td>
+<td style="text-align:center">Movie</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">China</td>
+<td style="text-align:center">1/7/14</td>
+<td style="text-align:center">Game</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">China</td>
+<td style="text-align:center">19/2/15</td>
+<td style="text-align:center">Game</td>
+</tr>
+</tbody>
+</table>
+<p>由于三种特征Country、Day、Ad_type都是categorical类型的，进行ctr预估的时候往往需要经过独热编码（One-Hot Encoding）转换成数值型特征。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Clicked?</th>
+<th style="text-align:center">Country=USA</th>
+<th style="text-align:center">Country=China</th>
+<th style="text-align:center">Day=26/11/15</th>
+<th style="text-align:center">Day=1/7/14</th>
+<th style="text-align:center">Day=19/2/15</th>
+<th style="text-align:center">Ad_type=Movie</th>
+<th style="text-align:center">Ad_type=Game</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+<p>再利用<strong>传统的线性回归模型</strong>：</p>
+<p><img src="https://ooo.0o0.ooo/2017/03/13/58c68f490519b.png" alt=""> </p>
+<p>根据训练集训练出模型的参数，进行预测。</p>
+<p><strong>该方法存在的问题：</strong></p>
+<ul>
+<li>经过One-Hot编码之后，大部分样本数据特征是比较稀疏的，上面的样例中，每个样本有7维特征，但平均仅有3维特征具有非零值。而且在实际情况中，one-hot编码后的特征空间维度很大。</li>
+<li>更重要的是，通过One-Hot编码方式输入到传统线性模型中进行训练，各特征分量$x_i$和$x_j$是相互独立的，但在实际应用中，通过观察大量的样本数据可以发现，某些特征经过关联之后，与label之间的相关性就会提高。例如，“USA”与“Thanksgiving”、“China”与“Chinese New Year”这样的关联特征，对用户的点击就极有可能有着正向的影响。</li>
+</ul>
+<h4 id="FM模型"><a href="#FM模型" class="headerlink" title="FM模型"></a>FM模型</h4><p>由于上述问题，所以引入两个（设置多个）<strong>特征之间的组合</strong>十分有意义：</p>
+<p><img src="https://ooo.0o0.ooo/2017/03/13/58c6943ecf1aa.png" alt=""><br><img src="https://ooo.0o0.ooo/2017/03/13/58c694663d2ce.png" alt=""> </p>
+<p>前半部分就是传统的<strong>线性模型</strong>，后半部分引入<strong>两个特征之间的关联特征</strong>。</p>
+<p>从上面公式可以看出，组合特征的参数一共有<strong>n(n−1)/2</strong>个， 任意两个参数都是独立的。但是二次项参数训练很<strong>困难</strong>，因为：<strong>数据稀疏性普遍存在</strong>于实际应用场景中，而每个参数$w_{ij}$的训练需要大量 $x_i$和 $x_j$ 都非零的样本，训练样本的不足，很容易导致参数 $x_i$ 和$x_j$训练 不准确，最终将严重影响模型的性能。</p>
+<p>那么，如何解决二次项参数的训练问题呢？<strong>矩阵分解</strong>提供了一种解决思路。<br>参考在model-based的协同过滤中的做法：一个rating矩阵可以分解为user矩阵和item矩阵，每个user和item都可以采用一个隐向量表示</p>
+<p><img src="https://ooo.0o0.ooo/2017/03/13/58c6aa26b83c6.png" alt=""> </p>
+<p>FM模型中二次项系数构成的矩阵是对称正定的，故可以用上面的分解方式<strong>分解成两个低维的矩阵相乘</strong>，即$W={V^T}V$，从而解决数据稀疏导致训练不准确的问题。<strong>至此，FM模型可以化为如下形式</strong>：</p>
+<p><img src="https://ooo.0o0.ooo/2017/03/13/58c6ab23c0775.png" alt=""> </p>
+<p>总结起来一句话就是：<strong>FM引入二维组合特征，然后利用矩阵分解降维减少了训练参数，从而能够适应数据的稀疏性</strong>。<br>具体解释参考<a href="http://tech.meituan.com/deep-understanding-of-ffm-principles-and-practices.html" target="_blank" rel="external">美团技术团队关于FM的介绍</a>需要的时候可以细看</p>
+<p><img src="https://ooo.0o0.ooo/2017/03/13/58c6ad4950dc3.png" alt=""> </p>
+<hr>
+<h3 id="FM模型复杂度"><a href="#FM模型复杂度" class="headerlink" title="FM模型复杂度"></a>FM模型复杂度</h3><h4 id="求解复杂度"><a href="#求解复杂度" class="headerlink" title="求解复杂度"></a>求解复杂度</h4><p>模型参数已经训练出来，将新的数据输入模型求解：<br><img src="https://ooo.0o0.ooo/2017/03/13/58c6943ecf1aa.png" alt=""> </p>
+<p>时间复杂度为<strong>$O(kn^2)$</strong></p>
+<p>但是如果我们依据公式$ab+ac+bc+\cdots=\frac{(a+b+c+\cdots)^2-(a^2+b^2+c^2+\cdots)}{2}$化简交叉项，具体过程如下：<br><img src="https://ooo.0o0.ooo/2017/03/14/58c758f677ff9.png" alt=""> </p>
+<p>此时时间复杂度简化为<strong>$O(kn)$</strong>。由此可见，FM可以在<strong>线性时间</strong>对新样本作出预测。</p>
+<h4 id="模型训练复杂度"><a href="#模型训练复杂度" class="headerlink" title="模型训练复杂度"></a>模型训练复杂度</h4><ul>
+<li><strong>多元统计回归问题</strong></li>
+<li>训练方法：<strong>SGD（随机梯度下降法）</strong><br>记FM模型参数为$\Theta={(w_0,w_1,w_2,\cdots,w_n,v_11,v_12,\cdots,v_nk)}^T$，共有$1+n+kn$个参数，模型各个参数的梯度如下：</li>
+</ul>
+<p><img src="https://ooo.0o0.ooo/2017/03/14/58c79e8acccee.png" alt=""> </p>
+<p><img src="https://ooo.0o0.ooo/2017/03/14/58c7a443cf54c.png" alt=""> </p>
+<p>详细推导过程参考<a href="http://blog.csdn.net/itplus/article/details/40536025" target="_blank" rel="external">peghoty的博客</a></p>
+<p><strong>时间复杂度为$O(kn)$</strong></p>
+<h3 id="开源代码库"><a href="#开源代码库" class="headerlink" title="开源代码库"></a>开源代码库</h3><p>libFM</p>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p><a href="https://my.oschina.net/keyven/blog/648747" target="_blank" rel="external">因子分解机Factorization Machine</a></p>
+<p><a href="http://tech.meituan.com/deep-understanding-of-ffm-principles-and-practices.html" target="_blank" rel="external">深入FFM原理与实践</a></p>
+<p><a href="http://blog.csdn.net/itplus/article/details/40536025" target="_blank" rel="external">peghoty的博客：FM学习算法</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/machine-learning/">machine learning</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/fm/">fm</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2017/03/14/Factorization-Machine（FM，因子分解机）/" data-title="Factorization Machine（FM，因子分解机） | Siyao&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/03/15/【leetcode】136-Single-Number/" title="【leetcode】136. Single Number">
+  <strong>上一篇：</strong><br/>
+  <span>
+  【leetcode】136. Single Number</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/03/13/【leetcode】412-Fizz-Buzz/"  title="【leetcode】412. Fizz Buzz">
+ <strong>下一篇：</strong><br/> 
+ <span>【leetcode】412. Fizz Buzz
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#背景"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相比于SVM的优势"><span class="toc-number">2.</span> <span class="toc-text">相比于SVM的优势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#应用"><span class="toc-number">3.</span> <span class="toc-text">应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理"><span class="toc-number">4.</span> <span class="toc-text">原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#传统线性回归模型"><span class="toc-number">4.1.</span> <span class="toc-text">传统线性回归模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM模型"><span class="toc-number">4.2.</span> <span class="toc-text">FM模型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FM模型复杂度"><span class="toc-number">5.</span> <span class="toc-text">FM模型复杂度</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#求解复杂度"><span class="toc-number">5.1.</span> <span class="toc-text">求解复杂度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#模型训练复杂度"><span class="toc-number">5.2.</span> <span class="toc-text">模型训练复杂度</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开源代码库"><span class="toc-number">6.</span> <span class="toc-text">开源代码库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考文献"><span class="toc-number">7.</span> <span class="toc-text">参考文献</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="siyaozhang" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/ACM/" title="ACM">ACM<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/RTB/" title="RTB">RTB<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/binary-tree/" title="binary tree">binary tree<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/blog-config/" title="blog config">blog config<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/c/" title="c++">c++<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/deep-learning/" title="deep learning">deep learning<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/leetcode/" title="leetcode">leetcode<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/machine-learning/" title="machine learning">machine learning<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/test/" title="test">test<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/tips/" title="tips">tips<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/排序算法/" title="排序算法">排序算法<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面经/" title="面经">面经<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/bit-manipulation/" title="bit manipulation">bit manipulation<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Array/" title="Array">Array<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/DP/" title="DP">DP<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hash-table/" title="hash table">hash table<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/c/" title="c++">c++<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tree/" title="tree">tree<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/FFM/" title="FFM">FFM<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hash-table/" title="hash_table">hash_table<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/array/" title="array">array<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/two-pointers/" title="two pointers">two pointers<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Dynamic-Programming/" title="Dynamic Programming">Dynamic Programming<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Divide-and-Conquer/" title="Divide and Conquer">Divide and Conquer<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/fm/" title="fm">fm<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> To be better me. <br/>
+			</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2975270917" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/siyaozhang" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:zsybupt@qq.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="Siyao">Siyao</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End --><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+  </body>
+</html>

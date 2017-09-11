@@ -1,0 +1,633 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="dns-prefetch" href="//cdn.bootcss.com" />
+<link rel="dns-prefetch" href="//cdn.mathjax.org" />
+
+  
+    <title>北邮acm2017热身赛 Saber&#39;s Conjecture 素数筛 | Siyao&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Siyao">
+    
+
+    
+    <meta name="description" content="题目In a parallel universe, young Saber-chan does not have a humongous appetite, instead, she likes studying math in her spare time. This afternoon when Saber-chan is plunged in her study, she came acro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="北邮acm2017热身赛 Saber&#39;s Conjecture 素数筛">
+<meta property="og:url" content="http://yoursite.com/2017/03/29/ACM-Saber-s-Conjecture-素数筛/index.html">
+<meta property="og:site_name" content="Siyao&#39;s Blog">
+<meta property="og:description" content="题目In a parallel universe, young Saber-chan does not have a humongous appetite, instead, she likes studying math in her spare time. This afternoon when Saber-chan is plunged in her study, she came acro">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-04-04T07:38:07.982Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="北邮acm2017热身赛 Saber&#39;s Conjecture 素数筛">
+<meta name="twitter:description" content="题目In a parallel universe, young Saber-chan does not have a humongous appetite, instead, she likes studying math in her spare time. This afternoon when Saber-chan is plunged in her study, she came acro">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Siyao&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/小鸡.png">
+    
+    
+    <link rel="apple-touch-icon" href="/img/小鸡.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/小鸡.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+  <body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/小鸡.png" alt="Siyao&#39;s Blog" title="Siyao&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Siyao&#39;s Blog">Siyao&#39;s Blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/../categories">categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/03/29/ACM-Saber-s-Conjecture-素数筛/" title="北邮acm2017热身赛 Saber&#39;s Conjecture 素数筛" itemprop="url">北邮acm2017热身赛 Saber&#39;s Conjecture 素数筛</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Siyao" target="_blank" itemprop="author">Siyao</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-29T15:22:54.000Z" itemprop="datePublished"> 发表于 2017-03-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-number">1.</span> <span class="toc-text">题目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#input"><span class="toc-number">1.1.</span> <span class="toc-text">input</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#output"><span class="toc-number">1.2.</span> <span class="toc-text">output</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sample"><span class="toc-number">1.3.</span> <span class="toc-text">sample</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分析"><span class="toc-number">2.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-number">3.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码"><span class="toc-number">4.</span> <span class="toc-text">代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#素数筛"><span class="toc-number">5.</span> <span class="toc-text">素数筛</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-普通筛选法–埃拉托斯特尼筛法"><span class="toc-number">5.1.</span> <span class="toc-text">1. 普通筛选法–埃拉托斯特尼筛法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-线性筛法–欧拉筛法"><span class="toc-number">5.2.</span> <span class="toc-text">2. 线性筛法–欧拉筛法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">6.</span> <span class="toc-text">参考</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>In a parallel universe, young Saber-chan does not have a humongous appetite, instead, she likes studying math in her spare time. This afternoon when Saber-chan is plunged in her study, she came across an interesting conjecture: for any even number n greater than or equal to 4, there exists at least one pair of prime numbers p1 and p2 such that n=p1+p2.</p>
+<p>This conjecture is actually known as the Goldbach’s conjecture. It is has not been proved nor refused yet. However in this universe, there are more programmers than mathematicians, people tend to prove math findings by programs. As the King of Knights and King of Britain, Saber-chan orders you to write a program that reports the number of all the pairs of prime numbers satisfying the condition in the conjecture for a given even number.</p>
+<p>A sequence of even numbers is given as input. Corresponding to each number, the program should output the number of pairs mentioned above. Notice that Saber-chan is interested in the number of essentially different pairs and therefore you should not count (p1,p2) and (p2,p1) separately as two different pairs.</p>
+<h3 id="input"><a href="#input" class="headerlink" title="input"></a>input</h3><p>An integer is given in each input line. You may assume that each integer is even, and is greater than or equal to 4 and less than 215. The end of the input is indicated by a number 0.</p>
+<h3 id="output"><a href="#output" class="headerlink" title="output"></a>output</h3><p>Each output line should contain an integer number. No other characters should appear in the output.</p>
+<h3 id="sample"><a href="#sample" class="headerlink" title="sample"></a>sample</h3><p><strong>input:</strong></p>
+<p>6</p>
+<p>10</p>
+<p>12</p>
+<p>0</p>
+<p><strong>output:</strong></p>
+<p>1</p>
+<p>2</p>
+<p>1</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>给定一个数$p$，$p=q_1+q_2$其中$q_1$和$q_2$都是素数，输出这样的$(q_1,q_2)$对数</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>step1：<br>利用素数筛，先枚举出一定范围内的素数</p>
+<p>step2：<br>给定一个数p，遍历(2，p/2)中的素数t，如果p-t也是素数，则结果+1。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">#include &lt;iostream&gt;</div><div class="line">#include &lt;vector&gt;</div><div class="line">using namespace std;</div><div class="line">//bool f[1024*32];</div><div class="line">int main()</div><div class="line">&#123;</div><div class="line">    //素数表</div><div class="line">    bool sushu[1024 * 32 + 1];</div><div class="line">    int n = 1024 * 32;</div><div class="line">    for (int i = 0; i &lt;= n; i++)</div><div class="line">        sushu[i] = true;</div><div class="line">    sushu[1] = false;</div><div class="line">    for (int i = 2; i &lt;= n; i++)</div><div class="line">    &#123;</div><div class="line">        if (sushu[i] == true)</div><div class="line">        &#123;</div><div class="line">            for (int j = 2; j*i &lt;= n; j++)</div><div class="line">                sushu[i*j] = false;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    vector&lt;int&gt; result;</div><div class="line">    while(cin)&#123;</div><div class="line">        int aaa;</div><div class="line">        cin &gt;&gt; aaa;</div><div class="line">        if (aaa ==0)</div><div class="line">        &#123;</div><div class="line">            break;</div><div class="line">        &#125;</div><div class="line">        int sum = 0;</div><div class="line">        for (int i = 2; i &lt;= aaa / 2; i++) &#123;</div><div class="line">            if (sushu[i] == 1) &#123;</div><div class="line">                if (sushu[aaa - i] == 1) &#123;</div><div class="line">                    sum++;</div><div class="line">                &#125;</div><div class="line">            &#125;   </div><div class="line">        &#125;</div><div class="line">        result.push_back(sum);</div><div class="line">    &#125;</div><div class="line">    for (int i = 0; i &lt; result.size(); i++) &#123;</div><div class="line">        cout &lt;&lt; result[i] &lt;&lt; endl;</div><div class="line">    &#125;</div><div class="line">    //system(&quot;pause&quot;);</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="素数筛"><a href="#素数筛" class="headerlink" title="素数筛"></a>素数筛</h2><p>关于一定范围内素数的枚举，有下面两种素数筛的方法</p>
+<h3 id="1-普通筛选法–埃拉托斯特尼筛法"><a href="#1-普通筛选法–埃拉托斯特尼筛法" class="headerlink" title="1. 普通筛选法–埃拉托斯特尼筛法"></a>1. 普通筛选法–埃拉托斯特尼筛法</h3><p><strong>基本思想</strong>：素数的倍数一定不是素数</p>
+<p><strong>步骤</strong>:</p>
+<p>用一个长度为N+1的数组保存信息（0表示素数，1表示非素数），初始值都置为0（都默认为素数）</p>
+<ol>
+<li>从第一个素数2开始遍历，把2的倍数都标记为非素数（置为1）</li>
+<li>然后向后遍历，找到2后面的下一个素数3，把3的倍数都标记为非素数（置为1）</li>
+<li>继续向后遍历，找到素数k，对k进行同样的处理</li>
+<li>直到最后，数组中依然为0的数即为素数。</li>
+</ol>
+<p><strong>代码</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">bool sushu[1024 * 32 + 1];</div><div class="line">    int n = 1024 * 32;</div><div class="line">    for (int i = 0; i &lt;= n; i++)</div><div class="line">        sushu[i] = true;</div><div class="line">    sushu[1] = false;</div><div class="line">    for (int i = 2; i &lt;= n; i++)</div><div class="line">    &#123;</div><div class="line">        if (sushu[i] == true)</div><div class="line">        &#123;</div><div class="line">            for (int j = 2; j*i &lt;= n; j++)</div><div class="line">                sushu[i*j] = false;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p><strong>时间复杂度</strong>：$O(nlogn)$</p>
+<h3 id="2-线性筛法–欧拉筛法"><a href="#2-线性筛法–欧拉筛法" class="headerlink" title="2. 线性筛法–欧拉筛法"></a>2. 线性筛法–欧拉筛法</h3><p><strong>基本思想</strong>：保证每个合数只会被它的<strong>最小质因数</strong>筛去，因此每个数只会被标记一次</p>
+<p><strong>代码</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">#include&lt;cstdio&gt;</div><div class="line">#include&lt;cstring&gt;</div><div class="line">#define MAXN 100005</div><div class="line">#define MAXL 1299710</div><div class="line">int prime[MAXN];//最小质因数</div><div class="line">int check[MAXL];//是否为素数</div><div class="line"></div><div class="line">int tot = 0;</div><div class="line">memset(check, 0, sizeof(check));</div><div class="line">for (int i = 2; i &lt; MAXL; ++i)</div><div class="line">&#123;</div><div class="line">  if (!check[i])</div><div class="line">  &#123;</div><div class="line">    prime[tot++] = i;</div><div class="line">  &#125;</div><div class="line">  for (int j = 0; j &lt; tot; ++j)</div><div class="line">  &#123;</div><div class="line">    if (i * prime[j] &gt; MAXL)</div><div class="line">    &#123;</div><div class="line">      break;</div><div class="line">    &#125;</div><div class="line">    check[i*prime[j]] = 1;</div><div class="line">    if (i % prime[j] == 0)</div><div class="line">    &#123;</div><div class="line">      break;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>时间复杂度</strong>：$O(n)$</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://www.cnblogs.com/grubbyskyer/p/3852421.html" target="_blank" rel="external">Grubbyskyer的博客——线性筛法求素数</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/ACM/">ACM</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2017/03/29/ACM-Saber-s-Conjecture-素数筛/" data-title="北邮acm2017热身赛 Saber&#39;s Conjecture 素数筛 | Siyao&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/03/30/【leetcode】344-Reverse-String/" title="【leetcode】344. Reverse String">
+  <strong>上一篇：</strong><br/>
+  <span>
+  【leetcode】344. Reverse String</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/03/29/组合数求解/"  title="组合数求解">
+ <strong>下一篇：</strong><br/> 
+ <span>组合数求解
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目"><span class="toc-number">1.</span> <span class="toc-text">题目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#input"><span class="toc-number">1.1.</span> <span class="toc-text">input</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#output"><span class="toc-number">1.2.</span> <span class="toc-text">output</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sample"><span class="toc-number">1.3.</span> <span class="toc-text">sample</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分析"><span class="toc-number">2.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-number">3.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码"><span class="toc-number">4.</span> <span class="toc-text">代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#素数筛"><span class="toc-number">5.</span> <span class="toc-text">素数筛</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-普通筛选法–埃拉托斯特尼筛法"><span class="toc-number">5.1.</span> <span class="toc-text">1. 普通筛选法–埃拉托斯特尼筛法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-线性筛法–欧拉筛法"><span class="toc-number">5.2.</span> <span class="toc-text">2. 线性筛法–欧拉筛法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">6.</span> <span class="toc-text">参考</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="siyaozhang" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/ACM/" title="ACM">ACM<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/RTB/" title="RTB">RTB<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/binary-tree/" title="binary tree">binary tree<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/blog-config/" title="blog config">blog config<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/c/" title="c++">c++<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/deep-learning/" title="deep learning">deep learning<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/leetcode/" title="leetcode">leetcode<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/machine-learning/" title="machine learning">machine learning<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/test/" title="test">test<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/tips/" title="tips">tips<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/排序算法/" title="排序算法">排序算法<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面经/" title="面经">面经<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/bit-manipulation/" title="bit manipulation">bit manipulation<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Array/" title="Array">Array<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/DP/" title="DP">DP<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hash-table/" title="hash table">hash table<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/c/" title="c++">c++<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tree/" title="tree">tree<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/FFM/" title="FFM">FFM<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hash-table/" title="hash_table">hash_table<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/array/" title="array">array<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/two-pointers/" title="two pointers">two pointers<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Dynamic-Programming/" title="Dynamic Programming">Dynamic Programming<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Divide-and-Conquer/" title="Divide and Conquer">Divide and Conquer<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/fm/" title="fm">fm<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> To be better me. <br/>
+			</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2975270917" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/siyaozhang" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:zsybupt@qq.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="Siyao">Siyao</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End --><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+  </body>
+</html>

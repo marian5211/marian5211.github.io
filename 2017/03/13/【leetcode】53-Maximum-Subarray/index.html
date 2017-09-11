@@ -1,0 +1,632 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="dns-prefetch" href="//cdn.bootcss.com" />
+<link rel="dns-prefetch" href="//cdn.mathjax.org" />
+
+  
+    <title>【leetcode】53. Maximum Subarray | Siyao&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Siyao">
+    
+
+    
+    <meta name="description" content="题目Find the contiguous subarray within an array (containing at least one number) which has the largest sum. For example： given the array [-2,1,-3,4,-1,2,1,-5,4],the contiguous subarray [4,-1,2,1] has t">
+<meta name="keywords" content="Array,Dynamic Programming,Divide and Conquer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【leetcode】53. Maximum Subarray">
+<meta property="og:url" content="http://yoursite.com/2017/03/13/【leetcode】53-Maximum-Subarray/index.html">
+<meta property="og:site_name" content="Siyao&#39;s Blog">
+<meta property="og:description" content="题目Find the contiguous subarray within an array (containing at least one number) which has the largest sum. For example： given the array [-2,1,-3,4,-1,2,1,-5,4],the contiguous subarray [4,-1,2,1] has t">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/13/58c661380c603.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/13/58c66196a6c84.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/13/58c65b79609f7.png">
+<meta property="og:updated_time" content="2017-03-15T05:56:12.292Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【leetcode】53. Maximum Subarray">
+<meta name="twitter:description" content="题目Find the contiguous subarray within an array (containing at least one number) which has the largest sum. For example： given the array [-2,1,-3,4,-1,2,1,-5,4],the contiguous subarray [4,-1,2,1] has t">
+<meta name="twitter:image" content="https://ooo.0o0.ooo/2017/03/13/58c661380c603.png">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Siyao&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/小鸡.png">
+    
+    
+    <link rel="apple-touch-icon" href="/img/小鸡.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/小鸡.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+  <body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/小鸡.png" alt="Siyao&#39;s Blog" title="Siyao&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Siyao&#39;s Blog">Siyao&#39;s Blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/../categories">categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/03/13/【leetcode】53-Maximum-Subarray/" title="【leetcode】53. Maximum Subarray" itemprop="url">【leetcode】53. Maximum Subarray</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Siyao" target="_blank" itemprop="author">Siyao</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-13T08:45:52.000Z" itemprop="datePublished"> 发表于 2017-03-13</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#题目"><span class="toc-number">1.</span> <span class="toc-text">题目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#问题陈述："><span class="toc-number">1.1.</span> <span class="toc-text">问题陈述：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#题目思路："><span class="toc-number">1.2.</span> <span class="toc-text">题目思路：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#代码："><span class="toc-number">1.3.</span> <span class="toc-text">代码：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结果"><span class="toc-number">2.</span> <span class="toc-text">结果</span></a></li></ol>
+		
+		</div>
+		
+		<h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>Find the contiguous subarray within an array (containing at least one number) which has the largest sum.</p>
+<p>For example：</p>
+<p>given the array [-2,1,-3,4,-1,2,1,-5,4],<br>the contiguous subarray [4,-1,2,1] has the largest sum = 6.</p>
+<h4 id="问题陈述："><a href="#问题陈述：" class="headerlink" title="问题陈述："></a>问题陈述：</h4><p>求一个数组的最大连续子数组，连续和最大的子数组</p>
+<h4 id="题目思路："><a href="#题目思路：" class="headerlink" title="题目思路："></a>题目思路：</h4><ol>
+<li>遍历，复杂度O(n^2)</li>
+<li>分治法，《算法导论》第四章讲过</li>
+</ol>
+<p>把数组看作A[low..high]，利用分治策略，将数组划分为两个规模尽量相等的子数组，找到数组的中央位置，A[mid]，然后考虑求解两个子数组A[low..mid]和A[mid+1..high]。那么子数组A[i..j]所有的情况共有以下三种：<br><img src="https://ooo.0o0.ooo/2017/03/13/58c661380c603.png" alt=""> </p>
+<p>那么我们可以递归的求解A[low..mid]和A[mid+1..high]的最大子数组，因为这两个子问题仍是最大数组问题，只是规模更小。因此剩下的工作就是寻找跨越中点的最大子数组，然后在三者中选取最大者。</p>
+<p><strong>算法复杂度：O(nlogn)</strong></p>
+<ol>
+<li>动态规划</li>
+</ol>
+<p>当从头遍历数组元素时，对于数组中的任何一个整数有以下两种选择： </p>
+<p><strong>加入之前的subArray；自己另起一个新的subArray</strong></p>
+<ul>
+<li>当之前subArray 的总和大于 0 时，我们认为 其对后续结果是有贡献的，这种情况下，我们选择加入之前的subArray </li>
+<li>当之前subArray 的总和小于等于0时，我们认为其对后续结果是没有贡献的，这种情况下，我们选择以当前数字开始，另起一个subArray</li>
+</ul>
+<p>设状态f(j) 表示 以 nums[j] 为结尾的最大连续子序列的和，则状态转移方程如下：<br><img src="https://ooo.0o0.ooo/2017/03/13/58c66196a6c84.png" alt=""> </p>
+<p><strong>时间复杂度O(n)</strong></p>
+<h4 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//分治法</div><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int maxSubArray(vector&lt;int&gt;&amp; nums) &#123;</div><div class="line">        return findMaxSubArray(nums,0,nums.size()-1);</div><div class="line">    &#125;</div><div class="line">private:</div><div class="line">    int maxArrayAcrossMid(vector&lt;int&gt;&amp; numsIn, int low, int high) &#123;//求跨越中点的最大子数组数字和</div><div class="line">    int len = (high - low) / 2;</div><div class="line">    int mid = (high + low) / 2;</div><div class="line">    int maxnum = numsIn[mid];</div><div class="line">    int maxnumtemp = numsIn[mid];</div><div class="line">    for (int i = mid - 1; i &gt;= low; i--) &#123;//计算左边最大子数组</div><div class="line">        maxnumtemp += numsIn[i];</div><div class="line">        if (maxnumtemp &gt; maxnum)</div><div class="line">            maxnum = maxnumtemp;</div><div class="line">    &#125;</div><div class="line">    maxnumtemp = maxnum;</div><div class="line">    for (int i = mid + 1; i &lt;= high; i++) &#123;//计算右边最大子数组</div><div class="line">        maxnumtemp += numsIn[i];</div><div class="line">        if (maxnumtemp &gt; maxnum)</div><div class="line">            maxnum = maxnumtemp;</div><div class="line">    &#125;</div><div class="line">    return maxnum;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int findMaxSubArray(vector&lt;int&gt;&amp; nums, int low, int high) &#123;//递归调用求解最大子数组</div><div class="line">    int mid = (low + high) / 2;</div><div class="line">    int maxSum = nums[mid];</div><div class="line">    int acrossmid = 0;</div><div class="line">    int leftmax = 0;</div><div class="line">    int rightmax = 0;</div><div class="line">    if (low == high) &#123;</div><div class="line">        return maxSum;</div><div class="line">    &#125;</div><div class="line">    else &#123;</div><div class="line">        acrossmid = maxArrayAcrossMid(nums, low, high);</div><div class="line">        leftmax = findMaxSubArray(nums, low, mid);</div><div class="line">        rightmax = findMaxSubArray(nums, mid + 1, high);</div><div class="line">    &#125;</div><div class="line">    if (acrossmid &gt;= leftmax &amp;&amp; acrossmid &gt;= rightmax) return acrossmid;</div><div class="line">    if (leftmax &gt;= acrossmid &amp;&amp; leftmax &gt;= rightmax) return leftmax;</div><div class="line">    else return rightmax;</div><div class="line">&#125;</div><div class="line">    </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"></div><div class="line">//动态规划</div><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int maxSubArray(vector&lt;int&gt;&amp; nums) &#123;</div><div class="line">            int maxnum = nums[0];</div><div class="line">    int numtemp = nums[0];</div><div class="line">    for (int i = 1; i &lt; nums.size(); i++) &#123;</div><div class="line">        if (numtemp &lt; 0) numtemp = 0;</div><div class="line">        numtemp += nums[i];</div><div class="line">        if (numtemp &gt; maxnum) &#123;</div><div class="line">            maxnum = numtemp;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">        return maxnum;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p><img src="https://ooo.0o0.ooo/2017/03/13/58c65b79609f7.png" alt=""> </p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Array/">Array</a><a href="/tags/Dynamic-Programming/">Dynamic Programming</a><a href="/tags/Divide-and-Conquer/">Divide and Conquer</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2017/03/13/【leetcode】53-Maximum-Subarray/" data-title="【leetcode】53. Maximum Subarray | Siyao&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/03/13/【leetcode】412-Fizz-Buzz/" title="【leetcode】412. Fizz Buzz">
+  <strong>上一篇：</strong><br/>
+  <span>
+  【leetcode】412. Fizz Buzz</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/03/07/GIS/"  title="GIS">
+ <strong>下一篇：</strong><br/> 
+ <span>GIS
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#题目"><span class="toc-number">1.</span> <span class="toc-text">题目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#问题陈述："><span class="toc-number">1.1.</span> <span class="toc-text">问题陈述：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#题目思路："><span class="toc-number">1.2.</span> <span class="toc-text">题目思路：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#代码："><span class="toc-number">1.3.</span> <span class="toc-text">代码：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结果"><span class="toc-number">2.</span> <span class="toc-text">结果</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="siyaozhang" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/ACM/" title="ACM">ACM<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/RTB/" title="RTB">RTB<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/binary-tree/" title="binary tree">binary tree<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/blog-config/" title="blog config">blog config<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/c/" title="c++">c++<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/deep-learning/" title="deep learning">deep learning<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/leetcode/" title="leetcode">leetcode<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/machine-learning/" title="machine learning">machine learning<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/test/" title="test">test<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/tips/" title="tips">tips<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/排序算法/" title="排序算法">排序算法<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面经/" title="面经">面经<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/bit-manipulation/" title="bit manipulation">bit manipulation<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Array/" title="Array">Array<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/DP/" title="DP">DP<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hash-table/" title="hash table">hash table<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/c/" title="c++">c++<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tree/" title="tree">tree<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/FFM/" title="FFM">FFM<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hash-table/" title="hash_table">hash_table<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/array/" title="array">array<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/two-pointers/" title="two pointers">two pointers<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Dynamic-Programming/" title="Dynamic Programming">Dynamic Programming<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Divide-and-Conquer/" title="Divide and Conquer">Divide and Conquer<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/fm/" title="fm">fm<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> To be better me. <br/>
+			</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2975270917" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/siyaozhang" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:zsybupt@qq.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="Siyao">Siyao</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End --><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+  </body>
+</html>

@@ -1,0 +1,628 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  <link rel="dns-prefetch" href="//cdn.bootcss.com" />
+<link rel="dns-prefetch" href="//cdn.mathjax.org" />
+
+  
+    <title>【leetcode】136. Single Number | Siyao&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Siyao">
+    
+
+    
+    <meta name="description" content="题目Given an array of integers, every element appears twice except for one. Find that single one. 问题陈述：输入序列中，每个数字重复出现2次，唯有一个数字只出现一次，找到这个只出现一次的数字 题目思路： hash_table：遍历输入数组，如果hashtable中没有，说明是第一次出现，存到hash ta">
+<meta name="keywords" content="bit manipulation,hash table">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【leetcode】136. Single Number">
+<meta property="og:url" content="http://yoursite.com/2017/03/15/【leetcode】136-Single-Number/index.html">
+<meta property="og:site_name" content="Siyao&#39;s Blog">
+<meta property="og:description" content="题目Given an array of integers, every element appears twice except for one. Find that single one. 问题陈述：输入序列中，每个数字重复出现2次，唯有一个数字只出现一次，找到这个只出现一次的数字 题目思路： hash_table：遍历输入数组，如果hashtable中没有，说明是第一次出现，存到hash ta">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/15/58c8d54eb147c.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/15/58c8cf948fa31.png">
+<meta property="og:updated_time" content="2017-03-15T05:57:18.422Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【leetcode】136. Single Number">
+<meta name="twitter:description" content="题目Given an array of integers, every element appears twice except for one. Find that single one. 问题陈述：输入序列中，每个数字重复出现2次，唯有一个数字只出现一次，找到这个只出现一次的数字 题目思路： hash_table：遍历输入数组，如果hashtable中没有，说明是第一次出现，存到hash ta">
+<meta name="twitter:image" content="https://ooo.0o0.ooo/2017/03/15/58c8d54eb147c.png">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Siyao&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/小鸡.png">
+    
+    
+    <link rel="apple-touch-icon" href="/img/小鸡.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/小鸡.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+  <body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/小鸡.png" alt="Siyao&#39;s Blog" title="Siyao&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Siyao&#39;s Blog">Siyao&#39;s Blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/../categories">categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/03/15/【leetcode】136-Single-Number/" title="【leetcode】136. Single Number" itemprop="url">【leetcode】136. Single Number</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Siyao" target="_blank" itemprop="author">Siyao</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-15T05:51:40.000Z" itemprop="datePublished"> 发表于 2017-03-15</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#题目"><span class="toc-number">1.</span> <span class="toc-text">题目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#问题陈述："><span class="toc-number">1.1.</span> <span class="toc-text">问题陈述：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#题目思路："><span class="toc-number">1.2.</span> <span class="toc-text">题目思路：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#代码："><span class="toc-number">1.3.</span> <span class="toc-text">代码：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结果"><span class="toc-number">2.</span> <span class="toc-text">结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c-STL中list-vector-map-hashmap-的对比"><span class="toc-number">3.</span> <span class="toc-text">c++ STL中list vector map hashmap 的对比</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#list"><span class="toc-number">3.1.</span> <span class="toc-text">list</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#vector"><span class="toc-number">3.2.</span> <span class="toc-text">vector</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#map、set"><span class="toc-number">3.3.</span> <span class="toc-text">map、set</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#hash-map，hash-set"><span class="toc-number">3.4.</span> <span class="toc-text">hash_map，hash_set</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>Given an array of integers, every element appears twice except for one. Find that single one.</p>
+<h4 id="问题陈述："><a href="#问题陈述：" class="headerlink" title="问题陈述："></a>问题陈述：</h4><p>输入序列中，每个数字重复出现2次，唯有一个数字只出现一次，找到这个只出现一次的数字</p>
+<h4 id="题目思路："><a href="#题目思路：" class="headerlink" title="题目思路："></a>题目思路：</h4><ol>
+<li>hash_table：遍历输入数组，如果hashtable中没有，说明是第一次出现，存到hash table中，如果发现hashtable中已经有了说明是第二次出现，z在hash表中将其删掉，最终hash table中剩下的就是只出现一次的那个数字</li>
+<li>bit manipulation：数组中所有数字做异或操作，出现两次的异或之后得0了，最终剩下的就是只出现一次的那个数字。</li>
+</ol>
+<p><strong>算法复杂度：O(n)</strong><br>2比1要快一点,因为1还涉及hash table的查找、插入、删除等操作</p>
+<h4 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">class Solution &#123;//hash_table</div><div class="line">public:</div><div class="line">    int singleNumber(vector&lt;int&gt;&amp; nums) &#123;</div><div class="line">        int len = nums.size();</div><div class="line">        unordered_set&lt;int&gt; numset;</div><div class="line">    </div><div class="line">        for (int i = 0; i &lt; len; i++) &#123;</div><div class="line">            if (numset.find(nums[i]) == numset.end()) &#123;//没找到，加入</div><div class="line">                numset.insert(nums[i]);</div><div class="line">            &#125;</div><div class="line">            else//找到了，删除</div><div class="line">            &#123;</div><div class="line">                numset.erase(nums[i]);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        unordered_set&lt;int&gt;::iterator iter = numset.begin();</div><div class="line">        return *iter;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">class Solution &#123;//逐位异或</div><div class="line">public:</div><div class="line">    int singleNumber(vector&lt;int&gt;&amp; nums) &#123;</div><div class="line">            int len = nums.size();</div><div class="line">    int result = 0;</div><div class="line">    for (int i = 0; i &lt; len; i++) &#123;</div><div class="line">        result ^= nums[i];</div><div class="line">    &#125;</div><div class="line">    return result;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p><img src="https://ooo.0o0.ooo/2017/03/15/58c8d54eb147c.png" alt=""> </p>
+<p><img src="https://ooo.0o0.ooo/2017/03/15/58c8cf948fa31.png" alt=""> </p>
+<hr>
+<h3 id="c-STL中list-vector-map-hashmap-的对比"><a href="#c-STL中list-vector-map-hashmap-的对比" class="headerlink" title="c++ STL中list vector map hashmap 的对比"></a>c++ STL中list vector map hashmap 的对比</h3><h4 id="list"><a href="#list" class="headerlink" title="list"></a>list</h4><p>特点：<strong>支持快速的插入和删除，但查找费时。</strong></p>
+<p>结构：<strong>线性双向链表</strong>，它的数据由若干个节点构成，每一个节点都包括一个信息块（即实际存储的数据）、一个前驱指针和一个后驱指针。它<strong>无需分配指定的内存大小</strong>且可以<strong>任意伸缩</strong>，这是因为它存储在<strong>非连续的内存</strong>空间中，并且由指针将有序的元素链接起来。查找元素时需要从头一个一个的<strong>顺序查找</strong>，这样目标元素越靠后，它的检索时间就越长。但是它可以迅速地在任何节点进行插入和删除操作。因为list 的每个节点保存着它在链表中的位置，插入或删除一个元素仅对最多三个元素有所影响，不像vector 会对操作点之后的所有元素的存储地址都有所影响，这一点是vector 不可比拟的。</p>
+<h4 id="vector"><a href="#vector" class="headerlink" title="vector"></a>vector</h4><p>特点：<strong>支持快速的查找，时间复杂度是$O(\log n)$，但是插入费时。</strong></p>
+<p>结构：存诸结构是<strong>完全二叉检索树</strong>，支持快速的查找，但是vector每当<strong>增加元素</strong>的时候，都需要重新<strong>申请</strong>新的更大的<strong>内存空间</strong>，会调用元素的自身的复制构造函数，存在构造成本。在销毁旧内存的时候，会调用析构函数，存在析构成本。</p>
+<h4 id="map、set"><a href="#map、set" class="headerlink" title="map、set"></a>map、set</h4><p>特点：<strong>支持快速的查找，时间复杂度是$O(\log n)$，但是插入费时。</strong></p>
+<p>结构：map内部自建一颗<strong>红黑树</strong>(一种非严格意义上的平衡二叉树)，这颗树具有对数据<strong>自动排序</strong>的功能，所以在map内部所有的数据都是<strong>有序</strong>的，根据key值快速查找记录，查找的复杂度基本是$O(\log n)$，如果有1000个记录，最多查找10次，1,000,000个记录，最多查找20次。</p>
+<h4 id="hash-map，hash-set"><a href="#hash-map，hash-set" class="headerlink" title="hash_map，hash_set"></a>hash_map，hash_set</h4><p>特点：<strong>数据的快速存储和查找，几乎可以看成是常数时间$O(1)$，但是会消耗比较多的内存</strong><br>结构：基于hash table（哈希表）。 使用一个下标范围比较大的<strong>数组</strong>来存储元素。可以设计一个<strong>函数</strong>（哈希函数，也叫做散列函数），使得每个元素的关键字都与一个函数值（即数组下标，hash值）相对应，于是用这个数组单元来存储这个元素。</p>
+<p>其插入过程是：<br>得到key<br>通过hash函数得到hash值<br>得到桶号(一般都为hash值对桶数求模)<br>存放key和value在桶内。</p>
+<p>其取值过程是:<br>得到key<br>通过hash函数得到hash值<br>得到桶号(一般都为hash值对桶数求模)<br>比较桶的内部元素是否与key相等，若都不相等，则没有找到。<br>取出相等的记录的value。</p>
+<p>c++ 中没有hash_map、hash_set标准容器，可以自己定义，重点是做好hash函数的防碰撞。刷题的时候用了STL中的<strong>unordered_set</strong>,也是基于hashtable的</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/leetcode/">leetcode</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/bit-manipulation/">bit manipulation</a><a href="/tags/hash-table/">hash table</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2017/03/15/【leetcode】136-Single-Number/" data-title="【leetcode】136. Single Number | Siyao&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/03/16/交叉熵/" title="交叉熵">
+  <strong>上一篇：</strong><br/>
+  <span>
+  交叉熵</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/03/14/Factorization-Machine（FM，因子分解机）/"  title="Factorization Machine（FM，因子分解机）">
+ <strong>下一篇：</strong><br/> 
+ <span>Factorization Machine（FM，因子分解机）
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#题目"><span class="toc-number">1.</span> <span class="toc-text">题目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#问题陈述："><span class="toc-number">1.1.</span> <span class="toc-text">问题陈述：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#题目思路："><span class="toc-number">1.2.</span> <span class="toc-text">题目思路：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#代码："><span class="toc-number">1.3.</span> <span class="toc-text">代码：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结果"><span class="toc-number">2.</span> <span class="toc-text">结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c-STL中list-vector-map-hashmap-的对比"><span class="toc-number">3.</span> <span class="toc-text">c++ STL中list vector map hashmap 的对比</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#list"><span class="toc-number">3.1.</span> <span class="toc-text">list</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#vector"><span class="toc-number">3.2.</span> <span class="toc-text">vector</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#map、set"><span class="toc-number">3.3.</span> <span class="toc-text">map、set</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#hash-map，hash-set"><span class="toc-number">3.4.</span> <span class="toc-text">hash_map，hash_set</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="siyaozhang" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/ACM/" title="ACM">ACM<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/RTB/" title="RTB">RTB<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/binary-tree/" title="binary tree">binary tree<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/blog-config/" title="blog config">blog config<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/c/" title="c++">c++<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/deep-learning/" title="deep learning">deep learning<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/leetcode/" title="leetcode">leetcode<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/machine-learning/" title="machine learning">machine learning<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/test/" title="test">test<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/tips/" title="tips">tips<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/排序算法/" title="排序算法">排序算法<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/机器学习/" title="机器学习">机器学习<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面经/" title="面经">面经<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/bit-manipulation/" title="bit manipulation">bit manipulation<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Array/" title="Array">Array<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/DP/" title="DP">DP<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hash-table/" title="hash table">hash table<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/c/" title="c++">c++<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/tree/" title="tree">tree<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/FFM/" title="FFM">FFM<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hash-table/" title="hash_table">hash_table<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/array/" title="array">array<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/two-pointers/" title="two pointers">two pointers<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Dynamic-Programming/" title="Dynamic Programming">Dynamic Programming<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Divide-and-Conquer/" title="Divide and Conquer">Divide and Conquer<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/fm/" title="fm">fm<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> To be better me. <br/>
+			</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2975270917" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/siyaozhang" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:zsybupt@qq.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="Siyao">Siyao</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End --><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+  </body>
+</html>
