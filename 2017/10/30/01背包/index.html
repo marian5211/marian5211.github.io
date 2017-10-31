@@ -7,39 +7,24 @@
 <link rel="dns-prefetch" href="//cdn.mathjax.org" />
 
   
-    <title>FFM（field-aware Factorization Machine）——升级版FM | Siyao&#39;s Blog</title>
+    <title>Siyao&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Siyao">
     
 
     
-    <meta name="description" content="背景 FFM（Field-aware Factorization Machine）最初的概念来自Yu-Chin Juan（阮毓钦，毕业于中国台湾大学，现在美国Criteo工作）与其比赛队员，是他们借鉴了来自Michael Jahrer的论文中的field概念提出了FM的升级版模型  原理线性模型对于给定的数据我们进行训练，进而对测试集进行预测，首先我们想到利用线性模型进行拟合（也就是一维特征）：">
-<meta name="keywords" content="FFM">
+    <meta name="description" content="01背包问题定义有N件物品和一个容量为V的背包。第i件物品的费用是c[i]，价值是w[i]。求解将哪些物品装入背包可使价值总和最大。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="FFM（field-aware Factorization Machine）——升级版FM">
-<meta property="og:url" content="http://yoursite.com/2017/03/22/FFM（field-aware-Factorization-Machine）——升级版FM/index.html">
+<meta property="og:title" content="Siyao&#39;s Blog">
+<meta property="og:url" content="http://yoursite.com/2017/10/30/01背包/index.html">
 <meta property="og:site_name" content="Siyao&#39;s Blog">
-<meta property="og:description" content="背景 FFM（Field-aware Factorization Machine）最初的概念来自Yu-Chin Juan（阮毓钦，毕业于中国台湾大学，现在美国Criteo工作）与其比赛队员，是他们借鉴了来自Michael Jahrer的论文中的field概念提出了FM的升级版模型  原理线性模型对于给定的数据我们进行训练，进而对测试集进行预测，首先我们想到利用线性模型进行拟合（也就是一维特征）：">
+<meta property="og:description" content="01背包问题定义有N件物品和一个容量为V的背包。第i件物品的费用是c[i]，价值是w[i]。求解将哪些物品装入背包可使价值总和最大。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/21/58d0e965ec210.png">
-<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/21/58d0e99b2f719.png">
-<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/21/58d0e9cb62988.png">
-<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/13/58c6aa26b83c6.png">
-<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/21/58d0e9fe74136.png">
-<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/21/58d1361058228.png">
-<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/21/58d13b9c6f3d1.png">
-<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/21/58d13cd0e100e.png">
-<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/21/58d13d13d9ec3.png">
-<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/21/58d13d21ddd24.png">
-<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/21/58d13d2db61d3.png">
-<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/21/58d13cf17aac5.png">
-<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/21/58d1401cb9e37.png">
-<meta property="og:updated_time" content="2017-03-22T01:47:54.655Z">
+<meta property="og:updated_time" content="2017-10-30T09:51:09.630Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="FFM（field-aware Factorization Machine）——升级版FM">
-<meta name="twitter:description" content="背景 FFM（Field-aware Factorization Machine）最初的概念来自Yu-Chin Juan（阮毓钦，毕业于中国台湾大学，现在美国Criteo工作）与其比赛队员，是他们借鉴了来自Michael Jahrer的论文中的field概念提出了FM的升级版模型  原理线性模型对于给定的数据我们进行训练，进而对测试集进行预测，首先我们想到利用线性模型进行拟合（也就是一维特征）：">
-<meta name="twitter:image" content="https://ooo.0o0.ooo/2017/03/21/58d0e965ec210.png">
+<meta name="twitter:title" content="Siyao&#39;s Blog">
+<meta name="twitter:description" content="01背包问题定义有N件物品和一个容量为V的背包。第i件物品的费用是c[i]，价值是w[i]。求解将哪些物品装入背包可使价值总和最大。">
 
     
     <link rel="alternative" href="/atom.xml" title="Siyao&#39;s Blog" type="application/atom+xml">
@@ -101,14 +86,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/03/22/FFM（field-aware-Factorization-Machine）——升级版FM/" title="FFM（field-aware Factorization Machine）——升级版FM" itemprop="url">FFM（field-aware Factorization Machine）——升级版FM</a>
+      <a href="/2017/10/30/01背包/" title="" itemprop="url"></a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Siyao" target="_blank" itemprop="author">Siyao</a>
 		
   <p class="article-time">
-    <time datetime="2017-03-22T01:06:09.000Z" itemprop="datePublished"> 发表于 2017-03-22</time>
+    <time datetime="2017-10-30T09:51:09.630Z" itemprop="datePublished"> 发表于 2017-10-30</time>
     
   </p>
 </header>
@@ -117,129 +102,16 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#背景"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理"><span class="toc-number">2.</span> <span class="toc-text">原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#线性模型"><span class="toc-number">2.1.</span> <span class="toc-text">线性模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM"><span class="toc-number">2.2.</span> <span class="toc-text">FM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FFM"><span class="toc-number">2.3.</span> <span class="toc-text">FFM</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FFM实现"><span class="toc-number">3.</span> <span class="toc-text">FFM实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例"><span class="toc-number">4.</span> <span class="toc-text">实例</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#01背包问题"><span class="toc-number">1.</span> <span class="toc-text">01背包问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义"><span class="toc-number">1.1.</span> <span class="toc-text">定义</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><blockquote>
-<p>FFM（Field-aware Factorization Machine）最初的概念来自Yu-Chin Juan（阮毓钦，毕业于中国台湾大学，现在美国Criteo工作）与其比赛队员，是他们借鉴了来自<a href="https://kaggle2.blob.core.windows.net/competitions/kddcup2012/2748/media/Opera.pdf" target="_blank" rel="external">Michael Jahrer的论文</a>中的field概念提出了<strong>FM的升级版</strong>模型</p>
-</blockquote>
-<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><h4 id="线性模型"><a href="#线性模型" class="headerlink" title="线性模型"></a>线性模型</h4><p>对于给定的数据我们进行训练，进而对测试集进行预测，首先我们想到利用<strong>线性模型</strong>进行拟合（也就是一维特征）：</p>
-<p><img src="https://ooo.0o0.ooo/2017/03/21/58d0e965ec210.png" alt=""> </p>
-<p>进一步，我们考虑加入<strong>二维组合特征</strong>进行拟合：</p>
-<h4 id="FM"><a href="#FM" class="headerlink" title="FM"></a>FM</h4><p><img src="https://ooo.0o0.ooo/2017/03/21/58d0e99b2f719.png" alt=""> </p>
-<p>也就是<strong>FM</strong>中的交叉特征（二次项），采用<strong>矩阵分解</strong>得到如下形式：</p>
-<p><img src="https://ooo.0o0.ooo/2017/03/21/58d0e9cb62988.png" alt=""> </p>
-<p>其中$w_{j<em>1}$和$w</em>{j_2}$分别为特征$j_1$和$j_1$对应的<strong>隐向量</strong>，对应下图中左边两个矩阵的一行或一列即是一个隐向量。</p>
-<p><img src="https://ooo.0o0.ooo/2017/03/13/58c6aa26b83c6.png" alt=""> </p>
-<h4 id="FFM"><a href="#FFM" class="headerlink" title="FFM"></a>FFM</h4><p>现在在FM的基础之上，我们<strong>引入field-aware的概念</strong>，可以推得<strong>FFM的二次项形式</strong>如下：</p>
-<p><img src="https://ooo.0o0.ooo/2017/03/21/58d0e9fe74136.png" alt=""> </p>
-<p>其中$w_{j<em>1,f</em>{j_2}}$为<strong>特征$j_1$针对$j<em>2$所在的类别$f</em>{j_2}$的隐向量</strong></p>
-<p>$w_{j<em>2,f</em>{j_1}}$为<strong>特征$j_2$针对$j<em>1$所在的类别$f</em>{j_1}$的隐向量</strong></p>
-<p>FFM完整的模型方程为</p>
-<p><img src="https://ooo.0o0.ooo/2017/03/21/58d1361058228.png" alt=""> </p>
-<p>为了便于理解，先看下面的例子</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Clicked?</th>
-<th style="text-align:center">Country</th>
-<th style="text-align:center">Day</th>
-<th style="text-align:center">Ad_type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">USA</td>
-<td style="text-align:center">26/11/15</td>
-<td style="text-align:center">Movie</td>
-</tr>
-<tr>
-<td style="text-align:center">0</td>
-<td style="text-align:center">China</td>
-<td style="text-align:center">1/7/14</td>
-<td style="text-align:center">Game</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Clicked?</th>
-<th style="text-align:center">Country=USA</th>
-<th style="text-align:center">Country=China</th>
-<th style="text-align:center">Day=26/11/15</th>
-<th style="text-align:center">Day=1/7/14</th>
-<th style="text-align:center">Day=19/2/15</th>
-<th style="text-align:center">Ad_type=Movie</th>
-<th style="text-align:center">Ad_type=Game</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">0</td>
-</tr>
-<tr>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-</tr>
-<tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-</tr>
-</tbody>
-</table>
-<p>我们对原始数据进行One-Hot编码生成数值特征，这时引入field的概念，把同一个categorical特征经过One-Hot编码生成的数值特征都放到同一个field中。比如：“Day=26/11/15”、“Day=1/7/14”、“Day=19/2/15”这三个特征是由“日期”这一categorical特征生成的，可以放到同一个field中。这时我们再计算隐向量的时候，<strong>隐向量不仅与特征相关，还与field相关</strong>。每一维特征$x_i$针对其它特征的每一种field<br>$f<em>j$，都会学习一个隐向量 $w</em>{i,f_j}$。</p>
-<p>假设样本的n个特征属于 f 个field，那么FFM的二次项有  nf 个隐向量，如果隐向量的长度为 k ，那么FFM的二次参数有 nfk 个。而在FM模型中，每一维特征的隐向量只有一个<strong>，FM可以看作FFM的特例，是把所有特征都归属到一个field时的FFM模型</strong>。此外，由于隐向量与field相关，FFM二次项并不能够化简，其预测<strong>复杂度是 $O(kn^2)$。</strong></p>
-<h3 id="FFM实现"><a href="#FFM实现" class="headerlink" title="FFM实现"></a>FFM实现</h3><p>Yu-Chin Juan实现了一个C++版的FFM模型，源码可从Github下载<a href="https://github.com/guestwalk/libffm" target="_blank" rel="external">https://github.com/guestwalk/libffm</a></p>
-<p>该<strong>FFM模型采用logistic loss作为损失函数，和L2惩罚项</strong>，因此只能用于<strong>二元分类</strong>问题。</p>
-<p><img src="https://ooo.0o0.ooo/2017/03/21/58d13b9c6f3d1.png" alt=""> </p>
-<p>模型<strong>采用SGD进行优化</strong>。</p>
-<hr>
-<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p><img src="https://ooo.0o0.ooo/2017/03/21/58d13cd0e100e.png" alt=""> </p>
-<p>这条记录可以编码成5个特征，其中“Genre=Comedy”和“Genre=Drama”属于同一个field，“Price”是数值型，不用One-Hot编码转换。<br>利用线性模型进行拟合：</p>
-<p><img src="https://ooo.0o0.ooo/2017/03/21/58d13d13d9ec3.png" alt=""> </p>
-<p>二维组合特征拟合：<br><img src="https://ooo.0o0.ooo/2017/03/21/58d13d21ddd24.png" alt=""> </p>
-<p>FM（隐向量）拟合：<br><img src="https://ooo.0o0.ooo/2017/03/21/58d13d2db61d3.png" alt=""> </p>
-<p>FFM拟合：</p>
-<p>为了方便说明FFM的样本格式，我们将所有的特征和对应的field映射成整数编号。</p>
-<p><img src="https://ooo.0o0.ooo/2017/03/21/58d13cf17aac5.png" alt="">  </p>
-<p>FFM的组合特征有10项，如下图所示<br><img src="https://ooo.0o0.ooo/2017/03/21/58d1401cb9e37.png" alt=""> </p>
+		<h1 id="01背包问题"><a href="#01背包问题" class="headerlink" title="01背包问题"></a>01背包问题</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>有N件物品和一个容量为V的背包。第i件物品的费用是c[i]，价值是w[i]。求解将哪些物品装入背包可使价值总和最大。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/machine-learning/">machine learning</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/FFM/">FFM</a>
-  </div>
 
 </div>
 
@@ -247,7 +119,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2017/03/22/FFM（field-aware-Factorization-Machine）——升级版FM/" data-title="FFM（field-aware Factorization Machine）——升级版FM | Siyao&#39;s Blog" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2017/10/30/01背包/" data-title="Siyao&#39;s Blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -260,19 +132,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/03/22/Hexo下Markdown与MathJax冲突问题/" title="Hexo下Markdown与MathJax冲突问题">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Hexo下Markdown与MathJax冲突问题</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/03/18/【leetcode】371-Sum-of-Two-Integers/"  title="【leetcode】371. Sum of Two Integers">
+<a href="/2017/10/30/【算法导论】动态规划/"  title="">
  <strong>下一篇：</strong><br/> 
- <span>【leetcode】371. Sum of Two Integers
+ <span>(no title)
 </span>
 </a>
 </div>
@@ -287,7 +151,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#背景"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理"><span class="toc-number">2.</span> <span class="toc-text">原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#线性模型"><span class="toc-number">2.1.</span> <span class="toc-text">线性模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FM"><span class="toc-number">2.2.</span> <span class="toc-text">FM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FFM"><span class="toc-number">2.3.</span> <span class="toc-text">FFM</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FFM实现"><span class="toc-number">3.</span> <span class="toc-text">FFM实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例"><span class="toc-number">4.</span> <span class="toc-text">实例</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#01背包问题"><span class="toc-number">1.</span> <span class="toc-text">01背包问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义"><span class="toc-number">1.1.</span> <span class="toc-text">定义</span></a></li></ol></li></ol>
  
   </div>
 
