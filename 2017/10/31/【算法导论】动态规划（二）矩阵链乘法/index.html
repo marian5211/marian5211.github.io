@@ -7,30 +7,24 @@
 <link rel="dns-prefetch" href="//cdn.mathjax.org" />
 
   
-    <title>决策树（二）：连续值和缺失处理 | Siyao&#39;s Blog</title>
+    <title>Siyao&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Siyao">
     
 
     
-    <meta name="description" content="连续值离散化连续值属性离散化，二分法对于连续属性a,有n个样本，考察包含n-1个区间的中点作为候选的划分点：  信息增益  选取能够获得信息增益最大的点t进行二分注意 注意连续值属性可多次作为划分节点（划分值不同），每次划分出两个分支；但离散值属性只可划分一次，分出多个分支。 缺失值有些样本缺失某些属性值，如图：如果只要样本有缺失的值就舍弃，会浪费大量数据。 问题 如何在缺失值的数据集上进行属性划">
+    <meta name="description" content="算法导论笔记-动态规划（二）矩阵链乘法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="决策树（二）：连续值和缺失处理">
-<meta property="og:url" content="http://yoursite.com/2017/03/05/决策树（二）：连续值和缺失处理/index.html">
+<meta property="og:title" content="Siyao&#39;s Blog">
+<meta property="og:url" content="http://yoursite.com/2017/10/31/【算法导论】动态规划（二）矩阵链乘法/index.html">
 <meta property="og:site_name" content="Siyao&#39;s Blog">
-<meta property="og:description" content="连续值离散化连续值属性离散化，二分法对于连续属性a,有n个样本，考察包含n-1个区间的中点作为候选的划分点：  信息增益  选取能够获得信息增益最大的点t进行二分注意 注意连续值属性可多次作为划分节点（划分值不同），每次划分出两个分支；但离散值属性只可划分一次，分出多个分支。 缺失值有些样本缺失某些属性值，如图：如果只要样本有缺失的值就舍弃，会浪费大量数据。 问题 如何在缺失值的数据集上进行属性划">
+<meta property="og:description" content="算法导论笔记-动态规划（二）矩阵链乘法">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/04/58bab3a529574.png">
-<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/04/58bab4950e852.png">
-<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/04/58bab8e482daf.png">
-<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/04/58babc3b1bebf.png">
-<meta property="og:image" content="https://ooo.0o0.ooo/2017/03/04/58babc5907282.png">
-<meta property="og:updated_time" content="2017-03-05T04:34:16.991Z">
+<meta property="og:updated_time" content="2017-10-31T14:31:27.192Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="决策树（二）：连续值和缺失处理">
-<meta name="twitter:description" content="连续值离散化连续值属性离散化，二分法对于连续属性a,有n个样本，考察包含n-1个区间的中点作为候选的划分点：  信息增益  选取能够获得信息增益最大的点t进行二分注意 注意连续值属性可多次作为划分节点（划分值不同），每次划分出两个分支；但离散值属性只可划分一次，分出多个分支。 缺失值有些样本缺失某些属性值，如图：如果只要样本有缺失的值就舍弃，会浪费大量数据。 问题 如何在缺失值的数据集上进行属性划">
-<meta name="twitter:image" content="https://ooo.0o0.ooo/2017/03/04/58bab3a529574.png">
+<meta name="twitter:title" content="Siyao&#39;s Blog">
+<meta name="twitter:description" content="算法导论笔记-动态规划（二）矩阵链乘法">
 
     
     <link rel="alternative" href="/atom.xml" title="Siyao&#39;s Blog" type="application/atom+xml">
@@ -92,14 +86,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/03/05/决策树（二）：连续值和缺失处理/" title="决策树（二）：连续值和缺失处理" itemprop="url">决策树（二）：连续值和缺失处理</a>
+      <a href="/2017/10/31/【算法导论】动态规划（二）矩阵链乘法/" title="" itemprop="url"></a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Siyao" target="_blank" itemprop="author">Siyao</a>
 		
   <p class="article-time">
-    <time datetime="2017-03-05T04:26:31.000Z" itemprop="datePublished"> 发表于 2017-03-05</time>
+    <time datetime="2017-10-31T14:31:27.192Z" itemprop="datePublished"> 发表于 2017-10-31</time>
     
   </p>
 </header>
@@ -108,30 +102,14 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#连续值"><span class="toc-number">1.</span> <span class="toc-text">连续值</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#离散化"><span class="toc-number">1.1.</span> <span class="toc-text">离散化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#信息增益"><span class="toc-number">1.2.</span> <span class="toc-text">信息增益</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#注意"><span class="toc-number">1.3.</span> <span class="toc-text">注意</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缺失值"><span class="toc-number">2.</span> <span class="toc-text">缺失值</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#问题"><span class="toc-number">2.1.</span> <span class="toc-text">问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解决方案"><span class="toc-number">2.2.</span> <span class="toc-text">解决方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-number">2.3.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#算法导论笔记-动态规划（二）矩阵链乘法"><span class="toc-number">1.</span> <span class="toc-text">算法导论笔记-动态规划（二）矩阵链乘法</span></a></li></ol>
 		
 		</div>
 		
-		<h3 id="连续值"><a href="#连续值" class="headerlink" title="连续值"></a>连续值</h3><h4 id="离散化"><a href="#离散化" class="headerlink" title="离散化"></a>离散化</h4><p>连续值属性<strong>离散化</strong>，<strong>二分法</strong><br>对于连续属性a,有n个样本，考察包含n-1个区间的中点作为候选的划分点：<br><img src="https://ooo.0o0.ooo/2017/03/04/58bab3a529574.png" alt=""> </p>
-<h4 id="信息增益"><a href="#信息增益" class="headerlink" title="信息增益"></a>信息增益</h4><p><img src="https://ooo.0o0.ooo/2017/03/04/58bab4950e852.png" alt=""> </p>
-<p>选取能够获得<strong>信息增益最大</strong>的点t进行<strong>二分</strong><br>注意</p>
-<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p><strong>连续值属性</strong>可<strong>多次</strong>作为划分节点（划分值不同），每次划分出两个分支；但<strong>离散值属性只可划分一次</strong>，分出多个分支。</p>
-<h3 id="缺失值"><a href="#缺失值" class="headerlink" title="缺失值"></a>缺失值</h3><p>有些样本缺失某些属性值，如图：<br><img src="https://ooo.0o0.ooo/2017/03/04/58bab8e482daf.png" alt=""><br>如果只要样本有缺失的值就舍弃，会浪费大量数据。</p>
-<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><ol>
-<li>如何在缺失值的数据集上进行属性划分。也就是<strong>对于某一个或几个属性，样本有缺失的值，我们如何计算信息增益等指标进行划分属性的选取</strong>。</li>
-<li>给定划分属性，若样本在该属性上缺失值，如何划分。也就是<strong>选好了划分属性，对于缺失该的样本，如何将其归类</strong>。</li>
-</ol>
-<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p><img src="https://ooo.0o0.ooo/2017/03/04/58babc3b1bebf.png" alt=""><br><img src="https://ooo.0o0.ooo/2017/03/04/58babc5907282.png" alt=""> </p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>这里总结一下，针对问题1如何选取分类属性，我们就分别针对每一个属性，计算该<strong>属性值没有缺失样</strong>本的信息增益，选择最大的作为分类属性。<br>确定好分类属性后，对于在该属性值缺失的样本，将其<strong>归入所有的分支节点</strong>，同时按可能的概率更改权重</p>
-  
+		<h1 id="算法导论笔记-动态规划（二）矩阵链乘法"><a href="#算法导论笔记-动态规划（二）矩阵链乘法" class="headerlink" title="算法导论笔记-动态规划（二）矩阵链乘法"></a>算法导论笔记-动态规划（二）矩阵链乘法</h1>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
-</div>
 
 
 </div>
@@ -140,7 +118,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2017/03/05/决策树（二）：连续值和缺失处理/" data-title="决策树（二）：连续值和缺失处理 | Siyao&#39;s Blog" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2017/10/31/【算法导论】动态规划（二）矩阵链乘法/" data-title="Siyao&#39;s Blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -153,19 +131,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/03/05/决策树（三）：多变量决策树/" title="决策树（三）：多变量决策树">
-  <strong>上一篇：</strong><br/>
-  <span>
-  决策树（三）：多变量决策树</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/03/04/决策树（一）：基础/"  title="决策树（一）：基础">
+<a href="/2017/10/30/01背包/"  title="">
  <strong>下一篇：</strong><br/> 
- <span>决策树（一）：基础
+ <span>(no title)
 </span>
 </a>
 </div>
@@ -180,7 +150,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#连续值"><span class="toc-number">1.</span> <span class="toc-text">连续值</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#离散化"><span class="toc-number">1.1.</span> <span class="toc-text">离散化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#信息增益"><span class="toc-number">1.2.</span> <span class="toc-text">信息增益</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#注意"><span class="toc-number">1.3.</span> <span class="toc-text">注意</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缺失值"><span class="toc-number">2.</span> <span class="toc-text">缺失值</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#问题"><span class="toc-number">2.1.</span> <span class="toc-text">问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解决方案"><span class="toc-number">2.2.</span> <span class="toc-text">解决方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-number">2.3.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#算法导论笔记-动态规划（二）矩阵链乘法"><span class="toc-number">1.</span> <span class="toc-text">算法导论笔记-动态规划（二）矩阵链乘法</span></a></li></ol>
  
   </div>
 
