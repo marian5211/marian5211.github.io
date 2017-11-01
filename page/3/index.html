@@ -398,14 +398,7 @@ $a_i+a_j+a_k=0$注意：重复的只算一次
 
 当三个指针指向的元素和为0时，记录下来。
 当三个指针指向的元素和&gt;0时，high向前移动。
-当三个指针指向的元素和&lt;0时，mid向后移动。
-
-需要注意的地方：
-
-同一个指针扫过的相等的元素只计算第一次，后面的要略过
-元素值的平方已经超过int的最大位数，要用long long型
-
-代码#include &lt;iostream&gt;#include&lt;stdlib.h&gt;#include&lt;algorithm&gt;using namespace std;  int main() &#123;
+当三个指针指向的元素和&l
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -557,7 +550,7 @@ $a_i+a_j+a_k=0$注意：重复的只算一次
 分析给定一个整数，将它分解成连续素数的和，求这样的分解方法数
 思路先利用素数筛打出素数表
 然后
-代码#include &lt;iostream&gt;#include&lt;stdio.h&gt;#include&lt;stdlib.h&gt;#include&lt;string&gt;#include &lt;vector&gt;using namespace std;vector&lt;int&gt; primes;bool is_prime[1000006];//建立素数表和存储素数的vectorvoid init_primes()&#123;    memset(is_prime,true, 1000005);    is_prime[0] = is_prime[1] = false;    for (int i = 2; i &lt;= 1000005; ++i)&#123;        if (is_prime[i])&#123;            primes.push_back(i);            for (int j = 2; j*i &lt;
+代码#include &lt;iostream&gt;#include&lt;stdio.h&gt;#include&lt;stdlib.h&gt;#include&lt;string&gt;#include &lt;vector&gt;using namespace std;vector&lt;int&gt; primes;bool is_prime[1000006];//建立素数表和存储素数的vectorvoid init_primes()&#123;    memset(is_prim
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -709,12 +702,7 @@ $a_i+a_j+a_k=0$注意：重复的只算一次
 指标回归任务中常用的是“均方误差”：$$E(f,D) = \frac{m}{1}\sum_{i=1}^{m}(f(x_i)-y_i)^2$$
 下面介绍分类任务中常用的度量指标
 1. 错误率与精度错误率就是分类错误的样本数占样本总数的比例
-$$E(f,D)=\frac{m}{1}\sum_{i=1}^{m}(f(x_i) \neq y_i)^2$$
-精度就是$1-E$
-2. 准确率、召回率和F1错误率和精度不能满足所有任务的需求比如在web搜索中，我们经常会关心，检索出来的信息有多少是用户关心的，或者用户真正关心的数据中有多少被检索出来了，所以引入“准确率”和“召回率”
-分类据结果的混淆矩阵为 
-准确率和召回率定义为：$$P=\frac{TP}{TP+FP}$$$$r=\frac{TP}{TP+FN}$$
-准确率和召回率是一组矛盾的度量，
+$$E(f,D)=\frac{m}{1}\sum_{i=1}^{m}(f(x_i) \neq y_i)^2$
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -867,7 +855,7 @@ $$E(f,D)=\frac{m}{1}\sum_{i=1}^{m}(f(x_i) \neq y_i)^2$$
 运算时都用10进制运算
 
 16进制的输出，用cout&lt;&lt;hex&lt;&lt;“十进制表达”c++可以表达十进制、八进制、十六进制，不能直接表达2进制
-#include&lt;iostream&gt;  using namespace std;  void main()  &#123;      int a,b,c;      a=10; //十进制      b=010;//八进制      c=0x10; //十六进制      cout&lt;&lt;&quot;a=&quot;&lt;&lt;a&lt;&lt;endl;      cout&lt;&lt;&quot;b=&quot;&lt;&lt;b&lt;&lt;endl;      cout&lt;&lt;&quot;c=&quot;&lt;&lt;c&lt;&lt;endl;      cout&lt;&lt;&quot;a(八进制)=&quot;&lt;&lt;oct&lt;&lt;a&lt;&lt;endl;      cout&lt;&lt;&quot;a(十六进制)=&quot;
+#include&lt;iostream&gt;  using namespace std;  void main()  &#123;      int a,b,c;      a=10; //十进制      b=010;//八进制      c=0x10; //十六进制      cout&lt;&lt;&quot;a=&quot;&lt;&lt;a&lt;&lt;endl;      cout&lt;&l
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1025,15 +1013,7 @@ $$E(f,D)=\frac{m}{1}\sum_{i=1}^{m}(f(x_i) \neq y_i)^2$$
 根节点的元素为$a_{\frac{2^k}{2}}$，$[a_1,a2,…,a{\frac{2^k}{2}-1}]$中的元素在根节点的左子树中，$[a{\frac{2^k}{2}+1},…,a{2^k-1}]$中的元素在根节点的右子树中
 对左子树、右子树两个区间再分别做1中的操作，得到最终的二叉排序树
 
-给定三个节点，根据二叉排序树的性质，可以知道包含这三个节点的最小子树的根节点的值，一定在这三个节点值构成的区间$[min,max]$内
- 
-所以我们可以从上至下遍历二叉排序树
-
-如果根节点root值包含在三个节点值构成的最大区间内，则根节root点就是所求
-如果根节点值小于min，则令右子树的根节点为root
-如果根节点值大于min，则对左子树的根节点为root
-
-重复上述操作，直到找到一个节点值为$t$，$t\in[min,
+给定三个节点，根据二叉排序树的
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1189,13 +1169,7 @@ $$E(f,D)=\frac{m}{1}\sum_{i=1}^{m}(f(x_i) \neq y_i)^2$$
 负数的二进制表示负数的二进制表示 = 其绝对值的补码
 原码：一个整数，按照绝对值大小转换成的二进制数，称为原码。
 比如-3的原码是：
-00000000 00000000 00000000 00000011
-反码：将二进制数按位取反，所得的新二进制数称为原二进制数的反码。
--3的反码是：
-11111111 11111111 11111111 11111100
-补码：反码加1称为补码。也就是说，要得到一个数的补码，先得到反码，然后将反码加上1，所得数称为补码。
-那么-3的补码，也就是-3的二进制表示为：
-11111111 11111111 11111111 11111100 + 1= 111
+00000000 00000000 00000000 000
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1352,20 +1326,7 @@ $$E(f,D)=\frac{m}{1}\sum_{i=1}^{m}(f(x_i) \neq y_i)^2$$
 
 遇到错误或遇到end of file，返回值为EOF（-1）
 
-比如：scanf(“%d%d”, &amp;x, &amp;y);
-
-如果x和y都被成功读入，那么scanf的返回值就是2;
-如果只有x被成功读入，返回值为1;
-如果x和y都未被成功读入，返回值为0;
-如果遇到错误或遇到end of file，返回值为EOF（-1）
-
-接下来看看结合实际的数据输入格式，到底怎么用
- 
-现在要将形如上面的数据读入
-
-每组数据有两行
-第一行的第一个数字告诉我们第二行会有多少个元素
-读到输入结束为
+比如：scanf(“%d%d
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1492,7 +1453,7 @@ $$E(f,D)=\frac{m}{1}\sum_{i=1}^{m}(f(x_i) \neq y_i)^2$$
         
           
           题目 
-代码#include&lt;iostream&gt;#include&lt;cstring&gt;#include&lt;cstdio&gt;using namespace std;const int N = 105;int n, m, k;int w[N][N];//距离矩阵int deep[N];//每层节点数int L[N];//叶子节点序号，从小到大，也是距离矩阵的表头int vis[N];int locfa[N];int mp[N][N];//节点标号矩阵int fa[N];//父亲节点int fur[N], dfur[N];bool Check(int x, int y)&#123;    if (x == y)return true;    return w[fur[x]][fur[y]] == 2 + dfur[x] + dfur[y];&#125;void Solve()&#123;    while (~scanf(&quot;%d%d%d&quot;, &amp;n, &amp;m, &amp;k))    &#123;        memset(w, 
+代码#include&lt;iostream&gt;#include&lt;cstring&gt;#include&lt;cstdio&gt;using namespace std;const int N = 105;int n, m, k;int w[N][N];//距离矩阵int deep[N];//每层节点数int L[N];//叶子节点序号，从小到大，也是距离矩阵的表头int vis[N];int locfa[N];int mp[N][N];//节点标号矩阵int fa[N];//父亲节点int fur[N], dfur[N];bool Check(int x, int y)&
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1649,7 +1610,7 @@ Given s = &quot;hello&quot;, return &quot;olleh&quot;.
 看了tag中有two pointers,一个从前往后一个从后往前，交换数值，复杂度减少一半$O(n/2)$
 
 算法复杂度：O(n)
-代码：class Solution &#123;//反向遍历输入另一个stringpublic:    string reverseString(string s) &#123;        string result = &quot;&quot;;        int len = s.size();        for (int i = len - 1; i &gt;= 0; i--) &#123;            result += s[i];        &#1
+代码：class Solution &#123;//反向遍历输入另一个stringpu
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1797,8 +1758,7 @@ Given s = &quot;hello&quot;, return &quot;olleh&quot;.
       
         
           
-          题目In a parallel universe, young Saber-chan does not have a humongous appetite, instead, she likes studying math in her spare time. This afternoon when Saber-chan is plunged in her study, she came across an interesting conjecture: for any even number n greater than or equal to 4, there exists at least one pair of prime numbers p1 and p2 such that n=p1+p2.
-This conjecture is actually known as the Goldbach’s conjecture. It is has not been proved nor refused yet. However in this universe, there are 
+          题目In a parallel universe, young Saber-chan does not have a humongous appetite, instead, she likes studying math in her spare time. This afternoon when Saber-chan is plunged in her study, she came across an interesting conjecture: for any even number n greater than or equal to 4, there exists at leas
           ...
           <!--noindex-->
           <div class="post-button text-center">

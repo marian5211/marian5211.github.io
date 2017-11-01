@@ -391,8 +391,7 @@
 这样交换一轮之后，整个序列中最大的就“沉”到了最后面的位置
 重复上述过程，依次把第二大、第三大…的数字放到后面的位置。
 
-代码void BubbleSort(int a[], int len) &#123;    for (int i = 0; i &lt; len; i++) &#123;//一共需要遍历len轮        for (int j = 0; j &lt; len -1-i; j++) &#123;//后面的len-1个数据            if (a[j] &gt; a[j + 1]) &#123;                int temp = a[j + 1];                a[j + 1] = a[j];                a[j] = temp;            &#125;        &#125;    &#125;&#125;
-接下来可以优化一下，上面的程序中一共进行了N轮比较，其实如果有一趟没有发生交换就说明这时候每两个相邻数据都已经呈现前
+代码void BubbleSort(int a[], int len) &#123;    for (int i = 0; i &lt; len; i++) &#123;//一共需要遍历len轮        for (int j = 0; j &lt; len -1-i; j++) &#123;//后面的len-1个数据            if (a[j] &gt; a[j + 1]) &#123;   
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -550,13 +549,7 @@
  
 根据上面的步骤，选取第一个作为基准数，接下来我们需要把比它小的数字放到它的左边，比它大的数字放到它的右边，这里就需要重点注意挖坑填数的方法了，划重点！！！
   temp=72
-我们先把基准数72保存到变量temp中，这时候就相当于在数组的第一个位置上挖了一个“坑”，如果我们在后边发现有比temp小的数字，就可以把那个比较小的数字填到这个空缺的“坑”里了。
- 
-我们定义一个从后向前遍历的指针j，发现a[8]位置上的48比72小，所以我们要把48放到前面去，填补之前72留下的空缺.
- 
-这时候原来存放48的这个位置就空了出来，有了一个新的“坑”，此时指针i向后遍历，如果找到比temp大的数字，便可以填补之前的48留下的坑了。恩，我们找到了a[3]位置上的88，将他填补到之前48留下来的“坑”里。
- 
-
+我们先把基准数72保存到变量temp中，这时候就相当于在数组的第一个位置上挖了一个“坑”，如果我们在后边发现有比temp小的数字，
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -709,8 +702,7 @@
 紧接着上了两道算法题，两道题都很基础，但自己真心不扎实，难怪人家看不上==
 字符串翻转给一个句子，把句子翻转但单词不翻转input:&quot;I am a coder&quot;output:&quot;coder a am I&quot;
 对字符串、字符数组这里一直都很懵逼，看到题就知道自己写不出来了，挣扎了一会投降了==而且我的重点都放在了要怎么读进来啊！不会读进来啊！怎么读啊！要好好看c++了啊喂！
-思路先翻转整个句子，再把每一个单词翻转过来。翻转字符串的时候前后对换，能减少一半的时间复杂度
-代码#include &lt;stdio.h&gt;#include &lt;iostream&gt;#include &lt;fstream&gt;#include &lt;vector&gt;using namespace std;FILE *fin;//反转字符串void ReverseString(char *begin, char *end
+思路先翻转整个句子，再把每一个单词翻转过来。翻
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -860,9 +852,7 @@
           
           Optimal Real-Time Bidding for Display Advertising——KDD2014参考着师兄的博客计算广告小窥[中]这孙子怎么什么都知道，仔细读完了这篇paper，总结一下，方便日后回顾
 ps:十分感谢师兄@面包包包包包包，看了师兄的三篇博客可算是入了门，不然真是一头雾水hold不住啊
-这篇文章的核心就是提出了一个非线性的竞价函数，相比于KDD2012的《Bid Optimizing and Inventory Scoring in Targeted Online Advertising》中提出的线性竞价函数，本文认为出价应该与点击率、转化率等指标具有非线性关系
-首先，文章将现实问题用数学方法建模为限制条件下的优化问题，并通过拉格朗日乘子法，求得出价策略的数学表达式（非线性竞价函数）；然后利用iPinYou数据拟合出价策略中的参数；最后，做实验验证结果，发现了一个有意思的结论：相比少量高品质的展示机会，那些大量低品质的展示机会同样可以具有较好的广告效果，值得出价。这个发现对于那些预算不够，同时又想做广告的小广告主来说，简直就是福音。
-模型建立选择合适的
+这篇文章的核心就是提出了一个非线性的竞价函数，相比于KDD2012的《Bid Optimizing and Inventory Scoring in Targeted Online Advertising》中提出的线性竞价函数，本文认为出价应该与点击率、转化率等指标具有非线性关
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1013,13 +1003,7 @@ ps:十分感谢师兄@面包包包包包包，看了师兄的三篇博客可算�
           题目Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋times.
 You may assume that the array is non-empty and the majority element always exist in the array.
 分析给定一个数组长度为n，其中有一个元素出现的次数大于⌊ n/2 ⌋，现在我们要找出这个元素
-moore-voting算法主要思想找出一对不同的元素就去掉它们，最后剩下的一定是所找的元素。
-需要两个指针和一个计数器，其中一个指针指向当前出现次数最大的元素，另一个向后遍历，count存储当前出现次数最大的元素出现的次数
-
-当用于遍历的指针2指向元素和指针1指向的元素相等时，count加1，否则减1
-当count减至0的时候，指针1需要向后移动到指针2的位置，指针2继续向后遍历
-
-代码int majorityElement(vector&lt;int&
+moore-voting算法主要思想找出一对不同的元素就去掉
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1169,7 +1153,7 @@ moore-voting算法主要思想找出一对不同的元素就去掉它们，最�
           
           题目 
 思路矩阵快速幂快速幂
-代码#include &lt;iostream&gt;#include&lt;cstdio&gt;#include&lt;cstring&gt;using namespace std;const int mod = 10000;const int N = 2;//矩阵的维数,角标从0开始struct Matrix&#123;    long long v[N][N];    Matrix()    &#123;        memset(v,0,sizeof(v));    &#125;&#125;;//矩阵的乘法p1*p2Matrix multi(Matrix p1,Matrix p2)&#123;    Matrix res;    for(int i=0;i&lt;N;i++)        for(int j=0;j&lt;N;j++)            if(p1.v[i][j])//代码优化，是0的话就不用计算                for(int k=0;k&lt;N;k++)                    res.v[
+代码#include &lt;iostream&gt;#include&lt;cstdio&gt;#include&lt;cstring&gt;using namespace std;const int mod = 10000;const int N = 2;//矩阵的维数,角标从0开始struct Matrix&#123;    long long v[N][N];    Matrix()    &#123;        memset(v,0,sizeof(v));    &#125;&#125;;//矩阵的乘法p1*p2Matrix multi(Matrix
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1322,7 +1306,7 @@ moore-voting算法主要思想找出一对不同的元素就去掉它们，最�
 只能含有一个@，且不能在开头处，即除开头外遇到的第一个at转化成@，其余还是at
 除开头和结尾的dot不能转化成.以外其余的全部转化成.
 
-代码#include &lt;stdlib.h&gt;#include &lt;stdio.h&gt;#include &lt;iostream&gt;char arrin[10000];FILE *fin;int main()&#123;    fin=fopen(&quot;in.txt&quot;,&quot;r&quot;);    char ch;    while(~fscanf(fin,&quot;%c&quot;,&amp;ch))&#123;        int i =1;        bool atflag = false;        memset(arrin,0,10000);        //存入字符串         arr
+代码#include &lt;stdlib.h&gt;#include &lt;stdio.h&gt;#include &lt;iostream&gt;char arrin[10000];FILE *fin;int main()&#123;    fin=fopen(
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1470,7 +1454,7 @@ moore-voting算法主要思想找出一对不同的元素就去掉它们，最�
       
         
           
-          题目Artoria, also known as Saber-chan, was born into a time of chaos and war that began with the demise of the Roman empire. Somewhere in the far east, people in Utopia know nothing about war or conflicts. They live in peace for quite a long time and developed a strange currency system. In particular, they use square coins. Not only have they square shapes but also their values are square integers. Coins with values of all square numbers up to 289 (=172), i.e., 1-credit coins, 4-credit coins, 9-cr
+          题目Artoria, also known as Saber-chan, was born into a time of chaos and war that began with the demise of the Roman empire. Somewhere in the far east, people in Utopia know nothing about war or conflicts. They live in peace for quite a long time and developed a strange currency system. In particular,
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1624,9 +1608,8 @@ moore-voting算法主要思想找出一对不同的元素就去掉它们，最�
 试错学习(Trail-and-error)，由于没有直接的指导信息，智能体要以不断与环境进行交互，通过试错的方式来获得最佳策略。
 延迟回报，增强学习的指导信息很少，而且往往是在事后（最后一个状态）才给出的，这就导致了一个问题，就是获得正回报或者负回报以后，如何将回报分配给前面的状态。
 例子
-比如下象棋，每一步都是一个决策过程，但决策的结果事后才知道再比如机器人的行走，移动过程中不知道如何挪动一种可行的思路是设计一个回报函数，每执行一步决策后，向agent进行汇报，比如四足机器人，如果他向前走了一步（接近目标），那么回报函数为正，后退为负。这样，我们对每一步进行评价，得到相应的回报函数，我们只需要找到一条回报值最大的路径（每步的回报之和最大），就认为是最佳的路径。
-
-          
+比如下象棋，每一步都是一个决策过程，但决策的结果事后才知道再比如机器人的行走，移动过程中不知道如何挪动一种可行的思路是设计一个回报函数，每执行一步决策后，向agent进行汇报，比如四足机器人，如果他
+          ...
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/04/04/增强学习/#more" rel="contents">
@@ -1775,7 +1758,7 @@ moore-voting算法主要思想找出一对不同的元素就去掉它们，最�
           
           简介
 Word2vec 是 Google 在 2013 年年中开源的一款将词表征为实数值向量的高效工具, 其利用深度学习的思想，可以通过训练，把对文本内容的处理简化为 K 维向量空间中的向量运算，而向量空间上的相似度可以用来表示文本语义上的相似度。Word2vec输出的词向量可以被用来做很多 NLP 相关的工作，比如聚类、找同义词、词性分析等等。如果换个思路， 把词当做特征，那么Word2vec就可以把特征映射到 K 维向量空间，可以为文本数据寻求更加深层次的特征表示 。
-Word2vec 使用的是 Distributed representation 的词向量表示方式。Distributed representation 最早由 Hinton在 1986 年提出[4]。其基本思想是 通过训练将每个词映射成 K 维实数向量（K 一般为模型中的超参数），通过词之间的距离（比如 cosine 相似度、欧氏距离等）来判断它们之间的语义相似度.其采用一个 三层的神经网络 ，输入层-隐层-输出层。有个核心的技术是 根据词频用Huffman编码 ，使得所有词频相似的词隐藏层激活的内容基本一致，出现
+Word2vec 使用的是 Distributed representation 的词向量表示方式。Distributed
           ...
           <!--noindex-->
           <div class="post-button text-center">
