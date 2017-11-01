@@ -178,29 +178,29 @@
       
         
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
+          <a href="/首页" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
             
-            Accueil
+            Startseite
           </a>
         </li>
       
         
         <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
+          <a href="/关于" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
             
-            A propos
+            Über
           </a>
         </li>
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
+          <a href="/标签" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
             
             Tags
           </a>
@@ -208,31 +208,21 @@
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
+          <a href="/分类" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
             
-            Categories
+            Kategorien
           </a>
         </li>
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
+          <a href="/归档" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
             
-            Archives
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-schedule">
-          <a href="/schedule/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
-            
-            Schedule
+            Archiv
           </a>
         </li>
       
@@ -288,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/11/01/博客配置/" itemprop="url">Non titré</a></h1>
+                <a class="post-title-link" href="/2017/11/01/博客配置/" itemprop="url">Unbenannt</a></h1>
         
 
         <div class="post-meta">
@@ -298,7 +288,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-01T10:08:44+08:00">
                 2017-11-01
@@ -340,8 +330,15 @@
       
         
           
-            
           
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/11/01/博客配置/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -417,7 +414,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-31T22:44:19+08:00">
                 2017-10-31
@@ -438,7 +435,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -481,69 +478,19 @@
       
         
           
-            <h1 id="算法导论-动态规划（一）钢条切割"><a href="#算法导论-动态规划（一）钢条切割" class="headerlink" title="算法导论-动态规划（一）钢条切割"></a>算法导论-动态规划（一）钢条切割</h1><h2 id="1-动态规划（Dynamic-programming）"><a href="#1-动态规划（Dynamic-programming）" class="headerlink" title="1. 动态规划（Dynamic programming）"></a>1. 动态规划（Dynamic programming）</h2><p>这里programming指的是<strong>表格</strong>，而非编程。动态规划通常用来<strong>求解最优化问题</strong></p>
-<p>与分治法对比：</p>
-<ol>
-<li>相同点：都是通过子问题组合求解原问题</li>
-<li>不同点：分治法将问题划分为<strong>不相交</strong>的子问题，求解再合并，动态规划应用于<strong>子问题重叠</strong>的情况，即不同的子问题具有公共的子子问题，此时如果用分治法就会出现重复计算求解。为了避免重复动态规划对子问题只求解一次，将其保存在表格中，从而无需每求解一个子子问题时重复计算。</li>
-</ol>
-<h2 id="2-求解步骤"><a href="#2-求解步骤" class="headerlink" title="2. 求解步骤"></a>2. 求解步骤</h2><ol>
-<li>刻画最优解的结构特征</li>
-<li>递归定义最优解的值</li>
-<li>计算最优解的值，通常采用自底向上的方法</li>
-<li>利用计算出的信息构造最优解</li>
-</ol>
-<p>其中不是所有的题目都会要求4，仅仅要求3，要求4的时候，我们需要在得到3的同事维护一些额外的信息来求出4。</p>
-<p>看到这四个步骤的时候，还是挺懵逼的，继续往下看=.=</p>
-<h2 id="3-钢条切割问题"><a href="#3-钢条切割问题" class="headerlink" title="3. 钢条切割问题"></a>3. 钢条切割问题</h2><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>Serling公司购买一根长钢管，将其切割成短钢管出售，给定钢管长度和对应的价钱如下表：</p>
-<p><img src="https://i.loli.net/2017/10/31/59f7536b8fc8f.png" alt=""> </p>
-<p>问题要求根据上面的价格，给出最佳的切割方案，使得收益最大。</p>
-<p>以n=4为例，可以将钢条切割成如下图所示的8种情况，其中收益岁大的是(c)：</p>
-<p><img src="https://ooo.0o0.ooo/2017/10/30/59f73938d2f50.png" alt=""> </p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>钢条长度为n时，共有$2^{n-1}$种分割方式。</p>
-<ol>
-<li><p>递归</p>
-<p>把长度为n的钢条切割问题转化为：将钢条从左边切下长度为i的一段，对右边剩下的长度为n-i的钢条进行进一步的切割。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">CUT-ROD(p,n)//p:价格数组，n：钢条长度</div><div class="line">1 if n==0:</div><div class="line">2 	return 0</div><div class="line">3 q=MIN</div><div class="line">4 for i = 1 to n:</div><div class="line">5 	q=max(q,p[i],CUT-ROD(p,n-i))</div><div class="line">6 return q</div></pre></td></tr></table></figure>
-<p>当n=4时，上面递推方式的工作量如图所示，复杂度为$T(n)=2^n$</p>
-<p><img src="https://i.loli.net/2017/10/31/59f759167976c.png" alt=""> </p>
-</li>
-<li><p>动态规划（DP）</p>
-<p>可以看出来用上面递归的方式计算，中间会重复求解相同子问题。使用动态规划，<strong>仔细安排求解顺序，对每个子问题只求解一次所以，并把结果保存下来</strong>，供后续使用避免重复计算。</p>
-<p>​    对于钢条切割的问题，我们可以将长度为n的钢条切割问题转化为规模更小的子问题：当完成首次切割后，将两段钢条看成<strong>两个独立的钢条切割</strong>问题，通过<strong>组合</strong>两个相关子问题的最优解，选取组合收益最大者，构成原问题的最优解。</p>
-<p>因此，将长度为n的钢条切割成两段，共有下面n种切割方式，求解下面n个子问题的最优解，再选取其中最大的作为原问题的最优解。</p>
-<p>​        $r_n=max(p_n,r<em>1+r</em>{n-1},r<em>2+r</em>{n-2},…,r_{n-1}+r_1)$</p>
-<p>其中$p_n$是不切割的情况，$r<em>1+r</em>{n-1}$是切分成长度为1和n-1的两段的情况以此类推。可以看出来长度为n的钢条切割问题是依赖于长度为1,2,…n-1的钢条切割问题。所以可以按照自底向上的方式，按照有小到大的顺序进行求解，知道求得长度为n的钢条切割方案最优解。</p>
-<p>​    以n=4为例：</p>
-<p>$r_1=1$</p>
-<p>$r_2=max(p_2,max(r_1)+max(r_1))=max(5,1+1)=5$</p>
-<p>$r_3=max(p_3,max(r_1)+max(r_2))=max(8,5+1)=8$</p>
-<p>$r_4=max(p_4,max(r_1)+max(r_3),max(r_2)+max(r_2))=max(9,8+1,5+5)=10$</p>
-<p>…</p>
-<p>​    动态规划两种实现方法：</p>
-</li>
-</ol>
-<ul>
-<li><p>自顶向下：</p>
-<p>仍按照递归的方式实现，过程中保存每个子问题的解，后续过程中先检查是否已经保存过此解，如果是，直接返回保存的值。就好像带了一个“备忘录”。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">memorized-CUT-ROD[] = MIN//用于记录子问题结果</div><div class="line">CUT-ROD(p,n)//p:价格数组，n：钢条长度</div><div class="line">1 if memorized-CUT-ROD[n] &gt; 0:</div><div class="line">2 	return memorized-CUT-ROD[n]</div><div class="line">3 else</div><div class="line">4 	for i = 1 to n:</div><div class="line">5 	q=max(q,p[i],memorized-CUT-ROD(p,n-i))</div><div class="line">6 memorized-CUT-ROD[n] = q</div></pre></td></tr></table></figure>
-<p>​</p>
-</li>
-</ul>
-<ul>
-<li><p>自底向上</p>
-<p>需要恰当定义子问题的“规模”，使得任何子问题的求解都只依赖于“更小的”子问题，进而将子问题按规律排序，按由小到大的顺序进行求解，当求解某个自问题时，它所以来的子问题都已经求解完毕。</p>
-<p>伪代码略，直接上代码：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">cut_rod</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; p,<span class="keyword">int</span> n)</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> len = p.size();</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; maxvalue(len,<span class="number">0</span>);</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;i++)&#123;<span class="comment">//i=n-1</span></div><div class="line">        maxvalue[i] = p[i];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= (i+<span class="number">1</span>)/<span class="number">2</span>;j++)&#123;</div><div class="line">            maxvalue[i] = max(maxvalue[i],maxvalue[j<span class="number">-1</span>]+maxvalue[i-j]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> maxvalue[n<span class="number">-1</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p> 至此，可以求出该问题的最优解了~</p>
-</li>
-</ul>
-<h3 id="重构解"><a href="#重构解" class="headerlink" title="重构解"></a>重构解</h3><p>​    上面的求解过程可以求出最优解的值，但并没有返回解本身（具体的切割方案），为了得到最优解，需要在求解最优解的同时，保存切割信息。扩展上面的算法，使之对子问题不仅保存最优收益值$r_j$，还保存该最优方案对应的第一段钢条的切割长度，也就是第一段钢条的切割位置距离钢条左端的长度$s_j$，最后输出最优方案时，根据$s_j$即可复原出最优解。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">cut_rod</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; p,<span class="keyword">int</span> n)</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> len = p.size();</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; maxvalue(len,<span class="number">0</span>);<span class="comment">//记录最优方案值</span></div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; leftlen(len,<span class="number">0</span>);<span class="comment">//记录第一段钢条距左端距离</span></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;i++)&#123;<span class="comment">//i=n-1</span></div><div class="line">        maxvalue[i] = p[i];</div><div class="line">        leftlen[i] = i+<span class="number">1</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= (i+<span class="number">1</span>)/<span class="number">2</span>;j++)&#123;</div><div class="line">            <span class="keyword">if</span>(maxvalue[j<span class="number">-1</span>]+maxvalue[i-j]&gt;maxvalue[i])&#123;</div><div class="line">                maxvalue[i] = maxvalue[j<span class="number">-1</span>]+maxvalue[i-j];</div><div class="line">                leftlen[i] = j;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//输出最优解方案</span></div><div class="line">    <span class="keyword">int</span> m = n<span class="number">-1</span>;</div><div class="line">    <span class="keyword">while</span>(m&gt;=<span class="number">0</span>)&#123;</div><div class="line">        <span class="built_in">cout</span>&lt;&lt;leftlen[m]&lt;&lt;<span class="string">"\t"</span>;</div><div class="line">        m -= leftlen[m];</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> maxvalue[n<span class="number">-1</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>结果如图：</p>
-<p>​                <img src="http://omaby2s5z.bkt.clouddn.com/2017-10-31-22-25-25.png" alt=""> </p>
+          算法导论-动态规划（一）钢条切割1. 动态规划（Dynamic programming）这里programming指的是表格，而非编程。动态规划通常用来求解最优化问题
+与分治法对比：
 
-          
+相同点：都是通过子问题组合求解原问题
+不同点：分治法将问题划分为不相交的子问题，求解再合并，动态规划应用于子问题重
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/10/31/【算法导论】动态规划（一）钢条切割/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -609,7 +556,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/10/30/01背包/" itemprop="url">Non titré</a></h1>
+                <a class="post-title-link" href="/2017/10/30/01背包/" itemprop="url">Unbenannt</a></h1>
         
 
         <div class="post-meta">
@@ -619,7 +566,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-30T17:51:09+08:00">
                 2017-10-30
@@ -661,9 +608,16 @@
       
         
           
-            <h1 id="01背包问题"><a href="#01背包问题" class="headerlink" title="01背包问题"></a>01背包问题</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>有N件物品和一个容量为V的背包。第i件物品的费用是c[i]，价值是w[i]。求解将哪些物品装入背包可使价值总和最大。</p>
+          01背包问题定义有N件物品和一个容量为V的背包。第i件物品的费用是c[i]，价值是w[i]。求解将哪些物品装入背包可使价值总和最大。
 
           
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/10/30/01背包/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -739,7 +693,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-26T16:28:31+08:00">
                 2017-10-26
@@ -760,7 +714,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -803,20 +757,16 @@
       
         
           
-            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>Your are given an array of positive integers nums.</p>
-<p>Count and print the number of (contiguous) subarrays where the product of all the elements in the subarray is less than k.</p>
-<p><strong>Example 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Input: nums = [10, 5, 2, 6], k = 100</div><div class="line">Output: 8</div><div class="line">Explanation: The 8 subarrays that have product less than 100 are: [10], [5], [2], [6], [10, 5], [5, 2], [2, 6], [5, 2, 6].</div><div class="line">Note that [10, 5, 2] is not included as the product of 100 is not strictly less than k.</div></pre></td></tr></table></figure>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>给定一个正整数组，和一个整数k，求成绩小于k的连续子数组个数</p>
-<p>这道题真的是做了很久，想到了用滑窗，用一个数字记录窗口内数字成绩，但是算不明白个数</p>
-<p>问题的关键在于:</p>
-<p><strong>每次滑窗的末尾向后移动一位之后，满足条件的窗口内新增的连续子数组数目为：end-start+1</strong></p>
-<p>因为每次滑窗末尾向后移动一位，新增的子数组必然包含最后一个数字，又必须是连续子数组，所以新增的个数是end-start+1</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>最后附上很简单的代码</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">int numSubarrayProductLessThanK(vector&lt;int&gt;&amp; nums, int k) &#123;</div><div class="line">    int product = 1;</div><div class="line">    int count = 0;</div><div class="line">    int start = 0;</div><div class="line">    int end = 0;</div><div class="line">    while(end &lt; nums.size()&amp;&amp;start&lt;=end)&#123;</div><div class="line">        product = product*nums[end];</div><div class="line">        while(product&gt;=k&amp;&amp;start&lt;=end)&#123;</div><div class="line">            product = product/nums[start];</div><div class="line">            start++;</div><div class="line">        &#125;</div><div class="line">        count+=end-start+1;</div><div class="line">        end++;</div><div class="line">    &#125;</div><div class="line">    return count;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>##<br><img src="http://omaby2s5z.bkt.clouddn.com/blog/171026/1g02kLeb0H.png?imageslim" alt=""><br><img src="http://omaby2s5z.bkt.clouddn.com/201710261713_719.png" alt=""></p>
-
-          
+          题目Your are given an array of positive integers nums.
+Count and print the number of (contiguous) subarrays where the product of all the elements in the
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/10/26/【leetcode】713-Subarray-Product-Less-Than-K-md/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -892,7 +842,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-01T20:27:59+08:00">
                 2017-08-01
@@ -913,7 +863,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -956,20 +906,17 @@
       
         
           
-            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>Given an integer array, find three numbers whose product is maximum and output the maximum product.</p>
-<p><strong>Example1:</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Input: [1,2,3]</div><div class="line">Output: 6</div></pre></td></tr></table></figure></p>
-<p><strong>Example1:</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Input: [1,2,3,4]</div><div class="line">Output: 24</div></pre></td></tr></table></figure></p>
-<p><strong>Note:</strong><br>The length of the given array will be in range [3,$10^4$] and all elements are in the range [-1000, 1000].<br>Multiplication of any three numbers in the input won’t exceed the range of 32-bit signed integer.</p>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>如果数组里面没有负整数，那最大的乘积就是三个最大的数字乘积，题目说明数组中的数字范围是<strong>[-1000, 1000]</strong>，所以会有两种情况：</p>
-<ol>
-<li>两个最小的负数*一个最大的正数</li>
-<li>三个最大的正数相乘</li>
-</ol>
-<p>所以只需要定义5个变量用来存储两个最小的和三个最大的数字，遍历一遍数组获取5个变量的值，然后返回两种情况中值较大的那种。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">int maximumProduct(vector&lt;int&gt;&amp; nums) &#123;</div><div class="line">    //声明变量用来存储两个最小的数字和三个最大的数字</div><div class="line">    int min1 = 1001, min2 = 1001, max1 = -1001, max2 = -1001, max3 = -1001;</div><div class="line">    for (int i = 0; i &lt; nums.size(); i++) &#123;</div><div class="line">        //遇到比min1还小的</div><div class="line">        if (nums[i] &lt; min1) &#123;</div><div class="line">            min2 = min1;</div><div class="line">            min1 = nums[i];</div><div class="line">        &#125;</div><div class="line">        else if (nums[i] &lt; min2) &#123;</div><div class="line">            min2 = nums[i];</div><div class="line">        &#125;</div><div class="line">        if (nums[i] &gt; max1) &#123;</div><div class="line">            max3 = max2;</div><div class="line">            max2 = max1;</div><div class="line">            max1 = nums[i];</div><div class="line">        &#125;</div><div class="line">        else if (nums[i] &gt; max2) &#123;</div><div class="line">            max3 = max2;</div><div class="line">            max2 = nums[i];</div><div class="line">        &#125;</div><div class="line">        else if (nums[i] &gt; max3) &#123;</div><div class="line">            max3 = nums[i];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    int x = min1*min2*max1;</div><div class="line">    int y = max1*max2*max3;</div><div class="line">    if (x &gt; y)</div><div class="line">        return x;</div><div class="line">    else</div><div class="line">        return y;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="https://i.loli.net/2017/08/01/597ffda9bb7c7.png" alt=""> </p>
-
-          
+          题目Given an integer array, find three numbers whose product is maximum and output the maximum product.
+Example1:Input: [1,2,3]Output: 6
+Example1:Input:
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/01/【leetcode】-628-Maximum-Product-of-Three-Numbers/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1045,7 +992,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-01T00:33:36+08:00">
                 2017-08-01
@@ -1066,7 +1013,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1109,20 +1056,16 @@
       
         
           
-            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>Given an array of integers, return indices of the two numbers such that they add up to a specific target.</p>
-<p>You may assume that each input would have exactly one solution, and you may not use the same element twice.</p>
-<p><strong>Example:</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Given nums = [2, 7, 11, 15], target = 9,</div><div class="line"></div><div class="line">Because nums[0] + nums[1] = 2 + 7 = 9,</div><div class="line"></div><div class="line">return [0, 1].</div></pre></td></tr></table></figure></p>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>给一个数组和一个整数，返回数组中和恰好等于这个整数的两个数组的位置</p>
-<p>自己就只想出来了从前向后遍历的方法，时间复杂度$O(n^2)$</p>
-<p>代码如下</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) &#123;</div><div class="line">        hash_map&lt;int,int&gt; map;</div><div class="line">        for(int i = 0;i &lt; nums.size();i++)&#123;</div><div class="line">            int res = target-nums[i];</div><div class="line">            if (map.)</div><div class="line">            for(int j = i+1;j &lt; nums.size();j++)&#123;</div><div class="line">                if (res == nums[j])&#123;</div><div class="line">                    result.push_back(i);</div><div class="line">                    result.push_back(j);</div><div class="line">                    return result;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<h2 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h2><p>看了solution才知道这道题正确的打开方式是用hash_map，可以先把数组中的元素存入hash_map中，这样就可以实现O(1)复杂度的按值查找了。</p>
-<p>不过还有更好的方式，就是采用边查找边插入的方式，代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">vector&lt;int&gt; twoSum(vector&lt;int&gt; a,int b) &#123;</div><div class="line">    vector&lt;int&gt; res;</div><div class="line">    unordered_map&lt;int, int&gt; map;</div><div class="line">    for (int i = 0; i &lt; a.size(); i++) &#123;</div><div class="line">        int temp = b - a[i];</div><div class="line">        //查看map里是否已经有要找的元素</div><div class="line">        unordered_map&lt;int, int&gt;::iterator it = map.find(temp);</div><div class="line">        //如果没有，把当前元素的值和idx插入map</div><div class="line">        if (it == map.end()) &#123;</div><div class="line">            map.insert(make_pair(a[i], i));</div><div class="line">        &#125;</div><div class="line">        //找到了符合要求的，返回idx</div><div class="line">        else&#123;</div><div class="line">            res.push_back(it-&gt;second);</div><div class="line">            res.push_back(i);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return res;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这样在查找指定值元素的时候就可以有$O(1)$的复杂度了，遍历的复杂度是$O(n)$,总的复杂度是$O(n)$</p>
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p><img src="https://i.loli.net/2017/08/01/597f5b7c55158.png" alt=""> </p>
-
-          
+          题目Given an array of integers, return indices of the two numbers such that they add up to a specific target.
+You may assume that each input would have 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/01/【leetcode】1-Two-Sum/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1198,7 +1141,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-23T23:50:46+08:00">
                 2017-07-23
@@ -1219,7 +1162,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1262,12 +1205,16 @@
       
         
           
-            <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p><strong>分治法</strong><br>将数组分成A、B两组，如果这二组组内的数据都是有序的，那么就可以很方便的将这二组数据进行排序。如何让这二组组内数据有序了？</p>
-<p>可以将A，B组各自再分成二组。依次类推，当分出来的小组只有一个数据时，可以认为这个小组组内已经达到了有序，然后再合并相邻的二个小组就可以了。这样通过先递归的分解数列，再合并数列就完成了归并排序。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//将两个有序数组合并成一个有序数组</div><div class="line">void merge(int a[], int begin,int mid,int end,int b[]) &#123;</div><div class="line">    int i = begin;</div><div class="line">    int j = mid + 1;</div><div class="line">    int k = 0;</div><div class="line">    while ((i &lt;= mid) &amp;&amp; (j &lt;= end)) &#123;</div><div class="line">        if (a[i] &lt; a[j]) &#123;</div><div class="line">            b[k] = a[i];</div><div class="line">            k++;</div><div class="line">            i++;</div><div class="line">        &#125;</div><div class="line">        else&#123;</div><div class="line">            b[k] = a[j];</div><div class="line">            k++;</div><div class="line">            j++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    while (i&lt;=mid)&#123;</div><div class="line">        b[k] = a[i];</div><div class="line">        k++;</div><div class="line">        i++;</div><div class="line">    &#125;</div><div class="line">    while (j &lt;= end)&#123;</div><div class="line">        b[k] = a[j];</div><div class="line">        k++;</div><div class="line">        j++;</div><div class="line">    &#125;</div><div class="line">    for (int i = 0; i &lt; k; i++)&#123;</div><div class="line">        a[begin + i] = b[i];</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">//归并排序</div><div class="line">void MergeSort(int a[], int begin,int end,int b[]) &#123;</div><div class="line">    if (begin &lt; end) &#123;</div><div class="line">        int mid = (begin + end) / 2;</div><div class="line">        MergeSort(a, begin, mid, b);</div><div class="line">        MergeSort(a, mid + 1, end, b);</div><div class="line">        merge(a, begin, mid, end, b);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>最坏情况$O(n\log(n))$<br>平均情况$O(n\log(n))$</p>
-
-          
+          思路分治法将数组分成A、B两组，如果这二组组内的数据都是有序的，那么就可以很方便的将这二组数据进行排序。如何让这二组组内数据有序了？
+可以将A，B组各自再分成二组。依次类推，当分出来的小组只有一个数据时，可以认为这个小组组内已经达到了有序，然后再合并相邻的二个小组就可以了。这样通过先递归的分解数列，
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/23/归并排序/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1343,7 +1290,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-22T22:18:13+08:00">
                 2017-07-22
@@ -1364,7 +1311,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1407,63 +1354,22 @@
       
         
           
-            <p>给定两个数字a和b，要求不使用中间变量交换二者</p>
-<h3 id="一般做法"><a href="#一般做法" class="headerlink" title="一般做法"></a>一般做法</h3><p>一般的做法很简单</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">void swap(int &amp;a;int &amp;b)&#123;</div><div class="line">    int temp = a;</div><div class="line">    a = b;</div><div class="line">    b = temp;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="不使用中间变量的做法"><a href="#不使用中间变量的做法" class="headerlink" title="不使用中间变量的做法"></a>不使用中间变量的做法</h3><p>采用位操作符中的异或操作<code>^</code></p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">操作符</th>
-<th style="text-align:center">功能</th>
-<th>用法</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">~</td>
-<td style="text-align:center">取反</td>
-<td>0变1,1变0</td>
-</tr>
-<tr>
-<td style="text-align:center">&lt;&lt;</td>
-<td style="text-align:center">左移</td>
-<td>后面补0</td>
-</tr>
-<tr>
-<td style="text-align:center">>&gt;</td>
-<td style="text-align:center">右移</td>
-<td>前面补0，后面吞位</td>
-</tr>
-<tr>
-<td style="text-align:center">&amp;</td>
-<td style="text-align:center">位与</td>
-<td>只有两个都为1，则为1。<strong>x&amp;…00100…用于提取x某一位</strong></td>
-</tr>
-<tr>
-<td style="text-align:center">^</td>
-<td style="text-align:center">位异或</td>
-<td>只有一个为1，则为 1。<strong>用于判断两位是否相同</strong> a^b^a = b 用于交换数值</td>
-</tr>
-<tr>
-<td style="text-align:center">\</td>
-<td style="text-align:center"></td>
-<td>位或</td>
-<td>有一个或2个1，则为1。<strong>用于做and运算</strong></td>
-</tr>
-</tbody>
-</table>
-<p>容易发现<code>^</code>的性质：</p>
-<ol>
-<li>两个相同的数字做<code>^</code>操作得0</li>
-<li>任何数字跟0做<code>^</code>操作还是它本身</li>
-</ol>
-<p>所以可以通过下面的方式交换两个数字</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">void swap(int &amp;a;int &amp;b)&#123;</div><div class="line">    a = a^b;</div><div class="line">    b = b^a;</div><div class="line">    a = a^b;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这个程序大部分时间正确，但是有个致命缺陷，当a和b指向同一个位置时，计算a^b得0，也就是说a和b所指向的地址是同一个，所以此时a=b=0。所以上面这样写的前提是假设两个指针不会指向同一个位置。这也是编译器优化时经常考虑的一点，这种两个指针指向同一个存储器的情况叫做存储器别名使用（memory aliasing）。</p>
-<p>因此正确的程序应该如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">void swap(int &amp;a;int &amp;b)&#123;</div><div class="line">    if (a!=b)&#123;</div><div class="line">        a = a^b;</div><div class="line">        b = b^a;</div><div class="line">        a = a^b;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+          给定两个数字a和b，要求不使用中间变量交换二者
+一般做法一般的做法很简单
+void swap(int &amp;a;int &amp;b)&#123;    int temp = a;    a = b;    b = temp;&#125;
+不使用中间变量的做法采用位操作符中的异或操作^
 
-          
+
+
+操
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/22/不使用中间变量交换两个数字/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1539,7 +1445,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-22T22:17:57+08:00">
                 2017-07-22
@@ -1560,7 +1466,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1603,20 +1509,25 @@
       
         
           
-            <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>每次从无序区选择一个最小的放大有序区的最后</p>
-<p>设数组为a[0…n-1]。</p>
-<ol>
-<li><p>初始时，数组全为无序区为a[0..n-1]。令i=0</p>
-</li>
-<li><p>在无序区a[i…n-1]中选取一个最小的元素，将其与a[i]交换。交换之后a[0…i]就形成了一个有序区。</p>
-</li>
-<li><p>i++并重复第二步直到i==n-1。排序完成。</p>
-</li>
-</ol>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//选择排序</div><div class="line">void SekectSort(int a[], int len) &#123;</div><div class="line">    for (int i = 0; i &lt; len; i++) &#123;</div><div class="line">        int min = a[i];</div><div class="line">        int loc = i;</div><div class="line">        //寻找最小的元素</div><div class="line">        for (int j = i + 1; j &lt; len; j++) &#123;</div><div class="line">            if (a[j] &lt; min) &#123;</div><div class="line">                min = a[j];</div><div class="line">                loc = j;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        //把最小的元素放在有序区后面</div><div class="line">        int temp = a[loc];</div><div class="line">        a[loc] = a[i];</div><div class="line">        a[i] = temp;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.csdn.net/MoreWindows/article/details/6668714" target="_blank" rel="external">MoreWindows Blog 白话经典算法系列</a></p>
+          思路每次从无序区选择一个最小的放大有序区的最后
+设数组为a[0…n-1]。
 
-          
+初始时，数组全为无序区为a[0..n-1]。令i=0
+
+在无序区a[i…n-1]中选取一个最小的元素，将其与a[i]交换。交换之后a[0…i]就形成了一个有序区。
+
+i++并重复第二步直到i==n-1。排序完成。
+
+
+代码
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/22/选择排序/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1692,7 +1603,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-22T17:09:32+08:00">
                 2017-07-22
@@ -1713,7 +1624,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1756,54 +1667,22 @@
       
         
           
-            <h2 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h2><p>希尔排序的实质是分组插入排序，又称缩小增量排序。</p>
-<p>该方法的基本思想是：</p>
-<ol>
-<li>先将整个待排元素序列分割成若干个子序列（由相隔某个“增量”的元素组成的），对这些子序列分别进行直接插入排序</li>
-<li>依次缩减增量再进行排序</li>
-<li>待整个序列中的元素基本有序（增量足够小）时，再对全体元素进行一次直接插入排序。</li>
-</ol>
-<p>因为直接插入排序在元素基本有序的情况下（接近最好情况），效率是很高的，因此希尔排序在时间效率上比前两种方法有较大提高。</p>
-<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>现在我们要将这样一个数组排序，一共有10个元素</p>
-<p><img src="https://i.loli.net/2017/07/20/59701858e5e96.png" alt=""> </p>
-<ul>
-<li><strong>第一次 增量 gap = 10/2 = 5</strong></li>
-</ul>
-<p><img src="https://i.loli.net/2017/07/20/59701a2be3ef5.png" alt=""> </p>
-<p>整个数组被分成了5个子数组，分别是[49,13]，[38,27]，[65,49]，[97,55]，[26,4]<br>然后对这五个子数组进行插入排序，得到下面结果</p>
-<p><img src="https://i.loli.net/2017/07/20/59701b9f8c66f.png" alt=""> </p>
-<ul>
-<li><strong>第二次 增量 gap = 5/2 = 2</strong></li>
-</ul>
-<p><img src="https://ooo.0o0.ooo/2017/07/20/59701bfe5a204.png" alt=""> </p>
-<p>这次我们把整个数组分成了两个子数组，分别是[13,49,4,38,97],[27,55,49,65,26]<br>对这个两个子数组排序，结果如下：<br><img src="https://i.loli.net/2017/07/20/59701d3805da5.png" alt=""> </p>
-<ul>
-<li><strong>第三次 增量 gap = 2/2 = 1</strong><br>此时整个数组已经接近有序，对整个数组进行全排列</li>
-</ul>
-<p><img src="https://i.loli.net/2017/07/20/59701e32a8bb1.png" alt=""> </p>
-<p>最终得到数组有序</p>
-<p><img src="https://ooo.0o0.ooo/2017/07/20/59701fd2c547a.png" alt=""> </p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//希尔排序</div><div class="line">void HillSort(int a[], int len) &#123;</div><div class="line">    int delta = len/2;</div><div class="line">    while (delta &gt; 0) &#123;</div><div class="line">        for (int i = 0; i &lt; delta; i++) &#123;//分成了delta个子序列</div><div class="line">            //对每个子序列进行插入排序</div><div class="line">            for (int j = i + delta; j &lt; len; j = j + delta) &#123;</div><div class="line">                int jj = j - delta;</div><div class="line">                int temp = a[j];</div><div class="line">                while ((a[jj] &gt; temp)&amp;&amp;(jj&gt;=0)) &#123;</div><div class="line">                    a[jj + delta] = a[jj];</div><div class="line">                    jj -= delta;</div><div class="line">                &#125;</div><div class="line">                //插入</div><div class="line">                a[jj + delta] = temp;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        delta = delta / 2;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p><a href="http://blog.csdn.net/MoreWindows/article/details/6668714" target="_blank" rel="external">白话经典算法系列</a>原文是这么说的</p>
-<blockquote>
-<p>很明显，上面的shellsort1代码虽然对直观的理解希尔排序有帮助，但代码量太大了，不够简洁清晰。因此进行下改进和优化，以第二次排序为例，原来是每次从1A到1E，从2A到2E，可以改成从1B开始，先和1A比较，然后取2B与2A比较，再取1C与前面自己组内的数据比较…….。这种每次从数组第gap个元素开始，每个元素与自己组内的数据进行直接插入排序显然也是正确的。</p>
-</blockquote>
-<p>我理解了一下，思路就是把在序列中提取子序列的过程简化了，我们可以从第gap个元素开始，向后遍历到序列末尾，可以个元素都跟其所在的子序列中位于它前面的数字做插入排序，最终就会得到一个有序数列了~</p>
-<p>画个图表示一下吧，还是刚才那个序列，比如说此时进行到第二次排序了，gap=2的情况：</p>
-<p>从a[2]开始遍历，此时a[2]所在的子序列为[a[0],a[2],a[4],a[6],a[8]]，需要将a[2]和位于它前面的a[0]比较，插入到合适的位置：</p>
-<p><img src="https://i.loli.net/2017/07/22/59731239a3cd2.png" alt=""> </p>
-<p>指针后移一位， 同上此时a[3]所在的子序列为[a[1],a[3],a[5],a[7],a[9]]，需要将a[3]和位于它前面的a[1]比较，插入合适的位置：</p>
-<p><img src="https://i.loli.net/2017/07/22/59731264440fc.png" alt=""> </p>
-<p>接下来指针指向a[4],此时需要将a[4]和位于它前面的a[2]、a[0]比较，插入合适的位置：</p>
-<p><img src="https://i.loli.net/2017/07/22/59731282140fd.png" alt=""> </p>
-<p>下面重复上面的步骤：</p>
-<p><img src="https://i.loli.net/2017/07/22/597312a912c5c.png" alt=""> </p>
-<p><img src="https://i.loli.net/2017/07/22/597312ca290dc.png" alt=""> </p>
-<p>此处省略剩余步骤…..最终可以将数组排列至有序状态</p>
-<p>现在可以上代码了~<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//希尔排序</div><div class="line">void HillSort(int a[], int len) &#123;</div><div class="line">    int delta = len/2;</div><div class="line">    while (delta &gt; 0) &#123;</div><div class="line">        for (int i = delta; i &lt; len; i++) &#123;//遍历</div><div class="line">            //对该元素子前面的子数组进行插入排序</div><div class="line">            int temp = a[i];</div><div class="line">            int jj = i - delta;</div><div class="line">            while ((jj &gt;=0)&amp;&amp;(a[jj]&gt;temp))&#123;</div><div class="line">                swap(a[jj], a[jj+delta]);</div><div class="line">                jj -= delta;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        delta = delta / 2;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.csdn.net/MoreWindows/article/details/6668714" target="_blank" rel="external">MoreWindows Blog 白话经典算法系列</a></p>
+          思想希尔排序的实质是分组插入排序，又称缩小增量排序。
+该方法的基本思想是：
 
-          
+先将整个待排元素序列分割成若干个子序列（由相隔某个“增量”的元素组成的），对这些子序列分别进行直接插入排序
+依次缩减增量再进行排序
+待整个序列中的元素基本有序（增量足够小）时，再对全体元素进行一次直接插入排序。
+
+因为直接
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/22/希尔排序/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1885,10 +1764,10 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives/">
+                <a href="/归档">
               
                   <span class="site-state-item-count">53</span>
-                  <span class="site-state-item-name">articles</span>
+                  <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
             
@@ -1899,7 +1778,7 @@
               <div class="site-state-item site-state-categories">
                 
                   <span class="site-state-item-count">15</span>
-                  <span class="site-state-item-name">categories</span>
+                  <span class="site-state-item-name">Kategorien</span>
                 
               </div>
             
@@ -1910,7 +1789,7 @@
               <div class="site-state-item site-state-tags">
                 
                   <span class="site-state-item-count">15</span>
-                  <span class="site-state-item-name">tags</span>
+                  <span class="site-state-item-name">Tags</span>
                 
               </div>
             
@@ -1965,7 +1844,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
@@ -1973,7 +1852,7 @@
 
 
 
-  <div class="theme-info">Thème &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
 
 
 

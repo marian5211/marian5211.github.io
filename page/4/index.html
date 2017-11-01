@@ -178,29 +178,29 @@
       
         
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
+          <a href="/首页" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
             
-            Accueil
+            Startseite
           </a>
         </li>
       
         
         <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
+          <a href="/关于" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
             
-            A propos
+            Über
           </a>
         </li>
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
+          <a href="/标签" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
             
             Tags
           </a>
@@ -208,31 +208,21 @@
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
+          <a href="/分类" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
             
-            Categories
+            Kategorien
           </a>
         </li>
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
+          <a href="/归档" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
             
-            Archives
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-schedule">
-          <a href="/schedule/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
-            
-            Schedule
+            Archiv
           </a>
         </li>
       
@@ -298,7 +288,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-29T23:22:54+08:00">
                 2017-03-29
@@ -319,7 +309,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -362,44 +352,15 @@
       
         
           
-            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>In a parallel universe, young Saber-chan does not have a humongous appetite, instead, she likes studying math in her spare time. This afternoon when Saber-chan is plunged in her study, she came across an interesting conjecture: for any even number n greater than or equal to 4, there exists at least one pair of prime numbers p1 and p2 such that n=p1+p2.</p>
-<p>This conjecture is actually known as the Goldbach’s conjecture. It is has not been proved nor refused yet. However in this universe, there are more programmers than mathematicians, people tend to prove math findings by programs. As the King of Knights and King of Britain, Saber-chan orders you to write a program that reports the number of all the pairs of prime numbers satisfying the condition in the conjecture for a given even number.</p>
-<p>A sequence of even numbers is given as input. Corresponding to each number, the program should output the number of pairs mentioned above. Notice that Saber-chan is interested in the number of essentially different pairs and therefore you should not count (p1,p2) and (p2,p1) separately as two different pairs.</p>
-<h3 id="input"><a href="#input" class="headerlink" title="input"></a>input</h3><p>An integer is given in each input line. You may assume that each integer is even, and is greater than or equal to 4 and less than 215. The end of the input is indicated by a number 0.</p>
-<h3 id="output"><a href="#output" class="headerlink" title="output"></a>output</h3><p>Each output line should contain an integer number. No other characters should appear in the output.</p>
-<h3 id="sample"><a href="#sample" class="headerlink" title="sample"></a>sample</h3><p><strong>input:</strong></p>
-<p>6</p>
-<p>10</p>
-<p>12</p>
-<p>0</p>
-<p><strong>output:</strong></p>
-<p>1</p>
-<p>2</p>
-<p>1</p>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>给定一个数$p$，$p=q_1+q_2$其中$q_1$和$q_2$都是素数，输出这样的$(q_1,q_2)$对数</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>step1：<br>利用素数筛，先枚举出一定范围内的素数</p>
-<p>step2：<br>给定一个数p，遍历(2，p/2)中的素数t，如果p-t也是素数，则结果+1。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">#include &lt;iostream&gt;</div><div class="line">#include &lt;vector&gt;</div><div class="line">using namespace std;</div><div class="line">//bool f[1024*32];</div><div class="line">int main()</div><div class="line">&#123;</div><div class="line">    //素数表</div><div class="line">    bool sushu[1024 * 32 + 1];</div><div class="line">    int n = 1024 * 32;</div><div class="line">    for (int i = 0; i &lt;= n; i++)</div><div class="line">        sushu[i] = true;</div><div class="line">    sushu[1] = false;</div><div class="line">    for (int i = 2; i &lt;= n; i++)</div><div class="line">    &#123;</div><div class="line">        if (sushu[i] == true)</div><div class="line">        &#123;</div><div class="line">            for (int j = 2; j*i &lt;= n; j++)</div><div class="line">                sushu[i*j] = false;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    vector&lt;int&gt; result;</div><div class="line">    while(cin)&#123;</div><div class="line">        int aaa;</div><div class="line">        cin &gt;&gt; aaa;</div><div class="line">        if (aaa ==0)</div><div class="line">        &#123;</div><div class="line">            break;</div><div class="line">        &#125;</div><div class="line">        int sum = 0;</div><div class="line">        for (int i = 2; i &lt;= aaa / 2; i++) &#123;</div><div class="line">            if (sushu[i] == 1) &#123;</div><div class="line">                if (sushu[aaa - i] == 1) &#123;</div><div class="line">                    sum++;</div><div class="line">                &#125;</div><div class="line">            &#125;   </div><div class="line">        &#125;</div><div class="line">        result.push_back(sum);</div><div class="line">    &#125;</div><div class="line">    for (int i = 0; i &lt; result.size(); i++) &#123;</div><div class="line">        cout &lt;&lt; result[i] &lt;&lt; endl;</div><div class="line">    &#125;</div><div class="line">    //system(&quot;pause&quot;);</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="素数筛"><a href="#素数筛" class="headerlink" title="素数筛"></a>素数筛</h2><p>关于一定范围内素数的枚举，有下面两种素数筛的方法</p>
-<h3 id="1-普通筛选法–埃拉托斯特尼筛法"><a href="#1-普通筛选法–埃拉托斯特尼筛法" class="headerlink" title="1. 普通筛选法–埃拉托斯特尼筛法"></a>1. 普通筛选法–埃拉托斯特尼筛法</h3><p><strong>基本思想</strong>：素数的倍数一定不是素数</p>
-<p><strong>步骤</strong>:</p>
-<p>用一个长度为N+1的数组保存信息（0表示素数，1表示非素数），初始值都置为0（都默认为素数）</p>
-<ol>
-<li>从第一个素数2开始遍历，把2的倍数都标记为非素数（置为1）</li>
-<li>然后向后遍历，找到2后面的下一个素数3，把3的倍数都标记为非素数（置为1）</li>
-<li>继续向后遍历，找到素数k，对k进行同样的处理</li>
-<li>直到最后，数组中依然为0的数即为素数。</li>
-</ol>
-<p><strong>代码</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">bool sushu[1024 * 32 + 1];</div><div class="line">    int n = 1024 * 32;</div><div class="line">    for (int i = 0; i &lt;= n; i++)</div><div class="line">        sushu[i] = true;</div><div class="line">    sushu[1] = false;</div><div class="line">    for (int i = 2; i &lt;= n; i++)</div><div class="line">    &#123;</div><div class="line">        if (sushu[i] == true)</div><div class="line">        &#123;</div><div class="line">            for (int j = 2; j*i &lt;= n; j++)</div><div class="line">                sushu[i*j] = false;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p><strong>时间复杂度</strong>：$O(nlogn)$</p>
-<h3 id="2-线性筛法–欧拉筛法"><a href="#2-线性筛法–欧拉筛法" class="headerlink" title="2. 线性筛法–欧拉筛法"></a>2. 线性筛法–欧拉筛法</h3><p><strong>基本思想</strong>：保证每个合数只会被它的<strong>最小质因数</strong>筛去，因此每个数只会被标记一次</p>
-<p><strong>代码</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">#include&lt;cstdio&gt;</div><div class="line">#include&lt;cstring&gt;</div><div class="line">#define MAXN 100005</div><div class="line">#define MAXL 1299710</div><div class="line">int prime[MAXN];//最小质因数</div><div class="line">int check[MAXL];//是否为素数</div><div class="line"></div><div class="line">int tot = 0;</div><div class="line">memset(check, 0, sizeof(check));</div><div class="line">for (int i = 2; i &lt; MAXL; ++i)</div><div class="line">&#123;</div><div class="line">  if (!check[i])</div><div class="line">  &#123;</div><div class="line">    prime[tot++] = i;</div><div class="line">  &#125;</div><div class="line">  for (int j = 0; j &lt; tot; ++j)</div><div class="line">  &#123;</div><div class="line">    if (i * prime[j] &gt; MAXL)</div><div class="line">    &#123;</div><div class="line">      break;</div><div class="line">    &#125;</div><div class="line">    check[i*prime[j]] = 1;</div><div class="line">    if (i % prime[j] == 0)</div><div class="line">    &#123;</div><div class="line">      break;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong>时间复杂度</strong>：$O(n)$</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://www.cnblogs.com/grubbyskyer/p/3852421.html" target="_blank" rel="external">Grubbyskyer的博客——线性筛法求素数</a></p>
-
-          
+          题目In a parallel universe, young Saber-chan does not have a humongous appetite, instead, she likes studying math in her spare time. This afternoon when
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/29/ACM-Saber-s-Conjecture-素数筛/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -475,7 +436,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-29T11:13:43+08:00">
                 2017-03-29
@@ -496,7 +457,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -539,19 +500,19 @@
       
         
           
-            <p>转自<a href="https://www.oschina.net/code/snippet_203297_11313" target="_blank" rel="external">baoer1024的分享</a></p>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><ol>
-<li>暴力求解，C(n,m)=n<em>(n-1)</em>…*(n-m+1)/m!，n&lt;=15 </li>
-<li>打表，C(n,m)=C(n-1,m-1)+C(n-1,m)，n&lt;=10,000 </li>
-<li>质因数分解，C(n,m)=n!/(m!*(n-m)!)，C(n,m)=p1a1-b1-c1p2a2-b2-c2…pkak-bk-ck,n&lt;=10,000,000 </li>
-<li>Lucas定理，将m,n化为p进制,有:C(n,m)=C(n0,m0)*C(n1,m1)…(mod p)，算一个不是很大的C(n,m)%p,p为素数，化为线性同余方程,用扩展的欧几里德定理求解，n在int范围内，修改一下可以满足long long范围内。</li>
-</ol>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>方案一：<br><figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">Combination</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">int</span> M = <span class="number">10007</span>;</div><div class="line">    <span class="keyword">int</span> ans = <span class="number">1</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=n; i&gt;=(n-m+<span class="number">1</span>); --i)</div><div class="line">        ans *= i;</div><div class="line">    <span class="keyword">while</span>(m)</div><div class="line">        ans /= m--;</div><div class="line">    <span class="keyword">return</span> ans % M;</div><div class="line">&#125;</div><div class="line"></div></pre></td></tr></table></figure></p>
-<p>方案二：<br><figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> M = <span class="number">10007</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1000</span>;</div><div class="line"><span class="keyword">int</span> C[MAXN+<span class="number">1</span>][MAXN+<span class="number">1</span>];</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Initial</span><span class="params">()</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">int</span> i,j;</div><div class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;=MAXN; ++i)</div><div class="line">    &#123;</div><div class="line">        C[<span class="number">0</span>][i] = <span class="number">0</span>;</div><div class="line">        C[i][<span class="number">0</span>] = <span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>; i&lt;=MAXN; ++i)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">for</span>(j=<span class="number">1</span>; j&lt;=MAXN; ++j)</div><div class="line">        C[i][j] = (C[i<span class="number">-1</span>][j] + C[i<span class="number">-1</span>][j<span class="number">-1</span>]) % M;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">Combination</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">return</span> C[n][m];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>方案三：<br><figure class="highlight c"><table><tr><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">//用筛法生成素数</span></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1000000</span>;</div><div class="line"><span class="keyword">bool</span> arr[MAXN+<span class="number">1</span>] = &#123;<span class="literal">false</span>&#125;;</div><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; produce_prim_number()</div><div class="line">&#123;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; prim;</div><div class="line">    prim.push_back(<span class="number">2</span>);</div><div class="line">    <span class="keyword">int</span> i,j;</div><div class="line">    <span class="keyword">for</span>(i=<span class="number">3</span>; i*i&lt;=MAXN; i+=<span class="number">2</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(!arr[i])</div><div class="line">        &#123;</div><div class="line">            prim.push_back(i);</div><div class="line">            <span class="keyword">for</span>(j=i*i; j&lt;=MAXN; j+=i)</div><div class="line">            arr[j] = <span class="literal">true</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span>(i&lt;=MAXN)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(!arr[i])</div><div class="line">        prim.push_back(i);</div><div class="line">        i+=<span class="number">2</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> prim;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">//计算n!中素因子p的指数</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">Cal</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> p)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">int</span> ans = <span class="number">0</span>;</div><div class="line">    <span class="keyword">long</span> <span class="keyword">long</span> rec = p;</div><div class="line">    <span class="keyword">while</span>(x&gt;=rec)</div><div class="line">    &#123;</div><div class="line">        ans += x/rec;</div><div class="line">        rec *= p;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> ans;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">//计算n的k次方对M取模，二分法</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">Pow</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> n, <span class="keyword">int</span> k, <span class="keyword">int</span> M)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">long</span> <span class="keyword">long</span> ans = <span class="number">1</span>;</div><div class="line">    <span class="keyword">while</span>(k)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(k&amp;<span class="number">1</span>)</div><div class="line">        &#123;</div><div class="line">            ans = (ans * n) % M;</div><div class="line">        &#125;</div><div class="line">        n = (n * n) % M;</div><div class="line">        k &gt;&gt;= <span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> ans;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">//计算C(n,m)</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">Combination</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">int</span> M = <span class="number">10007</span>;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; prim = produce_prim_number();</div><div class="line">    <span class="keyword">long</span> <span class="keyword">long</span> ans = <span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> num;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;prim.size() &amp;&amp; prim[i]&lt;=n; ++i)</div><div class="line">    &#123;</div><div class="line">        num = Cal(n, prim[i]) - Cal(m, prim[i]) - Cal(n-m, prim[i]);</div><div class="line">        ans = (ans * Pow(prim[i], num, M)) % M;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> ans;</div><div class="line">&#125;</div><div class="line"></div></pre></td></tr></table></figure></p>
-<p>方案四：<br><figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> M = <span class="number">10007</span>;</div><div class="line"><span class="keyword">int</span> ff[M+<span class="number">5</span>];  <span class="comment">//打表，记录n!，避免重复计算</span></div><div class="line"> </div><div class="line"><span class="comment">//求最大公因数</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">if</span>(b==<span class="number">0</span>)</div><div class="line">        <span class="keyword">return</span> a;</div><div class="line">    <span class="keyword">else</span></div><div class="line">        <span class="keyword">return</span> gcd(b,a%b);</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">//解线性同余方程，扩展欧几里德定理</span></div><div class="line"><span class="keyword">int</span> x,y;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Extended_gcd</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">if</span>(b==<span class="number">0</span>)</div><div class="line">    &#123;</div><div class="line">       x=<span class="number">1</span>;</div><div class="line">       y=<span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    &#123;</div><div class="line">       Extended_gcd(b,a%b);</div><div class="line">       <span class="keyword">long</span> t=x;</div><div class="line">       x=y;</div><div class="line">       y=t-(a/b)*y;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">//计算不大的C(n,m)</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">C</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">if</span>(b&gt;a)</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    b=(ff[a-b]*ff[b])%M;</div><div class="line">    a=ff[a];</div><div class="line">    <span class="keyword">int</span> c=gcd(a,b);</div><div class="line">    a/=c;</div><div class="line">    b/=c;</div><div class="line">    Extended_gcd(b,M);</div><div class="line">    x=(x+M)%M;</div><div class="line">    x=(x*a)%M;</div><div class="line">    <span class="keyword">return</span> x;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">//Lucas定理</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">Combination</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">int</span> ans=<span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> a,b;</div><div class="line">    <span class="keyword">while</span>(m||n)</div><div class="line">    &#123;</div><div class="line">             a=n%M;</div><div class="line">        b=m%M;</div><div class="line">        n/=M;</div><div class="line">        m/=M;</div><div class="line">        ans=(ans*C(a,b))%M;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> ans;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">int</span> i,m,n;</div><div class="line">    ff[<span class="number">0</span>]=<span class="number">1</span>;</div><div class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=M;i++)  <span class="comment">//预计算n!</span></div><div class="line">    ff[i]=(ff[i<span class="number">-1</span>]*i)%M;</div><div class="line">     </div><div class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n, &amp;m);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,func(n,m));</div><div class="line">     </div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"></div></pre></td></tr></table></figure></p>
-
-          
+          转自baoer1024的分享
+方法
+暴力求解，C(n,m)=n(n-1)…*(n-m+1)/m!，n&lt;=15 
+打表，C(n,m)=C(n-1,m-1)+C(n-1,m)，n&lt;=10,000 
+质因数分解，C(n,m)=n!/(m!*(n-m)!)，C(n,m)=p1a1-b1-c1p2
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/29/组合数求解/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -627,7 +588,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-29T09:01:30+08:00">
                 2017-03-29
@@ -648,7 +609,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -691,78 +652,15 @@
       
         
           
-            <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>Transmitting and memorizing information is a task that requires different coding systems for the best use of the available space. A well known system is that one where a number is associated to a character sequence. It is considered that the words are made only of small characters of the English alphabet a,b,c, …, z (26 characters). From all these words we consider only those whose letters are in lexigraphical order (each character is smaller than the next character). </p>
-<p>The coding system works like this: </p>
-<ul>
-<li>The words are arranged in the increasing order of their length. </li>
-<li>The words with the same length are arranged in lexicographical order (the order from the dictionary). </li>
-<li>We codify these words by their numbering, starting with a, as follows: </li>
-</ul>
-<p>a - 1 </p>
-<p>b - 2 </p>
-<p>… </p>
-<p>z - 26 </p>
-<p>ab - 27 </p>
-<p>… </p>
-<p>az - 51 </p>
-<p>bc - 52 </p>
-<p>… </p>
-<p>vwxyz - 83681 </p>
-<p>… </p>
-<p>Specify for a given word if it can be codified according to this coding system. For the affirmative case specify its code. </p>
-<h3 id="input"><a href="#input" class="headerlink" title="input"></a>input</h3><p>The only line contains a word. There are some constraints: </p>
-<ul>
-<li>The word is maximum 10 letters length </li>
-<li>The English alphabet has 26 characters. </li>
-</ul>
-<h3 id="output"><a href="#output" class="headerlink" title="output"></a>output</h3><p>The output will contain the code of the given word, or 0 if the word can not be codified.</p>
-<h3 id="sample"><a href="#sample" class="headerlink" title="sample"></a>sample</h3><p><strong>input</strong>: bf</p>
-<p><strong>output</strong>: 55</p>
-<h2 id="问题陈述"><a href="#问题陈述" class="headerlink" title="问题陈述"></a>问题陈述</h2><p>按照题目给出的例子，给出字母串表标号。</p>
-<p>题目中给出的字母串中字母是“<strong>单调递增</strong>”的，也就是没有重复，后一个要大于前一个</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>所谓“标号”，就是某一个字母串<strong>前面的字母串个数+1</strong></p>
-<p>问题转化为求字母串<strong>前面的字母串个数</strong></p>
-<p>某一个字母串<strong>前面的字母串</strong>有三种情况:</p>
-<ol>
-<li><strong>长度小于</strong>该字母串</li>
-<li>长度等于该字母串，<strong>首字母小于</strong>该字母串首字母</li>
-<li>长度和首字母都与该字母串相等，但<strong>位置更靠前</strong></li>
-</ol>
-<p>因为后面的字母串对前面的字母串有<strong>包含</strong>的关系，所以考虑用<strong>动态规划</strong>来求解，那接下来的重点就是寻找状态转移方程了</p>
-<p>用$dp[i][j]$表示长度为$i$首字母为$j$的字母串个数，那么$dp[i+1][j]=dp[i][j+1]+dp[i][j+2]+···+dp[i][‘z’-i]$</p>
-<p>光看公式可能理解得不是很好，举个例子吧：<br>比如我们现在想求<strong>长度是5位</strong>，<strong>b打头</strong>的字母串的个数:</p>
-<p>b <em> </em> <em> </em>      ······$dp[5][b]$</p>
-<p>那么考虑后面的四位，有下面的22种情况：</p>
-<p>b ++c++ <em> </em> _  ······$dp[4][c]$</p>
-<p>b ++d++ <em> </em> _  ······$dp[4][d]$</p>
-<p>b ++e++ <em> </em> _  ······$dp[4][e]$</p>
-<p>···</p>
-<p>b ++w++ ++x++ ++y++ ++z++  ······$dp[4][w]$</p>
-<p>把上面的22种情况相加，就可以得到长度为5，b打头的所有字母串个数$p[5][b]$</p>
-<p>对于其中的$dp[4][j]$也应用上述的方法可以求解</p>
-<p>有了上面的思路，就可以由最初的$dp[1][j]=1$逐步求出完整的$dp[i][j]$表了！</p>
-<p>好开心是不是，下面算个题试试好不好用吧：</p>
-<p>假如我们现在要求字母串“<strong>cefkq</strong>”的序号，也就是这个字母串前面有多少个。回头看那三种情况：</p>
-<ol>
-<li><strong>长度小于</strong>该字母串 —— 把所有的$dp[4][j]$，$dp[3][j]$，$dp[2][j]$，$dp[1][j]$加起来</li>
-<li>长度等于该字母串，<strong>首字母小于</strong>该字母串首字母 —— $dp[5][a]$,$dp[5][b]$加起来</li>
-<li>长度和首字母都与该字母串相等，但<strong>位置更靠前</strong> </li>
-</ol>
-<p>嗯，问题解决了一大部分了，现在就剩第三种情况了！！！！<br>再看一眼字母串“<strong>cefkq</strong>”</p>
-<p>长度和首字母都相等，位置比它在前面，那就一位一位考虑呗</p>
-<p>第二位是e，<br>c ++d++ <em> </em> _在它前面！所以又有$dp[4][d]$个在它前面的，加上！</p>
-<p>第三位是f，ef中间没有其他字母了，继续往后看</p>
-<p>第四位是k，fk中间还有g、h、i、j</p>
-<p>c e ++g++ <em> </em>  ······$dp[3][g]$</p>
-<p>c e ++h++ <em> </em>  ······$dp[3][h]$</p>
-<p>c e ++i++ <em> </em>  ······$dp[3][i]$</p>
-<p>c e ++j++ <em> </em>  ······$dp[3][j]$</p>
-<p>统统加上！</p>
-<p>······</p>
-<p>再往后就跟前面一样了，不再赘述了</p>
-<p>到这，问题解决了，上代码</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdafx.h"</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"iostream"</span>;</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="built_in">string</span> str;</div><div class="line">    <span class="built_in">cin</span> &gt;&gt; str;</div><div class="line">    <span class="keyword">int</span> len = str.length();</div><div class="line">    <span class="keyword">int</span> result = <span class="number">1</span>;</div><div class="line">    <span class="keyword">if</span> (len&gt;<span class="number">10</span>)&#123;</div><div class="line">        result= <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> ((str[<span class="number">0</span>]-<span class="string">'a'</span>)&lt;<span class="number">0</span> || (str[<span class="number">0</span>] - <span class="string">'a'</span>)&gt;<span class="number">25</span>)&#123;</div><div class="line">        result= <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//初始化dp表</span></div><div class="line">    <span class="keyword">int</span> dp[<span class="number">10</span>][<span class="number">26</span>] = &#123; <span class="number">0</span> &#125;;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; i++) &#123;</div><div class="line">        dp[<span class="number">0</span>][i] = <span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; <span class="number">10</span>; i++) &#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">26</span>-i; j++) &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = j + <span class="number">1</span>; k &lt; <span class="number">27</span>-i; k++) &#123;</div><div class="line">                dp[i][j] += dp[i<span class="number">-1</span>][k];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//dp表每一行总数，也就是长度为k的字母串总数</span></div><div class="line">    <span class="keyword">int</span> sum[<span class="number">10</span>] = &#123; <span class="number">0</span> &#125;;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">26</span> - i; j++) &#123;</div><div class="line">            sum[i] += dp[i][j];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    </div><div class="line">    <span class="keyword">int</span> temp = len<span class="number">-2</span>;</div><div class="line">    <span class="comment">//位数小于n的数的个数</span></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len<span class="number">-1</span>; i++)&#123;</div><div class="line">        result += sum[i];</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//位数=n但首字母比n首字母小的个数</span></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str[<span class="number">0</span>]-<span class="string">'a'</span>; i++) &#123;</div><div class="line">        result += dp[len<span class="number">-1</span>][i];</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//位数=n但中间字母比n小的个数</span></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; len; i++) &#123;</div><div class="line">        <span class="keyword">int</span> left = str[i<span class="number">-1</span>] - <span class="string">'a'</span>;</div><div class="line">        <span class="keyword">int</span> now = str[i] - <span class="string">'a'</span>;</div><div class="line">        <span class="keyword">if</span> (now&lt;<span class="number">0</span>|| now&gt;<span class="number">25</span>)&#123;</div><div class="line">            result =  <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (now &lt;= left)&#123;</div><div class="line">            result = <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = left+<span class="number">1</span>; j &lt; now; j++)&#123;</div><div class="line">            result += dp[temp][j];</div><div class="line">        &#125;</div><div class="line">        temp--;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">cout</span> &lt;&lt; result;</div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-          
+          题目Transmitting and memorizing information is a task that requires different coding systems for the best use of the available space. A well known syste
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/29/POJ1850-Code-动态规划/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -838,7 +736,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-22T14:46:02+08:00">
                 2017-03-22
@@ -880,10 +778,16 @@
       
         
           
-            <p><code>count.py</code></p>
-<figure class="highlight c"><figcaption><span>++</span></figcaption><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getSum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> c = a &amp; b;<span class="comment">//进位位置</span></div><div class="line">    <span class="keyword">int</span> result = a^b;</div><div class="line">    <span class="keyword">while</span> (c)</div><div class="line">    &#123;</div><div class="line">        c = c &lt;&lt; <span class="number">1</span>;</div><div class="line">        <span class="keyword">int</span> t = c;</div><div class="line">        c = result &amp; c;</div><div class="line">        result = result ^ t;</div><div class="line">    &#125;</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">   public:</div><div class="line">       int getSum(int a, int b) &#123;</div><div class="line">       int c = a &amp; b;//进位位置</div><div class="line">       int result = a^b;</div><div class="line">       while (c)</div><div class="line">       &#123;</div><div class="line">           c = c &lt;&lt; 1;</div><div class="line">           int t = c;</div><div class="line">           c = result &amp; c;</div><div class="line">           result = result ^ t;</div><div class="line">       &#125;</div><div class="line">           return result;</div><div class="line">       &#125;</div><div class="line">   &#125;;</div></pre></td></tr></table></figure>
-          
+          count.py
+++class Solution &#123;public:    int getSum(int a, int b) &#123;    int c = a &amp; b;//进位位置    int result = a^b;    while (c)    &#123;    
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/22/test/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -959,7 +863,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-22T10:09:52+08:00">
                 2017-03-22
@@ -980,7 +884,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1023,26 +927,18 @@
       
         
           
-            <h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>用markdown写博客，mathjax解析数学公式，二者对于一些符号会发生冲突，到时公式无法正确解析：</p>
-<ul>
-<li><code>_</code>的转义，在markdown中，<code>_</code>是斜体，但是在latex中，是下标测意思，会出现冲突</li>
-<li><code>\\</code>的换行，在markdown中，<code>\\</code>会被转义为<code>\</code>,这样也会影响影响mathjax对公式中的<code>\\</code>进行渲染</li>
-</ul>
-<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><p>hexo默认使用<code>marked.js</code>去解析我们写的markdown，比如一些符号，<code>_</code>代表斜体，会被处理为<code>&lt;em&gt;</code>标签，<br>比如<code>x_i</code>在开始被渲染的时候，处理为<code>x&lt;em&gt;i&lt;/em&gt;</code>，这个时候mathjax就无法渲染成下标了。<br>很多符号都有这个问题，比如粗体<code>*</code>,也是无法在mathjax渲染出来的，好在有替代的乘法等,包括<code>\</code>同理。</p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>修改Hexo渲染源码</p>
-<p>找到<code>blog/nodes_modules/marked/lib/marked.js</code>文件</p>
-<ol>
-<li>修改<code>\</code>转义</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">escape: /^\\([\\`*&#123;&#125;\[\]()# +\-.!_&gt;])/,</div><div class="line">改为：</div><div class="line">escape: /^\\([`*&#123;&#125;\[\]()# +\-.!_&gt;])/,</div></pre></td></tr></table></figure>
-<ol>
-<li>修改<code>_</code>转义<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">em: /^\b_((?:[^_]|__)+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</div><div class="line">改为：</div><div class="line">em:/^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://segmentfault.com/a/1190000007261752" target="_blank" rel="external">Hexo下mathjax的转义问题</a></p>
-<p><a href="http://blog.csdn.net/emptyset110/article/details/50123231" target="_blank" rel="external">使Marked.js与MathJax共存</a></p>
+          问题用markdown写博客，mathjax解析数学公式，二者对于一些符号会发生冲突，到时公式无法正确解析：
 
-          
+_的转义，在markdown中，_是斜体，但是在latex中，是下标测意思，会出现冲突
+\\的换行，在markdown中，\\会被转义为\,这样也会影响影响mathjax对公式中的\\进行
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/22/Hexo下Markdown与MathJax冲突问题/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1118,7 +1014,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-22T09:06:09+08:00">
                 2017-03-22
@@ -1139,7 +1035,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1182,112 +1078,18 @@
       
         
           
-            <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><blockquote>
-<p>FFM（Field-aware Factorization Machine）最初的概念来自Yu-Chin Juan（阮毓钦，毕业于中国台湾大学，现在美国Criteo工作）与其比赛队员，是他们借鉴了来自<a href="https://kaggle2.blob.core.windows.net/competitions/kddcup2012/2748/media/Opera.pdf" target="_blank" rel="external">Michael Jahrer的论文</a>中的field概念提出了<strong>FM的升级版</strong>模型</p>
-</blockquote>
-<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><h4 id="线性模型"><a href="#线性模型" class="headerlink" title="线性模型"></a>线性模型</h4><p>对于给定的数据我们进行训练，进而对测试集进行预测，首先我们想到利用<strong>线性模型</strong>进行拟合（也就是一维特征）：</p>
-<p><img src="https://ooo.0o0.ooo/2017/03/21/58d0e965ec210.png" alt=""> </p>
-<p>进一步，我们考虑加入<strong>二维组合特征</strong>进行拟合：</p>
-<h4 id="FM"><a href="#FM" class="headerlink" title="FM"></a>FM</h4><p><img src="https://ooo.0o0.ooo/2017/03/21/58d0e99b2f719.png" alt=""> </p>
-<p>也就是<strong>FM</strong>中的交叉特征（二次项），采用<strong>矩阵分解</strong>得到如下形式：</p>
-<p><img src="https://ooo.0o0.ooo/2017/03/21/58d0e9cb62988.png" alt=""> </p>
-<p>其中$w_{j<em>1}$和$w</em>{j_2}$分别为特征$j_1$和$j_1$对应的<strong>隐向量</strong>，对应下图中左边两个矩阵的一行或一列即是一个隐向量。</p>
-<p><img src="https://ooo.0o0.ooo/2017/03/13/58c6aa26b83c6.png" alt=""> </p>
-<h4 id="FFM"><a href="#FFM" class="headerlink" title="FFM"></a>FFM</h4><p>现在在FM的基础之上，我们<strong>引入field-aware的概念</strong>，可以推得<strong>FFM的二次项形式</strong>如下：</p>
-<p><img src="https://ooo.0o0.ooo/2017/03/21/58d0e9fe74136.png" alt=""> </p>
-<p>其中$w_{j<em>1,f</em>{j_2}}$为<strong>特征$j_1$针对$j<em>2$所在的类别$f</em>{j_2}$的隐向量</strong></p>
-<p>$w_{j<em>2,f</em>{j_1}}$为<strong>特征$j_2$针对$j<em>1$所在的类别$f</em>{j_1}$的隐向量</strong></p>
-<p>FFM完整的模型方程为</p>
-<p><img src="https://ooo.0o0.ooo/2017/03/21/58d1361058228.png" alt=""> </p>
-<p>为了便于理解，先看下面的例子</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Clicked?</th>
-<th style="text-align:center">Country</th>
-<th style="text-align:center">Day</th>
-<th style="text-align:center">Ad_type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">USA</td>
-<td style="text-align:center">26/11/15</td>
-<td style="text-align:center">Movie</td>
-</tr>
-<tr>
-<td style="text-align:center">0</td>
-<td style="text-align:center">China</td>
-<td style="text-align:center">1/7/14</td>
-<td style="text-align:center">Game</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Clicked?</th>
-<th style="text-align:center">Country=USA</th>
-<th style="text-align:center">Country=China</th>
-<th style="text-align:center">Day=26/11/15</th>
-<th style="text-align:center">Day=1/7/14</th>
-<th style="text-align:center">Day=19/2/15</th>
-<th style="text-align:center">Ad_type=Movie</th>
-<th style="text-align:center">Ad_type=Game</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">0</td>
-</tr>
-<tr>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-</tr>
-<tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">1</td>
-</tr>
-</tbody>
-</table>
-<p>我们对原始数据进行One-Hot编码生成数值特征，这时引入field的概念，把同一个categorical特征经过One-Hot编码生成的数值特征都放到同一个field中。比如：“Day=26/11/15”、“Day=1/7/14”、“Day=19/2/15”这三个特征是由“日期”这一categorical特征生成的，可以放到同一个field中。这时我们再计算隐向量的时候，<strong>隐向量不仅与特征相关，还与field相关</strong>。每一维特征$x_i$针对其它特征的每一种field<br>$f<em>j$，都会学习一个隐向量 $w</em>{i,f_j}$。</p>
-<p>假设样本的n个特征属于 f 个field，那么FFM的二次项有  nf 个隐向量，如果隐向量的长度为 k ，那么FFM的二次参数有 nfk 个。而在FM模型中，每一维特征的隐向量只有一个<strong>，FM可以看作FFM的特例，是把所有特征都归属到一个field时的FFM模型</strong>。此外，由于隐向量与field相关，FFM二次项并不能够化简，其预测<strong>复杂度是 $O(kn^2)$。</strong></p>
-<h3 id="FFM实现"><a href="#FFM实现" class="headerlink" title="FFM实现"></a>FFM实现</h3><p>Yu-Chin Juan实现了一个C++版的FFM模型，源码可从Github下载<a href="https://github.com/guestwalk/libffm" target="_blank" rel="external">https://github.com/guestwalk/libffm</a></p>
-<p>该<strong>FFM模型采用logistic loss作为损失函数，和L2惩罚项</strong>，因此只能用于<strong>二元分类</strong>问题。</p>
-<p><img src="https://ooo.0o0.ooo/2017/03/21/58d13b9c6f3d1.png" alt=""> </p>
-<p>模型<strong>采用SGD进行优化</strong>。</p>
-<hr>
-<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p><img src="https://ooo.0o0.ooo/2017/03/21/58d13cd0e100e.png" alt=""> </p>
-<p>这条记录可以编码成5个特征，其中“Genre=Comedy”和“Genre=Drama”属于同一个field，“Price”是数值型，不用One-Hot编码转换。<br>利用线性模型进行拟合：</p>
-<p><img src="https://ooo.0o0.ooo/2017/03/21/58d13d13d9ec3.png" alt=""> </p>
-<p>二维组合特征拟合：<br><img src="https://ooo.0o0.ooo/2017/03/21/58d13d21ddd24.png" alt=""> </p>
-<p>FM（隐向量）拟合：<br><img src="https://ooo.0o0.ooo/2017/03/21/58d13d2db61d3.png" alt=""> </p>
-<p>FFM拟合：</p>
-<p>为了方便说明FFM的样本格式，我们将所有的特征和对应的field映射成整数编号。</p>
-<p><img src="https://ooo.0o0.ooo/2017/03/21/58d13cf17aac5.png" alt="">  </p>
-<p>FFM的组合特征有10项，如下图所示<br><img src="https://ooo.0o0.ooo/2017/03/21/58d1401cb9e37.png" alt=""> </p>
+          背景
+FFM（Field-aware Factorization Machine）最初的概念来自Yu-Chin Juan（阮毓钦，毕业于中国台湾大学，现在美国Criteo工作）与其比赛队员，是他们借鉴了来自Michael Jahrer的论文中的field概念提出了FM的升级版模型
 
-          
+原理线性模型对于
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/22/FFM（field-aware-Factorization-Machine）——升级版FM/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1363,7 +1165,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-18T13:51:48+08:00">
                 2017-03-18
@@ -1384,7 +1186,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1427,20 +1229,17 @@
       
         
           
-            <h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.</p>
-<p>Example:<br>Given a = 1 and b = 2, return 3.</p>
-<h4 id="问题陈述："><a href="#问题陈述：" class="headerlink" title="问题陈述："></a>问题陈述：</h4><p>求两个整数和，不能用加法</p>
-<h4 id="题目思路："><a href="#题目思路：" class="headerlink" title="题目思路："></a>题目思路：</h4><p>想到了转化成2进制再求和</p>
-<ol>
-<li>异或（^）操作：<br>1^0 = 0^1 = 1，0^0 = 1^1 = 0，先求出<strong>不考虑进位</strong>情况下的各位数字相加的运算结果d</li>
-<li>和（&amp;）操作：<br>1^1 = 1，1^0 = 0^1 = 0^0 = 0，然后求出两个数字对应位置都是1的位，也就是需要进位的位置c。</li>
-<li>左移操作（&lt;&lt;）：c&lt;&lt;1，前两步操由于没有进位而漏加的部分</li>
-<li>对c和d重复进行上述操作，直到c为0，即没有由于需要进位而漏加的部分。</li>
-</ol>
-<h4 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int getSum(int a, int b) &#123;</div><div class="line">    int c = a &amp; b;//进位位置</div><div class="line">    int result = a^b;</div><div class="line">    while (c)</div><div class="line">    &#123;</div><div class="line">        c = c &lt;&lt; 1;</div><div class="line">        int t = c;</div><div class="line">        c = result &amp; c;</div><div class="line">        result = result ^ t;</div><div class="line">    &#125;</div><div class="line">        return result;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p><img src="https://ooo.0o0.ooo/2017/03/18/58cccdf37f8b3.png" alt=""> </p>
-
-          
+          题目Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.
+Example:Given a = 1 and b = 2, return 3.
+问题陈述：求两个整数和
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/18/【leetcode】371-Sum-of-Two-Integers/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1516,7 +1315,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-18T13:49:53+08:00">
                 2017-03-18
@@ -1537,7 +1336,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1580,15 +1379,16 @@
       
         
           
-            <h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>Given an array nums, write a function to move all 0’s to the end of it while maintaining the relative order of the non-zero elements.</p>
-<p>For example, given nums = [0, 1, 0, 3, 12], after calling your function, nums should be [1, 3, 12, 0, 0].</p>
-<p>Note:<br>You must do this in-place without making a copy of the array.<br>Minimize the total number of operations.</p>
-<h4 id="问题陈述："><a href="#问题陈述：" class="headerlink" title="问题陈述："></a>问题陈述：</h4><p>把给定数组中的0全部挪到后边，保持其余数字顺序不变</p>
-<h4 id="题目思路："><a href="#题目思路：" class="headerlink" title="题目思路："></a>题目思路：</h4><p>遍历，把非零元素从前向后赋值给原数组，剩余空位补0。</p>
-<h4 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    void moveZeroes(vector&lt;int&gt;&amp; nums) &#123;</div><div class="line">        int len = nums.size();</div><div class="line">        int j = 0;//赋值指针</div><div class="line">        for (int i = 0; i &lt; len; i++) &#123;</div><div class="line">            if (nums[i] != 0) &#123;</div><div class="line">                nums[j] = nums[i];</div><div class="line">                j++;</div><div class="line">            &#125;</div><div class="line">            else continue;</div><div class="line">        &#125;</div><div class="line">        for (; j &lt; len; j++) &#123;//将后面剩余的空位用0补齐</div><div class="line">            nums[j] = 0;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p><img src="https://ooo.0o0.ooo/2017/03/18/58ccc96ac194d.png" alt=""> </p>
-
-          
+          题目Given an array nums, write a function to move all 0’s to the end of it while maintaining the relative order of the non-zero elements.
+For example, g
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/18/【LeetCode】283-Move-Zeros/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1664,7 +1464,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-17T10:50:03+08:00">
                 2017-03-17
@@ -1685,7 +1485,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1728,21 +1528,16 @@
       
         
           
-            <h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>Given a binary tree, find its maximum depth.</p>
-<p>The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.</p>
-<h4 id="问题陈述："><a href="#问题陈述：" class="headerlink" title="问题陈述："></a>问题陈述：</h4><p>求二叉树的深度</p>
-<h4 id="题目思路："><a href="#题目思路：" class="headerlink" title="题目思路："></a>题目思路：</h4><ol>
-<li>广度优先遍历：利用STL中的queue（队列）进行广度优先遍历，计算层数</li>
-<li>深度优先遍历：递归调用，当前节点的高度=max（左孩子节点高度，右孩子结点高度）+ 1</li>
-</ol>
-<h4 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">/**</div><div class="line"> * Definition for a binary tree node.</div><div class="line"> * struct TreeNode &#123;</div><div class="line"> *     int val;</div><div class="line"> *     TreeNode *left;</div><div class="line"> *     TreeNode *right;</div><div class="line"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</div><div class="line"> * &#125;;</div><div class="line"> */</div><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int maxDepth(TreeNode* root) &#123;//BFS广度优先遍历</div><div class="line">        if (NULL == root)</div><div class="line">            return 0;</div><div class="line">        queue &lt;TreeNode *&gt; que;</div><div class="line">        int nCount = 1;</div><div class="line">        int nDepth = 0;// 记树中每一层上的元素个数</div><div class="line"> </div><div class="line">         que.push(root);</div><div class="line">         while(!que.empty()) &#123;</div><div class="line">             TreeNode *pTemp = que.front();</div><div class="line">             que.pop();</div><div class="line">             nCount --; </div><div class="line">             if (pTemp-&gt;left)</div><div class="line">                 que.push(pTemp-&gt;left);</div><div class="line">             if (pTemp-&gt;right)</div><div class="line">                 que.push(pTemp-&gt;right);</div><div class="line">             </div><div class="line">             if (nCount == 0) &#123;</div><div class="line">                 nDepth ++;</div><div class="line">                 nCount = que.size();</div><div class="line">             &#125;</div><div class="line">         &#125;</div><div class="line">     return nDepth;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">class Solution &#123;//DFS深度优先遍历</div><div class="line">public:</div><div class="line">    int maxDepth(TreeNode* root) &#123;</div><div class="line">       if (!root) return 0;</div><div class="line"></div><div class="line">    int ldepth = maxDepth(root-&gt;left);</div><div class="line">    int rdepth = maxDepth(root-&gt;right);</div><div class="line"></div><div class="line">    return 1 + max(ldepth, rdepth);</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p><img src="https://ooo.0o0.ooo/2017/03/17/58cb4b776120e.png" alt=""> </p>
-<p><img src="https://ooo.0o0.ooo/2017/03/17/58cb4bb9dc6ec.png" alt=""> </p>
-<hr>
-<p><strong>二叉树的各种遍历以及时间复杂度还要看一下算法导论，看了再来总结</strong></p>
-
-          
+          题目Given a binary tree, find its maximum depth.
+The maximum depth is the number of nodes along the longest path from the root node down to the farthest
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/17/【LeetCode】104-Maximum-Depth-of-Binary-Tree/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1818,7 +1613,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-16T21:25:55+08:00">
                 2017-03-16
@@ -1839,7 +1634,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1882,14 +1677,16 @@
       
         
           
-            <h3 id="熵"><a href="#熵" class="headerlink" title="熵"></a>熵</h3><p>本质：香农信息量$log\frac{1}{p}$的期望<br>用来衡量一个系统的有序化程度，一个系统越是有序，那么它的信息熵就越低，反之就越高。</p>
-<p>随机变量$X$可能的取值$X=\lbrace x_1,x_2,\cdots,x_n \rbrace$，对应的概率为$p(X=x<em>i)(i=1,2,\cdots,n)$，随机变量$X$的熵定义为$H(X) = -{\sum</em>{i}^{n}{p(x_i)\log{p(x_i)}}}$</p>
-<h3 id="交叉熵"><a href="#交叉熵" class="headerlink" title="交叉熵"></a>交叉熵</h3><p>现有关于样本集的2个概率分布p和q，其中p为真实分布，q非真实分布。按照真实分布p来衡量识别一个样本的所需要的编码长度的期望(即平均编码长度)为：$H(p)=-{\sum_{i}^{n}{p(x_i)\log{p(x<em>i)}}}$。如果使用错误分布q来表示来自真实分布p的平均编码长度，则应该是：$H(p,q)=-{\sum</em>{i}^{n}{p(x_i)\log{q(x_i)}}}$。因为用q来编码的样本来自分布p，所以期望H(p,q)中概率是p(i)。H(p,q)我们称之为“交叉熵”。</p>
-<h3 id="相对熵"><a href="#相对熵" class="headerlink" title="相对熵"></a>相对熵</h3><p>$D(p||q)=H(p,q)-H(p)=\sum_{i}^{} p(i)*log\frac{p(i)}{q(i)}$，其又被称为KL散度(Kullback–Leibler divergence，KLD) Kullback–Leibler divergence。它表示2个函数或概率分布的差异性：差异越大则相对熵越大，差异越小则相对熵越小，特别地，若2者相同则熵为0。注意，KL散度的非对称性。</p>
-<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>交叉熵可在神经网络(机器学习)中作为损失函数，p表示真实标记的分布，q则为训练后的模型的预测标记分布，交叉熵损失函数可以衡量p与q的相似性。交叉熵作为损失函数还有一个好处是使用sigmoid函数在梯度下降时能避免均方误差损失函数学习速率降低的问题，因为学习速率可以被输出的误差所控制。</p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://www.zhihu.com/question/41252833" target="_blank" rel="external">知乎：如何通俗的解释交叉熵与相对熵</a></p>
-
-          
+          熵本质：香农信息量$log\frac{1}{p}$的期望用来衡量一个系统的有序化程度，一个系统越是有序，那么它的信息熵就越低，反之就越高。
+随机变量$X$可能的取值$X=\lbrace x_1,x_2,\cdots,x_n \rbrace$，对应的概率为$p(X=xi)(i=1,2,\cdots,n
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/16/交叉熵/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1971,10 +1768,10 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives/">
+                <a href="/归档">
               
                   <span class="site-state-item-count">53</span>
-                  <span class="site-state-item-name">articles</span>
+                  <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
             
@@ -1985,7 +1782,7 @@
               <div class="site-state-item site-state-categories">
                 
                   <span class="site-state-item-count">15</span>
-                  <span class="site-state-item-name">categories</span>
+                  <span class="site-state-item-name">Kategorien</span>
                 
               </div>
             
@@ -1996,7 +1793,7 @@
               <div class="site-state-item site-state-tags">
                 
                   <span class="site-state-item-count">15</span>
-                  <span class="site-state-item-name">tags</span>
+                  <span class="site-state-item-name">Tags</span>
                 
               </div>
             
@@ -2051,7 +1848,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
@@ -2059,7 +1856,7 @@
 
 
 
-  <div class="theme-info">Thème &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
 
 
 
