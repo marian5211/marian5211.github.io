@@ -3,7 +3,7 @@
 
 
 
-<html class="theme-next muse" lang="zh-Hans">
+<html class="theme-next pisces" lang="zh-Hans">
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -93,7 +93,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Pisces',
     version: '5.1.3',
     sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -390,7 +390,10 @@
 方法
 暴力求解，C(n,m)=n(n-1)…*(n-m+1)/m!，n&lt;=15 
 打表，C(n,m)=C(n-1,m-1)+C(n-1,m)，n&lt;=10,000 
-质因数分解，C(n,m)=n!/(m!*(n-m)!)，C(n,m)=p1a1-b1-c1p2
+质因数分解，C(n,m)=n!/(m!*(n-m)!)，C(n,m)=p1a1-b1-c1p2a2-b2-c2…pkak-bk-ck,n&lt;=10,000,000 
+Lucas定理，将m,n化为p进制,有:C(n,m)=C(n0,m0)*C(n1,m1)…(mod p)，算一个不是很大的C(n,m)%p,p为素数，化为线性同余方程,用扩展的欧几里德定理求解，n在int范围内，修改一下可以满足long long范围内。
+
+代码方案一：int Combination(int n, int m)&#123;    const int M = 10007;    int ans = 1;    for(int i=n; i&gt;=(n-m+1); --i)        ans *= i;    while(m)        ans /= m--;    return ans % M
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -538,7 +541,8 @@
       
         
           
-          题目Transmitting and memorizing information is a task that requires different coding systems for the best use of the available space. A well known syste
+          题目Transmitting and memorizing information is a task that requires different coding systems for the best use of the available space. A well known system is that one where a number is associated to a character sequence. It is considered that the words are made only of small characters of the English alphabet a,b,c, …, z (26 characters). From all these words we consider only those whose letters are in lexigraphical order (each character is smaller than the next character). 
+The coding system works 
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -665,7 +669,8 @@
         
           
           count.py
-++class Solution &#123;public:    int getSum(int a, int b) &#123;    int c = a &amp; b;//进位位置    int result = a^b;    while (c)    &#123;    
+++class Solution &#123;public:    int getSum(int a, int b) &#123;    int c = a &amp; b;//进位位置    int result = a^b;    while (c)    &#123;        c = c &lt;&lt; 1;        int t = c;        c = result &amp; c;        result = result ^ t;    &#125;        return result;    &#125;&#125;;
+class Solution &#123;   public:       int getSum(int a, int b) &#123;       int c = a &amp; b;//进位位置       int result = a^b;       while (c)       &#123;           c = c &lt;&lt; 1;           int t = c;    
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -816,7 +821,15 @@
           问题用markdown写博客，mathjax解析数学公式，二者对于一些符号会发生冲突，到时公式无法正确解析：
 
 _的转义，在markdown中，_是斜体，但是在latex中，是下标测意思，会出现冲突
-\\的换行，在markdown中，\\会被转义为\,这样也会影响影响mathjax对公式中的\\进行
+\\的换行，在markdown中，\\会被转义为\,这样也会影响影响mathjax对公式中的\\进行渲染
+
+原因hexo默认使用marked.js去解析我们写的markdown，比如一些符号，_代表斜体，会被处理为&lt;em&gt;标签，比如x_i在开始被渲染的时候，处理为x&lt;em&gt;i&lt;/em&gt;，这个时候mathjax就无法渲染成下标了。很多符号都有这个问题，比如粗体*,也是无法在mathjax渲染出来的，好在有替代的乘法等,包括\同理。
+解决方法修改Hexo渲染源码
+找到blog/nodes_modules/marked/lib/marked.js文件
+
+修改\转义
+
+escape: /^\\([\\`*&#123;&#125;\[\]()# +\-.!_&gt;])/,改为：escape: /^\\([`*&#123;&#125;\[\]()# +\-.!_&
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -967,7 +980,21 @@ _的转义，在markdown中，_是斜体，但是在latex中，是下标测意�
           背景
 FFM（Field-aware Factorization Machine）最初的概念来自Yu-Chin Juan（阮毓钦，毕业于中国台湾大学，现在美国Criteo工作）与其比赛队员，是他们借鉴了来自Michael Jahrer的论文中的field概念提出了FM的升级版模型
 
-原理线性模型对于
+原理线性模型对于给定的数据我们进行训练，进而对测试集进行预测，首先我们想到利用线性模型进行拟合（也就是一维特征）：
+ 
+进一步，我们考虑加入二维组合特征进行拟合：
+FM 
+也就是FM中的交叉特征（二次项），采用矩阵分解得到如下形式：
+ 
+其中$w_{j1}$和$w{j_2}$分别为特征$j_1$和$j_1$对应的隐向量，对应下图中左边两个矩阵的一行或一列即是一个隐向量。
+ 
+FFM现在在FM的基础之上，我们引入field-aware的概念，可以推得FFM的二次项形式如下：
+ 
+其中$w_{j1,f{j_2}}$为特征$j_1$针对$j2$所在的类别$f{j_2}$的隐向量
+$w_{j2,f{j_1}}$为特征$j_2$针对$j1$所在的类别$f{j_1}$的隐向量
+FFM完整的模型方程为
+ 
+为了便于理解，
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1117,7 +1144,15 @@ FFM（Field-aware Factorization Machine）最初的概念来自Yu-Chin Juan（�
           
           题目Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.
 Example:Given a = 1 and b = 2, return 3.
-问题陈述：求两个整数和
+问题陈述：求两个整数和，不能用加法
+题目思路：想到了转化成2进制再求和
+
+异或（^）操作：1^0 = 0^1 = 1，0^0 = 1^1 = 0，先求出不考虑进位情况下的各位数字相加的运算结果d
+和（&amp;）操作：1^1 = 1，1^0 = 0^1 = 0^0 = 0，然后求出两个数字对应位置都是1的位，也就是需要进位的位置c。
+左移操作（&lt;&lt;）：c&lt;&lt;1，前两步操由于没有进位而漏加的部分
+对c和d重复进行上述操作，直到c为0，即没有由于需要进位而漏加的部分。
+
+代码：class Solution &#123;public:    int getSum(int a, int b) &#123;    int c = a &amp; b;//进位位置    int result = a^
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1266,7 +1301,11 @@ Example:Given a = 1 and b = 2, return 3.
         
           
           题目Given an array nums, write a function to move all 0’s to the end of it while maintaining the relative order of the non-zero elements.
-For example, g
+For example, given nums = [0, 1, 0, 3, 12], after calling your function, nums should be [1, 3, 12, 0, 0].
+Note:You must do this in-place without making a copy of the array.Minimize the total number of operations.
+问题陈述：把给定数组中的0全部挪到后边，保持其余数字顺序不变
+题目思路：遍历，把非零元素从前向后赋值给原数组，剩余空位补0。
+代码：class Solution &#123;public:    void moveZeroes(vector&lt;int&gt;&amp; nums) &#123;  
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1415,7 +1454,13 @@ For example, g
         
           
           题目Given a binary tree, find its maximum depth.
-The maximum depth is the number of nodes along the longest path from the root node down to the farthest
+The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+问题陈述：求二叉树的深度
+题目思路：
+广度优先遍历：利用STL中的queue（队列）进行广度优先遍历，计算层数
+深度优先遍历：递归调用，当前节点的高度=max（左孩子节点高度，右孩子结点高度）+ 1
+
+代码：/** * Definition for a binary tree node. * struct TreeNode &#123; *     int val; *     TreeNode *left; *     TreeNode *right; *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125; * &#125;; */class Solution &#123;public
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1564,7 +1609,9 @@ The maximum depth is the number of nodes along the longest path from the root no
         
           
           熵本质：香农信息量$log\frac{1}{p}$的期望用来衡量一个系统的有序化程度，一个系统越是有序，那么它的信息熵就越低，反之就越高。
-随机变量$X$可能的取值$X=\lbrace x_1,x_2,\cdots,x_n \rbrace$，对应的概率为$p(X=xi)(i=1,2,\cdots,n
+随机变量$X$可能的取值$X=\lbrace x_1,x_2,\cdots,x_n \rbrace$，对应的概率为$p(X=xi)(i=1,2,\cdots,n)$，随机变量$X$的熵定义为$H(X) = -{\sum{i}^{n}{p(x_i)\log{p(x_i)}}}$
+交叉熵现有关于样本集的2个概率分布p和q，其中p为真实分布，q非真实分布。按照真实分布p来衡量识别一个样本的所需要的编码长度的期望(即平均编码长度)为：$H(p)=-{\sum_{i}^{n}{p(x_i)\log{p(xi)}}}$。如果使用错误分布q来表示来自真实分布p的平均编码长度，则应该是：$H(p,q)=-{\sum{i}^{n}{p(x_i)\log{q(x_i)}}}$。因为用q来编码的样本来自分布p，所以期望H(p,q)中概率是p(i)。H(p,q)我们称之为“交叉熵”。
+相对熵$D(p||q)=H(p,q)-H(p)=\sum_{i}^{} p(i)*log
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1715,7 +1762,11 @@ The maximum depth is the number of nodes along the longest path from the root no
           题目Given an array of integers, every element appears twice except for one. Find that single one.
 问题陈述：输入序列中，每个数字重复出现2次，唯有一个数字只出现一次，找到这个只出现一次的数字
 题目思路：
-h
+hash_table：遍历输入数组，如果hashtable中没有，说明是第一次出现，存到hash table中，如果发现hashtable中已经有了说明是第二次出现，z在hash表中将其删掉，最终hash table中剩下的就是只出现一次的那个数字
+bit manipulation：数组中所有数字做异或操作，出现两次的异或之后得0了，最终剩下的就是只出现一次的那个数字。
+
+算法复杂度：O(n)2比1要快一点,因为1还涉及hash table的查找、插入、删除等操作
+代码：class Solution &#123;//hash_tablepublic:    int singleNumber(vector&lt;int&gt;&amp; nums) &#123;        int len =
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1893,7 +1944,7 @@ h
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
 
 
 
@@ -1992,6 +2043,13 @@ h
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
 
   
 

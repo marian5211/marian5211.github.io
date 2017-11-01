@@ -3,7 +3,7 @@
 
 
 
-<html class="theme-next muse" lang="zh-Hans">
+<html class="theme-next pisces" lang="zh-Hans">
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -93,7 +93,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Pisces',
     version: '5.1.3',
     sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -386,11 +386,26 @@
       
         
           
-          算法导论-动态规划（一）钢条切割1. 动态规划（Dynamic programming）这里programming指的是表格，而非编程。动态规划通常用来求解最优化问题
+          1. 动态规划（Dynamic programming）这里programming指的是表格，而非编程。动态规划通常用来求解最优化问题
 与分治法对比：
 
 相同点：都是通过子问题组合求解原问题
-不同点：分治法将问题划分为不相交的子问题，求解再合并，动态规划应用于子问题重
+不同点：分治法将问题划分为不相交的子问题，求解再合并，动态规划应用于子问题重叠的情况，即不同的子问题具有公共的子子问题，此时如果用分治法就会出现重复计算求解。为了避免重复动态规划对子问题只求解一次，将其保存在表格中，从而无需每求解一个子子问题时重复计算。
+
+2. 求解步骤
+刻画最优解的结构特征
+递归定义最优解的值
+计算最优解的值，通常采用自底向上的方法
+利用计算出的信息构造最优解
+
+其中不是所有的题目都会要求4，仅仅要求3，要求4的时候，我们需要在得到3的同事维护一些额外的信息来求出4。
+看到这四个步骤的时候，还是挺懵逼的，继续往下看=.=
+3. 钢条切割问题问题Serling公司购买一根长钢管，将其切割成短钢管出售，给定钢管长度和对应的价钱如下表：
+ 
+问题要求根据上面的价格，给出最佳的切割方案，使得收益最大。
+以n=4为例，可以将钢条切割成如下图所示的8种情况，其中收益岁大的是(c)：
+ 
+思
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -666,7 +681,11 @@
         
           
           题目Your are given an array of positive integers nums.
-Count and print the number of (contiguous) subarrays where the product of all the elements in the
+Count and print the number of (contiguous) subarrays where the product of all the elements in the subarray is less than k.
+Example 1:
+Input: nums = [10, 5, 2, 6], k = 100Output: 8Explanation: The 8 subarrays that have product less than 100 are: [10], [5], [2], [6], [10, 5], [5, 2], [2, 6], [5, 2, 6].Note that [10, 5, 2] is not included as the product of 100 is not strictly less than k.
+分析给定一个正整数组，和一个整数k，求成绩小于k的连续子数组个数
+这道题真的是做了很久，想到了用滑窗，用一个数字记录
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -816,7 +835,14 @@ Count and print the number of (contiguous) subarrays where the product of all th
           
           题目Given an integer array, find three numbers whose product is maximum and output the maximum product.
 Example1:Input: [1,2,3]Output: 6
-Example1:Input:
+Example1:Input: [1,2,3,4]Output: 24
+Note:The length of the given array will be in range [3,$10^4$] and all elements are in the range [-1000, 1000].Multiplication of any three numbers in the input won’t exceed the range of 32-bit signed integer.
+分析如果数组里面没有负整数，那最大的乘积就是三个最大的数字乘积，题目说明数组中的数字范围是[-1000, 1000]，所以会有两种情况：
+
+两个最小的负数*一个最大的正数
+三个最大的正数相乘
+
+所以只需要定义5个变量用来存储两个最小的和三个
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -965,7 +991,12 @@ Example1:Input:
         
           
           题目Given an array of integers, return indices of the two numbers such that they add up to a specific target.
-You may assume that each input would have 
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+Example:Given nums = [2, 7, 11, 15], target = 9,Because nums[0] + nums[1] = 2 + 7 = 9,return [0, 1].
+分析给一个数组和一个整数，返回数组中和恰好等于这个整数的两个数组的位置
+自己就只想出来了从前向后遍历的方法，时间复杂度$O(n^2)$
+代码如下
+代码class Solution &#123;public:    vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) &#123;    
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1114,7 +1145,8 @@ You may assume that each input would have
         
           
           思路分治法将数组分成A、B两组，如果这二组组内的数据都是有序的，那么就可以很方便的将这二组数据进行排序。如何让这二组组内数据有序了？
-可以将A，B组各自再分成二组。依次类推，当分出来的小组只有一个数据时，可以认为这个小组组内已经达到了有序，然后再合并相邻的二个小组就可以了。这样通过先递归的分解数列，
+可以将A，B组各自再分成二组。依次类推，当分出来的小组只有一个数据时，可以认为这个小组组内已经达到了有序，然后再合并相邻的二个小组就可以了。这样通过先递归的分解数列，再合并数列就完成了归并排序。
+代码//将两个有序数组合并成一个有序数组void merge(int a[], int begin,int mid,int end,int b[]) &#123;    int i = begin;    int j = mid + 1;    int k = 0;    while ((i &lt;= mid) &amp;&amp; (j &lt;= end)) &#123;        if (a[i] &lt; a[j]) &#123;            b[k] = a[i];            k++;            i++;        &#125;        else&#123;            b[k] = a[j]
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1269,7 +1301,53 @@ void swap(int &amp;a;int &amp;b)&#123;    int temp = a;    a = b;    b = temp;&#
 
 
 
-操
+操作符
+功能
+用法
+
+
+
+
+~
+取反
+0变1,1变0
+
+
+&lt;&lt;
+左移
+后面补0
+
+
+>&gt;
+右移
+前面补0，后面吞位
+
+
+&amp;
+位与
+只有两个都为1，则为1。x&amp;…00100…用于提取x某一位
+
+
+^
+位异或
+只有一个为1，则为 1。用于判断两位是否相同 a^b^a = b 用于交换数值
+
+
+\
+
+位或
+有一个或2个1，则为1。用于做and运算
+
+
+
+容易发现^的性质：
+
+两个相同的数字做^操作得0
+任何数字跟0做^操作还是它本身
+
+所以可以通过下面的方式交换两个数字
+void swap(int &amp;a;int &amp;b)&#123;    a = a^b;    b = b^a;    a = a^b;&#125;
+这个程序大部分时间正确，但是有个致命
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1427,7 +1505,7 @@ void swap(int &amp;a;int &amp;b)&#123;    int temp = a;    a = b;    b = temp;&#
 i++并重复第二步直到i==n-1。排序完成。
 
 
-代码
+代码//选择排序void SekectSort(int a[], int len) &#123;    for (int i = 0; i &lt; len; i++) &#123;        int min = a[i];        int loc = i;        //寻找最小的元素        for (int j = i + 1; j &lt; len; j++) &#123;            if (a[j] &lt; min) &#123;                min = a[j];                loc = j;            &#125;        &#125;        //把最小的元素放在有序区后面       
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1582,7 +1660,27 @@ i++并重复第二步直到i==n-1。排序完成。
 依次缩减增量再进行排序
 待整个序列中的元素基本有序（增量足够小）时，再对全体元素进行一次直接插入排序。
 
-因为直接
+因为直接插入排序在元素基本有序的情况下（接近最好情况），效率是很高的，因此希尔排序在时间效率上比前两种方法有较大提高。
+例子现在我们要将这样一个数组排序，一共有10个元素
+ 
+
+第一次 增量 gap = 10/2 = 5
+
+ 
+整个数组被分成了5个子数组，分别是[49,13]，[38,27]，[65,49]，[97,55]，[26,4]然后对这五个子数组进行插入排序，得到下面结果
+ 
+
+第二次 增量 gap = 5/2 = 2
+
+ 
+这次我们把整个数组分成了两个子数组，分别是[13,49,4,38,97],[27,55,49,65,26]对这个两个子数组排序，结果如下： 
+
+第三次 增量 gap = 2/2 = 1此时整个数组已经接近有序，对整个数组进行全排列
+
+ 
+最终得到数组有序
+ 
+代码//希
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1735,7 +1833,13 @@ i++并重复第二步直到i==n-1。排序完成。
 
 初始时，a[0]自成1个有序区，无序区为a[1..n-1]。令i=1
 
-将a[i]并入当前的有序区a
+将a[i]并入当前的有序区a[0…i-1]中形成a[0…i]的有序区间。
+
+i++并重复第二步直到i==n-1。排序完成。
+
+
+在查找某元素应该插入到前面有序序列的位置时，我们可以采用边交换边插入的方式，直到无需交换
+代码void InsertSort(int a[],int len) &#123;    for (int i = 1; i &lt; len; i++) &#123;        //查找应该插入的位置        for (int j = i; j &gt; 0; j--)&#123;            if (a[j - 1] &gt; a[j]) &#123;                int temp = a[j];                a[j] = a[j - 1];  
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1913,7 +2017,7 @@ i++并重复第二步直到i==n-1。排序完成。
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
 
 
 
@@ -2012,6 +2116,13 @@ i++并重复第二步直到i==n-1。排序完成。
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
 
   
 

@@ -3,7 +3,7 @@
 
 
 
-<html class="theme-next muse" lang="zh-Hans">
+<html class="theme-next pisces" lang="zh-Hans">
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -93,7 +93,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Pisces',
     version: '5.1.3',
     sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -394,6 +394,51 @@ Steffen Rendle于2012年提出FM模型，旨在解决稀疏矩阵下的特征组
 线性时间复杂度，不依赖于支撑向量
 
 应用
+回归问题
+二分类问题
+排序
+
+原理传统线性回归模型我们用广告的CTR（点击率）预估问题引出FM模型：根据用户和广告位等相关特征，预测用户是否点击广告。源数据如下
+
+
+
+Clicked?
+Country
+Day
+Ad_type
+
+
+
+
+1
+USA
+26/11/15
+Movie
+
+
+0
+China
+1/7/14
+Game
+
+
+1
+China
+19/2/15
+Game
+
+
+
+由于三种特征Country、Day、Ad_type都是categorical类型的，进行ctr预估的时候往往需要经过独热编码（One-Hot Encoding）转换成数值型特征。
+
+
+
+Clicked?
+Country=USA
+Country=China
+Day=26/11/15
+Day=1/7/14
+Day=19/2/15
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -542,7 +587,9 @@ Steffen Rendle于2012年提出FM模型，旨在解决稀疏矩阵下的特征组
         
           
           题目Write a program that outputs the string representation of numbers from 1 to n.
-But for multiples of three it should output “Fizz” instead of the num
+But for multiples of three it should output “Fizz” instead of the number and for the multiples of five output “Buzz”. For numbers which are multiples of both three and five output “FizzBuzz”.
+Example:
+n = 15,Return:[    &quot;1&quot;,    &quot;2&quot;,    &quot;Fizz&quot;,    &quot;4&quot;,    &quot;Buzz&quot;,    &quot;Fizz&quot;,    &quot;7&quot;,    &quot;8&quot;,    &quot;Fizz&quot;,    &quot;Buzz&quot;,    &quo
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -692,7 +739,14 @@ But for multiples of three it should output “Fizz” instead of the num
           
           题目Find the contiguous subarray within an array (containing at least one number) which has the largest sum.
 For example：
-given the array [-2,1,-3,4,-1,
+given the array [-2,1,-3,4,-1,2,1,-5,4],the contiguous subarray [4,-1,2,1] has the largest sum = 6.
+问题陈述：求一个数组的最大连续子数组，连续和最大的子数组
+题目思路：
+遍历，复杂度O(n^2)
+分治法，《算法导论》第四章讲过
+
+把数组看作A[low..high]，利用分治策略，将数组划分为两个规模尽量相等的子数组，找到数组的中央位置，A[mid]，然后考虑求解两个子数组A[low..mid]和A[mid+1..high]。那么子数组A[i..j]所有的情况共有以下三种： 
+那么我们可以递归的求解A[low..mid]和A[mid+1..high]的最大子数组，因为这两个子问题仍是最大数组问题，只是规模更小。因此剩下的工作就是寻找跨越中点的最大子数组，
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -819,7 +873,15 @@ given the array [-2,1,-3,4,-1,
         
           
           OpenStreetMap 开放街道图（OpenStreetMap，简称OSM）是一个网上地图协作计划，目标是创造一个内容自由且能让所有人编辑的世界地图,其osm数据开源，可以自由下载使用。https://www.openstreetmap.org/
-北京osm数据beijing.osm中国osm数
+北京osm数据beijing.osm中国osm数据china.osm
+优势
+地图数据开源，人人可以编辑，并且可以完整的下载，部署私有的地图服务器
+内容丰富，比起ESRI Shapefiles的点、面、线，支持更多复杂的元素
+生态圈活跃，从地图数据、数据库、地图渲染、瓦片服务器、前端API，到桌面、Web地图设计工具，具有大量优秀的开源组件
+
+osm数据结构OpenStreetMap包括空间数据以及属性数据。其中空间数据主要包括三种：点（Nodes）、路（Ways）和关系（Relations），这三种原始构成了整个地图画面。其中，Nodes定义了空间中点的位置；Ways定义了线或区域；Relations（可选的）定义了元素间的关系。
+
+Node 通过经纬度定义了一个地理坐标点。同时，还可以height=标示物体所海拔；通过layer= 和 
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -969,7 +1031,14 @@ given the array [-2,1,-3,4,-1,
           
           题目Given a List of words, return the words that can be typed using letters of alphabet on only one row’s of American keyboard like the image below.
  
-E
+Example 1:Input: [&quot;Hello&quot;, &quot;Alaska&quot;, &quot;Dad&quot;, &quot;Peace&quot;]Output: [&quot;Alaska&quot;, &quot;Dad&quot;]
+Note:
+
+You may use one character in the keyboard more than once.
+You may assume the input string will only contain letters of alphabet.
+
+分析输入一组单词，用vector容器封装，判断每个单词的所有字母是否在键盘的同一行，如果在同一行，留在vector中，否则移除，最后输出vector
+思
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1118,7 +1187,10 @@ E
         
           
           刷题第二天，好巧哦又是一道bit manipulation的
-题目：Given a positive integer, output its complement number. The complement strategy is to flip the bits of its binary re
+题目：Given a positive integer, output its complement number. The complement strategy is to flip the bits of its binary representation.
+Note:The given integer is guaranteed to fit within the range of a 32-bit signed integer.You could assume no leading zero bit in the integer’s binary representation.Example 1:
+Input: 5Output: 2Explanation: The binary representation of 5 is 101 (no leading zero bits), and its complement is 010. So you need to output 2.
+Example 2:Input: 
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1246,8 +1318,9 @@ E
           
           前面讲到的都是单变量决策树，即每次只选取一个属性进行划分其实就是确定分类边界，且单变量决策树的决策边界都是平行于坐标轴，如下图 
 有些时候我们希望用斜线甚至曲线去进行划分以得到更好的泛化能力： 
-这种“斜划分”的方式就是多变量决策树，划分依据不再是单个属性，而是一个形如$\sum\limits_{i
-          ...
+这种“斜划分”的方式就是多变量决策树，划分依据不再是单个属性，而是一个形如$\sum\limits_{i=1}^dw_ia_i=t$的线性分类器，${w_i}$和t是需要学习的参数 
+
+          
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/03/05/决策树（三）：多变量决策树/#more" rel="contents">
@@ -1398,8 +1471,15 @@ E
 信息增益 
 选取能够获得信息增益最大的点t进行二分注意
 注意连续值属性可多次作为划分节点（划分值不同），每次划分出两个分支；但离散值属性只可划分一次，分出多个分支。
-缺失值有些样本缺失某些
-          ...
+缺失值有些样本缺失某些属性值，如图：如果只要样本有缺失的值就舍弃，会浪费大量数据。
+问题
+如何在缺失值的数据集上进行属性划分。也就是对于某一个或几个属性，样本有缺失的值，我们如何计算信息增益等指标进行划分属性的选取。
+给定划分属性，若样本在该属性上缺失值，如何划分。也就是选好了划分属性，对于缺失该的样本，如何将其归类。
+
+解决方案 
+总结这里总结一下，针对问题1如何选取分类属性，我们就分别针对每一个属性，计算该属性值没有缺失样本的信息增益，选择最大的作为分类属性。确定好分类属性后，对于在该属性值缺失的样本，将其归入所有的分支节点，同时按可能的概率更改权重
+
+          
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/03/05/决策树（二）：连续值和缺失处理/#more" rel="contents">
@@ -1550,7 +1630,13 @@ E
 使用不熟悉的数据集合，从中提取出一系列规则，能够对新数据进行分类
 极大化信息增益$a* = argmax{a\in A}{Gain(D,a)}$
 
-构建决策树伪代码createBranch()：    检测数据集中的每个项是否属于同一个分类：    if so        return 
+构建决策树伪代码createBranch()：    检测数据集中的每个项是否属于同一个分类：    if so        return 类标签    else       寻找划分数据集的最好特征***       划分数据集       创建分支节点            for 每个分支节点，递归调用createBranch()函数        return 分支节点
+关键显然，构建决策树的关键是寻找划分数据集的最好特征，我们希望决策树分支节点包含的样本尽可能属于同一类别——纯度（purity）越高越好
+划分选择1. 信息熵 ——&gt; 信息增益信息熵
+信息论中表示样本的不确定性大小，度量样本集合纯度最常用的指标
+样本集合D中第k类占比$pk$则D的信息熵定义为:$$Ent(D)=-\sum\limits{k=1}^{\left |y\right|}p_{k}log2p{k}$$
+
+信息增益假定离散属性a在D中有V个
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1700,7 +1786,10 @@ E
           
           从今天开始每天刷一道LeetCode算法题，可不能再偷懒了
 题目：The Hamming distance between two integers is the number of positions at which the corresponding bits are different.
-G
+Given two integers x and y, calculate the Hamming distance.
+$$0  \leq x, y &lt; 2^&#123;31&#125;$$Note:0 ≤ x, y &lt; 231.Example:Input: x = 1, y = 4Output: 2Explanation:1   (0 0 0 1)4   (0 1 0 0)       ↑   ↑
+The above arrows point to positions where the corresponding bits are different.Subscribe to see which companies asked this question.
+问题陈述：求两个数的
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1878,7 +1967,7 @@ G
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
 
 
 
@@ -1977,6 +2066,13 @@ G
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
 
   
 
