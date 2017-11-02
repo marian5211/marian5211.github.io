@@ -108,7 +108,7 @@
 </table>
 </div>
 <p>可以看出，对一串矩阵做乘法操作，乘法的顺序影响到算法的时间复杂度。由此，引出矩阵链乘法问题：</p>
-<p><strong>给定n个矩阵的链$<a_1,a_2,......,a_n>$，矩阵$A<em>i$ 的规模为$p</em>{i-1}*p_i$，确定代价最低的计算顺序，使得计算乘积$A_1A_2A_n$所需标量乘法次数最小。</a_1,a_2,......,a_n></strong></p>
+<p><strong>给定n个矩阵的链$<a_1,a_2,......,a_n>$，矩阵$A_i$ 的规模为$p_{i-1}*p_i$，确定代价最低的计算顺序，使得计算乘积$A_1A_2A_n$所需标量乘法次数最小。</a_1,a_2,......,a_n></strong></p>
 ]]></content>
       
         <categories>
@@ -903,7 +903,7 @@ r_n=max(p_n,r_{1}+r_{n-1},r_{2}+r_{n-2},...,r_{n-1}+r_1)</script><p>​以n=4为
     <entry>
       <title><![CDATA[准确率、召回率、F1、ROC、AUC]]></title>
       <url>/2017/04/04/%E5%87%86%E7%A1%AE%E7%8E%87%E3%80%81%E5%8F%AC%E5%9B%9E%E7%8E%87%E3%80%81F1%E3%80%81ROC%E3%80%81AUC/</url>
-      <content type="html"><![CDATA[<h2 id="性能度量"><a href="#性能度量" class="headerlink" title="性能度量"></a>性能度量</h2><p>对学习器的<strong>泛化性能</strong>进行评估<br>在预测任务中，给定样例集$D=\lbrace (x<em>1,y_1),(x_2,y</em>),…,(x_n,y_n)\rbrace$，其中$y_i$是$x_n$的真实标记,估计学习器的性能就是<strong>把预测的结果$f(x)$与实际值进行比较</strong></p>
+      <content type="html"><![CDATA[<h2 id="性能度量"><a href="#性能度量" class="headerlink" title="性能度量"></a>性能度量</h2><p>对学习器的<strong>泛化性能</strong>进行评估<br>在预测任务中，给定样例集$D=\lbrace (x_1,y_1),(x_2,y_),…,(x_n,y_n)\rbrace$，其中$y_i$是$x_n$的真实标记,估计学习器的性能就是<strong>把预测的结果$f(x)$与实际值进行比较</strong></p>
 <h2 id="指标"><a href="#指标" class="headerlink" title="指标"></a>指标</h2><p><strong>回归</strong>任务中常用的是“<strong>均方误差</strong>”：</p>
 <script type="math/tex; mode=display">E(f,D) = \frac{m}{1}\sum_{i=1}^{m}(f(x_i)-y_i)^2</script><p>下面介绍<strong>分类任务中常用的度量指标</strong></p>
 <h3 id="1-错误率与精度"><a href="#1-错误率与精度" class="headerlink" title="1. 错误率与精度"></a>1. 错误率与精度</h3><p><strong>错误率</strong>就是分类错误的样本数占样本总数的比例</p>
@@ -961,7 +961,7 @@ r_n=max(p_n,r_{1}+r_{n-1},r_{2}+r_{n-2},...,r_{n-1}+r_1)</script><p>​以n=4为
 </ul>
 <h4 id="AUC的计算方法"><a href="#AUC的计算方法" class="headerlink" title="AUC的计算方法"></a>AUC的计算方法</h4><p>形式化地看，AUC考虑的是<strong>样本预测的排序质量</strong>，也就是在M×N(M为正类样本的数目，N为负类样本的数目)个正负样本对中，有多少个组中的正样本的score大于负样本的score（正样本排在负样本前面）</p>
 <ol>
-<li>从误差方面入手，即由模型计算出来的分数，负样本比正样本高的概率。如果给定$m<em>+$个正例和$m</em>-$个负例，令$D<em>+$和$D</em>-$分别表是正、负例集合，则排序“损失”定义为</li>
+<li>从误差方面入手，即由模型计算出来的分数，负样本比正样本高的概率。如果给定$m_+$个正例和$m_-$个负例，令$D_+$和$D_-$分别表是正、负例集合，则排序“损失”定义为</li>
 </ol>
 <p><img src="https://ooo.0o0.ooo/2017/04/04/58e349099c736.png" alt=""><br>即考虑每一对正、反例对，如果正例的预测值小于反例，则记一个罚分，如果相等，记0.5个罚分。对应于RUC曲线上半部分的面积，那么RUC曲线下半部分的面积：</p>
 <p><img src="https://ooo.0o0.ooo/2017/04/04/58e3497b012a6.png" alt=""> </p>
@@ -1027,9 +1027,9 @@ r_n=max(p_n,r_{1}+r_{n-1},r_{2}+r_{n-2},...,r_{n-1}+r_1)</script><p>​以n=4为
 <li>对于二叉排序树的任何一个节点，其<strong>左子树的元素都小于右子树的元素</strong></li>
 <li><strong>满二叉排序树树</strong>，树的结构可以确定</li>
 </ul>
-<p>如果树的深度是$k$，满二叉树有$2^k-1$个元素，按从小到大的顺序排列为：$[a<em>1,a_2,…,a</em>{2^k-1}]$，则该满二叉树的结构如下：</p>
+<p>如果树的深度是$k$，满二叉树有$2^k-1$个元素，按从小到大的顺序排列为：$[a_1,a_2,…,a_{2^k-1}]$，则该满二叉树的结构如下：</p>
 <ol>
-<li>根节点的元素为$a<em>{\frac{2^k}{2}}$，$[a_1,a_2,…,a</em>{\frac{2^k}{2}-1}]$中的元素在根节点的左子树中，$[a<em>{\frac{2^k}{2}+1},…,a</em>{2^k-1}]$中的元素在根节点的右子树中</li>
+<li>根节点的元素为$a_{\frac{2^k}{2}}$，$[a_1,a_2,…,a_{\frac{2^k}{2}-1}]$中的元素在根节点的左子树中，$[a_{\frac{2^k}{2}+1},…,a_{2^k-1}]$中的元素在根节点的右子树中</li>
 <li>对左子树、右子树两个区间再分别做1中的操作，得到最终的二叉排序树</li>
 </ol>
 <p>给定三个节点，根据二叉排序树的性质，可以知道<strong>包含这三个节点的最小子树的根节点的值，一定在这三个节点值构成的区间$[min,max]$内</strong></p>
@@ -1285,11 +1285,11 @@ r_n=max(p_n,r_{1}+r_{n-1},r_{2}+r_{n-2},...,r_{n-1}+r_1)</script><p>​以n=4为
 <p>因为后面的字母串对前面的字母串有<strong>包含</strong>的关系，所以考虑用<strong>动态规划</strong>来求解，那接下来的重点就是寻找状态转移方程了</p>
 <p>用$dp[i][j]$表示长度为$i$首字母为$j$的字母串个数，那么$dp[i+1][j]=dp[i][j+1]+dp[i][j+2]+···+dp[i][‘z’-i]$</p>
 <p>光看公式可能理解得不是很好，举个例子吧：<br>比如我们现在想求<strong>长度是5位</strong>，<strong>b打头</strong>的字母串的个数:</p>
-<p>b <em> </em> <em> </em>      ······$dp[5][b]$</p>
+<p>b _ _ _ _      ······$dp[5][b]$</p>
 <p>那么考虑后面的四位，有下面的22种情况：</p>
-<p>b ++c++ <em> </em> _  ······$dp[4][c]$</p>
-<p>b ++d++ <em> </em> _  ······$dp[4][d]$</p>
-<p>b ++e++ <em> </em> _  ······$dp[4][e]$</p>
+<p>b ++c++ _ _ _  ······$dp[4][c]$</p>
+<p>b ++d++ _ _ _  ······$dp[4][d]$</p>
+<p>b ++e++ _ _ _  ······$dp[4][e]$</p>
 <p>···</p>
 <p>b ++w++ ++x++ ++y++ ++z++  ······$dp[4][w]$</p>
 <p>把上面的22种情况相加，就可以得到长度为5，b打头的所有字母串个数$p[5][b]$</p>
@@ -1304,13 +1304,13 @@ r_n=max(p_n,r_{1}+r_{n-1},r_{2}+r_{n-2},...,r_{n-1}+r_1)</script><p>​以n=4为
 </ol>
 <p>嗯，问题解决了一大部分了，现在就剩第三种情况了！！！！<br>再看一眼字母串“<strong>cefkq</strong>”</p>
 <p>长度和首字母都相等，位置比它在前面，那就一位一位考虑呗</p>
-<p>第二位是e，<br>c ++d++ <em> </em> _在它前面！所以又有$dp[4][d]$个在它前面的，加上！</p>
+<p>第二位是e，<br>c ++d++ _ _ _在它前面！所以又有$dp[4][d]$个在它前面的，加上！</p>
 <p>第三位是f，ef中间没有其他字母了，继续往后看</p>
 <p>第四位是k，fk中间还有g、h、i、j</p>
-<p>c e ++g++ <em> </em>  ······$dp[3][g]$</p>
-<p>c e ++h++ <em> </em>  ······$dp[3][h]$</p>
-<p>c e ++i++ <em> </em>  ······$dp[3][i]$</p>
-<p>c e ++j++ <em> </em>  ······$dp[3][j]$</p>
+<p>c e ++g++ _ _  ······$dp[3][g]$</p>
+<p>c e ++h++ _ _  ······$dp[3][h]$</p>
+<p>c e ++i++ _ _  ······$dp[3][i]$</p>
+<p>c e ++j++ _ _  ······$dp[3][j]$</p>
 <p>统统加上！</p>
 <p>······</p>
 <p>再往后就跟前面一样了，不再赘述了</p>
@@ -1386,12 +1386,12 @@ r_n=max(p_n,r_{1}+r_{n-1},r_{2}+r_{n-2},...,r_{n-1}+r_1)</script><p>​以n=4为
 <h4 id="FM"><a href="#FM" class="headerlink" title="FM"></a>FM</h4><p><img src="https://ooo.0o0.ooo/2017/03/21/58d0e99b2f719.png" alt=""> </p>
 <p>也就是<strong>FM</strong>中的交叉特征（二次项），采用<strong>矩阵分解</strong>得到如下形式：</p>
 <p><img src="https://ooo.0o0.ooo/2017/03/21/58d0e9cb62988.png" alt=""> </p>
-<p>其中$w<em>{j_1}$和$w</em>{j_2}$分别为特征$j_1$和$j_1$对应的<strong>隐向量</strong>，对应下图中左边两个矩阵的一行或一列即是一个隐向量。</p>
+<p>其中$w_{j_1}$和$w_{j_2}$分别为特征$j_1$和$j_1$对应的<strong>隐向量</strong>，对应下图中左边两个矩阵的一行或一列即是一个隐向量。</p>
 <p><img src="https://ooo.0o0.ooo/2017/03/13/58c6aa26b83c6.png" alt=""> </p>
 <h4 id="FFM"><a href="#FFM" class="headerlink" title="FFM"></a>FFM</h4><p>现在在FM的基础之上，我们<strong>引入field-aware的概念</strong>，可以推得<strong>FFM的二次项形式</strong>如下：</p>
 <p><img src="https://ooo.0o0.ooo/2017/03/21/58d0e9fe74136.png" alt=""> </p>
-<p>其中$w<em>{j_1,f</em>{j<em>2}}$为**特征$j_1$针对$j_2$所在的类别$f</em>{j_2}$的隐向量**</p>
-<p>$w<em>{j_2,f</em>{j<em>1}}$为**特征$j_2$针对$j_1$所在的类别$f</em>{j_1}$的隐向量**</p>
+<p>其中$w_{j_1,f_{j_2}}$为<strong>特征$j_1$针对$j_2$所在的类别$f_{j_2}$的隐向量</strong></p>
+<p>$w_{j_2,f_{j_1}}$为<strong>特征$j_2$针对$j_1$所在的类别$f_{j_1}$的隐向量</strong></p>
 <p>FFM完整的模型方程为</p>
 <p><img src="https://ooo.0o0.ooo/2017/03/21/58d1361058228.png" alt=""> </p>
 <p>为了便于理解，先看下面的例子</p>
@@ -1469,7 +1469,7 @@ r_n=max(p_n,r_{1}+r_{n-1},r_{2}+r_{n-2},...,r_{n-1}+r_1)</script><p>​以n=4为
 </tbody>
 </table>
 </div>
-<p>我们对原始数据进行One-Hot编码生成数值特征，这时引入field的概念，把同一个categorical特征经过One-Hot编码生成的数值特征都放到同一个field中。比如：“Day=26/11/15”、“Day=1/7/14”、“Day=19/2/15”这三个特征是由“日期”这一categorical特征生成的，可以放到同一个field中。这时我们再计算隐向量的时候，<strong>隐向量不仅与特征相关，还与field相关</strong>。每一维特征$x<em>i$针对其它特征的每一种field<br>$f_j$，都会学习一个隐向量 $w</em>{i,f_j}$。</p>
+<p>我们对原始数据进行One-Hot编码生成数值特征，这时引入field的概念，把同一个categorical特征经过One-Hot编码生成的数值特征都放到同一个field中。比如：“Day=26/11/15”、“Day=1/7/14”、“Day=19/2/15”这三个特征是由“日期”这一categorical特征生成的，可以放到同一个field中。这时我们再计算隐向量的时候，<strong>隐向量不仅与特征相关，还与field相关</strong>。每一维特征$x_i$针对其它特征的每一种field<br>$f_j$，都会学习一个隐向量 $w_{i,f_j}$。</p>
 <p>假设样本的n个特征属于 f 个field，那么FFM的二次项有  nf 个隐向量，如果隐向量的长度为 k ，那么FFM的二次参数有 nfk 个。而在FM模型中，每一维特征的隐向量只有一个<strong>，FM可以看作FFM的特例，是把所有特征都归属到一个field时的FFM模型</strong>。此外，由于隐向量与field相关，FFM二次项并不能够化简，其预测<strong>复杂度是 $O(kn^2)$。</strong></p>
 <h3 id="FFM实现"><a href="#FFM实现" class="headerlink" title="FFM实现"></a>FFM实现</h3><p>Yu-Chin Juan实现了一个C++版的FFM模型，源码可从Github下载<a href="https://github.com/guestwalk/libffm" target="_blank" rel="external">https://github.com/guestwalk/libffm</a></p>
 <p>该<strong>FFM模型采用logistic loss作为损失函数，和L2惩罚项</strong>，因此只能用于<strong>二元分类</strong>问题。</p>
@@ -1600,8 +1600,8 @@ r_n=max(p_n,r_{1}+r_{n-1},r_{2}+r_{n-2},...,r_{n-1}+r_1)</script><p>​以n=4为
       <title><![CDATA[交叉熵]]></title>
       <url>/2017/03/16/%E4%BA%A4%E5%8F%89%E7%86%B5/</url>
       <content type="html"><![CDATA[<h3 id="熵"><a href="#熵" class="headerlink" title="熵"></a>熵</h3><p>本质：香农信息量$log\frac{1}{p}$的期望<br>用来衡量一个系统的有序化程度，一个系统越是有序，那么它的信息熵就越低，反之就越高。</p>
-<p>随机变量$X$可能的取值$X=\lbrace x<em>1,x_2,\cdots,x_n \rbrace$，对应的概率为$p(X=x_i)(i=1,2,\cdots,n)$，随机变量$X$的熵定义为$H(X) = -{\sum</em>{i}^{n}{p(x_i)\log{p(x_i)}}}$</p>
-<h3 id="交叉熵"><a href="#交叉熵" class="headerlink" title="交叉熵"></a>交叉熵</h3><p>现有关于样本集的2个概率分布p和q，其中p为真实分布，q非真实分布。按照真实分布p来衡量识别一个样本的所需要的编码长度的期望(即平均编码长度)为：$H(p)=-{\sum<em>{i}^{n}{p(x_i)\log{p(x_i)}}}$。如果使用错误分布q来表示来自真实分布p的平均编码长度，则应该是：$H(p,q)=-{\sum</em>{i}^{n}{p(x_i)\log{q(x_i)}}}$。因为用q来编码的样本来自分布p，所以期望H(p,q)中概率是p(i)。H(p,q)我们称之为“交叉熵”。</p>
+<p>随机变量$X$可能的取值$X=\lbrace x_1,x_2,\cdots,x_n \rbrace$，对应的概率为$p(X=x_i)(i=1,2,\cdots,n)$，随机变量$X$的熵定义为$H(X) = -{\sum_{i}^{n}{p(x_i)\log{p(x_i)}}}$</p>
+<h3 id="交叉熵"><a href="#交叉熵" class="headerlink" title="交叉熵"></a>交叉熵</h3><p>现有关于样本集的2个概率分布p和q，其中p为真实分布，q非真实分布。按照真实分布p来衡量识别一个样本的所需要的编码长度的期望(即平均编码长度)为：$H(p)=-{\sum_{i}^{n}{p(x_i)\log{p(x_i)}}}$。如果使用错误分布q来表示来自真实分布p的平均编码长度，则应该是：$H(p,q)=-{\sum_{i}^{n}{p(x_i)\log{q(x_i)}}}$。因为用q来编码的样本来自分布p，所以期望H(p,q)中概率是p(i)。H(p,q)我们称之为“交叉熵”。</p>
 <h3 id="相对熵"><a href="#相对熵" class="headerlink" title="相对熵"></a>相对熵</h3><p>$D(p||q)=H(p,q)-H(p)=\sum_{i}^{} p(i)*log\frac{p(i)}{q(i)}$，其又被称为KL散度(Kullback–Leibler divergence，KLD) Kullback–Leibler divergence。它表示2个函数或概率分布的差异性：差异越大则相对熵越大，差异越小则相对熵越小，特别地，若2者相同则熵为0。注意，KL散度的非对称性。</p>
 <h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>交叉熵可在神经网络(机器学习)中作为损失函数，p表示真实标记的分布，q则为训练后的模型的预测标记分布，交叉熵损失函数可以衡量p与q的相似性。交叉熵作为损失函数还有一个好处是使用sigmoid函数在梯度下降时能避免均方误差损失函数学习速率降低的问题，因为学习速率可以被输出的误差所控制。</p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://www.zhihu.com/question/41252833" target="_blank" rel="external">知乎：如何通俗的解释交叉熵与相对熵</a></p>
@@ -2084,13 +2084,13 @@ r_n=max(p_n,r_{1}+r_{n-1},r_{2}+r_{n-2},...,r_{n-1}+r_1)</script><p>​以n=4为
       <url>/2017/03/04/%E5%86%B3%E7%AD%96%E6%A0%91%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E5%9F%BA%E7%A1%80/</url>
       <content type="html"><![CDATA[<h2 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h2><ol>
 <li>使用不熟悉的数据集合，从中提取出一系列规则，能够对新数据进行分类</li>
-<li>极大化信息增益$a<em>* = argmax</em>{a\in A}{Gain(D,a)}$</li>
+<li>极大化信息增益$a_* = argmax_{a\in A}{Gain(D,a)}$</li>
 </ol>
 <h3 id="构建决策树伪代码"><a href="#构建决策树伪代码" class="headerlink" title="构建决策树伪代码"></a>构建决策树伪代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">createBranch()：</div><div class="line">    检测数据集中的每个项是否属于同一个分类：</div><div class="line">    if so </div><div class="line">       return 类标签</div><div class="line">    else</div><div class="line">       寻找划分数据集的最好特征***</div><div class="line">       划分数据集</div><div class="line">       创建分支节点</div><div class="line">            for 每个分支节点，递归调用createBranch()函数</div><div class="line">        return 分支节点</div></pre></td></tr></table></figure>
 <h3 id="关键"><a href="#关键" class="headerlink" title="关键"></a>关键</h3><p>显然，构建决策树的关键是<strong>寻找划分数据集的最好特征</strong>，我们希望决策树分支节点包含的样本尽可能属于同一类别——纯度（purity）越高越好</p>
 <h2 id="划分选择"><a href="#划分选择" class="headerlink" title="划分选择"></a>划分选择</h2><h3 id="1-信息熵-——-gt-信息增益"><a href="#1-信息熵-——-gt-信息增益" class="headerlink" title="1. 信息熵 ——&gt; 信息增益"></a>1. 信息熵 ——&gt; 信息增益</h3><h5 id="信息熵"><a href="#信息熵" class="headerlink" title="信息熵"></a>信息熵</h5><ul>
 <li>信息论中表示样本的不确定性大小，度量样本集合纯度最常用的指标</li>
-<li>样本集合D中第k类占比$p<em>k$则D的信息熵定义为:$$Ent(D)=-\sum\limits</em>{k=1}^{\left |y\right|}p<em>{k}log_2p</em>{k}$$</li>
+<li>样本集合D中第k类占比$p_k$则D的信息熵定义为:<script type="math/tex">Ent(D)=-\sum\limits_{k=1}^{\left |y\right|}p_{k}log_2p_{k}</script></li>
 </ul>
 <h5 id="信息增益"><a href="#信息增益" class="headerlink" title="信息增益"></a>信息增益</h5><p>假定离散属性a在D中有V个可能的取值${a^1,a^2,…,a^V}$,若依据属性a对D进行分类，产生V个分支点，根据每个分支点样本数量对分支点赋权重$\left |D^V\right|/D$，于是根据属性a进行划分获得的信息增益为：</p>
 <script type="math/tex; mode=display">Gain(D,a) = Ent(D)-\sum\limits_{v=1}^{\left |v\right|}\frac{\left |D^V\right|}{D}Ent(D^v)</script><p>也就是<strong>信息熵的减少量</strong>，越大越好：</p>
@@ -2110,7 +2110,7 @@ r_n=max(p_n,r_{1}+r_{n-1},r_{2}+r_{n-2},...,r_{n-1}+r_1)</script><p>​以n=4为
 <h3 id="3-基尼指数"><a href="#3-基尼指数" class="headerlink" title="3. 基尼指数"></a>3. 基尼指数</h3><p><img src="https://ooo.0o0.ooo/2017/03/04/58baa498a3f46.png" alt=""> </p>
 <p>用于<strong>度量数据集的纯度</strong>，物理意义：从数据集中随机取两个样本，二者不属于同一类别的概率，<strong>故Gini值越小，数据集纯度越高</strong>。<br>属性a的Gini值定义如下：</p>
 <p><img src="https://ooo.0o0.ooo/2017/03/04/58baa6d779529.png" alt=""> </p>
-<p>选取使得划分后Gini指数最小的属性作为划分属性，即$a<em>* = argmax</em>{a\in A}Gini_index(D,a)$</p>
+<p>选取使得划分后Gini指数最小的属性作为划分属性，即$a_* = argmax_{a\in A}Gini_index(D,a)$</p>
 <h4 id="CART算法"><a href="#CART算法" class="headerlink" title="CART算法"></a>CART算法</h4><p>采用Gini指数选择属性分类</p>
 <h2 id="剪枝处理"><a href="#剪枝处理" class="headerlink" title="剪枝处理"></a>剪枝处理</h2><h3 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h3><p><strong>过拟合</strong>（分支过多，泛化能力差）</p>
 <h4 id="方法一：预剪枝"><a href="#方法一：预剪枝" class="headerlink" title="方法一：预剪枝"></a>方法一：预剪枝</h4><ul>

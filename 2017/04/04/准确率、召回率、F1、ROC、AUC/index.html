@@ -77,12 +77,12 @@
 
 
 
-<meta name="description" content="性能度量对学习器的泛化性能进行评估在预测任务中，给定样例集$D=\lbrace (x1,y_1),(x_2,y),…,(x_n,y_n)\rbrace$，其中$y_i$是$x_n$的真实标记,估计学习器的性能就是把预测的结果$f(x)$与实际值进行比较 指标回归任务中常用的是“均方误差”： E(f,D) = \frac{m}{1}\sum_{i=1}^{m}(f(x_i)-y_i)^2下面介绍分类">
+<meta name="description" content="性能度量对学习器的泛化性能进行评估在预测任务中，给定样例集$D=\lbrace (x_1,y_1),(x_2,y_),…,(x_n,y_n)\rbrace$，其中$y_i$是$x_n$的真实标记,估计学习器的性能就是把预测的结果$f(x)$与实际值进行比较 指标回归任务中常用的是“均方误差”： E(f,D) = \frac{m}{1}\sum_{i=1}^{m}(f(x_i)-y_i)^2下面介绍">
 <meta property="og:type" content="article">
 <meta property="og:title" content="准确率、召回率、F1、ROC、AUC">
 <meta property="og:url" content="http://yoursite.com/2017/04/04/准确率、召回率、F1、ROC、AUC/index.html">
 <meta property="og:site_name" content="Siyao&#39;s Blog">
-<meta property="og:description" content="性能度量对学习器的泛化性能进行评估在预测任务中，给定样例集$D=\lbrace (x1,y_1),(x_2,y),…,(x_n,y_n)\rbrace$，其中$y_i$是$x_n$的真实标记,估计学习器的性能就是把预测的结果$f(x)$与实际值进行比较 指标回归任务中常用的是“均方误差”： E(f,D) = \frac{m}{1}\sum_{i=1}^{m}(f(x_i)-y_i)^2下面介绍分类">
+<meta property="og:description" content="性能度量对学习器的泛化性能进行评估在预测任务中，给定样例集$D=\lbrace (x_1,y_1),(x_2,y_),…,(x_n,y_n)\rbrace$，其中$y_i$是$x_n$的真实标记,估计学习器的性能就是把预测的结果$f(x)$与实际值进行比较 指标回归任务中常用的是“均方误差”： E(f,D) = \frac{m}{1}\sum_{i=1}^{m}(f(x_i)-y_i)^2下面介绍">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/04/01/58dfad37d9823.png">
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/04/01/58dfaf3b77185.png">
@@ -100,7 +100,7 @@
 <meta property="og:updated_time" content="2017-04-04T07:29:59.439Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="准确率、召回率、F1、ROC、AUC">
-<meta name="twitter:description" content="性能度量对学习器的泛化性能进行评估在预测任务中，给定样例集$D=\lbrace (x1,y_1),(x_2,y),…,(x_n,y_n)\rbrace$，其中$y_i$是$x_n$的真实标记,估计学习器的性能就是把预测的结果$f(x)$与实际值进行比较 指标回归任务中常用的是“均方误差”： E(f,D) = \frac{m}{1}\sum_{i=1}^{m}(f(x_i)-y_i)^2下面介绍分类">
+<meta name="twitter:description" content="性能度量对学习器的泛化性能进行评估在预测任务中，给定样例集$D=\lbrace (x_1,y_1),(x_2,y_),…,(x_n,y_n)\rbrace$，其中$y_i$是$x_n$的真实标记,估计学习器的性能就是把预测的结果$f(x)$与实际值进行比较 指标回归任务中常用的是“均方误差”： E(f,D) = \frac{m}{1}\sum_{i=1}^{m}(f(x_i)-y_i)^2下面介绍">
 <meta name="twitter:image" content="https://ooo.0o0.ooo/2017/04/01/58dfad37d9823.png">
 
 
@@ -412,7 +412,7 @@
       
 
       
-        <h2 id="性能度量"><a href="#性能度量" class="headerlink" title="性能度量"></a>性能度量</h2><p>对学习器的<strong>泛化性能</strong>进行评估<br>在预测任务中，给定样例集$D=\lbrace (x<em>1,y_1),(x_2,y</em>),…,(x_n,y_n)\rbrace$，其中$y_i$是$x_n$的真实标记,估计学习器的性能就是<strong>把预测的结果$f(x)$与实际值进行比较</strong></p>
+        <h2 id="性能度量"><a href="#性能度量" class="headerlink" title="性能度量"></a>性能度量</h2><p>对学习器的<strong>泛化性能</strong>进行评估<br>在预测任务中，给定样例集$D=\lbrace (x_1,y_1),(x_2,y_),…,(x_n,y_n)\rbrace$，其中$y_i$是$x_n$的真实标记,估计学习器的性能就是<strong>把预测的结果$f(x)$与实际值进行比较</strong></p>
 <h2 id="指标"><a href="#指标" class="headerlink" title="指标"></a>指标</h2><p><strong>回归</strong>任务中常用的是“<strong>均方误差</strong>”：</p>
 <script type="math/tex; mode=display">E(f,D) = \frac{m}{1}\sum_{i=1}^{m}(f(x_i)-y_i)^2</script><p>下面介绍<strong>分类任务中常用的度量指标</strong></p>
 <h3 id="1-错误率与精度"><a href="#1-错误率与精度" class="headerlink" title="1. 错误率与精度"></a>1. 错误率与精度</h3><p><strong>错误率</strong>就是分类错误的样本数占样本总数的比例</p>
@@ -470,7 +470,7 @@
 </ul>
 <h4 id="AUC的计算方法"><a href="#AUC的计算方法" class="headerlink" title="AUC的计算方法"></a>AUC的计算方法</h4><p>形式化地看，AUC考虑的是<strong>样本预测的排序质量</strong>，也就是在M×N(M为正类样本的数目，N为负类样本的数目)个正负样本对中，有多少个组中的正样本的score大于负样本的score（正样本排在负样本前面）</p>
 <ol>
-<li>从误差方面入手，即由模型计算出来的分数，负样本比正样本高的概率。如果给定$m<em>+$个正例和$m</em>-$个负例，令$D<em>+$和$D</em>-$分别表是正、负例集合，则排序“损失”定义为</li>
+<li>从误差方面入手，即由模型计算出来的分数，负样本比正样本高的概率。如果给定$m_+$个正例和$m_-$个负例，令$D_+$和$D_-$分别表是正、负例集合，则排序“损失”定义为</li>
 </ol>
 <p><img src="https://ooo.0o0.ooo/2017/04/04/58e349099c736.png" alt=""><br>即考虑每一对正、反例对，如果正例的预测值小于反例，则记一个罚分，如果相等，记0.5个罚分。对应于RUC曲线上半部分的面积，那么RUC曲线下半部分的面积：</p>
 <p><img src="https://ooo.0o0.ooo/2017/04/04/58e3497b012a6.png" alt=""> </p>
