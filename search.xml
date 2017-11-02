@@ -90,15 +90,12 @@
       <url>/2017/11/01/%E3%80%90%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E3%80%91%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E4%BA%8C%EF%BC%89%E7%9F%A9%E9%98%B5%E9%93%BE%E4%B9%98%E6%B3%95/</url>
       <content type="html"><![CDATA[<h2 id="矩阵链乘法问题"><a href="#矩阵链乘法问题" class="headerlink" title="矩阵链乘法问题"></a>矩阵链乘法问题</h2><h3 id="矩阵乘法"><a href="#矩阵乘法" class="headerlink" title="矩阵乘法"></a>矩阵乘法</h3><p>两个矩阵A和B相乘，维度分别为$ p×q$ 和$ q×r$ ，则$A*B$ 的时间复杂度为$pqr$</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><div class="line">MATRIX_MULTIPLY(A,B)&#123;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;A.rows;i++)&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; B.cols;j++)&#123;</div><div class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>;k &lt; A.cols;k++)&#123;</div><div class="line">        C[i,j] = A[i,k]*B[k,j];</div><div class="line">&#125;&#125;&#125;&#125;</div></pre></td></tr></table></figure>
-<h3 id="矩阵链乘法"><a href="#矩阵链乘法" class="headerlink" title="矩阵链乘法"></a>矩阵链乘法</h3><p>​    首先，给定一个矩阵链 $<a_1,a_2,a_3>$  ，三个矩阵的规模分别为：10×100 ， 100×5 ，5×50 ，计算他们的乘积有两种方式：</a_1,a_2,a_3></p>
-<p>|—-|—-|</p>
-<p>|$((A_1<em>A_2)</em>A_3)$|$10<em>100</em>5+10<em>5</em>50=7500$|</p>
-<p>|$(A_1(A_2A_3))$|$10<em>100</em>5+10<em>5</em>50=7500$|</p>
+<h3 id="矩阵链乘法"><a href="#矩阵链乘法" class="headerlink" title="矩阵链乘法"></a>矩阵链乘法</h3><p>​    首先，给定一个矩阵链 $\{A_1,A_2,A_3\}$  ，三个矩阵的规模分别为：10×100 ， 100×5 ，5×50 ，计算他们的乘积有两种方式：</p>
 <div class="table-container">
 <table>
 <thead>
 <tr>
-<th>$((A_1<em>A_2)</em>A_3)$</th>
+<th>$((A_1A_2)A_3)$</th>
 <th style="text-align:left">$10<em>100</em>5+10<em>5</em>50=7500$</th>
 </tr>
 </thead>
@@ -111,7 +108,7 @@
 </table>
 </div>
 <p>可以看出，对一串矩阵做乘法操作，乘法的顺序影响到算法的时间复杂度。由此，引出矩阵链乘法问题：</p>
-<p><strong>给定n个矩阵的链$<a_1,a_2,......,a_n>$，矩阵$A_i$ 的规模为$p_{i-1}*p_i$，确定代价最低的计算顺序，使得计算乘积$A_1A_2A_n$所需标量乘法次数最小。</a_1,a_2,......,a_n></strong></p>
+<p><strong>给定n个矩阵的链$\{A_1,A_2,…,A_n\}$，矩阵$A_i$ 的规模为$p_{i-1}*p_i$，确定代价最低的计算顺序，使得计算乘积$A_1A_2A_n$所需标量乘法次数最小。</strong></p>
 ]]></content>
       
         <categories>
