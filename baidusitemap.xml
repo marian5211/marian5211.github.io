@@ -4,6 +4,28 @@
 
     
   <url>
+    <loc>http://yoursite.com/2017/11/01/%E3%80%90%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E3%80%91%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E4%BA%8C%EF%BC%89%E7%9F%A9%E9%98%B5%E9%93%BE%E4%B9%98%E6%B3%95/</loc>
+    <lastmod>2017-11-02T06:27:02.752Z</lastmod>
+    <data>
+        <display>
+        <title>【算法导论】动态规划（二）矩阵链乘法</title>
+        <pubTime>2017-11-01T14:54:11.000Z</pubTime>
+        
+        <tag>DP</tag>
+         
+        <tag>算法导论</tag>
+         
+         
+           
+             
+              <breadCrumb title="算法导论" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2017/11/02/test-1/</loc>
     <lastmod>2017-11-02T06:12:42.806Z</lastmod>
     <data>
@@ -90,28 +112,6 @@
         
          
            
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2017/11/01/%E3%80%90%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E3%80%91%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E4%BA%8C%EF%BC%89%E7%9F%A9%E9%98%B5%E9%93%BE%E4%B9%98%E6%B3%95/</loc>
-    <lastmod>2017-11-01T14:54:11.258Z</lastmod>
-    <data>
-        <display>
-        <title>【算法导论】动态规划（二）矩阵链乘法</title>
-        <pubTime>2017-11-01T14:54:11.000Z</pubTime>
-        
-        <tag>DP</tag>
-         
-        <tag>算法导论</tag>
-         
-         
-           
-             
-              <breadCrumb title="算法导论" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/"/>
-          
         </display>
     </data>
     </url>
