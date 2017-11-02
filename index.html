@@ -304,6 +304,132 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/02/test-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siyao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/小鸡.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siyao's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/02/test-1/" itemprop="url">test</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-02T14:12:42+08:00">
+                2017-11-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/11/02/test-1/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/02/Hive中静态分区和动态分区/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1635,190 +1761,6 @@ Example:Given nums = [2, 7, 11, 15], target = 9,Because nums[0] + nums[1] = 2 + 
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/22/不使用中间变量交换两个数字/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Siyao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/小鸡.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Siyao's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/22/不使用中间变量交换两个数字/" itemprop="url">不使用中间变量交换两个数字</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-22T22:18:13+08:00">
-                2017-07-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          给定两个数字a和b，要求不使用中间变量交换二者
-一般做法一般的做法很简单
-void swap(int &amp;a;int &amp;b)&#123;    int temp = a;    a = b;    b = temp;&#125;
-不使用中间变量的做法采用位操作符中的异或操作^
-
-
-
-操作符
-功能
-用法
-
-
-
-
-~
-取反
-0变1,1变0
-
-
-&lt;&lt;
-左移
-后面补0
-
-
->&gt;
-右移
-前面补0，后面吞位
-
-
-&amp;
-位与
-只有两个都为1，则为1。x&amp;…00100…用于提取x某一位
-
-
-^
-位异或
-只有一个为1，则为 1。用于判断两位是否相同 a^b^a = 
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/22/不使用中间变量交换两个数字/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1873,7 +1815,7 @@ void swap(int &amp;a;int &amp;b)&#123;    int temp = a;    a = b;    b = temp;&#
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

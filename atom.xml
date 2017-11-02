@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-11-02T01:36:01.135Z</updated>
+  <updated>2017-11-02T06:12:42.806Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,20 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>test</title>
+    <link href="http://yoursite.com/2017/11/02/test-1/"/>
+    <id>http://yoursite.com/2017/11/02/test-1/</id>
+    <published>2017-11-02T06:12:42.000Z</published>
+    <updated>2017-11-02T06:12:42.806Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Hive中静态分区和动态分区</title>
@@ -97,7 +111,7 @@
     <published>2017-11-01T14:54:11.000Z</published>
     <updated>2017-11-01T14:54:11.258Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="矩阵链乘法问题"><a href="#矩阵链乘法问题" class="headerlink" title="矩阵链乘法问题"></a>矩阵链乘法问题</h2><h3 id="矩阵乘法"><a href="#矩阵乘法" class="headerlink" title="矩阵乘法"></a>矩阵乘法</h3><p>两个矩阵A和B相乘，维度分别为 p×q 和 q×r ，则$A*B$ 的时间复杂度为$pqr$</p><figure class="highlight c++"><table><tr><td class="code"><pre><div class="line">MATRIX_MULTIPLY(A,B)&#123;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;A.rows;i++)&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; B.cols;j++)&#123;</div><div class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>;k &lt; A.cols;k++)&#123;</div><div class="line">        C[i,j] = A[i,k]*B[k,j];</div><div class="line">&#125;&#125;&#125;&#125;</div></pre></td></tr></table></figure><h3 id="矩阵链乘法"><a href="#矩阵链乘法" class="headerlink" title="矩阵链乘法"></a>矩阵链乘法</h3><p>​    首先，给定一个矩阵链 $<a_1,a_2,a_3>$  ，三个矩阵的规模分别为：10×100 ， 100×5 ，5×50 ，计算他们的乘积有两种方式：</a_1,a_2,a_3></p><table><thead><tr><th>$((A_1_A_2)_A_3)$</th><th>$10_100_5+10_5_50=7500$</th></tr></thead><tbody><tr><td>$(A_1_(A_2_A_3))$</td><td>$100_5_50+10_100_50=75000$</td></tr></tbody></table><p>可以看出，对一串矩阵做乘法操作，乘法的顺序影响到算法的时间复杂度。由此，引出矩阵链乘法问题：</p><p><strong>给定n个矩阵的链$<a_1,a_2,......,a_n>$，矩阵$A_i$的规模为$p_{i-1}*p_i$，确定代价最低的计算顺序，使得计算乘积$A_1A_2A_n$所需标量乘法次数最小。</a_1,a_2,......,a_n></strong></p>]]></content>
+    <content type="html"><![CDATA[<h2 id="矩阵链乘法问题"><a href="#矩阵链乘法问题" class="headerlink" title="矩阵链乘法问题"></a>矩阵链乘法问题</h2><h3 id="矩阵乘法"><a href="#矩阵乘法" class="headerlink" title="矩阵乘法"></a>矩阵乘法</h3><p>两个矩阵A和B相乘，维度分别为 p×q 和 q×r ，则$A*B$ 的时间复杂度为$pqr$</p><figure class="highlight c++"><table><tr><td class="code"><pre><div class="line">MATRIX_MULTIPLY(A,B)&#123;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;A.rows;i++)&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; B.cols;j++)&#123;</div><div class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>;k &lt; A.cols;k++)&#123;</div><div class="line">        C[i,j] = A[i,k]*B[k,j];</div><div class="line">&#125;&#125;&#125;&#125;</div></pre></td></tr></table></figure><h3 id="矩阵链乘法"><a href="#矩阵链乘法" class="headerlink" title="矩阵链乘法"></a>矩阵链乘法</h3><p>​    首先，给定一个矩阵链 $<a_1,a_2,a_3>$  ，三个矩阵的规模分别为：10×100 ， 100×5 ，5×50 ，计算他们的乘积有两种方式：</a_1,a_2,a_3></p><table><thead><tr><th><code>$((A_1*A_2)*A_3)$</code></th><th style="text-align:left"><code>$10*100*5+10*5*50=7500$</code></th></tr></thead><tbody><tr><td><code>$(A_1*(A_2*A_3))$</code></td><td style="text-align:left"><code>$100*5*50+10*100*50=75000$</code></td></tr></tbody></table><p>可以看出，对一串矩阵做乘法操作，乘法的顺序影响到算法的时间复杂度。由此，引出矩阵链乘法问题：</p><p><strong>给定n个矩阵的链$<a_1,a_2,......,a_n>$，矩阵$A_i$的规模为$p_{i-1}*p_i$，确定代价最低的计算顺序，使得计算乘积$A_1A_2A_n$所需标量乘法次数最小。</a_1,a_2,......,a_n></strong></p>]]></content>
     
     <summary type="html">
     
@@ -484,29 +498,6 @@
       
       
         &lt;h2 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;https://ooo.0o0.ooo/2017/04/08/58e8ff74c74b3.png&quot; alt=&quot;&quot;&gt; &lt;/
-      
-    
-    </summary>
-    
-      <category term="ACM" scheme="http://yoursite.com/categories/ACM/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>北邮ACM2017练习赛A. Email Adress</title>
-    <link href="http://yoursite.com/2017/04/08/%E5%8C%97%E9%82%AEACM2017%E7%BB%83%E4%B9%A0%E8%B5%9BA-Email-Adress/"/>
-    <id>http://yoursite.com/2017/04/08/北邮ACM2017练习赛A-Email-Adress/</id>
-    <published>2017-04-08T14:03:41.000Z</published>
-    <updated>2017-04-08T14:04:22.209Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>大概就是给一串字符，表示email地址，其中<code>@</code>用at表示，<code>.</code>用dot表示，当然了字母串里可能本来就有at和dot。<br>所以要想将给定的字符串恢复成尽可能短的email地址需要注意下面几条：</p><ol><li>只能含有一个<code>@</code>，且不能在开头处，即除开头外遇到的第一个at转化成<code>@</code>，其余还是at</li><li>除开头和结尾的dot不能转化成<code>.</code>以外其余的全部转化成<code>.</code></li></ol><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">#include &lt;stdlib.h&gt;</div><div class="line">#include &lt;stdio.h&gt;</div><div class="line">#include &lt;iostream&gt;</div><div class="line">char arrin[10000];</div><div class="line">FILE *fin;</div><div class="line">int main()&#123;</div><div class="line">    fin=fopen(&quot;in.txt&quot;,&quot;r&quot;);</div><div class="line">    char ch;</div><div class="line">    while(~fscanf(fin,&quot;%c&quot;,&amp;ch))&#123;</div><div class="line">        int i =1;</div><div class="line">        bool atflag = false;</div><div class="line">        memset(arrin,0,10000);</div><div class="line">        //存入字符串 </div><div class="line">        arrin[0]=ch;</div><div class="line">        while(fscanf(fin,&quot;%c&quot;,&amp;ch) &amp;&amp; ch!=&apos;\n&apos;)&#123;</div><div class="line">            arrin[i]=ch;</div><div class="line">            i++;</div><div class="line">        &#125;</div><div class="line">        //arrin[i]=-1;</div><div class="line">        //计算输出</div><div class="line">        printf(&quot;%c&quot;,arrin[0]);</div><div class="line">        for(int j =1;j &lt; i;j++)&#123;</div><div class="line">            if(arrin[j] == &apos;a&apos; &amp;&amp; arrin[j+1] == &apos;t&apos; &amp;&amp; atflag == false)&#123;//第一次遇到at </div><div class="line">                printf(&quot;%c&quot;,&apos;@&apos;);</div><div class="line">                atflag = true;</div><div class="line">                j+=1;</div><div class="line">            &#125;</div><div class="line">            else if(arrin[j] == &apos;d&apos; &amp;&amp; arrin[j+1] == &apos;o&apos; &amp;&amp; arrin[j+2] == &apos;t&apos; &amp;&amp; arrin[j+3] != &apos;\0&apos;)&#123;//dot不在结尾的情况 </div><div class="line">                printf(&quot;%c&quot;,&apos;.&apos;);</div><div class="line">                j+=2;</div><div class="line">            &#125;</div><div class="line">            else&#123;</div><div class="line">                printf(&quot;%c&quot;,arrin[j]);</div><div class="line">            &#125;   </div><div class="line">        &#125;   </div><div class="line">        printf(&quot;\n&quot;);   </div><div class="line">    &#125; </div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h2&gt;&lt;p&gt;大概就是给一串字符，表示email地址，其中&lt;code&gt;@&lt;/code&gt;用at表示，&lt;code&gt;.&lt;/code&gt;用dot表示，当然了字母串里
       
     
     </summary>

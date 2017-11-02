@@ -3,6 +3,14 @@
   
     
     <entry>
+      <title><![CDATA[test]]></title>
+      <url>/2017/11/02/test-1/</url>
+      <content type="html"></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Hive中静态分区和动态分区]]></title>
       <url>/2017/11/02/Hive%E4%B8%AD%E9%9D%99%E6%80%81%E5%88%86%E5%8C%BA%E5%92%8C%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA/</url>
       <content type="html"><![CDATA[<h2 id="差别"><a href="#差别" class="headerlink" title="差别"></a>差别</h2><p>两者主要的差别在于：加载数据的时候，静态分区需要手动设定不同的分区，按分区分别导入数据，；而动态分区不需要指定分区key的值，会根据key对应列的值自动分区写入，如果该列值对应的分区目录还没有创建， 会自动创建并写入数据。</p>
@@ -86,14 +94,14 @@
 <table>
 <thead>
 <tr>
-<th>$((A_1_A_2)_A_3)$</th>
-<th>$10_100_5+10_5_50=7500$</th>
+<th><code>$((A_1*A_2)*A_3)$</code></th>
+<th style="text-align:left"><code>$10*100*5+10*5*50=7500$</code></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>$(A_1_(A_2_A_3))$</td>
-<td>$100_5_50+10_100_50=75000$</td>
+<td><code>$(A_1*(A_2*A_3))$</code></td>
+<td style="text-align:left"><code>$100*5*50+10*100*50=75000$</code></td>
 </tr>
 </tbody>
 </table>
