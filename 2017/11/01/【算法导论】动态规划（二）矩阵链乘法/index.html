@@ -77,18 +77,18 @@
 
 
 
-<meta name="description" content="矩阵链乘法问题矩阵乘法两个矩阵A和B相乘，维度分别为$p_q$ 和$q_r$ ，则$A*B$ 的时间复杂度为$pqr$ MATRIX_MULTIPLY(A,B)&amp;#123;  for (int i = 0;i &amp;lt;A.rows;i++)&amp;#123;    for(int j = 0;j &amp;lt; B.cols;j++)&amp;#123;      for(int k = 0;k &amp;lt; A.col">
+<meta name="description" content="矩阵链乘法问题矩阵乘法两个矩阵A和B相乘，维度分别为 p×q 和 q×r ，则$A*B$ 的时间复杂度为$pqr$ MATRIX_MULTIPLY(A,B)&amp;#123;  for (int i = 0;i &amp;lt;A.rows;i++)&amp;#123;    for(int j = 0;j &amp;lt; B.cols;j++)&amp;#123;      for(int k = 0;k &amp;lt; A.cols;">
 <meta name="keywords" content="DP,算法导论">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【算法导论】动态规划（二）矩阵链乘法">
 <meta property="og:url" content="http://yoursite.com/2017/11/01/【算法导论】动态规划（二）矩阵链乘法/index.html">
 <meta property="og:site_name" content="Siyao&#39;s Blog">
-<meta property="og:description" content="矩阵链乘法问题矩阵乘法两个矩阵A和B相乘，维度分别为$p_q$ 和$q_r$ ，则$A*B$ 的时间复杂度为$pqr$ MATRIX_MULTIPLY(A,B)&amp;#123;  for (int i = 0;i &amp;lt;A.rows;i++)&amp;#123;    for(int j = 0;j &amp;lt; B.cols;j++)&amp;#123;      for(int k = 0;k &amp;lt; A.col">
+<meta property="og:description" content="矩阵链乘法问题矩阵乘法两个矩阵A和B相乘，维度分别为 p×q 和 q×r ，则$A*B$ 的时间复杂度为$pqr$ MATRIX_MULTIPLY(A,B)&amp;#123;  for (int i = 0;i &amp;lt;A.rows;i++)&amp;#123;    for(int j = 0;j &amp;lt; B.cols;j++)&amp;#123;      for(int k = 0;k &amp;lt; A.cols;">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-11-01T14:54:11.258Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【算法导论】动态规划（二）矩阵链乘法">
-<meta name="twitter:description" content="矩阵链乘法问题矩阵乘法两个矩阵A和B相乘，维度分别为$p_q$ 和$q_r$ ，则$A*B$ 的时间复杂度为$pqr$ MATRIX_MULTIPLY(A,B)&amp;#123;  for (int i = 0;i &amp;lt;A.rows;i++)&amp;#123;    for(int j = 0;j &amp;lt; B.cols;j++)&amp;#123;      for(int k = 0;k &amp;lt; A.col">
+<meta name="twitter:description" content="矩阵链乘法问题矩阵乘法两个矩阵A和B相乘，维度分别为 p×q 和 q×r ，则$A*B$ 的时间复杂度为$pqr$ MATRIX_MULTIPLY(A,B)&amp;#123;  for (int i = 0;i &amp;lt;A.rows;i++)&amp;#123;    for(int j = 0;j &amp;lt; B.cols;j++)&amp;#123;      for(int k = 0;k &amp;lt; A.cols;">
 
 
 
@@ -399,9 +399,9 @@
       
 
       
-        <h2 id="矩阵链乘法问题"><a href="#矩阵链乘法问题" class="headerlink" title="矩阵链乘法问题"></a>矩阵链乘法问题</h2><h3 id="矩阵乘法"><a href="#矩阵乘法" class="headerlink" title="矩阵乘法"></a>矩阵乘法</h3><p>两个矩阵A和B相乘，维度分别为$p_q$ 和$q_r$ ，则$A*B$ 的时间复杂度为$pqr$</p>
+        <h2 id="矩阵链乘法问题"><a href="#矩阵链乘法问题" class="headerlink" title="矩阵链乘法问题"></a>矩阵链乘法问题</h2><h3 id="矩阵乘法"><a href="#矩阵乘法" class="headerlink" title="矩阵乘法"></a>矩阵乘法</h3><p>两个矩阵A和B相乘，维度分别为 p×q 和 q×r ，则$A*B$ 的时间复杂度为$pqr$</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><div class="line">MATRIX_MULTIPLY(A,B)&#123;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;A.rows;i++)&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; B.cols;j++)&#123;</div><div class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>;k &lt; A.cols;k++)&#123;</div><div class="line">        C[i,j] = A[i,k]*B[k,j];</div><div class="line">&#125;&#125;&#125;&#125;</div></pre></td></tr></table></figure>
-<h3 id="矩阵链乘法"><a href="#矩阵链乘法" class="headerlink" title="矩阵链乘法"></a>矩阵链乘法</h3><p>​    首先，给定一个矩阵链$<a_1,a_2,a_3>$ ，三个矩阵的规模分别为：$10_100$，$100_5$，$5*50$，计算他们的乘积有两种方式：</a_1,a_2,a_3></p>
+<h3 id="矩阵链乘法"><a href="#矩阵链乘法" class="headerlink" title="矩阵链乘法"></a>矩阵链乘法</h3><p>​    首先，给定一个矩阵链 $<a_1,a_2,a_3>$  ，三个矩阵的规模分别为：10×100 ， 100×5 ，5×50 ，计算他们的乘积有两种方式：</a_1,a_2,a_3></p>
 <table>
 <thead>
 <tr>
