@@ -100,7 +100,7 @@
 </thead>
 <tbody>
 <tr>
-<td><code>$(A_1*(A_2*A_3))$</code></td>
+<td>$(A_1(A_2A_3))$</td>
 <td style="text-align:left"><code>$100*5*50+10*100*50=75000$</code></td>
 </tr>
 </tbody>
