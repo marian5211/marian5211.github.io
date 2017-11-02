@@ -91,22 +91,24 @@
       <content type="html"><![CDATA[<h2 id="矩阵链乘法问题"><a href="#矩阵链乘法问题" class="headerlink" title="矩阵链乘法问题"></a>矩阵链乘法问题</h2><h3 id="矩阵乘法"><a href="#矩阵乘法" class="headerlink" title="矩阵乘法"></a>矩阵乘法</h3><p>两个矩阵A和B相乘，维度分别为$ p×q$ 和$ q×r$ ，则$A*B$ 的时间复杂度为$pqr$</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><div class="line">MATRIX_MULTIPLY(A,B)&#123;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;A.rows;i++)&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; B.cols;j++)&#123;</div><div class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>;k &lt; A.cols;k++)&#123;</div><div class="line">        C[i,j] = A[i,k]*B[k,j];</div><div class="line">&#125;&#125;&#125;&#125;</div></pre></td></tr></table></figure>
 <h3 id="矩阵链乘法"><a href="#矩阵链乘法" class="headerlink" title="矩阵链乘法"></a>矩阵链乘法</h3><p>​    首先，给定一个矩阵链 $<a_1,a_2,a_3>$  ，三个矩阵的规模分别为：10×100 ， 100×5 ，5×50 ，计算他们的乘积有两种方式：</a_1,a_2,a_3></p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
 <th>$((A_1<em>A_2)</em>A_3)$</th>
-<th style="text-align:left"><code>$10*100*5+10*5*50=7500$</code></th>
+<th style="text-align:left"><script type="math/tex">10*100*5+10*5*50=7500</script></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>$(A_1(A_2A_3))$</td>
-<td style="text-align:left"><code>$100*5*50+10*100*50=75000$</code></td>
+<td style="text-align:left"><script type="math/tex">100*5*50+10*100*50=75000</script></td>
 </tr>
 </tbody>
 </table>
+</div>
 <p>可以看出，对一串矩阵做乘法操作，乘法的顺序影响到算法的时间复杂度。由此，引出矩阵链乘法问题：</p>
-<p><strong>给定n个矩阵的链$<a_1,a_2,......,a_n>$，矩阵$A_i$ 的规模为$p_{i-1}*p_i$，确定代价最低的计算顺序，使得计算乘积$A_1A_2A_n$所需标量乘法次数最小。</a_1,a_2,......,a_n></strong></p>
+<p><strong>给定n个矩阵的链$<a_1,a_2,......,a_n>$，矩阵$A<em>i$ 的规模为$p</em>{i-1}*p_i$，确定代价最低的计算顺序，使得计算乘积$A_1A_2A_n$所需标量乘法次数最小。</a_1,a_2,......,a_n></strong></p>
 ]]></content>
       
         <categories>
@@ -159,8 +161,9 @@
 <li><p>动态规划（DP）</p>
 <p>可以看出来用上面递归的方式计算，中间会重复求解相同子问题。使用动态规划，<strong>仔细安排求解顺序，对每个子问题只求解一次所以，并把结果保存下来</strong>，供后续使用避免重复计算。</p>
 <p>​    对于钢条切割的问题，我们可以将长度为n的钢条切割问题转化为规模更小的子问题：当完成首次切割后，将两段钢条看成<strong>两个独立的钢条切割</strong>问题，通过<strong>组合</strong>两个相关子问题的最优解，选取组合收益最大者，构成原问题的最优解。</p>
-<p>因此，将长度为n的钢条切割成两段，共有下面n种切割方式，求解下面n个子问题的最优解，再选取其中最大的作为原问题的最优解。<br>$$<br>r_n=max(p_n,r_{1}+r_{n-1},r_{2}+r_{n-2},…,r_{n-1}+r_1)<br>$$</p>
-<p>​以n=4为例：</p>
+<p>因此，将长度为n的钢条切割成两段，共有下面n种切割方式，求解下面n个子问题的最优解，再选取其中最大的作为原问题的最优解。</p>
+<script type="math/tex; mode=display">
+r_n=max(p_n,r_{1}+r_{n-1},r_{2}+r_{n-2},...,r_{n-1}+r_1)</script><p>​以n=4为例：</p>
 <p>$r_1=1$</p>
 <p>$r_2=max(p_2,max(r_1)+max(r_1))=max(5,1+1)=5$</p>
 <p>$r_3=max(p_3,max(r_1)+max(r_2))=max(8,5+1)=8$</p>
@@ -221,7 +224,7 @@
 <p>因为每次滑窗末尾向后移动一位，新增的子数组必然包含最后一个数字，又必须是连续子数组，所以新增的个数是end-start+1</p>
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>最后附上很简单的代码</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">int numSubarrayProductLessThanK(vector&lt;int&gt;&amp; nums, int k) &#123;</div><div class="line">    int product = 1;</div><div class="line">    int count = 0;</div><div class="line">    int start = 0;</div><div class="line">    int end = 0;</div><div class="line">    while(end &lt; nums.size()&amp;&amp;start&lt;=end)&#123;</div><div class="line">        product = product*nums[end];</div><div class="line">        while(product&gt;=k&amp;&amp;start&lt;=end)&#123;</div><div class="line">            product = product/nums[start];</div><div class="line">            start++;</div><div class="line">        &#125;</div><div class="line">        count+=end-start+1;</div><div class="line">        end++;</div><div class="line">    &#125;</div><div class="line">    return count;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>##<br><img src="http://omaby2s5z.bkt.clouddn.com/blog/171026/1g02kLeb0H.png?imageslim" alt=""><br><img src="http://omaby2s5z.bkt.clouddn.com/201710261713_719.png" alt=""></p>
+<h2 id=""><a href="#" class="headerlink" title=" "></a> </h2><p><img src="http://omaby2s5z.bkt.clouddn.com/blog/171026/1g02kLeb0H.png?imageslim" alt=""><br><img src="http://omaby2s5z.bkt.clouddn.com/201710261713_719.png" alt=""></p>
 ]]></content>
       
         <categories>
@@ -324,6 +327,7 @@
 <h3 id="一般做法"><a href="#一般做法" class="headerlink" title="一般做法"></a>一般做法</h3><p>一般的做法很简单</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">void swap(int &amp;a;int &amp;b)&#123;</div><div class="line">    int temp = a;</div><div class="line">    a = b;</div><div class="line">    b = temp;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="不使用中间变量的做法"><a href="#不使用中间变量的做法" class="headerlink" title="不使用中间变量的做法"></a>不使用中间变量的做法</h3><p>采用位操作符中的异或操作<code>^</code></p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -366,6 +370,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>容易发现<code>^</code>的性质：</p>
 <ol>
 <li>两个相同的数字做<code>^</code>操作得0</li>
@@ -898,16 +903,15 @@
     <entry>
       <title><![CDATA[准确率、召回率、F1、ROC、AUC]]></title>
       <url>/2017/04/04/%E5%87%86%E7%A1%AE%E7%8E%87%E3%80%81%E5%8F%AC%E5%9B%9E%E7%8E%87%E3%80%81F1%E3%80%81ROC%E3%80%81AUC/</url>
-      <content type="html"><![CDATA[<h2 id="性能度量"><a href="#性能度量" class="headerlink" title="性能度量"></a>性能度量</h2><p>对学习器的<strong>泛化性能</strong>进行评估<br>在预测任务中，给定样例集$D=\lbrace (x_1,y_1),(x_2,y_),…,(x_n,y_n)\rbrace$，其中$y_i$是$x_n$的真实标记,估计学习器的性能就是<strong>把预测的结果$f(x)$与实际值进行比较</strong></p>
-<h2 id="指标"><a href="#指标" class="headerlink" title="指标"></a>指标</h2><p><strong>回归</strong>任务中常用的是“<strong>均方误差</strong>”：<br>$$E(f,D) = \frac{m}{1}\sum_{i=1}^{m}(f(x_i)-y_i)^2$$</p>
-<p>下面介绍<strong>分类任务中常用的度量指标</strong></p>
+      <content type="html"><![CDATA[<h2 id="性能度量"><a href="#性能度量" class="headerlink" title="性能度量"></a>性能度量</h2><p>对学习器的<strong>泛化性能</strong>进行评估<br>在预测任务中，给定样例集$D=\lbrace (x<em>1,y_1),(x_2,y</em>),…,(x_n,y_n)\rbrace$，其中$y_i$是$x_n$的真实标记,估计学习器的性能就是<strong>把预测的结果$f(x)$与实际值进行比较</strong></p>
+<h2 id="指标"><a href="#指标" class="headerlink" title="指标"></a>指标</h2><p><strong>回归</strong>任务中常用的是“<strong>均方误差</strong>”：</p>
+<script type="math/tex; mode=display">E(f,D) = \frac{m}{1}\sum_{i=1}^{m}(f(x_i)-y_i)^2</script><p>下面介绍<strong>分类任务中常用的度量指标</strong></p>
 <h3 id="1-错误率与精度"><a href="#1-错误率与精度" class="headerlink" title="1. 错误率与精度"></a>1. 错误率与精度</h3><p><strong>错误率</strong>就是分类错误的样本数占样本总数的比例</p>
-<p>$$E(f,D)=\frac{m}{1}\sum_{i=1}^{m}(f(x_i) \neq y_i)^2$$</p>
-<p><strong>精度</strong>就是$1-E$</p>
+<script type="math/tex; mode=display">E(f,D)=\frac{m}{1}\sum_{i=1}^{m}(f(x_i) \neq y_i)^2</script><p><strong>精度</strong>就是$1-E$</p>
 <h3 id="2-准确率、召回率和F1"><a href="#2-准确率、召回率和F1" class="headerlink" title="2. 准确率、召回率和F1"></a>2. 准确率、召回率和F1</h3><p>错误率和精度不能满足所有任务的需求<br>比如在web搜索中，我们经常会关心，<strong>检索出来的信息有多少是用户关心</strong>的，或者用户<strong>真正关心的数据中有多少被检索出来</strong>了，所以引入<strong>“准确率”和“召回率”</strong></p>
 <p>分类据结果的混淆矩阵为<br><img src="https://ooo.0o0.ooo/2017/04/01/58dfad37d9823.png" alt=""> </p>
-<p><strong>准确率</strong>和<strong>召回率</strong>定义为：<br>$$P=\frac{TP}{TP+FP}$$<br>$$r=\frac{TP}{TP+FN}$$</p>
-<p><strong>准确率和召回率是一组矛盾的度量</strong>，一般准确率高时，召回率往往偏低；召回率高时，准确率往往偏低<br>如何理解二者之间的矛盾呢，我们依然沿用上面的例子，如果我们想尽可能多地返回<strong>用户关心的信息</strong>，就可以返回大量的信息，此时用户关心的结果可能都被选上了，但是也返回了大量用户不关心的信息，准确率较低；反之，如果我们希望返回的信息中心用户关心的比例比较高，就可以只返回那些有把握的信息，但这样就会漏掉不少可能也是用户关心的信息，也就是召回率比较低。</p>
+<p><strong>准确率</strong>和<strong>召回率</strong>定义为：</p>
+<script type="math/tex; mode=display">P=\frac{TP}{TP+FP}</script><script type="math/tex; mode=display">r=\frac{TP}{TP+FN}</script><p><strong>准确率和召回率是一组矛盾的度量</strong>，一般准确率高时，召回率往往偏低；召回率高时，准确率往往偏低<br>如何理解二者之间的矛盾呢，我们依然沿用上面的例子，如果我们想尽可能多地返回<strong>用户关心的信息</strong>，就可以返回大量的信息，此时用户关心的结果可能都被选上了，但是也返回了大量用户不关心的信息，准确率较低；反之，如果我们希望返回的信息中心用户关心的比例比较高，就可以只返回那些有把握的信息，但这样就会漏掉不少可能也是用户关心的信息，也就是召回率比较低。</p>
 <p>下图为P-R曲线，可以直观的反映准确率和召回率之间的矛盾，评估模型时，可以根据曲线下方面积进行模型比较，面积大者效果比较好<br><img src="https://ooo.0o0.ooo/2017/04/01/58dfaf3b77185.png" alt=""> </p>
 <p>在实际应用时中，我们可以<strong>结合实际情况，权衡两个指标的重要程度</strong>，因此引入$F_{\beta}$指标：</p>
 <p><img src="https://ooo.0o0.ooo/2017/04/01/58dfad605dae8.png" alt=""> </p>
@@ -957,7 +961,7 @@
 </ul>
 <h4 id="AUC的计算方法"><a href="#AUC的计算方法" class="headerlink" title="AUC的计算方法"></a>AUC的计算方法</h4><p>形式化地看，AUC考虑的是<strong>样本预测的排序质量</strong>，也就是在M×N(M为正类样本的数目，N为负类样本的数目)个正负样本对中，有多少个组中的正样本的score大于负样本的score（正样本排在负样本前面）</p>
 <ol>
-<li>从误差方面入手，即由模型计算出来的分数，负样本比正样本高的概率。如果给定$m_+$个正例和$m_-$个负例，令$D_+$和$D_-$分别表是正、负例集合，则排序“损失”定义为</li>
+<li>从误差方面入手，即由模型计算出来的分数，负样本比正样本高的概率。如果给定$m<em>+$个正例和$m</em>-$个负例，令$D<em>+$和$D</em>-$分别表是正、负例集合，则排序“损失”定义为</li>
 </ol>
 <p><img src="https://ooo.0o0.ooo/2017/04/04/58e349099c736.png" alt=""><br>即考虑每一对正、反例对，如果正例的预测值小于反例，则记一个罚分，如果相等，记0.5个罚分。对应于RUC曲线上半部分的面积，那么RUC曲线下半部分的面积：</p>
 <p><img src="https://ooo.0o0.ooo/2017/04/04/58e3497b012a6.png" alt=""> </p>
@@ -971,8 +975,7 @@
 <li>得到的就是所有的样本中有多少对正类样本的score大于负类样本的score。</li>
 <li>然后再除以M×N。即</li>
 </ul>
-<p>$$AUC=\frac{(所有的正例位置相加)-M<em>(M+1)}{M</em>N}$$</p>
-<p>另外，特别需要注意的是，再存在score相等的情况时，对相等score的样本，需要 赋予相同的rank(无论这个相等的score是出现在同类样本还是不同类的样本之间，都需要这样处理)。具体操作就是再把所有这些score相等的样本 的rank取平均。然后再使用上述公式。</p>
+<script type="math/tex; mode=display">AUC=\frac{(所有的正例位置相加)-M*(M+1)}{M*N}</script><p>另外，特别需要注意的是，再存在score相等的情况时，对相等score的样本，需要 赋予相同的rank(无论这个相等的score是出现在同类样本还是不同类的样本之间，都需要这样处理)。具体操作就是再把所有这些score相等的样本 的rank取平均。然后再使用上述公式。</p>
 <h3 id="为什么使用ROC"><a href="#为什么使用ROC" class="headerlink" title="为什么使用ROC"></a>为什么使用ROC</h3><p>既然已经这么多评价标准，为什么还要使用ROC和AUC呢？因为ROC曲线有个很好的特性：<strong>当测试集中的正负样本的分布变化的时候，ROC曲线能够保持不变</strong>。在实际的数据集中经常会出现类不平衡（class imbalance）现象，即负样本比正样本多很多（或者相反），而且测试数据中的正负样本的分布也可能随着时间变化。下图是ROC曲线和Precision-Recall曲线的对比： </p>
 <p><img src="https://ooo.0o0.ooo/2017/04/04/58e342f8b9196.png" alt=""> </p>
 <p>在上图中，(a)和(c)为ROC曲线，(b)和(d)为Precision-Recall曲线。(a)和(b)展示的是分类其在原始测试集（正负样本分布平衡）的结果，(c)和(d)是将测试集中负样本的数量增加到原来的10倍后，分类器的结果。可以明显的看出，<strong>ROC曲线基本保持原貌</strong>，而Precision-Recall曲线则变化较大。</p>
@@ -1024,9 +1027,9 @@
 <li>对于二叉排序树的任何一个节点，其<strong>左子树的元素都小于右子树的元素</strong></li>
 <li><strong>满二叉排序树树</strong>，树的结构可以确定</li>
 </ul>
-<p>如果树的深度是$k$，满二叉树有$2^k-1$个元素，按从小到大的顺序排列为：$[a_1,a_2,…,a_{2^k-1}]$，则该满二叉树的结构如下：</p>
+<p>如果树的深度是$k$，满二叉树有$2^k-1$个元素，按从小到大的顺序排列为：$[a<em>1,a_2,…,a</em>{2^k-1}]$，则该满二叉树的结构如下：</p>
 <ol>
-<li>根节点的元素为$a_{\frac{2^k}{2}}$，$[a_1,a_2,…,a_{\frac{2^k}{2}-1}]$中的元素在根节点的左子树中，$[a_{\frac{2^k}{2}+1},…,a_{2^k-1}]$中的元素在根节点的右子树中</li>
+<li>根节点的元素为$a<em>{\frac{2^k}{2}}$，$[a_1,a_2,…,a</em>{\frac{2^k}{2}-1}]$中的元素在根节点的左子树中，$[a<em>{\frac{2^k}{2}+1},…,a</em>{2^k-1}]$中的元素在根节点的右子树中</li>
 <li>对左子树、右子树两个区间再分别做1中的操作，得到最终的二叉排序树</li>
 </ol>
 <p>给定三个节点，根据二叉排序树的性质，可以知道<strong>包含这三个节点的最小子树的根节点的值，一定在这三个节点值构成的区间$[min,max]$内</strong></p>
@@ -1186,7 +1189,7 @@
 <p>step2：<br>给定一个数p，遍历(2，p/2)中的素数t，如果p-t也是素数，则结果+1。</p>
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">#include &lt;iostream&gt;</div><div class="line">#include &lt;vector&gt;</div><div class="line">using namespace std;</div><div class="line">//bool f[1024*32];</div><div class="line">int main()</div><div class="line">&#123;</div><div class="line">    //素数表</div><div class="line">    bool sushu[1024 * 32 + 1];</div><div class="line">    int n = 1024 * 32;</div><div class="line">    for (int i = 0; i &lt;= n; i++)</div><div class="line">        sushu[i] = true;</div><div class="line">    sushu[1] = false;</div><div class="line">    for (int i = 2; i &lt;= n; i++)</div><div class="line">    &#123;</div><div class="line">        if (sushu[i] == true)</div><div class="line">        &#123;</div><div class="line">            for (int j = 2; j*i &lt;= n; j++)</div><div class="line">                sushu[i*j] = false;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    vector&lt;int&gt; result;</div><div class="line">    while(cin)&#123;</div><div class="line">        int aaa;</div><div class="line">        cin &gt;&gt; aaa;</div><div class="line">        if (aaa ==0)</div><div class="line">        &#123;</div><div class="line">            break;</div><div class="line">        &#125;</div><div class="line">        int sum = 0;</div><div class="line">        for (int i = 2; i &lt;= aaa / 2; i++) &#123;</div><div class="line">            if (sushu[i] == 1) &#123;</div><div class="line">                if (sushu[aaa - i] == 1) &#123;</div><div class="line">                    sum++;</div><div class="line">                &#125;</div><div class="line">            &#125;   </div><div class="line">        &#125;</div><div class="line">        result.push_back(sum);</div><div class="line">    &#125;</div><div class="line">    for (int i = 0; i &lt; result.size(); i++) &#123;</div><div class="line">        cout &lt;&lt; result[i] &lt;&lt; endl;</div><div class="line">    &#125;</div><div class="line">    //system(&quot;pause&quot;);</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="素数筛"><a href="#素数筛" class="headerlink" title="素数筛"></a>素数筛</h2><p>关于一定范围内素数的枚举，有下面两种素数筛的方法</p>
-<h3 id="1-普通筛选法–埃拉托斯特尼筛法"><a href="#1-普通筛选法–埃拉托斯特尼筛法" class="headerlink" title="1. 普通筛选法–埃拉托斯特尼筛法"></a>1. 普通筛选法–埃拉托斯特尼筛法</h3><p><strong>基本思想</strong>：素数的倍数一定不是素数</p>
+<h3 id="1-普通筛选法—埃拉托斯特尼筛法"><a href="#1-普通筛选法—埃拉托斯特尼筛法" class="headerlink" title="1. 普通筛选法—埃拉托斯特尼筛法"></a>1. 普通筛选法—埃拉托斯特尼筛法</h3><p><strong>基本思想</strong>：素数的倍数一定不是素数</p>
 <p><strong>步骤</strong>:</p>
 <p>用一个长度为N+1的数组保存信息（0表示素数，1表示非素数），初始值都置为0（都默认为素数）</p>
 <ol>
@@ -1198,7 +1201,7 @@
 <p><strong>代码</strong></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">bool sushu[1024 * 32 + 1];</div><div class="line">    int n = 1024 * 32;</div><div class="line">    for (int i = 0; i &lt;= n; i++)</div><div class="line">        sushu[i] = true;</div><div class="line">    sushu[1] = false;</div><div class="line">    for (int i = 2; i &lt;= n; i++)</div><div class="line">    &#123;</div><div class="line">        if (sushu[i] == true)</div><div class="line">        &#123;</div><div class="line">            for (int j = 2; j*i &lt;= n; j++)</div><div class="line">                sushu[i*j] = false;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 <p><strong>时间复杂度</strong>：$O(nlogn)$</p>
-<h3 id="2-线性筛法–欧拉筛法"><a href="#2-线性筛法–欧拉筛法" class="headerlink" title="2. 线性筛法–欧拉筛法"></a>2. 线性筛法–欧拉筛法</h3><p><strong>基本思想</strong>：保证每个合数只会被它的<strong>最小质因数</strong>筛去，因此每个数只会被标记一次</p>
+<h3 id="2-线性筛法—欧拉筛法"><a href="#2-线性筛法—欧拉筛法" class="headerlink" title="2. 线性筛法—欧拉筛法"></a>2. 线性筛法—欧拉筛法</h3><p><strong>基本思想</strong>：保证每个合数只会被它的<strong>最小质因数</strong>筛去，因此每个数只会被标记一次</p>
 <p><strong>代码</strong></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">#include&lt;cstdio&gt;</div><div class="line">#include&lt;cstring&gt;</div><div class="line">#define MAXN 100005</div><div class="line">#define MAXL 1299710</div><div class="line">int prime[MAXN];//最小质因数</div><div class="line">int check[MAXL];//是否为素数</div><div class="line"></div><div class="line">int tot = 0;</div><div class="line">memset(check, 0, sizeof(check));</div><div class="line">for (int i = 2; i &lt; MAXL; ++i)</div><div class="line">&#123;</div><div class="line">  if (!check[i])</div><div class="line">  &#123;</div><div class="line">    prime[tot++] = i;</div><div class="line">  &#125;</div><div class="line">  for (int j = 0; j &lt; tot; ++j)</div><div class="line">  &#123;</div><div class="line">    if (i * prime[j] &gt; MAXL)</div><div class="line">    &#123;</div><div class="line">      break;</div><div class="line">    &#125;</div><div class="line">    check[i*prime[j]] = 1;</div><div class="line">    if (i % prime[j] == 0)</div><div class="line">    &#123;</div><div class="line">      break;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><strong>时间复杂度</strong>：$O(n)$</p>
@@ -1282,11 +1285,11 @@
 <p>因为后面的字母串对前面的字母串有<strong>包含</strong>的关系，所以考虑用<strong>动态规划</strong>来求解，那接下来的重点就是寻找状态转移方程了</p>
 <p>用$dp[i][j]$表示长度为$i$首字母为$j$的字母串个数，那么$dp[i+1][j]=dp[i][j+1]+dp[i][j+2]+···+dp[i][‘z’-i]$</p>
 <p>光看公式可能理解得不是很好，举个例子吧：<br>比如我们现在想求<strong>长度是5位</strong>，<strong>b打头</strong>的字母串的个数:</p>
-<p>b _ _ _ _      ······$dp[5][b]$</p>
+<p>b <em> </em> <em> </em>      ······$dp[5][b]$</p>
 <p>那么考虑后面的四位，有下面的22种情况：</p>
-<p>b ++c++ _ _ _  ······$dp[4][c]$</p>
-<p>b ++d++ _ _ _  ······$dp[4][d]$</p>
-<p>b ++e++ _ _ _  ······$dp[4][e]$</p>
+<p>b ++c++ <em> </em> _  ······$dp[4][c]$</p>
+<p>b ++d++ <em> </em> _  ······$dp[4][d]$</p>
+<p>b ++e++ <em> </em> _  ······$dp[4][e]$</p>
 <p>···</p>
 <p>b ++w++ ++x++ ++y++ ++z++  ······$dp[4][w]$</p>
 <p>把上面的22种情况相加，就可以得到长度为5，b打头的所有字母串个数$p[5][b]$</p>
@@ -1301,13 +1304,13 @@
 </ol>
 <p>嗯，问题解决了一大部分了，现在就剩第三种情况了！！！！<br>再看一眼字母串“<strong>cefkq</strong>”</p>
 <p>长度和首字母都相等，位置比它在前面，那就一位一位考虑呗</p>
-<p>第二位是e，<br>c ++d++ _ _ _在它前面！所以又有$dp[4][d]$个在它前面的，加上！</p>
+<p>第二位是e，<br>c ++d++ <em> </em> _在它前面！所以又有$dp[4][d]$个在它前面的，加上！</p>
 <p>第三位是f，ef中间没有其他字母了，继续往后看</p>
 <p>第四位是k，fk中间还有g、h、i、j</p>
-<p>c e ++g++ _ _  ······$dp[3][g]$</p>
-<p>c e ++h++ _ _  ······$dp[3][h]$</p>
-<p>c e ++i++ _ _  ······$dp[3][i]$</p>
-<p>c e ++j++ _ _  ······$dp[3][j]$</p>
+<p>c e ++g++ <em> </em>  ······$dp[3][g]$</p>
+<p>c e ++h++ <em> </em>  ······$dp[3][h]$</p>
+<p>c e ++i++ <em> </em>  ······$dp[3][i]$</p>
+<p>c e ++j++ <em> </em>  ······$dp[3][j]$</p>
 <p>统统加上！</p>
 <p>······</p>
 <p>再往后就跟前面一样了，不再赘述了</p>
@@ -1383,15 +1386,16 @@
 <h4 id="FM"><a href="#FM" class="headerlink" title="FM"></a>FM</h4><p><img src="https://ooo.0o0.ooo/2017/03/21/58d0e99b2f719.png" alt=""> </p>
 <p>也就是<strong>FM</strong>中的交叉特征（二次项），采用<strong>矩阵分解</strong>得到如下形式：</p>
 <p><img src="https://ooo.0o0.ooo/2017/03/21/58d0e9cb62988.png" alt=""> </p>
-<p>其中$w_{j_1}$和$w_{j_2}$分别为特征$j_1$和$j_1$对应的<strong>隐向量</strong>，对应下图中左边两个矩阵的一行或一列即是一个隐向量。</p>
+<p>其中$w<em>{j_1}$和$w</em>{j_2}$分别为特征$j_1$和$j_1$对应的<strong>隐向量</strong>，对应下图中左边两个矩阵的一行或一列即是一个隐向量。</p>
 <p><img src="https://ooo.0o0.ooo/2017/03/13/58c6aa26b83c6.png" alt=""> </p>
 <h4 id="FFM"><a href="#FFM" class="headerlink" title="FFM"></a>FFM</h4><p>现在在FM的基础之上，我们<strong>引入field-aware的概念</strong>，可以推得<strong>FFM的二次项形式</strong>如下：</p>
 <p><img src="https://ooo.0o0.ooo/2017/03/21/58d0e9fe74136.png" alt=""> </p>
-<p>其中$w_{j_1,f_{j_2}}$为<strong>特征$j_1$针对$j_2$所在的类别$f_{j_2}$的隐向量</strong></p>
-<p>$w_{j_2,f_{j_1}}$为<strong>特征$j_2$针对$j_1$所在的类别$f_{j_1}$的隐向量</strong></p>
+<p>其中$w<em>{j_1,f</em>{j<em>2}}$为**特征$j_1$针对$j_2$所在的类别$f</em>{j_2}$的隐向量**</p>
+<p>$w<em>{j_2,f</em>{j<em>1}}$为**特征$j_2$针对$j_1$所在的类别$f</em>{j_1}$的隐向量**</p>
 <p>FFM完整的模型方程为</p>
 <p><img src="https://ooo.0o0.ooo/2017/03/21/58d1361058228.png" alt=""> </p>
 <p>为了便于理解，先看下面的例子</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -1416,6 +1420,8 @@
 </tr>
 </tbody>
 </table>
+</div>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -1462,7 +1468,8 @@
 </tr>
 </tbody>
 </table>
-<p>我们对原始数据进行One-Hot编码生成数值特征，这时引入field的概念，把同一个categorical特征经过One-Hot编码生成的数值特征都放到同一个field中。比如：“Day=26/11/15”、“Day=1/7/14”、“Day=19/2/15”这三个特征是由“日期”这一categorical特征生成的，可以放到同一个field中。这时我们再计算隐向量的时候，<strong>隐向量不仅与特征相关，还与field相关</strong>。每一维特征$x_i$针对其它特征的每一种field<br>$f_j$，都会学习一个隐向量 $w_{i,f_j}$。</p>
+</div>
+<p>我们对原始数据进行One-Hot编码生成数值特征，这时引入field的概念，把同一个categorical特征经过One-Hot编码生成的数值特征都放到同一个field中。比如：“Day=26/11/15”、“Day=1/7/14”、“Day=19/2/15”这三个特征是由“日期”这一categorical特征生成的，可以放到同一个field中。这时我们再计算隐向量的时候，<strong>隐向量不仅与特征相关，还与field相关</strong>。每一维特征$x<em>i$针对其它特征的每一种field<br>$f_j$，都会学习一个隐向量 $w</em>{i,f_j}$。</p>
 <p>假设样本的n个特征属于 f 个field，那么FFM的二次项有  nf 个隐向量，如果隐向量的长度为 k ，那么FFM的二次参数有 nfk 个。而在FM模型中，每一维特征的隐向量只有一个<strong>，FM可以看作FFM的特例，是把所有特征都归属到一个field时的FFM模型</strong>。此外，由于隐向量与field相关，FFM二次项并不能够化简，其预测<strong>复杂度是 $O(kn^2)$。</strong></p>
 <h3 id="FFM实现"><a href="#FFM实现" class="headerlink" title="FFM实现"></a>FFM实现</h3><p>Yu-Chin Juan实现了一个C++版的FFM模型，源码可从Github下载<a href="https://github.com/guestwalk/libffm" target="_blank" rel="external">https://github.com/guestwalk/libffm</a></p>
 <p>该<strong>FFM模型采用logistic loss作为损失函数，和L2惩罚项</strong>，因此只能用于<strong>二元分类</strong>问题。</p>
@@ -1593,8 +1600,8 @@
       <title><![CDATA[交叉熵]]></title>
       <url>/2017/03/16/%E4%BA%A4%E5%8F%89%E7%86%B5/</url>
       <content type="html"><![CDATA[<h3 id="熵"><a href="#熵" class="headerlink" title="熵"></a>熵</h3><p>本质：香农信息量$log\frac{1}{p}$的期望<br>用来衡量一个系统的有序化程度，一个系统越是有序，那么它的信息熵就越低，反之就越高。</p>
-<p>随机变量$X$可能的取值$X=\lbrace x_1,x_2,\cdots,x_n \rbrace$，对应的概率为$p(X=x_i)(i=1,2,\cdots,n)$，随机变量$X$的熵定义为$H(X) = -{\sum_{i}^{n}{p(x_i)\log{p(x_i)}}}$</p>
-<h3 id="交叉熵"><a href="#交叉熵" class="headerlink" title="交叉熵"></a>交叉熵</h3><p>现有关于样本集的2个概率分布p和q，其中p为真实分布，q非真实分布。按照真实分布p来衡量识别一个样本的所需要的编码长度的期望(即平均编码长度)为：$H(p)=-{\sum_{i}^{n}{p(x_i)\log{p(x_i)}}}$。如果使用错误分布q来表示来自真实分布p的平均编码长度，则应该是：$H(p,q)=-{\sum_{i}^{n}{p(x_i)\log{q(x_i)}}}$。因为用q来编码的样本来自分布p，所以期望H(p,q)中概率是p(i)。H(p,q)我们称之为“交叉熵”。</p>
+<p>随机变量$X$可能的取值$X=\lbrace x<em>1,x_2,\cdots,x_n \rbrace$，对应的概率为$p(X=x_i)(i=1,2,\cdots,n)$，随机变量$X$的熵定义为$H(X) = -{\sum</em>{i}^{n}{p(x_i)\log{p(x_i)}}}$</p>
+<h3 id="交叉熵"><a href="#交叉熵" class="headerlink" title="交叉熵"></a>交叉熵</h3><p>现有关于样本集的2个概率分布p和q，其中p为真实分布，q非真实分布。按照真实分布p来衡量识别一个样本的所需要的编码长度的期望(即平均编码长度)为：$H(p)=-{\sum<em>{i}^{n}{p(x_i)\log{p(x_i)}}}$。如果使用错误分布q来表示来自真实分布p的平均编码长度，则应该是：$H(p,q)=-{\sum</em>{i}^{n}{p(x_i)\log{q(x_i)}}}$。因为用q来编码的样本来自分布p，所以期望H(p,q)中概率是p(i)。H(p,q)我们称之为“交叉熵”。</p>
 <h3 id="相对熵"><a href="#相对熵" class="headerlink" title="相对熵"></a>相对熵</h3><p>$D(p||q)=H(p,q)-H(p)=\sum_{i}^{} p(i)*log\frac{p(i)}{q(i)}$，其又被称为KL散度(Kullback–Leibler divergence，KLD) Kullback–Leibler divergence。它表示2个函数或概率分布的差异性：差异越大则相对熵越大，差异越小则相对熵越小，特别地，若2者相同则熵为0。注意，KL散度的非对称性。</p>
 <h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>交叉熵可在神经网络(机器学习)中作为损失函数，p表示真实标记的分布，q则为训练后的模型的预测标记分布，交叉熵损失函数可以衡量p与q的相似性。交叉熵作为损失函数还有一个好处是使用sigmoid函数在梯度下降时能避免均方误差损失函数学习速率降低的问题，因为学习速率可以被输出的误差所控制。</p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://www.zhihu.com/question/41252833" target="_blank" rel="external">知乎：如何通俗的解释交叉熵与相对熵</a></p>
@@ -1669,6 +1676,7 @@
 <li>排序</li>
 </ol>
 <h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><h4 id="传统线性回归模型"><a href="#传统线性回归模型" class="headerlink" title="传统线性回归模型"></a>传统线性回归模型</h4><p>我们用广告的CTR（点击率）预估问题引出FM模型：根据用户和广告位等相关特征，预测用户是否点击广告。源数据如下</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -1699,7 +1707,9 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>由于三种特征Country、Day、Ad_type都是categorical类型的，进行ctr预估的时候往往需要经过独热编码（One-Hot Encoding）转换成数值型特征。</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -1746,6 +1756,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>再利用<strong>传统的线性回归模型</strong>：</p>
 <p><img src="https://ooo.0o0.ooo/2017/03/13/58c68f490519b.png" alt=""> </p>
 <p>根据训练集训练出模型的参数，进行预测。</p>
@@ -1969,8 +1980,7 @@
 <li>遍历vector内的单词</li>
 <li>对于每一个单词先确定首字母所在行号，再依次查看后面的字母是否跟首字母在同一行，一旦不一致，立刻从vector中删除该单词</li>
 </ol>
-<p>## </p>
-<h3 id="问题总结"><a href="#问题总结" class="headerlink" title="问题总结"></a>问题总结</h3><ol>
+<h2 id=""><a href="#" class="headerlink" title=" "></a> </h2><h3 id="问题总结"><a href="#问题总结" class="headerlink" title="问题总结"></a>问题总结</h3><ol>
 <li>一开始上手打算用字符数组存放键盘表，折腾了好久发现一个严重的问题：数组作为参数传递时，传递的是<strong>指针</strong>，这时候再用sizeof()来求数组的长度实际上求得的是<strong>指针的长度</strong>，而非数组长度，所以数组作为传递参数时需要将其长度也作为一个参数传递，后续运算时才不会出错，所以改用string存储每一行字母。</li>
 <li>vector中用earse()删除元素时，返回值为：指向被删除元素的下一个元素的iterator，外层如果用for循环iter++,容易出现越界情况,所以采用了while循环</li>
 </ol>
@@ -2074,16 +2084,17 @@
       <url>/2017/03/04/%E5%86%B3%E7%AD%96%E6%A0%91%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E5%9F%BA%E7%A1%80/</url>
       <content type="html"><![CDATA[<h2 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h2><ol>
 <li>使用不熟悉的数据集合，从中提取出一系列规则，能够对新数据进行分类</li>
-<li>极大化信息增益$a_* = argmax_{a\in A}{Gain(D,a)}$</li>
+<li>极大化信息增益$a<em>* = argmax</em>{a\in A}{Gain(D,a)}$</li>
 </ol>
 <h3 id="构建决策树伪代码"><a href="#构建决策树伪代码" class="headerlink" title="构建决策树伪代码"></a>构建决策树伪代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">createBranch()：</div><div class="line">    检测数据集中的每个项是否属于同一个分类：</div><div class="line">    if so </div><div class="line">       return 类标签</div><div class="line">    else</div><div class="line">       寻找划分数据集的最好特征***</div><div class="line">       划分数据集</div><div class="line">       创建分支节点</div><div class="line">            for 每个分支节点，递归调用createBranch()函数</div><div class="line">        return 分支节点</div></pre></td></tr></table></figure>
 <h3 id="关键"><a href="#关键" class="headerlink" title="关键"></a>关键</h3><p>显然，构建决策树的关键是<strong>寻找划分数据集的最好特征</strong>，我们希望决策树分支节点包含的样本尽可能属于同一类别——纯度（purity）越高越好</p>
 <h2 id="划分选择"><a href="#划分选择" class="headerlink" title="划分选择"></a>划分选择</h2><h3 id="1-信息熵-——-gt-信息增益"><a href="#1-信息熵-——-gt-信息增益" class="headerlink" title="1. 信息熵 ——&gt; 信息增益"></a>1. 信息熵 ——&gt; 信息增益</h3><h5 id="信息熵"><a href="#信息熵" class="headerlink" title="信息熵"></a>信息熵</h5><ul>
 <li>信息论中表示样本的不确定性大小，度量样本集合纯度最常用的指标</li>
-<li>样本集合D中第k类占比$p_k$则D的信息熵定义为:$$Ent(D)=-\sum\limits_{k=1}^{\left |y\right|}p_{k}log_2p_{k}$$</li>
+<li>样本集合D中第k类占比$p<em>k$则D的信息熵定义为:$$Ent(D)=-\sum\limits</em>{k=1}^{\left |y\right|}p<em>{k}log_2p</em>{k}$$</li>
 </ul>
-<h5 id="信息增益"><a href="#信息增益" class="headerlink" title="信息增益"></a>信息增益</h5><p>假定离散属性a在D中有V个可能的取值${a^1,a^2,…,a^V}$,若依据属性a对D进行分类，产生V个分支点，根据每个分支点样本数量对分支点赋权重$\left |D^V\right|/D$，于是根据属性a进行划分获得的信息增益为：<br>$$ Gain(D,a) = Ent(D)-\sum\limits_{v=1}^{\left |v\right|}\frac{\left |D^V\right|}{D}Ent(D^v)$$<br>也就是<strong>信息熵的减少量</strong>，越大越好：<br>$$a_* = argmax_{a\in A}Gain(D,a)$$</p>
-<p>接下来如果给出下表中关于西瓜的特征数据，据此判断西瓜的好坏<br><img src="https://ooo.0o0.ooo/2017/03/04/58ba9b8304fff.png" alt=""> </p>
+<h5 id="信息增益"><a href="#信息增益" class="headerlink" title="信息增益"></a>信息增益</h5><p>假定离散属性a在D中有V个可能的取值${a^1,a^2,…,a^V}$,若依据属性a对D进行分类，产生V个分支点，根据每个分支点样本数量对分支点赋权重$\left |D^V\right|/D$，于是根据属性a进行划分获得的信息增益为：</p>
+<script type="math/tex; mode=display">Gain(D,a) = Ent(D)-\sum\limits_{v=1}^{\left |v\right|}\frac{\left |D^V\right|}{D}Ent(D^v)</script><p>也就是<strong>信息熵的减少量</strong>，越大越好：</p>
+<script type="math/tex; mode=display">a_* = argmax_{a\in A}Gain(D,a)</script><p>接下来如果给出下表中关于西瓜的特征数据，据此判断西瓜的好坏<br><img src="https://ooo.0o0.ooo/2017/03/04/58ba9b8304fff.png" alt=""> </p>
 <p>我们就可以先算出根节点的信息熵（分为好、坏两类）——&gt;计算依每一个属性进行划分所获得的信息增益，选取信息增益最大的属性作为分支节点——&gt;重复上述过程直到无法分类。得到如下决策树：<br><img src="https://ooo.0o0.ooo/2017/03/04/58ba9d82898b7.png" alt=""> </p>
 <h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><p>ID3决策树</p>
 <p><strong>思考</strong>：如果我们将数据中“<strong>编号</strong>”这一属性也作为一个候选的划分属性，该属性能够产生17个分支，每个分支只包含一个样本，显然纯度最高，所产生的信息增益也最大，但<strong>不具备泛化能力</strong>。</p>
@@ -2099,7 +2110,7 @@
 <h3 id="3-基尼指数"><a href="#3-基尼指数" class="headerlink" title="3. 基尼指数"></a>3. 基尼指数</h3><p><img src="https://ooo.0o0.ooo/2017/03/04/58baa498a3f46.png" alt=""> </p>
 <p>用于<strong>度量数据集的纯度</strong>，物理意义：从数据集中随机取两个样本，二者不属于同一类别的概率，<strong>故Gini值越小，数据集纯度越高</strong>。<br>属性a的Gini值定义如下：</p>
 <p><img src="https://ooo.0o0.ooo/2017/03/04/58baa6d779529.png" alt=""> </p>
-<p>选取使得划分后Gini指数最小的属性作为划分属性，即$a_* = argmax_{a\in A}Gini_index(D,a)$</p>
+<p>选取使得划分后Gini指数最小的属性作为划分属性，即$a<em>* = argmax</em>{a\in A}Gini_index(D,a)$</p>
 <h4 id="CART算法"><a href="#CART算法" class="headerlink" title="CART算法"></a>CART算法</h4><p>采用Gini指数选择属性分类</p>
 <h2 id="剪枝处理"><a href="#剪枝处理" class="headerlink" title="剪枝处理"></a>剪枝处理</h2><h3 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h3><p><strong>过拟合</strong>（分支过多，泛化能力差）</p>
 <h4 id="方法一：预剪枝"><a href="#方法一：预剪枝" class="headerlink" title="方法一：预剪枝"></a>方法一：预剪枝</h4><ul>
@@ -2133,6 +2144,7 @@
 <p>The above arrows point to positions where the corresponding bits are different.<br>Subscribe to see which companies asked this question.</p>
 <h4 id="问题陈述："><a href="#问题陈述：" class="headerlink" title="问题陈述："></a>问题陈述：</h4><p>求两个数的汉明距离，就是找出这两个数的二进制形式对应位不相同的位，求这样的位的个数</p>
 <p>用c++的位操作符：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -2175,6 +2187,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <h4 id="题目思路："><a href="#题目思路：" class="headerlink" title="题目思路："></a>题目思路：</h4><p>从末位开始逐位判断x和y是否不同（或者做异或操作），不同则在距离上加1。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int hammingDistance(int x, int y) &#123;</div><div class="line">        int count = 0;  </div><div class="line">        while(x!=0||y!=0)&#123;  </div><div class="line">            if ((x&amp;1) != (y&amp;1)) count++;  </div><div class="line">            x = x&gt;&gt;1;  </div><div class="line">            y = y&gt;&gt;1;  </div><div class="line">        &#125;  </div><div class="line">    return count;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <h4 id="运行结果："><a href="#运行结果：" class="headerlink" title="运行结果："></a>运行结果：</h4><p><img src="https://ooo.0o0.ooo/2017/03/05/58bbb2a9ace36.png" alt=""> </p>

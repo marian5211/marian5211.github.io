@@ -77,19 +77,19 @@
 
 
 
-<meta name="description" content="题目  思路 对于二叉排序树的任何一个节点，其左子树的元素都小于右子树的元素 满二叉排序树树，树的结构可以确定  如果树的深度是$k$，满二叉树有$2^k-1$个元素，按从小到大的顺序排列为：$[a_1,a_2,…,a_{2^k-1}]$，则该满二叉树的结构如下：  根节点的元素为$a_{\frac{2^k}{2}}$，$[a_1,a_2,…,a_{\frac{2^k}{2}-1}]$中的元素在根">
+<meta name="description" content="题目  思路 对于二叉排序树的任何一个节点，其左子树的元素都小于右子树的元素 满二叉排序树树，树的结构可以确定  如果树的深度是$k$，满二叉树有$2^k-1$个元素，按从小到大的顺序排列为：$[a1,a_2,…,a{2^k-1}]$，则该满二叉树的结构如下：  根节点的元素为$a{\frac{2^k}{2}}$，$[a_1,a_2,…,a{\frac{2^k}{2}-1}]$中的元素在根节点的左">
 <meta property="og:type" content="article">
 <meta property="og:title" content="腾讯2017笔试——二叉排序树">
 <meta property="og:url" content="http://yoursite.com/2017/04/04/腾讯2017笔试——二叉排序树/index.html">
 <meta property="og:site_name" content="Siyao&#39;s Blog">
-<meta property="og:description" content="题目  思路 对于二叉排序树的任何一个节点，其左子树的元素都小于右子树的元素 满二叉排序树树，树的结构可以确定  如果树的深度是$k$，满二叉树有$2^k-1$个元素，按从小到大的顺序排列为：$[a_1,a_2,…,a_{2^k-1}]$，则该满二叉树的结构如下：  根节点的元素为$a_{\frac{2^k}{2}}$，$[a_1,a_2,…,a_{\frac{2^k}{2}-1}]$中的元素在根">
+<meta property="og:description" content="题目  思路 对于二叉排序树的任何一个节点，其左子树的元素都小于右子树的元素 满二叉排序树树，树的结构可以确定  如果树的深度是$k$，满二叉树有$2^k-1$个元素，按从小到大的顺序排列为：$[a1,a_2,…,a{2^k-1}]$，则该满二叉树的结构如下：  根节点的元素为$a{\frac{2^k}{2}}$，$[a_1,a_2,…,a{\frac{2^k}{2}-1}]$中的元素在根节点的左">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/04/03/58e250806556e.png">
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/04/03/58e260ca6dcb7.png">
 <meta property="og:updated_time" content="2017-04-05T01:43:36.140Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="腾讯2017笔试——二叉排序树">
-<meta name="twitter:description" content="题目  思路 对于二叉排序树的任何一个节点，其左子树的元素都小于右子树的元素 满二叉排序树树，树的结构可以确定  如果树的深度是$k$，满二叉树有$2^k-1$个元素，按从小到大的顺序排列为：$[a_1,a_2,…,a_{2^k-1}]$，则该满二叉树的结构如下：  根节点的元素为$a_{\frac{2^k}{2}}$，$[a_1,a_2,…,a_{\frac{2^k}{2}-1}]$中的元素在根">
+<meta name="twitter:description" content="题目  思路 对于二叉排序树的任何一个节点，其左子树的元素都小于右子树的元素 满二叉排序树树，树的结构可以确定  如果树的深度是$k$，满二叉树有$2^k-1$个元素，按从小到大的顺序排列为：$[a1,a_2,…,a{2^k-1}]$，则该满二叉树的结构如下：  根节点的元素为$a{\frac{2^k}{2}}$，$[a_1,a_2,…,a{\frac{2^k}{2}-1}]$中的元素在根节点的左">
 <meta name="twitter:image" content="https://ooo.0o0.ooo/2017/04/03/58e250806556e.png">
 
 
@@ -406,9 +406,9 @@
 <li>对于二叉排序树的任何一个节点，其<strong>左子树的元素都小于右子树的元素</strong></li>
 <li><strong>满二叉排序树树</strong>，树的结构可以确定</li>
 </ul>
-<p>如果树的深度是$k$，满二叉树有$2^k-1$个元素，按从小到大的顺序排列为：$[a_1,a_2,…,a_{2^k-1}]$，则该满二叉树的结构如下：</p>
+<p>如果树的深度是$k$，满二叉树有$2^k-1$个元素，按从小到大的顺序排列为：$[a<em>1,a_2,…,a</em>{2^k-1}]$，则该满二叉树的结构如下：</p>
 <ol>
-<li>根节点的元素为$a_{\frac{2^k}{2}}$，$[a_1,a_2,…,a_{\frac{2^k}{2}-1}]$中的元素在根节点的左子树中，$[a_{\frac{2^k}{2}+1},…,a_{2^k-1}]$中的元素在根节点的右子树中</li>
+<li>根节点的元素为$a<em>{\frac{2^k}{2}}$，$[a_1,a_2,…,a</em>{\frac{2^k}{2}-1}]$中的元素在根节点的左子树中，$[a<em>{\frac{2^k}{2}+1},…,a</em>{2^k-1}]$中的元素在根节点的右子树中</li>
 <li>对左子树、右子树两个区间再分别做1中的操作，得到最终的二叉排序树</li>
 </ol>
 <p>给定三个节点，根据二叉排序树的性质，可以知道<strong>包含这三个节点的最小子树的根节点的值，一定在这三个节点值构成的区间$[min,max]$内</strong></p>

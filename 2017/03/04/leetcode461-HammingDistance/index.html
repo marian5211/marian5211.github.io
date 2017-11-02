@@ -408,6 +408,7 @@
 <p>The above arrows point to positions where the corresponding bits are different.<br>Subscribe to see which companies asked this question.</p>
 <h4 id="问题陈述："><a href="#问题陈述：" class="headerlink" title="问题陈述："></a>问题陈述：</h4><p>求两个数的汉明距离，就是找出这两个数的二进制形式对应位不相同的位，求这样的位的个数</p>
 <p>用c++的位操作符：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -450,6 +451,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <h4 id="题目思路："><a href="#题目思路：" class="headerlink" title="题目思路："></a>题目思路：</h4><p>从末位开始逐位判断x和y是否不同（或者做异或操作），不同则在距离上加1。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int hammingDistance(int x, int y) &#123;</div><div class="line">        int count = 0;  </div><div class="line">        while(x!=0||y!=0)&#123;  </div><div class="line">            if ((x&amp;1) != (y&amp;1)) count++;  </div><div class="line">            x = x&gt;&gt;1;  </div><div class="line">            y = y&gt;&gt;1;  </div><div class="line">        &#125;  </div><div class="line">    return count;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <h4 id="运行结果："><a href="#运行结果：" class="headerlink" title="运行结果："></a>运行结果：</h4><p><img src="https://ooo.0o0.ooo/2017/03/05/58bbb2a9ace36.png" alt=""> </p>

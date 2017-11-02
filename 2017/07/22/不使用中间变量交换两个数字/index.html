@@ -77,17 +77,17 @@
 
 
 
-<meta name="description" content="给定两个数字a和b，要求不使用中间变量交换二者 一般做法一般的做法很简单 void swap(int &amp;amp;a;int &amp;amp;b)&amp;#123;    int temp = a;    a = b;    b = temp;&amp;#125; 不使用中间变量的做法采用位操作符中的异或操作^    操作符 功能 用法     ~ 取反 0变1,1变0   &amp;lt;&amp;lt; 左移 后面补0   &amp;gt;&amp;g">
+<meta name="description" content="给定两个数字a和b，要求不使用中间变量交换二者 一般做法一般的做法很简单 void swap(int &amp;amp;a;int &amp;amp;b)&amp;#123;    int temp = a;    a = b;    b = temp;&amp;#125; 不使用中间变量的做法采用位操作符中的异或操作^     操作符 功能 用法     ~ 取反 0变1,1变0   &amp;lt;&amp;lt; 左移 后面补0   &amp;gt;&amp;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="不使用中间变量交换两个数字">
 <meta property="og:url" content="http://yoursite.com/2017/07/22/不使用中间变量交换两个数字/index.html">
 <meta property="og:site_name" content="Siyao&#39;s Blog">
-<meta property="og:description" content="给定两个数字a和b，要求不使用中间变量交换二者 一般做法一般的做法很简单 void swap(int &amp;amp;a;int &amp;amp;b)&amp;#123;    int temp = a;    a = b;    b = temp;&amp;#125; 不使用中间变量的做法采用位操作符中的异或操作^    操作符 功能 用法     ~ 取反 0变1,1变0   &amp;lt;&amp;lt; 左移 后面补0   &amp;gt;&amp;g">
+<meta property="og:description" content="给定两个数字a和b，要求不使用中间变量交换二者 一般做法一般的做法很简单 void swap(int &amp;amp;a;int &amp;amp;b)&amp;#123;    int temp = a;    a = b;    b = temp;&amp;#125; 不使用中间变量的做法采用位操作符中的异或操作^     操作符 功能 用法     ~ 取反 0变1,1变0   &amp;lt;&amp;lt; 左移 后面补0   &amp;gt;&amp;">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-07-22T14:18:26.178Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="不使用中间变量交换两个数字">
-<meta name="twitter:description" content="给定两个数字a和b，要求不使用中间变量交换二者 一般做法一般的做法很简单 void swap(int &amp;amp;a;int &amp;amp;b)&amp;#123;    int temp = a;    a = b;    b = temp;&amp;#125; 不使用中间变量的做法采用位操作符中的异或操作^    操作符 功能 用法     ~ 取反 0变1,1变0   &amp;lt;&amp;lt; 左移 后面补0   &amp;gt;&amp;g">
+<meta name="twitter:description" content="给定两个数字a和b，要求不使用中间变量交换二者 一般做法一般的做法很简单 void swap(int &amp;amp;a;int &amp;amp;b)&amp;#123;    int temp = a;    a = b;    b = temp;&amp;#125; 不使用中间变量的做法采用位操作符中的异或操作^     操作符 功能 用法     ~ 取反 0变1,1变0   &amp;lt;&amp;lt; 左移 后面补0   &amp;gt;&amp;">
 
 
 
@@ -402,6 +402,7 @@
 <h3 id="一般做法"><a href="#一般做法" class="headerlink" title="一般做法"></a>一般做法</h3><p>一般的做法很简单</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">void swap(int &amp;a;int &amp;b)&#123;</div><div class="line">    int temp = a;</div><div class="line">    a = b;</div><div class="line">    b = temp;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="不使用中间变量的做法"><a href="#不使用中间变量的做法" class="headerlink" title="不使用中间变量的做法"></a>不使用中间变量的做法</h3><p>采用位操作符中的异或操作<code>^</code></p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -444,6 +445,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>容易发现<code>^</code>的性质：</p>
 <ol>
 <li>两个相同的数字做<code>^</code>操作得0</li>

@@ -416,8 +416,7 @@
 <li>遍历vector内的单词</li>
 <li>对于每一个单词先确定首字母所在行号，再依次查看后面的字母是否跟首字母在同一行，一旦不一致，立刻从vector中删除该单词</li>
 </ol>
-<p>## </p>
-<h3 id="问题总结"><a href="#问题总结" class="headerlink" title="问题总结"></a>问题总结</h3><ol>
+<h2 id=""><a href="#" class="headerlink" title=" "></a> </h2><h3 id="问题总结"><a href="#问题总结" class="headerlink" title="问题总结"></a>问题总结</h3><ol>
 <li>一开始上手打算用字符数组存放键盘表，折腾了好久发现一个严重的问题：数组作为参数传递时，传递的是<strong>指针</strong>，这时候再用sizeof()来求数组的长度实际上求得的是<strong>指针的长度</strong>，而非数组长度，所以数组作为传递参数时需要将其长度也作为一个参数传递，后续运算时才不会出错，所以改用string存储每一行字母。</li>
 <li>vector中用earse()删除元素时，返回值为：指向被删除元素的下一个元素的iterator，外层如果用for循环iter++,容易出现越界情况,所以采用了while循环</li>
 </ol>
@@ -605,7 +604,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析"><span class="nav-number">2.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题总结"><span class="nav-number">4.</span> <span class="nav-text">问题总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">5.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#改进"><span class="nav-number">6.</span> <span class="nav-text">改进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结果"><span class="nav-number">7.</span> <span class="nav-text">结果</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析"><span class="nav-number">2.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">3.</span> <span class="nav-text">思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number"></span> <span class="nav-text"> </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题总结"><span class="nav-number">1.</span> <span class="nav-text">问题总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">2.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#改进"><span class="nav-number">3.</span> <span class="nav-text">改进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结果"><span class="nav-number">4.</span> <span class="nav-text">结果</span></a></li></ol></div>
             
 
           </div>

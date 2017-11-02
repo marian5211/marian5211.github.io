@@ -423,6 +423,7 @@
 <li>排序</li>
 </ol>
 <h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><h4 id="传统线性回归模型"><a href="#传统线性回归模型" class="headerlink" title="传统线性回归模型"></a>传统线性回归模型</h4><p>我们用广告的CTR（点击率）预估问题引出FM模型：根据用户和广告位等相关特征，预测用户是否点击广告。源数据如下</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -453,7 +454,9 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>由于三种特征Country、Day、Ad_type都是categorical类型的，进行ctr预估的时候往往需要经过独热编码（One-Hot Encoding）转换成数值型特征。</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -500,6 +503,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>再利用<strong>传统的线性回归模型</strong>：</p>
 <p><img src="https://ooo.0o0.ooo/2017/03/13/58c68f490519b.png" alt=""> </p>
 <p>根据训练集训练出模型的参数，进行预测。</p>
