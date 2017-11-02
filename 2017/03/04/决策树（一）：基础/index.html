@@ -77,12 +77,12 @@
 
 
 
-<meta name="description" content="基本流程 使用不熟悉的数据集合，从中提取出一系列规则，能够对新数据进行分类 极大化信息增益$a* = argmax{a\in A}{Gain(D,a)}$  构建决策树伪代码createBranch()：    检测数据集中的每个项是否属于同一个分类：    if so        return 类标签    else       寻找划分数据集的最好特征***       划分数据集">
+<meta name="description" content="基本流程 使用不熟悉的数据集合，从中提取出一系列规则，能够对新数据进行分类 极大化信息增益$a_* = argmax_{a\in A}{Gain(D,a)}$  构建决策树伪代码createBranch()：    检测数据集中的每个项是否属于同一个分类：    if so        return 类标签    else       寻找划分数据集的最好特征***       划分数据集">
 <meta property="og:type" content="article">
 <meta property="og:title" content="决策树（一）：基础">
 <meta property="og:url" content="http://yoursite.com/2017/03/04/决策树（一）：基础/index.html">
 <meta property="og:site_name" content="Siyao&#39;s Blog">
-<meta property="og:description" content="基本流程 使用不熟悉的数据集合，从中提取出一系列规则，能够对新数据进行分类 极大化信息增益$a* = argmax{a\in A}{Gain(D,a)}$  构建决策树伪代码createBranch()：    检测数据集中的每个项是否属于同一个分类：    if so        return 类标签    else       寻找划分数据集的最好特征***       划分数据集">
+<meta property="og:description" content="基本流程 使用不熟悉的数据集合，从中提取出一系列规则，能够对新数据进行分类 极大化信息增益$a_* = argmax_{a\in A}{Gain(D,a)}$  构建决策树伪代码createBranch()：    检测数据集中的每个项是否属于同一个分类：    if so        return 类标签    else       寻找划分数据集的最好特征***       划分数据集">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/03/04/58ba9b8304fff.png">
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/03/04/58ba9d82898b7.png">
@@ -94,7 +94,7 @@
 <meta property="og:updated_time" content="2017-03-05T08:37:25.376Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="决策树（一）：基础">
-<meta name="twitter:description" content="基本流程 使用不熟悉的数据集合，从中提取出一系列规则，能够对新数据进行分类 极大化信息增益$a* = argmax{a\in A}{Gain(D,a)}$  构建决策树伪代码createBranch()：    检测数据集中的每个项是否属于同一个分类：    if so        return 类标签    else       寻找划分数据集的最好特征***       划分数据集">
+<meta name="twitter:description" content="基本流程 使用不熟悉的数据集合，从中提取出一系列规则，能够对新数据进行分类 极大化信息增益$a_* = argmax_{a\in A}{Gain(D,a)}$  构建决策树伪代码createBranch()：    检测数据集中的每个项是否属于同一个分类：    if so        return 类标签    else       寻找划分数据集的最好特征***       划分数据集">
 <meta name="twitter:image" content="https://ooo.0o0.ooo/2017/03/04/58ba9b8304fff.png">
 
 
@@ -408,15 +408,15 @@
       
         <h2 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h2><ol>
 <li>使用不熟悉的数据集合，从中提取出一系列规则，能够对新数据进行分类</li>
-<li>极大化信息增益$a<em>* = argmax</em>{a\in A}{Gain(D,a)}$</li>
+<li>极大化信息增益$a_* = argmax_{a\in A}{Gain(D,a)}$</li>
 </ol>
 <h3 id="构建决策树伪代码"><a href="#构建决策树伪代码" class="headerlink" title="构建决策树伪代码"></a>构建决策树伪代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">createBranch()：</div><div class="line">    检测数据集中的每个项是否属于同一个分类：</div><div class="line">    if so </div><div class="line">       return 类标签</div><div class="line">    else</div><div class="line">       寻找划分数据集的最好特征***</div><div class="line">       划分数据集</div><div class="line">       创建分支节点</div><div class="line">            for 每个分支节点，递归调用createBranch()函数</div><div class="line">        return 分支节点</div></pre></td></tr></table></figure>
 <h3 id="关键"><a href="#关键" class="headerlink" title="关键"></a>关键</h3><p>显然，构建决策树的关键是<strong>寻找划分数据集的最好特征</strong>，我们希望决策树分支节点包含的样本尽可能属于同一类别——纯度（purity）越高越好</p>
 <h2 id="划分选择"><a href="#划分选择" class="headerlink" title="划分选择"></a>划分选择</h2><h3 id="1-信息熵-——-gt-信息增益"><a href="#1-信息熵-——-gt-信息增益" class="headerlink" title="1. 信息熵 ——&gt; 信息增益"></a>1. 信息熵 ——&gt; 信息增益</h3><h5 id="信息熵"><a href="#信息熵" class="headerlink" title="信息熵"></a>信息熵</h5><ul>
 <li>信息论中表示样本的不确定性大小，度量样本集合纯度最常用的指标</li>
-<li>样本集合D中第k类占比$p<em>k$则D的信息熵定义为:$$Ent(D)=-\sum\limits</em>{k=1}^{\left |y\right|}p_{k}log<em>2p</em>{k}$$</li>
+<li>样本集合D中第k类占比$p_k$则D的信息熵定义为:$$Ent(D)=-\sum\limits_{k=1}^{\left |y\right|}p_{k}log_2p_{k}$$</li>
 </ul>
-<h5 id="信息增益"><a href="#信息增益" class="headerlink" title="信息增益"></a>信息增益</h5><p>假定离散属性a在D中有V个可能的取值${a^1,a^2,…,a^V}$,若依据属性a对D进行分类，产生V个分支点，根据每个分支点样本数量对分支点赋权重$\left |D^V\right|/D$，于是根据属性a进行划分获得的信息增益为：<br>$$ Gain(D,a) = Ent(D)-\sum\limits<em>{v=1}^{\left |v\right|}\frac{\left |D^V\right|}{D}Ent(D^v)$$<br>也就是<strong>信息熵的减少量</strong>，越大越好：<br>$$a</em>* = argmax_{a\in A}Gain(D,a)$$</p>
+<h5 id="信息增益"><a href="#信息增益" class="headerlink" title="信息增益"></a>信息增益</h5><p>假定离散属性a在D中有V个可能的取值${a^1,a^2,…,a^V}$,若依据属性a对D进行分类，产生V个分支点，根据每个分支点样本数量对分支点赋权重$\left |D^V\right|/D$，于是根据属性a进行划分获得的信息增益为：<br>$$ Gain(D,a) = Ent(D)-\sum\limits_{v=1}^{\left |v\right|}\frac{\left |D^V\right|}{D}Ent(D^v)$$<br>也就是<strong>信息熵的减少量</strong>，越大越好：<br>$$a_* = argmax_{a\in A}Gain(D,a)$$</p>
 <p>接下来如果给出下表中关于西瓜的特征数据，据此判断西瓜的好坏<br><img src="https://ooo.0o0.ooo/2017/03/04/58ba9b8304fff.png" alt=""> </p>
 <p>我们就可以先算出根节点的信息熵（分为好、坏两类）——&gt;计算依每一个属性进行划分所获得的信息增益，选取信息增益最大的属性作为分支节点——&gt;重复上述过程直到无法分类。得到如下决策树：<br><img src="https://ooo.0o0.ooo/2017/03/04/58ba9d82898b7.png" alt=""> </p>
 <h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><p>ID3决策树</p>
@@ -433,7 +433,7 @@
 <h3 id="3-基尼指数"><a href="#3-基尼指数" class="headerlink" title="3. 基尼指数"></a>3. 基尼指数</h3><p><img src="https://ooo.0o0.ooo/2017/03/04/58baa498a3f46.png" alt=""> </p>
 <p>用于<strong>度量数据集的纯度</strong>，物理意义：从数据集中随机取两个样本，二者不属于同一类别的概率，<strong>故Gini值越小，数据集纯度越高</strong>。<br>属性a的Gini值定义如下：</p>
 <p><img src="https://ooo.0o0.ooo/2017/03/04/58baa6d779529.png" alt=""> </p>
-<p>选取使得划分后Gini指数最小的属性作为划分属性，即$a<em>* = argmax</em>{a\in A}Gini_index(D,a)$</p>
+<p>选取使得划分后Gini指数最小的属性作为划分属性，即$a_* = argmax_{a\in A}Gini_index(D,a)$</p>
 <h4 id="CART算法"><a href="#CART算法" class="headerlink" title="CART算法"></a>CART算法</h4><p>采用Gini指数选择属性分类</p>
 <h2 id="剪枝处理"><a href="#剪枝处理" class="headerlink" title="剪枝处理"></a>剪枝处理</h2><h3 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h3><p><strong>过拟合</strong>（分支过多，泛化能力差）</p>
 <h4 id="方法一：预剪枝"><a href="#方法一：预剪枝" class="headerlink" title="方法一：预剪枝"></a>方法一：预剪枝</h4><ul>

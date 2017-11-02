@@ -427,9 +427,9 @@
 <p>$p_x(x)$：广告展示机会的概率密度分布，我的理解是在全网所有的竞价中，满足我DSP要求的、或者是我能收到的bid request所占的比例。因此，$p_x(x)*dx$的物理意义是我能收到的展示机会。</p>
 <p>$\theta(x)$：θ是赢得此次竞价所能带来的收益(KPI)，本文用CTR来衡量，CTR越高，收益就越高。</p>
 <p>$b(\theta(x),x)$：对于此次展示机会，在能带来收益为θ(x)的情况下，我所出的价格bid。</p>
-<p>$\omega(b(\theta(x),x),x)$：对于此次展示机会，在能带来收益为θ(x)的情况下，我的出价bid能获胜的概率是多少。因此，$\omega(b(\theta(x),x),x)<em>p_x(x)</em>dx$表示对于本次我所收到的这个展示机会来说，在该机会能带来收益（如CTR,CVR等）为θ(x)，我出价为bid的情况下，我能打败对手获得此次展示机会的概率。</p>
-<p>以$\theta(x)\omega(b(\theta(x),x),x)<em>p_x(x)</em>dx$的物理含义是我出价为bid，赢得这次展示机会后，所能获得的收益。</p>
-<p>以$b(\theta(x),x)\omega(b(\theta(x),x),x)<em>p_x(x)</em>dx$的物理含义是我出价为bid，赢得这次展示机会所花费的钱。</p>
+<p>$\omega(b(\theta(x),x),x)$：对于此次展示机会，在能带来收益为θ(x)的情况下，我的出价bid能获胜的概率是多少。因此，$\omega(b(\theta(x),x),x)_p_x(x)_dx$表示对于本次我所收到的这个展示机会来说，在该机会能带来收益（如CTR,CVR等）为θ(x)，我出价为bid的情况下，我能打败对手获得此次展示机会的概率。</p>
+<p>以$\theta(x)\omega(b(\theta(x),x),x)_p_x(x)_dx$的物理含义是我出价为bid，赢得这次展示机会后，所能获得的收益。</p>
+<p>以$b(\theta(x),x)\omega(b(\theta(x),x),x)_p_x(x)_dx$的物理含义是我出价为bid，赢得这次展示机会所花费的钱。</p>
 <p>$N_T$：生存时间T内广告推广活动中所有的bid request数量</p>
 <p>总之还是那句话：<strong>选择合适的出价策略，在预算的限制下实现广告效果最大化</strong></p>
 <h2 id="模型求解"><a href="#模型求解" class="headerlink" title="模型求解"></a>模型求解</h2><p><img src="https://ooo.0o0.ooo/2017/05/11/59141e20788bf.png" alt=""> </p>

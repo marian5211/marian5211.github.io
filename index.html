@@ -829,9 +829,9 @@ Hive 中计算分位数的函数：percentile_approxhive 中的percentile_approx
       
         
           
-          矩阵链乘法问题矩阵乘法两个矩阵A和B相乘，维度分别为$pq$和$qr$，则$A*B$的时间复杂度为$pqr$
+          矩阵链乘法问题矩阵乘法两个矩阵A和B相乘，维度分别为$p_q$和$q_r$，则$A*B$的时间复杂度为$pqr$
 MATRIX_MULTIPLY(A,B)&#123;  for (int i = 0;i &lt;A.rows;i++)&#123;    for(int j = 0;j &lt; B.cols;j++)&#123;      for(int k = 0;k &lt; A.cols;k++)&#123;        C[i,j] = A[i,k]*B[k,j];&#125;&#125;&#125;&#125;
-矩阵链乘法​    首先，给定一个矩阵链$$，三个矩阵的规模分别为：$10
+矩阵链乘法​    首先，给定一个矩阵链$$，三个矩阵的规模分别为：$
           ...
           <!--noindex-->
           <div class="post-button text-center">

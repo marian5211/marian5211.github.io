@@ -387,7 +387,7 @@
 </ul>
 <h3 id="osm数据结构"><a href="#osm数据结构" class="headerlink" title="osm数据结构"></a>osm数据结构</h3><p>OpenStreetMap包括空间数据以及属性数据。其中空间数据主要包括三种：点（Nodes）、路（Ways）和关系（Relations），这三种原始构成了整个地图画面。其中，Nodes定义了空间中点的位置；Ways定义了线或区域；Relations（可选的）定义了元素间的关系。</p>
 <ol>
-<li><strong>Node</strong> 通过经纬度定义了一个地理坐标点。同时，还可以height=<em>标示物体所海拔；通过layer=</em> 和 level=<em>，可以标示物体所在的地图层面与所在建筑物内的层数；通过place=</em> and name=*来表示对象的名称。同时，way也是通过多个点（node）连接成线（面）来构成的。</li>
+<li><strong>Node</strong> 通过经纬度定义了一个地理坐标点。同时，还可以height=_标示物体所海拔；通过layer=_ 和 level=_，可以标示物体所在的地图层面与所在建筑物内的层数；通过place=_ and name=*来表示对象的名称。同时，way也是通过多个点（node）连接成线（面）来构成的。</li>
 <li><strong>Way</strong><br>通过2-2000个点（nodes）构成了way。way可表示如下3种图形事物（非闭合线（Open polyline ）、闭合线（Closed polyline）、区域（Area ））。对于超过2000 nodes的way，可以通过分割来处理。<ul>
 <li>Open polyline<br>非闭合线：收尾不闭合的线段。通常可用于表示现实中的道路、河流、铁路等。</li>
 <li>Closed polyline<br>闭合线：收尾相连的线。例如可以表示现实中的环线地铁。</li>

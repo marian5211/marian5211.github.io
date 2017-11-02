@@ -422,12 +422,12 @@
 <h4 id="FM"><a href="#FM" class="headerlink" title="FM"></a>FM</h4><p><img src="https://ooo.0o0.ooo/2017/03/21/58d0e99b2f719.png" alt=""> </p>
 <p>也就是<strong>FM</strong>中的交叉特征（二次项），采用<strong>矩阵分解</strong>得到如下形式：</p>
 <p><img src="https://ooo.0o0.ooo/2017/03/21/58d0e9cb62988.png" alt=""> </p>
-<p>其中$w_{j<em>1}$和$w</em>{j_2}$分别为特征$j_1$和$j_1$对应的<strong>隐向量</strong>，对应下图中左边两个矩阵的一行或一列即是一个隐向量。</p>
+<p>其中$w_{j_1}$和$w_{j_2}$分别为特征$j_1$和$j_1$对应的<strong>隐向量</strong>，对应下图中左边两个矩阵的一行或一列即是一个隐向量。</p>
 <p><img src="https://ooo.0o0.ooo/2017/03/13/58c6aa26b83c6.png" alt=""> </p>
 <h4 id="FFM"><a href="#FFM" class="headerlink" title="FFM"></a>FFM</h4><p>现在在FM的基础之上，我们<strong>引入field-aware的概念</strong>，可以推得<strong>FFM的二次项形式</strong>如下：</p>
 <p><img src="https://ooo.0o0.ooo/2017/03/21/58d0e9fe74136.png" alt=""> </p>
-<p>其中$w_{j<em>1,f</em>{j_2}}$为<strong>特征$j_1$针对$j<em>2$所在的类别$f</em>{j_2}$的隐向量</strong></p>
-<p>$w_{j<em>2,f</em>{j_1}}$为<strong>特征$j_2$针对$j<em>1$所在的类别$f</em>{j_1}$的隐向量</strong></p>
+<p>其中$w_{j_1,f_{j_2}}$为<strong>特征$j_1$针对$j_2$所在的类别$f_{j_2}$的隐向量</strong></p>
+<p>$w_{j_2,f_{j_1}}$为<strong>特征$j_2$针对$j_1$所在的类别$f_{j_1}$的隐向量</strong></p>
 <p>FFM完整的模型方程为</p>
 <p><img src="https://ooo.0o0.ooo/2017/03/21/58d1361058228.png" alt=""> </p>
 <p>为了便于理解，先看下面的例子</p>
@@ -501,7 +501,7 @@
 </tr>
 </tbody>
 </table>
-<p>我们对原始数据进行One-Hot编码生成数值特征，这时引入field的概念，把同一个categorical特征经过One-Hot编码生成的数值特征都放到同一个field中。比如：“Day=26/11/15”、“Day=1/7/14”、“Day=19/2/15”这三个特征是由“日期”这一categorical特征生成的，可以放到同一个field中。这时我们再计算隐向量的时候，<strong>隐向量不仅与特征相关，还与field相关</strong>。每一维特征$x_i$针对其它特征的每一种field<br>$f<em>j$，都会学习一个隐向量 $w</em>{i,f_j}$。</p>
+<p>我们对原始数据进行One-Hot编码生成数值特征，这时引入field的概念，把同一个categorical特征经过One-Hot编码生成的数值特征都放到同一个field中。比如：“Day=26/11/15”、“Day=1/7/14”、“Day=19/2/15”这三个特征是由“日期”这一categorical特征生成的，可以放到同一个field中。这时我们再计算隐向量的时候，<strong>隐向量不仅与特征相关，还与field相关</strong>。每一维特征$x_i$针对其它特征的每一种field<br>$f_j$，都会学习一个隐向量 $w_{i,f_j}$。</p>
 <p>假设样本的n个特征属于 f 个field，那么FFM的二次项有  nf 个隐向量，如果隐向量的长度为 k ，那么FFM的二次参数有 nfk 个。而在FM模型中，每一维特征的隐向量只有一个<strong>，FM可以看作FFM的特例，是把所有特征都归属到一个field时的FFM模型</strong>。此外，由于隐向量与field相关，FFM二次项并不能够化简，其预测<strong>复杂度是 $O(kn^2)$。</strong></p>
 <h3 id="FFM实现"><a href="#FFM实现" class="headerlink" title="FFM实现"></a>FFM实现</h3><p>Yu-Chin Juan实现了一个C++版的FFM模型，源码可从Github下载<a href="https://github.com/guestwalk/libffm" target="_blank" rel="external">https://github.com/guestwalk/libffm</a></p>
 <p>该<strong>FFM模型采用logistic loss作为损失函数，和L2惩罚项</strong>，因此只能用于<strong>二元分类</strong>问题。</p>

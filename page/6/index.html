@@ -555,10 +555,10 @@
           
           基本流程
 使用不熟悉的数据集合，从中提取出一系列规则，能够对新数据进行分类
-极大化信息增益$a* = argmax{a\in A}{Gain(D,a)}$
+极大化信息增益$a_* = argmax_{a\in A}{Gain(D,a)}$
 
 构建决策树伪代码createBranch()：    检测数据集中的每个项是否属于同一个分类：    if so        return 类标签    else       寻找划分数据集的最好特征***       划分数据集       创建分支节点            for 每个分支节点，递归调用createBranch()函数        return 分支节点
-关键显然，构建决策树的关键是寻找划分数据集的最好特征，我们
+关键显然，构建决策树的关键是寻找划分数据集的最好特征，
           ...
           <!--noindex-->
           <div class="post-button text-center">
