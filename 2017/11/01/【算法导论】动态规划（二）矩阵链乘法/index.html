@@ -407,13 +407,13 @@
 <thead>
 <tr>
 <th>$((A_1<em>A_2)</em>A_3)$</th>
-<th style="text-align:left"><script type="math/tex">10*100*5+10*5*50=7500</script></th>
+<th style="text-align:left">$10<em>100</em>5+10<em>5</em>50=7500$</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>$(A_1(A_2A_3))$</td>
-<td style="text-align:left"><script type="math/tex">100*5*50+10*100*50=75000</script></td>
+<td style="text-align:left">$100<em>5</em>50+10<em>100</em>50=75000$</td>
 </tr>
 </tbody>
 </table>
@@ -1129,7 +1129,40 @@
         onPopupClose();
       }
     });
-  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]}});
 </script>
@@ -1147,19 +1180,6 @@
 </script>
 <!-- End: Injected MathJax -->
 <!-- hexo-inject:end -->
-
-
-
-
-
-  
-
-  
-
-  
-  
-
-  
   
 
 
