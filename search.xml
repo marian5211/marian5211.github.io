@@ -96,13 +96,13 @@
 <thead>
 <tr>
 <th>$((A_1A_2)A_3)$</th>
-<th style="text-align:left">$10<em>100</em>5+10<em>5</em>50=7500$</th>
+<th style="text-align:left"><script type="math/tex">10*100*5+10*5*50=7500</script></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>$(A_1(A_2A_3))$</td>
-<td style="text-align:left">$100<em>5</em>50+10<em>100</em>50=75000$</td>
+<td style="text-align:left"><script type="math/tex">100*5*50+10*100*50=75000</script></td>
 </tr>
 </tbody>
 </table>
