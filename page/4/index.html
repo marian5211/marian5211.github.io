@@ -988,10 +988,10 @@ Given s = &quot;hello&quot;, return &quot;olleh&quot;.
           
           转自baoer1024的分享
 方法
-暴力求解，C(n,m)=n_(n-1)_…*(n-m+1)/m!，n&lt;=15 
+暴力求解，C(n,m)=n(n-1)…*(n-m+1)/m!，n&lt;=15 
 打表，C(n,m)=C(n-1,m-1)+C(n-1,m)，n&lt;=10,000 
 质因数分解，C(n,m)=n!/(m!*(n-m)!)，C(n,m)=p1a1-b1-c1p2a2-b2-c2…pkak-bk-ck,n&lt;=10,000,000 
-Lucas定理，将m,n化为p进制,有:C(n,m)=C(n0,m0)*C(n1,m1)…(mod p)，算一个不是很大的C(n,m)%p,p为素数，化为线性同余方程,用扩展的欧几里德定理求解，n在int范围内，修改一下
+Lucas定理，将m,n化为p进制,有:C(n,m)=C(n0,m0)*C(n1,m1)…(mod p)，算一个不是很大的C(n,m)%p,p为素数，化为线性同余方程,用扩展的欧几里德定理求解，n在int范围内，修改一下可以
           ...
           <!--noindex-->
           <div class="post-button text-center">

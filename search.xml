@@ -18,7 +18,7 @@
 <h3 id="导入数据"><a href="#导入数据" class="headerlink" title="导入数据"></a>导入数据</h3><p>load data local inpath ‘/home/warehouse/user.txt’ overwrite into table teacher partition(work_date=”2016-07-12”);</p>
 <p>需要按照分区一个分区一个分区导入数据</p>
 <h2 id="动态分区"><a href="#动态分区" class="headerlink" title="动态分区"></a>动态分区</h2><h3 id="创建分区表（和静态分区一样）"><a href="#创建分区表（和静态分区一样）" class="headerlink" title="创建分区表（和静态分区一样）"></a>创建分区表（和静态分区一样）</h3><p>create table zhangsiyao.dt_0811_0820 (itime string,uid string,gid string,app_ver string,unet int ,device_type string,device_os string,client_type string,crtv_id int,country string,province string ,city string,isp string,ad_location string,ad_status string,age_gt string,sex_gt string,income_gt string,marital_status_gt string,sponsor_id int,creative_name string,creative_title string,creative_abstract string,category_id int,create_time string,update_time string) partitioned by (dt string);</p>
-<h3 id="创建数据表（中间数据）"><a href="#创建数据表（中间数据）" class="headerlink" title="创建数据表（中间数据）"></a>创建数据表（中间数据）</h3><p>create table zhangsiyao.data_analy_11_20 as select a.itime,a.uid,a.gid,a.app_ver,a.unet ,a.device_type,a.device_os,a.client_type,a.crtv_id,a.country,a.province,a.city,a.isp,a.ad_location,a.ad_status,a.dt,b.age_gt,b.sex_gt,b.income_gt,b.marital_status_gt,c.sponsor_id,c.creative_name,c.creative_title,c.creative_abstract,c.category_id,c.create_time,c.update_time from (select _ from ad.wireless_ad_org_final where dt&gt;’2017-08-10’ and crtv_id &lt;&gt;-1) a left join (select _ from user_portraint.focus_user_portraint_profile where dt&gt;’2017-08-10’) b on (a.dt=b.dt and a.client_type=b.client_type and a.uid=b.uid) left join (select * from ad.ad_creative_ods where dt&gt;’2017-08-10’) c on (a.dt=b.dt and a.crtv_id=c.creative_id);</p>
+<h3 id="创建数据表（中间数据）"><a href="#创建数据表（中间数据）" class="headerlink" title="创建数据表（中间数据）"></a>创建数据表（中间数据）</h3><p>create table zhangsiyao.data_analy_11_20 as select a.itime,a.uid,a.gid,a.app_ver,a.unet ,a.device_type,a.device_os,a.client_type,a.crtv_id,a.country,a.province,a.city,a.isp,a.ad_location,a.ad_status,a.dt,b.age_gt,b.sex_gt,b.income_gt,b.marital_status_gt,c.sponsor_id,c.creative_name,c.creative_title,c.creative_abstract,c.category_id,c.create_time,c.update_time from (select <em> from ad.wireless_ad_org_final where dt&gt;’2017-08-10’ and crtv_id &lt;&gt;-1) a left join (select </em> from user_portraint.focus_user_portraint_profile where dt&gt;’2017-08-10’) b on (a.dt=b.dt and a.client_type=b.client_type and a.uid=b.uid) left join (select * from ad.ad_creative_ods where dt&gt;’2017-08-10’) c on (a.dt=b.dt and a.crtv_id=c.creative_id);</p>
 <h3 id="设置动态分区"><a href="#设置动态分区" class="headerlink" title="设置动态分区"></a>设置动态分区</h3><p>set hive.exec.dynamic.partition=true;(可通过这个语句查看：set hive.exec.dynamic.partition;)<br>set hive.exec.dynamic.partition.mode=nonstrict; （strict要求至少有一个静态分区， nonstrict可以都是动态分区）<br>set hive.exec.max.dynamic.partitions=100000;(如果自动分区数大于这个参数，将会报错)<br>set hive.exec.max.dynamic.partitions.pernode=100000;</p>
 <h3 id="导入数据-1"><a href="#导入数据-1" class="headerlink" title="导入数据"></a>导入数据</h3><p>insert overwrite table zhangsiyao.dt_0811_0820 partition(dt) select itime,uid,gid,app_ver,unet,device_type,device_os,client_type,crtv_id,country,province,city,isp,ad_location,ad_status,age_gt,sex_gt,income_gt,marital_status_gt,sponsor_id,creative_name,creative_title,creative_abstract,category_id,create_time,update_time,dt from zhangsiyao.data_analy_11_20 where dt&lt;’2017-08-21’;</p>
 <p><strong>这里需要注意的是，用select选择数据导入动态分区时，要把关键字放在最后面，因为动态分区默认以最后一个关键字作为分区关键字</strong></p>
@@ -94,7 +94,7 @@
 <table>
 <thead>
 <tr>
-<th><code>$((A_1*A_2)*A_3)$</code></th>
+<th>$((A_1<em>A_2)</em>A_3)$</th>
 <th style="text-align:left"><code>$10*100*5+10*5*50=7500$</code></th>
 </tr>
 </thead>
@@ -624,9 +624,9 @@
 <p>$p_x(x)$：广告展示机会的概率密度分布，我的理解是在全网所有的竞价中，满足我DSP要求的、或者是我能收到的bid request所占的比例。因此，$p_x(x)*dx$的物理意义是我能收到的展示机会。</p>
 <p>$\theta(x)$：θ是赢得此次竞价所能带来的收益(KPI)，本文用CTR来衡量，CTR越高，收益就越高。</p>
 <p>$b(\theta(x),x)$：对于此次展示机会，在能带来收益为θ(x)的情况下，我所出的价格bid。</p>
-<p>$\omega(b(\theta(x),x),x)$：对于此次展示机会，在能带来收益为θ(x)的情况下，我的出价bid能获胜的概率是多少。因此，$\omega(b(\theta(x),x),x)_p_x(x)_dx$表示对于本次我所收到的这个展示机会来说，在该机会能带来收益（如CTR,CVR等）为θ(x)，我出价为bid的情况下，我能打败对手获得此次展示机会的概率。</p>
-<p>以$\theta(x)\omega(b(\theta(x),x),x)_p_x(x)_dx$的物理含义是我出价为bid，赢得这次展示机会后，所能获得的收益。</p>
-<p>以$b(\theta(x),x)\omega(b(\theta(x),x),x)_p_x(x)_dx$的物理含义是我出价为bid，赢得这次展示机会所花费的钱。</p>
+<p>$\omega(b(\theta(x),x),x)$：对于此次展示机会，在能带来收益为θ(x)的情况下，我的出价bid能获胜的概率是多少。因此，$\omega(b(\theta(x),x),x)<em>p_x(x)</em>dx$表示对于本次我所收到的这个展示机会来说，在该机会能带来收益（如CTR,CVR等）为θ(x)，我出价为bid的情况下，我能打败对手获得此次展示机会的概率。</p>
+<p>以$\theta(x)\omega(b(\theta(x),x),x)<em>p_x(x)</em>dx$的物理含义是我出价为bid，赢得这次展示机会后，所能获得的收益。</p>
+<p>以$b(\theta(x),x)\omega(b(\theta(x),x),x)<em>p_x(x)</em>dx$的物理含义是我出价为bid，赢得这次展示机会所花费的钱。</p>
 <p>$N_T$：生存时间T内广告推广活动中所有的bid request数量</p>
 <p>总之还是那句话：<strong>选择合适的出价策略，在预算的限制下实现广告效果最大化</strong></p>
 <h2 id="模型求解"><a href="#模型求解" class="headerlink" title="模型求解"></a>模型求解</h2><p><img src="https://ooo.0o0.ooo/2017/05/11/59141e20788bf.png" alt=""> </p>
@@ -971,7 +971,7 @@
 <li>得到的就是所有的样本中有多少对正类样本的score大于负类样本的score。</li>
 <li>然后再除以M×N。即</li>
 </ul>
-<p>$$AUC=\frac{(所有的正例位置相加)-M_(M+1)}{M_N}$$</p>
+<p>$$AUC=\frac{(所有的正例位置相加)-M<em>(M+1)}{M</em>N}$$</p>
 <p>另外，特别需要注意的是，再存在score相等的情况时，对相等score的样本，需要 赋予相同的rank(无论这个相等的score是出现在同类样本还是不同类的样本之间，都需要这样处理)。具体操作就是再把所有这些score相等的样本 的rank取平均。然后再使用上述公式。</p>
 <h3 id="为什么使用ROC"><a href="#为什么使用ROC" class="headerlink" title="为什么使用ROC"></a>为什么使用ROC</h3><p>既然已经这么多评价标准，为什么还要使用ROC和AUC呢？因为ROC曲线有个很好的特性：<strong>当测试集中的正负样本的分布变化的时候，ROC曲线能够保持不变</strong>。在实际的数据集中经常会出现类不平衡（class imbalance）现象，即负样本比正样本多很多（或者相反），而且测试数据中的正负样本的分布也可能随着时间变化。下图是ROC曲线和Precision-Recall曲线的对比： </p>
 <p><img src="https://ooo.0o0.ooo/2017/04/04/58e342f8b9196.png" alt=""> </p>
@@ -1219,7 +1219,7 @@
       <url>/2017/03/29/%E7%BB%84%E5%90%88%E6%95%B0%E6%B1%82%E8%A7%A3/</url>
       <content type="html"><![CDATA[<p>转自<a href="https://www.oschina.net/code/snippet_203297_11313" target="_blank" rel="external">baoer1024的分享</a></p>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><ol>
-<li>暴力求解，C(n,m)=n_(n-1)_…*(n-m+1)/m!，n&lt;=15 </li>
+<li>暴力求解，C(n,m)=n<em>(n-1)</em>…*(n-m+1)/m!，n&lt;=15 </li>
 <li>打表，C(n,m)=C(n-1,m-1)+C(n-1,m)，n&lt;=10,000 </li>
 <li>质因数分解，C(n,m)=n!/(m!*(n-m)!)，C(n,m)=p1a1-b1-c1p2a2-b2-c2…pkak-bk-ck,n&lt;=10,000,000 </li>
 <li>Lucas定理，将m,n化为p进制,有:C(n,m)=C(n0,m0)*C(n1,m1)…(mod p)，算一个不是很大的C(n,m)%p,p为素数，化为线性同余方程,用扩展的欧几里德定理求解，n在int范围内，修改一下可以满足long long范围内。</li>
@@ -1883,7 +1883,7 @@
 </ul>
 <h3 id="osm数据结构"><a href="#osm数据结构" class="headerlink" title="osm数据结构"></a>osm数据结构</h3><p>OpenStreetMap包括空间数据以及属性数据。其中空间数据主要包括三种：点（Nodes）、路（Ways）和关系（Relations），这三种原始构成了整个地图画面。其中，Nodes定义了空间中点的位置；Ways定义了线或区域；Relations（可选的）定义了元素间的关系。</p>
 <ol>
-<li><strong>Node</strong> 通过经纬度定义了一个地理坐标点。同时，还可以height=_标示物体所海拔；通过layer=_ 和 level=_，可以标示物体所在的地图层面与所在建筑物内的层数；通过place=_ and name=*来表示对象的名称。同时，way也是通过多个点（node）连接成线（面）来构成的。</li>
+<li><strong>Node</strong> 通过经纬度定义了一个地理坐标点。同时，还可以height=<em>标示物体所海拔；通过layer=</em> 和 level=<em>，可以标示物体所在的地图层面与所在建筑物内的层数；通过place=</em> and name=*来表示对象的名称。同时，way也是通过多个点（node）连接成线（面）来构成的。</li>
 <li><strong>Way</strong><br>通过2-2000个点（nodes）构成了way。way可表示如下3种图形事物（非闭合线（Open polyline ）、闭合线（Closed polyline）、区域（Area ））。对于超过2000 nodes的way，可以通过分割来处理。<ul>
 <li>Open polyline<br>非闭合线：收尾不闭合的线段。通常可用于表示现实中的道路、河流、铁路等。</li>
 <li>Closed polyline<br>闭合线：收尾相连的线。例如可以表示现实中的环线地铁。</li>

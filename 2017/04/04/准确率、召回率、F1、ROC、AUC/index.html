@@ -485,7 +485,7 @@
 <li>得到的就是所有的样本中有多少对正类样本的score大于负类样本的score。</li>
 <li>然后再除以M×N。即</li>
 </ul>
-<p>$$AUC=\frac{(所有的正例位置相加)-M_(M+1)}{M_N}$$</p>
+<p>$$AUC=\frac{(所有的正例位置相加)-M<em>(M+1)}{M</em>N}$$</p>
 <p>另外，特别需要注意的是，再存在score相等的情况时，对相等score的样本，需要 赋予相同的rank(无论这个相等的score是出现在同类样本还是不同类的样本之间，都需要这样处理)。具体操作就是再把所有这些score相等的样本 的rank取平均。然后再使用上述公式。</p>
 <h3 id="为什么使用ROC"><a href="#为什么使用ROC" class="headerlink" title="为什么使用ROC"></a>为什么使用ROC</h3><p>既然已经这么多评价标准，为什么还要使用ROC和AUC呢？因为ROC曲线有个很好的特性：<strong>当测试集中的正负样本的分布变化的时候，ROC曲线能够保持不变</strong>。在实际的数据集中经常会出现类不平衡（class imbalance）现象，即负样本比正样本多很多（或者相反），而且测试数据中的正负样本的分布也可能随着时间变化。下图是ROC曲线和Precision-Recall曲线的对比： </p>
 <p><img src="https://ooo.0o0.ooo/2017/04/04/58e342f8b9196.png" alt=""> </p>

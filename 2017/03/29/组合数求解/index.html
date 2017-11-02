@@ -77,17 +77,17 @@
 
 
 
-<meta name="description" content="转自baoer1024的分享 方法 暴力求解，C(n,m)=n_(n-1)_…*(n-m+1)/m!，n&amp;lt;=15  打表，C(n,m)=C(n-1,m-1)+C(n-1,m)，n&amp;lt;=10,000  质因数分解，C(n,m)=n!/(m!*(n-m)!)，C(n,m)=p1a1-b1-c1p2a2-b2-c2…pkak-bk-ck,n&amp;lt;=10,000,000  Lucas定理，将m">
+<meta name="description" content="转自baoer1024的分享 方法 暴力求解，C(n,m)=n(n-1)…*(n-m+1)/m!，n&amp;lt;=15  打表，C(n,m)=C(n-1,m-1)+C(n-1,m)，n&amp;lt;=10,000  质因数分解，C(n,m)=n!/(m!*(n-m)!)，C(n,m)=p1a1-b1-c1p2a2-b2-c2…pkak-bk-ck,n&amp;lt;=10,000,000  Lucas定理，将m,n">
 <meta property="og:type" content="article">
 <meta property="og:title" content="组合数求解">
 <meta property="og:url" content="http://yoursite.com/2017/03/29/组合数求解/index.html">
 <meta property="og:site_name" content="Siyao&#39;s Blog">
-<meta property="og:description" content="转自baoer1024的分享 方法 暴力求解，C(n,m)=n_(n-1)_…*(n-m+1)/m!，n&amp;lt;=15  打表，C(n,m)=C(n-1,m-1)+C(n-1,m)，n&amp;lt;=10,000  质因数分解，C(n,m)=n!/(m!*(n-m)!)，C(n,m)=p1a1-b1-c1p2a2-b2-c2…pkak-bk-ck,n&amp;lt;=10,000,000  Lucas定理，将m">
+<meta property="og:description" content="转自baoer1024的分享 方法 暴力求解，C(n,m)=n(n-1)…*(n-m+1)/m!，n&amp;lt;=15  打表，C(n,m)=C(n-1,m-1)+C(n-1,m)，n&amp;lt;=10,000  质因数分解，C(n,m)=n!/(m!*(n-m)!)，C(n,m)=p1a1-b1-c1p2a2-b2-c2…pkak-bk-ck,n&amp;lt;=10,000,000  Lucas定理，将m,n">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-03-30T02:28:23.122Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="组合数求解">
-<meta name="twitter:description" content="转自baoer1024的分享 方法 暴力求解，C(n,m)=n_(n-1)_…*(n-m+1)/m!，n&amp;lt;=15  打表，C(n,m)=C(n-1,m-1)+C(n-1,m)，n&amp;lt;=10,000  质因数分解，C(n,m)=n!/(m!*(n-m)!)，C(n,m)=p1a1-b1-c1p2a2-b2-c2…pkak-bk-ck,n&amp;lt;=10,000,000  Lucas定理，将m">
+<meta name="twitter:description" content="转自baoer1024的分享 方法 暴力求解，C(n,m)=n(n-1)…*(n-m+1)/m!，n&amp;lt;=15  打表，C(n,m)=C(n-1,m-1)+C(n-1,m)，n&amp;lt;=10,000  质因数分解，C(n,m)=n!/(m!*(n-m)!)，C(n,m)=p1a1-b1-c1p2a2-b2-c2…pkak-bk-ck,n&amp;lt;=10,000,000  Lucas定理，将m,n">
 
 
 
@@ -400,7 +400,7 @@
       
         <p>转自<a href="https://www.oschina.net/code/snippet_203297_11313" target="_blank" rel="external">baoer1024的分享</a></p>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><ol>
-<li>暴力求解，C(n,m)=n_(n-1)_…*(n-m+1)/m!，n&lt;=15 </li>
+<li>暴力求解，C(n,m)=n<em>(n-1)</em>…*(n-m+1)/m!，n&lt;=15 </li>
 <li>打表，C(n,m)=C(n-1,m-1)+C(n-1,m)，n&lt;=10,000 </li>
 <li>质因数分解，C(n,m)=n!/(m!*(n-m)!)，C(n,m)=p1a1-b1-c1p2a2-b2-c2…pkak-bk-ck,n&lt;=10,000,000 </li>
 <li>Lucas定理，将m,n化为p进制,有:C(n,m)=C(n0,m0)*C(n1,m1)…(mod p)，算一个不是很大的C(n,m)%p,p为素数，化为线性同余方程,用扩展的欧几里德定理求解，n在int范围内，修改一下可以满足long long范围内。</li>
