@@ -85,7 +85,7 @@
 <meta property="og:site_name" content="Siyao&#39;s Blog">
 <meta property="og:description" content="矩阵链乘法问题矩阵乘法两个矩阵A和B相乘，维度分别为$ p×q$ 和$ q×r$ ，则$A*B$ 的时间复杂度为$pqr$ MATRIX_MULTIPLY(A,B)&amp;#123;  for (int i = 0;i &amp;lt;A.rows;i++)&amp;#123;    for(int j = 0;j &amp;lt; B.cols;j++)&amp;#123;      for(int k = 0;k &amp;lt; A.c">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-02T06:50:22.209Z">
+<meta property="og:updated_time" content="2017-11-02T07:18:38.126Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【算法导论】动态规划（二）矩阵链乘法">
 <meta name="twitter:description" content="矩阵链乘法问题矩阵乘法两个矩阵A和B相乘，维度分别为$ p×q$ 和$ q×r$ ，则$A*B$ 的时间复杂度为$pqr$ MATRIX_MULTIPLY(A,B)&amp;#123;  for (int i = 0;i &amp;lt;A.rows;i++)&amp;#123;    for(int j = 0;j &amp;lt; B.cols;j++)&amp;#123;      for(int k = 0;k &amp;lt; A.c">
@@ -383,6 +383,37 @@
           
 
           
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  205
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
 
           
 
@@ -401,7 +432,7 @@
       
         <h2 id="矩阵链乘法问题"><a href="#矩阵链乘法问题" class="headerlink" title="矩阵链乘法问题"></a>矩阵链乘法问题</h2><h3 id="矩阵乘法"><a href="#矩阵乘法" class="headerlink" title="矩阵乘法"></a>矩阵乘法</h3><p>两个矩阵A和B相乘，维度分别为$ p×q$ 和$ q×r$ ，则$A*B$ 的时间复杂度为$pqr$</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><div class="line">MATRIX_MULTIPLY(A,B)&#123;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;A.rows;i++)&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; B.cols;j++)&#123;</div><div class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>;k &lt; A.cols;k++)&#123;</div><div class="line">        C[i,j] = A[i,k]*B[k,j];</div><div class="line">&#125;&#125;&#125;&#125;</div></pre></td></tr></table></figure>
-<h3 id="矩阵链乘法"><a href="#矩阵链乘法" class="headerlink" title="矩阵链乘法"></a>矩阵链乘法</h3><p>​    首先，给定一个矩阵链 $\{A_1,A_2,A_3\}$  ，三个矩阵的规模分别为：10×100 ， 100×5 ，5×50 ，计算他们的乘积有两种方式：</p>
+<h3 id="矩阵链乘法"><a href="#矩阵链乘法" class="headerlink" title="矩阵链乘法"></a>矩阵链乘法</h3><p>​    首先，给定一个矩阵链 <script type="math/tex"><A_1,A_2,A_3></script>  ，三个矩阵的规模分别为：10×100 ， 100×5 ，5×50 ，计算他们的乘积有两种方式：</p>
 <div class="table-container">
 <table>
 <thead>
@@ -419,8 +450,8 @@
 </table>
 </div>
 <p>可以看出，对一串矩阵做乘法操作，乘法的顺序影响到算法的时间复杂度。由此，引出矩阵链乘法问题：</p>
-<p><strong>给定n个矩阵的链<script type="math/tex"><A_1*A_2,...,A_n></script>，矩阵$A_i$ 的规模为$p_{i-1}*p_i$，确定代价最低的计算顺序，使得计算乘积$A_1A_2A_n$所需标量乘法次数最小。</strong></p>
-<script type="math/tex; mode=display"><A_1*A_2,...,A_n></script><script type="math/tex; mode=display"><A_1,A_2,...,A_n></script>
+<p><strong>给定n个矩阵的链<script type="math/tex"><A_1,A_2,...,A_n></script>，矩阵<script type="math/tex">A_i</script> 的规模为<script type="math/tex">p_{i-1} \times p_i</script>，确定代价最低的计算顺序，使得计算乘积$A_1A_2A_n$所需标量乘法次数最小。</strong></p>
+
       
     </div>
     
@@ -545,7 +576,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -556,7 +587,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -567,7 +598,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -629,6 +660,15 @@
   <span class="author" itemprop="copyrightHolder">Siyao</span>
 
   
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">33.6k</span>
+  
 </div>
 
 
@@ -644,6 +684,8 @@
 
 
 
+
+<div class="theme-info"> <div class="powered-by"></div> <span class="post-count">博客全站共33.6k字</span> </div>
         
 <div class="busuanzi-count">
   <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>

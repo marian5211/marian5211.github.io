@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-11-02T06:12:42.806Z</updated>
+  <updated>2017-11-02T09:01:51.925Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>DSP国内硕士论文总结</title>
+    <link href="http://yoursite.com/2017/11/02/DSP%E5%9B%BD%E5%86%85%E7%A1%95%E5%A3%AB%E8%AE%BA%E6%96%87%E6%80%BB%E7%BB%93/"/>
+    <id>http://yoursite.com/2017/11/02/DSP国内硕士论文总结/</id>
+    <published>2017-11-02T09:01:51.000Z</published>
+    <updated>2017-11-02T09:01:51.925Z</updated>
+    
+    <content type="html"><![CDATA[<p>准备开题，先看一下国内的相关硕士学位论文，知网上down的。</p><h2 id="2017"><a href="#2017" class="headerlink" title="2017"></a>2017</h2><h2 id="2016"><a href="#2016" class="headerlink" title="2016"></a>2016</h2><ul><li><p><strong>针对在线广告实时竞价系统的相关算法研究、电子科大、郭威</strong></p><p>将竞价策略总结为预算控制和股价算法两个步骤，提出一种<strong>预算步进算法和一个出价模型</strong></p><p>数据集：iPinyou</p><p>​</p></li></ul><ul><li>​</li></ul><h2 id="2015"><a href="#2015" class="headerlink" title="2015"></a>2015</h2><ul><li><p><strong>在线广告 DSP 平台实时竞价算法的研究与实现 、上海交通、韩静</strong></p><p>主要研究实时竞价算法，点击率预估和竞价策略。</p><p>ctr预估：LR和GBDT。</p><p>竞价策略：提出固定竞价、分组竞价（M6D）、综合竞价（非线性竞价）三种策略，进行数学推导</p><p>数据集：iPinyou，评价指标KPI</p><p><strong>利用这份数据集做实验的流程</strong> （第四章）：</p><p><img src="http://omaby2s5z.bkt.clouddn.com/2017-11-02-19-39-45.png" alt=""> </p></li></ul><ul><li>​</li></ul><h2 id="2014"><a href="#2014" class="headerlink" title="2014"></a>2014</h2><h2 id=""><a href="#" class="headerlink" title=" "></a> </h2>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;准备开题，先看一下国内的相关硕士学位论文，知网上down的。&lt;/p&gt;
+&lt;h2 id=&quot;2017&quot;&gt;&lt;a href=&quot;#2017&quot; class=&quot;headerlink&quot; title=&quot;2017&quot;&gt;&lt;/a&gt;2017&lt;/h2&gt;&lt;h2 id=&quot;2016&quot;&gt;&lt;a href=&quot;#201
+      
+    
+    </summary>
+    
+      <category term="DSP" scheme="http://yoursite.com/categories/DSP/"/>
+    
+    
+      <category term="DSP" scheme="http://yoursite.com/tags/DSP/"/>
+    
+  </entry>
   
   <entry>
     <title>test</title>
@@ -109,9 +135,9 @@
     <link href="http://yoursite.com/2017/11/01/%E3%80%90%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E3%80%91%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E4%BA%8C%EF%BC%89%E7%9F%A9%E9%98%B5%E9%93%BE%E4%B9%98%E6%B3%95/"/>
     <id>http://yoursite.com/2017/11/01/【算法导论】动态规划（二）矩阵链乘法/</id>
     <published>2017-11-01T14:54:11.000Z</published>
-    <updated>2017-11-02T06:50:22.209Z</updated>
+    <updated>2017-11-02T07:18:38.126Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="矩阵链乘法问题"><a href="#矩阵链乘法问题" class="headerlink" title="矩阵链乘法问题"></a>矩阵链乘法问题</h2><h3 id="矩阵乘法"><a href="#矩阵乘法" class="headerlink" title="矩阵乘法"></a>矩阵乘法</h3><p>两个矩阵A和B相乘，维度分别为$ p×q$ 和$ q×r$ ，则$A*B$ 的时间复杂度为$pqr$</p><figure class="highlight c++"><table><tr><td class="code"><pre><div class="line">MATRIX_MULTIPLY(A,B)&#123;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;A.rows;i++)&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; B.cols;j++)&#123;</div><div class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>;k &lt; A.cols;k++)&#123;</div><div class="line">        C[i,j] = A[i,k]*B[k,j];</div><div class="line">&#125;&#125;&#125;&#125;</div></pre></td></tr></table></figure><h3 id="矩阵链乘法"><a href="#矩阵链乘法" class="headerlink" title="矩阵链乘法"></a>矩阵链乘法</h3><p>​    首先，给定一个矩阵链 $\{A_1,A_2,A_3\}$  ，三个矩阵的规模分别为：10×100 ， 100×5 ，5×50 ，计算他们的乘积有两种方式：</p><div class="table-container"><table><thead><tr><th>$((A_1A_2)A_3)$</th><th style="text-align:left"><script type="math/tex">10*100*5+10*5*50=7500</script></th></tr></thead><tbody><tr><td>$(A_1(A_2A_3))$</td><td style="text-align:left"><script type="math/tex">100*5*50+10*100*50=75000</script></td></tr></tbody></table></div><p>可以看出，对一串矩阵做乘法操作，乘法的顺序影响到算法的时间复杂度。由此，引出矩阵链乘法问题：</p><p><strong>给定n个矩阵的链<script type="math/tex"><A_1*A_2,...,A_n></script>，矩阵$A_i$ 的规模为$p_{i-1}*p_i$，确定代价最低的计算顺序，使得计算乘积$A_1A_2A_n$所需标量乘法次数最小。</strong></p><script type="math/tex; mode=display"><A_1*A_2,...,A_n></script><script type="math/tex; mode=display"><A_1,A_2,...,A_n></script>]]></content>
+    <content type="html"><![CDATA[<h2 id="矩阵链乘法问题"><a href="#矩阵链乘法问题" class="headerlink" title="矩阵链乘法问题"></a>矩阵链乘法问题</h2><h3 id="矩阵乘法"><a href="#矩阵乘法" class="headerlink" title="矩阵乘法"></a>矩阵乘法</h3><p>两个矩阵A和B相乘，维度分别为$ p×q$ 和$ q×r$ ，则$A*B$ 的时间复杂度为$pqr$</p><figure class="highlight c++"><table><tr><td class="code"><pre><div class="line">MATRIX_MULTIPLY(A,B)&#123;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;A.rows;i++)&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; B.cols;j++)&#123;</div><div class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>;k &lt; A.cols;k++)&#123;</div><div class="line">        C[i,j] = A[i,k]*B[k,j];</div><div class="line">&#125;&#125;&#125;&#125;</div></pre></td></tr></table></figure><h3 id="矩阵链乘法"><a href="#矩阵链乘法" class="headerlink" title="矩阵链乘法"></a>矩阵链乘法</h3><p>​    首先，给定一个矩阵链 <script type="math/tex"><A_1,A_2,A_3></script>  ，三个矩阵的规模分别为：10×100 ， 100×5 ，5×50 ，计算他们的乘积有两种方式：</p><div class="table-container"><table><thead><tr><th>$((A_1A_2)A_3)$</th><th style="text-align:left"><script type="math/tex">10*100*5+10*5*50=7500</script></th></tr></thead><tbody><tr><td>$(A_1(A_2A_3))$</td><td style="text-align:left"><script type="math/tex">100*5*50+10*100*50=75000</script></td></tr></tbody></table></div><p>可以看出，对一串矩阵做乘法操作，乘法的顺序影响到算法的时间复杂度。由此，引出矩阵链乘法问题：</p><p><strong>给定n个矩阵的链<script type="math/tex"><A_1,A_2,...,A_n></script>，矩阵<script type="math/tex">A_i</script> 的规模为<script type="math/tex">p_{i-1} \times p_i</script>，确定代价最低的计算顺序，使得计算乘积$A_1A_2A_n$所需标量乘法次数最小。</strong></p>]]></content>
     
     <summary type="html">
     
@@ -481,29 +507,6 @@
     
     
       <category term="bit manipulation" scheme="http://yoursite.com/tags/bit-manipulation/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>北邮ACM2017练习赛B. 斐波那契数列 矩阵快速幂</title>
-    <link href="http://yoursite.com/2017/04/08/%E5%8C%97%E9%82%AEACM2017%E7%BB%83%E4%B9%A0%E8%B5%9BB-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97-%E7%9F%A9%E9%98%B5%E5%BF%AB%E9%80%9F%E5%B9%82/"/>
-    <id>http://yoursite.com/2017/04/08/北邮ACM2017练习赛B-斐波那契数列-矩阵快速幂/</id>
-    <published>2017-04-08T15:19:59.000Z</published>
-    <updated>2017-04-08T15:20:16.144Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="https://ooo.0o0.ooo/2017/04/08/58e8ff74c74b3.png" alt=""> </p><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>矩阵快速幂<br>快速幂</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">#include &lt;iostream&gt;</div><div class="line">#include&lt;cstdio&gt;</div><div class="line">#include&lt;cstring&gt;</div><div class="line">using namespace std;</div><div class="line">const int mod = 10000;</div><div class="line">const int N = 2;//矩阵的维数,角标从0开始</div><div class="line">struct Matrix</div><div class="line">&#123;</div><div class="line">    long long v[N][N];</div><div class="line">    Matrix()</div><div class="line">    &#123;</div><div class="line">        memset(v,0,sizeof(v));</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line">//矩阵的乘法p1*p2</div><div class="line">Matrix multi(Matrix p1,Matrix p2)</div><div class="line">&#123;</div><div class="line">    Matrix res;</div><div class="line">    for(int i=0;i&lt;N;i++)</div><div class="line">        for(int j=0;j&lt;N;j++)</div><div class="line">            if(p1.v[i][j])//代码优化，是0的话就不用计算</div><div class="line">                for(int k=0;k&lt;N;k++)</div><div class="line">                    res.v[i][k]=(res.v[i][k]+(p1.v[i][j]*p2.v[j][k]))%mod;</div><div class="line">    return res;</div><div class="line">&#125;</div><div class="line">//矩阵的快速幂p^k</div><div class="line">Matrix pow(Matrix p,long long k)</div><div class="line">&#123;</div><div class="line">    Matrix t;</div><div class="line">    for(int i=0;i&lt;N;i++)//初始化为单位矩阵</div><div class="line">        t.v[i][i]=1;</div><div class="line">    while(k)</div><div class="line">    &#123;</div><div class="line">        if(k&amp;1)</div><div class="line">            t=multi(t,p);</div><div class="line">        p=multi(p,p);</div><div class="line">        k=k&gt;&gt;1;</div><div class="line">    &#125;</div><div class="line">    return t;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">int main()</div><div class="line">&#123;</div><div class="line">    long long n;</div><div class="line">    Matrix e,ans;</div><div class="line">    e.v[0][0]=e.v[0][1]=e.v[1][0]=1;</div><div class="line">    e.v[1][1]=0;</div><div class="line">    while(scanf(&quot;%I64dd&quot;,&amp;n)!=EOF&amp;&amp;n!=-1)</div><div class="line">    &#123;</div><div class="line">        ans = pow(e,n);</div><div class="line">        printf(&quot;%I64d\n&quot;,ans.v[0][1]);</div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;https://ooo.0o0.ooo/2017/04/08/58e8ff74c74b3.png&quot; alt=&quot;&quot;&gt; &lt;/
-      
-    
-    </summary>
-    
-      <category term="ACM" scheme="http://yoursite.com/categories/ACM/"/>
-    
     
   </entry>
   
