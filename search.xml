@@ -1707,9 +1707,9 @@ r_n=max(p_n,r_{1}+r_{n-1},r_{2}+r_{n-2},...,r_{n-1}+r_1)</script><p>​以n=4为
         
         <tags>
             
-            <tag> bit manipulation </tag>
-            
             <tag> hash table </tag>
+            
+            <tag> bit manipulation </tag>
             
         </tags>
         
