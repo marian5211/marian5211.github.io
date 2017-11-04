@@ -4,8 +4,26 @@
 
     
   <url>
+    <loc>http://yoursite.com/2017/11/04/c-%E4%B8%ADstruct%E7%9A%84%E4%B8%80%E4%BA%9B%E6%93%8D%E4%BD%9C/</loc>
+    <lastmod>2017-11-04T08:49:08.612Z</lastmod>
+    <data>
+        <display>
+        <title>c++中struct的一些操作</title>
+        <pubTime>2017-11-04T08:49:08.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="c++" url="http://yoursite.com/categories/c/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2017/11/02/DSP%E5%9B%BD%E5%86%85%E7%A1%95%E5%A3%AB%E8%AE%BA%E6%96%87%E6%80%BB%E7%BB%93/</loc>
-    <lastmod>2017-11-02T09:01:51.925Z</lastmod>
+    <lastmod>2017-11-04T08:47:16.413Z</lastmod>
     <data>
         <display>
         <title>DSP国内硕士论文总结</title>
@@ -24,8 +42,33 @@
 
     
   <url>
+    <loc>http://yoursite.com/2017/11/04/%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95%E5%BC%BA%E5%8C%96%E7%8F%AD%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B02/</loc>
+    <lastmod>2017-11-04T08:47:16.413Z</lastmod>
+    <data>
+        <display>
+        <title>【九章算法强化班】课程笔记2</title>
+        <pubTime>2017-11-04T03:05:07.000Z</pubTime>
+        
+        <tag>九章算法</tag>
+         
+        <tag>heap</tag>
+         
+         
+           
+             
+              <breadCrumb title="算法" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/"/>
+          
+             
+              <breadCrumb title="leetcode" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/leetcode/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2017/11/01/%E3%80%90%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E3%80%91%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E4%BA%8C%EF%BC%89%E7%9F%A9%E9%98%B5%E9%93%BE%E4%B9%98%E6%B3%95/</loc>
-    <lastmod>2017-11-02T07:18:38.126Z</lastmod>
+    <lastmod>2017-11-04T08:47:16.413Z</lastmod>
     <data>
         <display>
         <title>【算法导论】动态规划（二）矩阵链乘法</title>
@@ -47,7 +90,7 @@
     
   <url>
     <loc>http://yoursite.com/2017/11/02/test-1/</loc>
-    <lastmod>2017-11-02T06:12:42.806Z</lastmod>
+    <lastmod>2017-11-04T08:47:16.412Z</lastmod>
     <data>
         <display>
         <title>test</title>
@@ -61,21 +104,40 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/10/31/%E3%80%90%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E3%80%91%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E4%B8%80%EF%BC%89%E9%92%A2%E6%9D%A1%E5%88%87%E5%89%B2/</loc>
-    <lastmod>2017-11-02T02:06:20.465Z</lastmod>
+    <loc>http://yoursite.com/2017/03/22/Hexo%E4%B8%8BMarkdown%E4%B8%8EMathJax%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2017-11-04T08:47:16.412Z</lastmod>
     <data>
         <display>
-        <title>【算法导论】动态规划（一）钢条切割</title>
-        <pubTime>2017-10-31T14:44:19.000Z</pubTime>
+        <title>Hexo下Markdown与MathJax冲突问题</title>
+        <pubTime>2017-03-22T02:09:52.000Z</pubTime>
         
-        <tag>DP</tag>
          
-        <tag>算法导论</tag>
+           
+             
+              <breadCrumb title="blog config" url="http://yoursite.com/categories/blog-config/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2017/11/04/%E5%9B%9E%E6%BA%AF%E6%B3%95%E3%80%81%E3%80%90leetcode%E3%80%9151-52-N-Queens/</loc>
+    <lastmod>2017-11-04T08:47:16.412Z</lastmod>
+    <data>
+        <display>
+        <title>回溯法、【leetcode】51.52 N-Queens</title>
+        <pubTime>2017-11-04T08:35:06.000Z</pubTime>
+        
+        <tag>回溯</tag>
          
          
            
              
-              <breadCrumb title="算法导论" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/"/>
+              <breadCrumb title="算法" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/"/>
+          
+             
+              <breadCrumb title="leetcode" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/leetcode/"/>
           
         </display>
     </data>
@@ -84,7 +146,7 @@
     
   <url>
     <loc>http://yoursite.com/2017/11/02/Hive%E4%B8%AD%E9%9D%99%E6%80%81%E5%88%86%E5%8C%BA%E5%92%8C%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA/</loc>
-    <lastmod>2017-11-02T01:36:01.135Z</lastmod>
+    <lastmod>2017-11-04T08:47:16.412Z</lastmod>
     <data>
         <display>
         <title>Hive中静态分区和动态分区</title>
@@ -103,8 +165,65 @@
 
     
   <url>
+    <loc>http://yoursite.com/2017/11/04/c-STL%E4%B8%AD%E5%A0%86%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2017-11-04T08:47:16.412Z</lastmod>
+    <data>
+        <display>
+        <title>c++STL中堆的使用</title>
+        <pubTime>2017-11-04T03:18:38.000Z</pubTime>
+        
+        <tag>堆</tag>
+         
+         
+           
+             
+              <breadCrumb title="c++" url="http://yoursite.com/categories/c/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2017/11/04/c-STL%E4%B8%ADvector%E7%9A%84%E4%B8%80%E4%BA%9B%E6%93%8D%E4%BD%9C/</loc>
+    <lastmod>2017-11-04T08:47:16.412Z</lastmod>
+    <data>
+        <display>
+        <title>c++STL中vector的一些操作</title>
+        <pubTime>2017-11-04T08:36:41.000Z</pubTime>
+        
+        <tag>c++</tag>
+         
+        <tag>vetcor</tag>
+         
+         
+           
+             
+              <breadCrumb title="c++" url="http://yoursite.com/categories/c/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2017/11/02/TPC-DS%E5%B7%A5%E5%85%B7%E7%94%9F%E6%88%90%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5Hive/</loc>
+    <lastmod>2017-11-04T08:47:16.411Z</lastmod>
+    <data>
+        <display>
+        <title>TPC_DS工具生成数据导入Hive</title>
+        <pubTime>2017-11-02T01:29:43.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2017/11/02/%E5%88%A9%E7%94%A8Hive%E4%B8%ADpercentile-approx%E8%AE%A1%E7%AE%97%E7%AD%89%E9%A2%91%E5%88%92%E5%88%86%E5%88%86%E4%BD%8D%E7%82%B9/</loc>
-    <lastmod>2017-11-02T01:34:39.390Z</lastmod>
+    <lastmod>2017-11-04T08:47:16.411Z</lastmod>
     <data>
         <display>
         <title>利用Hive中percentile_approx计算等频划分分位点</title>
@@ -123,15 +242,22 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/11/02/TPC-DS%E5%B7%A5%E5%85%B7%E7%94%9F%E6%88%90%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5Hive/</loc>
-    <lastmod>2017-11-02T01:29:43.299Z</lastmod>
+    <loc>http://yoursite.com/2017/10/31/%E3%80%90%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E3%80%91%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E4%B8%80%EF%BC%89%E9%92%A2%E6%9D%A1%E5%88%87%E5%89%B2/</loc>
+    <lastmod>2017-11-04T08:47:16.411Z</lastmod>
     <data>
         <display>
-        <title>TPC_DS工具生成数据导入Hive</title>
-        <pubTime>2017-11-02T01:29:43.000Z</pubTime>
+        <title>【算法导论】动态规划（一）钢条切割</title>
+        <pubTime>2017-10-31T14:44:19.000Z</pubTime>
         
+        <tag>DP</tag>
+         
+        <tag>算法导论</tag>
+         
          
            
+             
+              <breadCrumb title="算法导论" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/"/>
+          
         </display>
     </data>
     </url>
@@ -729,24 +855,6 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/03/22/Hexo%E4%B8%8BMarkdown%E4%B8%8EMathJax%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98/</loc>
-    <lastmod>2017-03-22T02:10:48.242Z</lastmod>
-    <data>
-        <display>
-        <title>Hexo下Markdown与MathJax冲突问题</title>
-        <pubTime>2017-03-22T02:09:52.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="blog config" url="http://yoursite.com/categories/blog-config/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://yoursite.com/2017/03/22/FFM%EF%BC%88field-aware-Factorization-Machine%EF%BC%89%E2%80%94%E2%80%94%E5%8D%87%E7%BA%A7%E7%89%88FM/</loc>
     <lastmod>2017-03-22T01:47:54.655Z</lastmod>
     <data>
@@ -854,9 +962,9 @@
         <title>【leetcode】136. Single Number</title>
         <pubTime>2017-03-15T05:51:40.000Z</pubTime>
         
-        <tag>bit manipulation</tag>
-         
         <tag>hash table</tag>
+         
+        <tag>bit manipulation</tag>
          
          
            

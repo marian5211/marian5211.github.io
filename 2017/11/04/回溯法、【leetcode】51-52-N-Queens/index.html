@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/小鸡.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/小鸡.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/小鸡.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="回溯," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="什么是回溯回溯是一种穷举，但与brute force有一些区别，回溯带了两点脑子的，并不多，brute force一点也没带。如果用爬山来比喻：第一点脑子是回溯知道回头；相反如果是brute force,发现走不通立刻跳下山摔死，换第二条命从头换一条路走。第二点脑子是回溯知道剪枝；如果有一条岔路走不通，那这条路我们不走，就可以少走很多不必要走的路。 识别回溯问题判断回溯很简单，拿到一个问题，你感觉">
+<meta name="keywords" content="回溯">
+<meta property="og:type" content="article">
+<meta property="og:title" content="回溯法、【leetcode】51.52 N-Queens">
+<meta property="og:url" content="http://yoursite.com/2017/11/04/回溯法、【leetcode】51-52-N-Queens/index.html">
+<meta property="og:site_name" content="Siyao&#39;s Blog">
+<meta property="og:description" content="什么是回溯回溯是一种穷举，但与brute force有一些区别，回溯带了两点脑子的，并不多，brute force一点也没带。如果用爬山来比喻：第一点脑子是回溯知道回头；相反如果是brute force,发现走不通立刻跳下山摔死，换第二条命从头换一条路走。第二点脑子是回溯知道剪枝；如果有一条岔路走不通，那这条路我们不走，就可以少走很多不必要走的路。 识别回溯问题判断回溯很简单，拿到一个问题，你感觉">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-04T08:47:16.412Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="回溯法、【leetcode】51.52 N-Queens">
+<meta name="twitter:description" content="什么是回溯回溯是一种穷举，但与brute force有一些区别，回溯带了两点脑子的，并不多，brute force一点也没带。如果用爬山来比喻：第一点脑子是回溯知道回头；相反如果是brute force,发现走不通立刻跳下山摔死，换第二条命从头换一条路走。第二点脑子是回溯知道剪枝；如果有一条岔路走不通，那这条路我们不走，就可以少走很多不必要走的路。 识别回溯问题判断回溯很简单，拿到一个问题，你感觉">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Siyao'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/11/04/回溯法、【leetcode】51-52-N-Queens/"/>
+
+
+
+
+
+  <title>回溯法、【leetcode】51.52 N-Queens | Siyao's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?22ca9e711cab30a2d33c6a2c25780e5f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Siyao's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/04/回溯法、【leetcode】51-52-N-Queens/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siyao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/小鸡.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siyao's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">回溯法、【leetcode】51.52 N-Queens</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-04T16:35:06+08:00">
+                2017-11-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,187
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="什么是回溯"><a href="#什么是回溯" class="headerlink" title="什么是回溯"></a>什么是回溯</h2><p>回溯是一种穷举，但与brute force有一些区别，回溯带了两点脑子的，并不多，brute force一点也没带。<br>如果用爬山来比喻：<br>第一点脑子是回溯知道回头；相反如果是brute force,发现走不通立刻跳下山摔死，换第二条命从头换一条路走。<br>第二点脑子是回溯知道剪枝；如果有一条岔路走不通，那这条路我们不走，就可以少走很多不必要走的路。</p>
+<h2 id="识别回溯问题"><a href="#识别回溯问题" class="headerlink" title="识别回溯问题"></a>识别回溯问题</h2><p>判断回溯很简单，拿到一个问题，你感觉如果不穷举一下就没法知道答案，那就可以开始回溯了。<br>一般回溯的问题有三种：</p>
+<ol>
+<li>Find a path to success 有没有解</li>
+<li>Find all paths to success 求所有解</li>
+</ol>
+<ul>
+<li>求所有解的个数</li>
+<li>求所有解的具体信息</li>
+</ul>
+<ol>
+<li>Find the best path to success 求最优解</li>
+</ol>
+<p>还有一些爱混淆的概念：递归，回溯，DFS。<br>回溯是一种找路方法，搜索的时候走不通就回头换路接着走，直到走通了或者发现此山根本不通。<br>DFS是一种开路策略，就是一条道先走到头，再往回走一步换一条路走到头，这也是回溯用到的策略。在树和图上回溯时人们叫它DFS。<br>递归是一种行为，回溯和递归如出一辙，都是一言不合就回到来时的路，所以一般回溯用递归实现；当然也可以不用，用栈。</p>
+<p>关于回溯的三种问题，模板略有不同，<br>第一种，返回值是true/false。<br>第二种，求个数，设全局counter，返回值是void；求所有解信息，设result，返回值void。<br>第三种，设个全局变量best，返回值是void。</p>
+<h2 id="求解模板"><a href="#求解模板" class="headerlink" title="求解模板"></a>求解模板</h2><p>第一种：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">boolean solve(Node n) &#123;</div><div class="line">    if n is a leaf node &#123;</div><div class="line">        if the leaf is a goal node, return true</div><div class="line">        else return false</div><div class="line">    &#125; else &#123;</div><div class="line">        for each child c of n &#123;</div><div class="line">            if solve(c) succeeds, return true</div><div class="line">        &#125;</div><div class="line">        return false</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>第二种：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">void solve(Node n) &#123;</div><div class="line">    if n is a leaf node &#123;</div><div class="line">        if the leaf is a goal node, count++, return;</div><div class="line">        else return</div><div class="line">    &#125; else &#123;</div><div class="line">        for each child c of n &#123;</div><div class="line">            solve(c)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>第三种：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">void solve(Node n) &#123;</div><div class="line">    if n is a leaf node &#123;</div><div class="line">        if the leaf is a goal node, update best result, return;</div><div class="line">        else return</div><div class="line">    &#125; else &#123;</div><div class="line">        for each child c of n &#123;</div><div class="line">            solve(c)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="八皇后问题"><a href="#八皇后问题" class="headerlink" title="八皇后问题"></a>八皇后问题</h2><p>八皇后问题是大数学家高斯于1850年提出来的。该问题是在8×8的国际象棋棋盘上放置8个皇后，使得没有一个皇后能“吃掉”任何其他一个皇后，即没有任何两个皇后被放置在棋盘的同一行、同一列或同一斜线上。</p>
+<p>扩展到一般情况就是：在n*n的棋盘上放置n和棋子，使得没有任何两个棋子在同一行、同一列或同一对角线上</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>为了更好的理解回溯法，把这个问题分解成三个子问题：</p>
+<ol>
+<li>是否有这样的安放方法，满足游戏规则</li>
+<li>如果有，有多少个安放方式[leetcode 52]</li>
+<li>输出所有的安放方式[leetcode 51]</li>
+</ol>
+<p>因为任何两个皇后不可能在同一行，所以我们可以采用如下的策略：<br><strong>一行一行地安放皇后，每次放置皇后时需要确保此次放置的皇后跟之前已经放置的皇后没有处于同行、同列、同对角线上</strong></p>
+<p>需要下面两个函数：</p>
+<ol>
+<li>递归调用安放皇后（回溯法）<br>逐个遍历可以安放皇后的位置，并递归调用取定下一层可以安放皇后的位置。直到最后一行的元素存在合法的放置位置，说明这是一种合理的安放情况。</li>
+</ol>
+<ol>
+<li>判断在某一点放queen是否合法</li>
+</ol>
+<p>因为是一行一行放，所以可以保证不在一行上，需要判断同一列是否已经有皇后，以及左上方和右上方对角线方向是否已经有皇后。</p>
+<p>另外还需要一个额外的空间标记当前皇后们安放的位置</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>三个子问题的函数2，判断某一点是否可以放置皇后的函数一样：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//判断是否可以放置</div><div class="line">bool isvalid(vector&lt;vector&lt;int&gt;&gt;&amp; vec,int n, int k,int i)&#123;</div><div class="line">     //k为当前行，i为当前列</div><div class="line">    //判断左上方对角线是否有皇后</div><div class="line">    int left = i;</div><div class="line">    int up = k;</div><div class="line">    while(left&gt;=0&amp;&amp;up&gt;=0)&#123;</div><div class="line">        if(vec[up][left]==1)</div><div class="line">            return false;</div><div class="line">        left--;</div><div class="line">        up--;</div><div class="line">    &#125;</div><div class="line">    //判断右上方对角线是否有皇后</div><div class="line">    int right = i;</div><div class="line">    up = k;</div><div class="line">    while(right&lt;=n-1&amp;&amp;up&gt;=0)&#123;</div><div class="line">        if(vec[up][right]==1)</div><div class="line">            return false;</div><div class="line">        right++;</div><div class="line">        up--;</div><div class="line">    &#125;</div><div class="line">    //判断同列是否有元素</div><div class="line">    for(int j = 0; j &lt; k ;j++)&#123;</div><div class="line">        if(vec[j][i]==1)</div><div class="line">            return false;</div><div class="line">    &#125;</div><div class="line">    return true;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>其中<code>vector&lt;vector&lt;int&gt;&gt;&amp; vec</code>是用来存放当前棋盘上放置的皇后位置。</p>
+<p>差别在于回溯函数：</p>
+<h4 id="1-是否存在"><a href="#1-是否存在" class="headerlink" title="1. 是否存在"></a>1. 是否存在</h4><p>只需要找到一个满足条件的放置方案即可，逐行放置皇后，遇到不满足条件的情况就回退到上一层，继续寻找</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//递归调用，判断皇后放置字当前点之后是否存在合法路径</div><div class="line">void solve(vector&lt;vector&lt;int&gt;&gt;&amp; vec,int n,int k,int l)&#123;</div><div class="line">    //k为当前行，l为上一个的列</div><div class="line">    //判断下一行是否有位置放置queen</div><div class="line">    if(k==n-1)&#123;//最后一行，安放最后一个皇后</div><div class="line">        for(int i=0;i &lt;n;i++)&#123;</div><div class="line">            if(isvalid(vec,n,k,i))&#123;//如果存在合法安放情况，返回true</div><div class="line">                return true;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    else&#123;</div><div class="line">        for(int i = 0 ; i &lt; n;i++)&#123;</div><div class="line">            if(isvalid(vec,n,k,i))&#123;//该点合理，将皇后放到该点，递归调用，判断下一层是否存在合法方案</div><div class="line">                vec[k][i]=1;//房子皇后，标记皇后位置</div><div class="line">                if (solve(vec,n,k+1,i))//下一层存在合法方案。返回true 否则回退，将皇后从该点移除</div><div class="line">                    return true;</div><div class="line">                vec[k][i]=0;//取消皇后位置标记</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">bool ifNQueens(int n) &#123;</div><div class="line">    if(n==1)</div><div class="line">        return true;</div><div class="line">    if(n&lt;4)</div><div class="line">        return false</div><div class="line">    vector&lt;vector&lt;int&gt; &gt; vec(n,vector&lt;int&gt;(n,0));//存储当前棋盘皇后位置</div><div class="line">    //遍历首行放置皇后</div><div class="line">    for(int i = 0 ; i &lt; n;i++)&#123;</div><div class="line">        vec[0][i]=1;</div><div class="line">        if(solve(vec,n,1,i))//找到一条合法放置方式，返回true</div><div class="line">            return true</div><div class="line">        vec[0][i]=0;//否则恢复该点未被选中的棋盘，继续遍历下一个点</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="2-存在多少种安放方式-leetcode-51"><a href="#2-存在多少种安放方式-leetcode-51" class="headerlink" title="2. 存在多少种安放方式 [leetcode] 51"></a>2. 存在多少种安放方式 [leetcode] 51</h4><p>在上面存在的基础之上，引入一个count计数变量，记录合法方案的数量，也就是没找到一个合法的安放方式就+1，知道遍历完所有的情况。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//</div><div class="line">void solve(vector&lt;vector&lt;int&gt;&gt;&amp; vec,int n,int k,int l,int&amp; count)&#123;</div><div class="line">    //k为当前行，l为上一个的列</div><div class="line">    //判断下一行是否有位置放置queen</div><div class="line">    if(k==n-1)&#123;</div><div class="line">        for(int i=0;i &lt;n;i++)&#123;</div><div class="line">            if(isvalid(vec,n,k,i))&#123;//找到合法方案，计数变量+1</div><div class="line">                count++;break;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    else&#123;</div><div class="line">        for(int i = 0 ; i &lt; n;i++)&#123;</div><div class="line">            if(isvalid(vec,n,k,i))&#123;</div><div class="line">                vec[k][i]=1;</div><div class="line">                solve(vec,n,k+1,i,count);</div><div class="line">                vec[k][i]=0;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int totalNQueens(int n) &#123;</div><div class="line">    if(n&lt;2)</div><div class="line">        return n;</div><div class="line">    vector&lt;vector&lt;int&gt; &gt; vec(n,vector&lt;int&gt;(n,0));</div><div class="line">    int count = 0;//新增计数变量</div><div class="line">    for(int i = 0 ; i &lt; n;i++)&#123;</div><div class="line">        vec[0][i]=1;</div><div class="line">        solve(vec,n,1,i,count);</div><div class="line">        vec[0][i]=0;</div><div class="line">    &#125;</div><div class="line">    return count;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="3-输出所有的安放方式-leetcode-51"><a href="#3-输出所有的安放方式-leetcode-51" class="headerlink" title="3.输出所有的安放方式 [leetcode] 51"></a>3.输出所有的安放方式 [leetcode] 51</h4><p>这次需要我们将所有合法的安放方式都输出，也就当找到一条合法安放方式时，就把当前的皇后放置情况输出到结果集。</p>
+<p>另外根据题目输出结果格式要求：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">[</div><div class="line"> [&quot;.Q..&quot;,  // Solution 1</div><div class="line">  &quot;...Q&quot;,</div><div class="line">  &quot;Q...&quot;,</div><div class="line">  &quot;..Q.&quot;],</div><div class="line"></div><div class="line"> [&quot;..Q.&quot;,  // Solution 2</div><div class="line">  &quot;Q...&quot;,</div><div class="line">  &quot;...Q&quot;,</div><div class="line">  &quot;.Q..&quot;]</div><div class="line">]</div></pre></td></tr></table></figure>
+<p>对保存安放情况的变量类型作出修改：由原来的<code>vector&lt;vector&lt;int&gt;&gt;&amp; vec</code> 变为<code>vector&lt;string&gt;&amp; vec</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//判断该位置是否可以放置</div><div class="line">bool isvalid(vector&lt;string&gt;&amp; vec,int n, int k,int i)&#123;</div><div class="line">     //k为当前行，i为当前列</div><div class="line">     //判断同列是否有元素</div><div class="line">    for(int j = 0; j &lt; k ;j++)&#123;</div><div class="line">        if(vec[j][i]==&apos;Q&apos;)</div><div class="line">            return false;</div><div class="line">    &#125;</div><div class="line">    //判断对角是否已经有元素</div><div class="line">    int left = i;</div><div class="line">    int up = k;</div><div class="line">    while(left&gt;=0&amp;&amp;up&gt;=0)&#123;</div><div class="line">        if(vec[up][left]==&apos;Q&apos;)</div><div class="line">            return false;</div><div class="line">        left--;</div><div class="line">        up--;</div><div class="line">    &#125;</div><div class="line">    int right = i;</div><div class="line">    up = k;</div><div class="line">    while(right&lt;=n-1&amp;&amp;up&gt;=0)&#123;</div><div class="line">        if(vec[up][right]==&apos;Q&apos;)</div><div class="line">            return false;</div><div class="line">        right++;</div><div class="line">        up--;</div><div class="line">    &#125;</div><div class="line">    return true;</div><div class="line">&#125;</div><div class="line"></div><div class="line">void solve(vector&lt;string&gt;&amp; vec,int n,int k,int l,vector&lt;vector&lt;string&gt;&gt;&amp; res)&#123;</div><div class="line">    //k为当前行，l为上一个的列</div><div class="line">    //判断下一行是否有位置放置queen</div><div class="line">    if(k==n-1)&#123;//最后一个皇后</div><div class="line">        for(int i=0;i &lt;n;i++)&#123;</div><div class="line">            if(isvalid(vec,n,k,i))&#123;</div><div class="line">                vec[k][i]=&apos;Q&apos;;</div><div class="line">                res.push_back(vec);//存在合法方案，保存到结果集</div><div class="line">                vec[k][i]=&apos;.&apos;;</div><div class="line">                break;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    else&#123;</div><div class="line">        for(int i = 0 ; i &lt; n;i++)&#123;</div><div class="line">            if(isvalid(vec,n,k,i))&#123;</div><div class="line">                vec[k][i]=&apos;Q&apos;;</div><div class="line">                solve(vec,n,k+1,i,res);</div><div class="line">                vec[k][i]=&apos;.&apos;;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">vector&lt;vector&lt;string&gt;&gt; solveNQueens(int n) &#123;</div><div class="line">    vector&lt;vector&lt;string&gt;&gt; res;</div><div class="line">    if(n==1)&#123;</div><div class="line">        vector&lt;string&gt; vv = &#123;&quot;Q&quot;&#125;;</div><div class="line">        res.push_back(vv);</div><div class="line">        return res;</div><div class="line">    &#125;</div><div class="line">    if(n&lt;4)</div><div class="line">        return res;</div><div class="line">    vector&lt;string&gt; vec(n,string(n,&apos;.&apos;));//用以记录结果</div><div class="line">    for(int i = 0 ; i &lt; n;i++)&#123;</div><div class="line">        vec[0][i]=&apos;Q&apos;;</div><div class="line">        solve(vec,n,1,i,res);</div><div class="line">        vec[0][i]=&apos;.&apos;;</div><div class="line">    &#125;</div><div class="line">    return res;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://segmentfault.com/a/1190000006121957" target="_blank" rel="external">liuqi627的博客</a><br><a href="http://www.jianshu.com/p/8f3b8df612ae" target="_blank" rel="external">Jason_Yuan的博客</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/回溯/" rel="tag"># 回溯</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/04/c-STL中堆的使用/" rel="next" title="c++STL中堆的使用">
+                <i class="fa fa-chevron-left"></i> c++STL中堆的使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/04/c-STL中vector的一些操作/" rel="prev" title="c++STL中vector的一些操作">
+                c++STL中vector的一些操作 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/小鸡.png"
+                alt="Siyao" />
+            
+              <p class="site-author-name" itemprop="name">Siyao</p>
+              <p class="site-description motion-element" itemprop="description">siyao小朋友画圈圈的地方</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是回溯"><span class="nav-number">1.</span> <span class="nav-text">什么是回溯</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#识别回溯问题"><span class="nav-number">2.</span> <span class="nav-text">识别回溯问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求解模板"><span class="nav-number">3.</span> <span class="nav-text">求解模板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八皇后问题"><span class="nav-number">4.</span> <span class="nav-text">八皇后问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">4.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">4.2.</span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-是否存在"><span class="nav-number">4.2.1.</span> <span class="nav-text">1. 是否存在</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-存在多少种安放方式-leetcode-51"><span class="nav-number">4.2.2.</span> <span class="nav-text">2. 存在多少种安放方式 [leetcode] 51</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-输出所有的安放方式-leetcode-51"><span class="nav-number">4.2.3.</span> <span class="nav-text">3.输出所有的安放方式 [leetcode] 51</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Siyao</span>
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a></div>
+
+
+
+
+
+ 
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">38.1k</span>
+  
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人次
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
