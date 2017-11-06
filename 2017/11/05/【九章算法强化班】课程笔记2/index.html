@@ -77,22 +77,25 @@
 
 
 
-<meta name="description" content="数据结构（上）Union Find并查集并查集：一种用来解决集合查询合并的数据结构假如A、B、C三人在Microsoft工作，D、E、F、G四人在Linkedin工作，给七个人都分发一个工牌，上面写着自己的公司名字，告诉他们自己的老大是哪家公司，则可以表示成如下形式。  如果A遇到F，看一眼对方的工牌，跟自己是不是一个boss，就知道对方是不是跟自己是同一家公司的人了。 如果有一天M公司把L公司收">
+<meta name="description" content="Union Find并查集并查集一种用来解决集合查询合并的数据结构 假如A、B、C三人在Microsoft工作，D、E、F、G四人在Linkedin工作，给七个人都分发一个工牌，上面写着自己的公司名字，告诉他们自己的老大是哪家公司，则可以表示成如下形式。  如果A遇到F，看一眼对方的工牌，跟自己是不是一个boss，就知道对方是不是跟自己是同一家公司的人了。 如果有一天M公司把L公司收购了，那么此时">
 <meta name="keywords" content="算法,UnionFind">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【九章算法强化班】课程笔记2">
 <meta property="og:url" content="http://yoursite.com/2017/11/05/【九章算法强化班】课程笔记2/index.html">
 <meta property="og:site_name" content="Siyao&#39;s Blog">
-<meta property="og:description" content="数据结构（上）Union Find并查集并查集：一种用来解决集合查询合并的数据结构假如A、B、C三人在Microsoft工作，D、E、F、G四人在Linkedin工作，给七个人都分发一个工牌，上面写着自己的公司名字，告诉他们自己的老大是哪家公司，则可以表示成如下形式。  如果A遇到F，看一眼对方的工牌，跟自己是不是一个boss，就知道对方是不是跟自己是同一家公司的人了。 如果有一天M公司把L公司收">
+<meta property="og:description" content="Union Find并查集并查集一种用来解决集合查询合并的数据结构 假如A、B、C三人在Microsoft工作，D、E、F、G四人在Linkedin工作，给七个人都分发一个工牌，上面写着自己的公司名字，告诉他们自己的老大是哪家公司，则可以表示成如下形式。  如果A遇到F，看一眼对方的工牌，跟自己是不是一个boss，就知道对方是不是跟自己是同一家公司的人了。 如果有一天M公司把L公司收购了，那么此时">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2017-11-06-16-10-31.png">
 <meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2017-11-06-16-15-16.png">
 <meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2017-11-06-16-14-34.png">
 <meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2017-11-06-16-14-45.png">
-<meta property="og:updated_time" content="2017-11-05T08:28:47.022Z">
+<meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2017-11-06-16-41-32.png">
+<meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2017-11-06-16-42-34.png">
+<meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2017-11-06-17-49-17.png">
+<meta property="og:updated_time" content="2017-11-06T12:10:49.958Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【九章算法强化班】课程笔记2">
-<meta name="twitter:description" content="数据结构（上）Union Find并查集并查集：一种用来解决集合查询合并的数据结构假如A、B、C三人在Microsoft工作，D、E、F、G四人在Linkedin工作，给七个人都分发一个工牌，上面写着自己的公司名字，告诉他们自己的老大是哪家公司，则可以表示成如下形式。  如果A遇到F，看一眼对方的工牌，跟自己是不是一个boss，就知道对方是不是跟自己是同一家公司的人了。 如果有一天M公司把L公司收">
+<meta name="twitter:description" content="Union Find并查集并查集一种用来解决集合查询合并的数据结构 假如A、B、C三人在Microsoft工作，D、E、F、G四人在Linkedin工作，给七个人都分发一个工牌，上面写着自己的公司名字，告诉他们自己的老大是哪家公司，则可以表示成如下形式。  如果A遇到F，看一眼对方的工牌，跟自己是不是一个boss，就知道对方是不是跟自己是同一家公司的人了。 如果有一天M公司把L公司收购了，那么此时">
 <meta name="twitter:image" content="http://omaby2s5z.bkt.clouddn.com/2017-11-06-16-10-31.png">
 
 
@@ -398,7 +401,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,033
+                  1,343
                 </span>
               
 
@@ -414,7 +417,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4
+                  5
                 </span>
               
             </div>
@@ -435,7 +438,8 @@
       
 
       
-        <h1 id="数据结构（上）"><a href="#数据结构（上）" class="headerlink" title="数据结构（上）"></a>数据结构（上）</h1><h2 id="Union-Find并查集"><a href="#Union-Find并查集" class="headerlink" title="Union Find并查集"></a>Union Find并查集</h2><h3 id="并查集：一种用来解决集合查询合并的数据结构"><a href="#并查集：一种用来解决集合查询合并的数据结构" class="headerlink" title="并查集：一种用来解决集合查询合并的数据结构"></a><strong>并查集：一种用来解决集合查询合并的数据结构</strong></h3><p>假如A、B、C三人在Microsoft工作，D、E、F、G四人在Linkedin工作，给七个人都分发一个工牌，上面写着自己的公司名字，告诉他们自己的老大是哪家公司，则可以表示成如下形式。</p>
+        <h1 id="Union-Find并查集"><a href="#Union-Find并查集" class="headerlink" title="Union Find并查集"></a>Union Find并查集</h1><h2 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h2><p><strong>一种用来解决集合查询合并的数据结构</strong></p>
+<p>假如A、B、C三人在Microsoft工作，D、E、F、G四人在Linkedin工作，给七个人都分发一个工牌，上面写着自己的公司名字，告诉他们自己的老大是哪家公司，则可以表示成如下形式。</p>
 <p><img src="http://omaby2s5z.bkt.clouddn.com/2017-11-06-16-10-31.png" alt=""></p>
 <p>如果A遇到F，看一眼对方的工牌，跟自己是不是一个boss，就知道对方是不是跟自己是同一家公司的人了。</p>
 <p>如果有一天M公司把L公司收购了，那么此时，需要对两个公司的员工进行合并操作，给员工分发新的工牌，为了减少重新分配的麻烦，就把L的boss指向M，此时L下面的员工最大的boss是M了，那么A和E就在一个阵营了。</p>
@@ -444,7 +448,7 @@
 <p><img src="http://omaby2s5z.bkt.clouddn.com/2017-11-06-16-14-34.png" alt=""></p>
 <p>那么合并之后，J的boss设置为B，此时大家都是一个阵营的了。</p>
 <p><img src="http://omaby2s5z.bkt.clouddn.com/2017-11-06-16-14-45.png" alt=""></p>
-<h3 id="并查集的精髓"><a href="#并查集的精髓" class="headerlink" title="并查集的精髓"></a><strong>并查集的精髓</strong></h3><p>一共包含三个操作</p>
+<h2 id="并查集的精髓"><a href="#并查集的精髓" class="headerlink" title="并查集的精髓"></a><strong>并查集的精髓</strong></h2><p>一共包含三个操作</p>
 <ol>
 <li><p>初始化</p>
 <p>初始化操作中，每个元素的boss指向自己.</p>
@@ -464,7 +468,23 @@
 <p>时间复杂度：<script type="math/tex">O(n)</script></p>
 </li>
 </ol>
-<h3 id="优化：带路径压缩的并查集"><a href="#优化：带路径压缩的并查集" class="headerlink" title="优化：带路径压缩的并查集"></a><strong>优化：带路径压缩的并查集</strong></h3><h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><h4 id="例题1"><a href="#例题1" class="headerlink" title="例题1"></a>例题1</h4><blockquote>
+<h2 id="并查集的优化"><a href="#并查集的优化" class="headerlink" title="并查集的优化"></a><strong>并查集的优化</strong></h2><p>baseline的find流程：</p>
+<p>如果有这样一条路径：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">A--&gt;B--&gt;C--&gt;D--&gt;E--&gt;F</div></pre></td></tr></table></figure>
+<p>查找A的boss时，需要遍历整个路径，寻找B、C、D时还需要再遍历一次，这显然是大量重复的工作，所以我们可以把一次遍历途中经过的节点都直接指向boss，下次再查询的时候，时间复杂的就是<script type="math/tex">O(1)</script>了，这就是<strong>带路径压缩的并查集</strong>的查找：</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2017-11-06-16-41-32.png" alt=""></p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2017-11-06-16-42-34.png" alt=""></p>
+<p>平均时间复杂度降至<script type="math/tex">O(1)</script></p>
+<h2 id="并查集模板-c-版"><a href="#并查集模板-c-版" class="headerlink" title="并查集模板(c++版)"></a>并查集模板(c++版)</h2><figure class="highlight c++"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">UnionFind</span>&#123;</span></div><div class="line">    <span class="keyword">private</span>:</div><div class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; father;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="comment">//初始化并查集</span></div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">initial</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; elements)</span></span>&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; elements.size();i++)&#123;</div><div class="line">                father.insert(make_pair(elements[i],elements[i]));</div><div class="line">            &#125;    </div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//并查集中插入操作，不支持删除</span></div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> x_fa)</span></span>&#123;</div><div class="line">            father.insert(make_pair(x,x_fa));</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//在并查集中查找元素的boss</span></div><div class="line">        <span class="function"><span class="keyword">int</span> <span class="title">findfather</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</div><div class="line">            <span class="keyword">int</span> parent = x;</div><div class="line">            <span class="keyword">while</span>(father[parent] != parent)&#123;</div><div class="line">                parent = father[parent];</div><div class="line">            &#125;</div><div class="line">            <span class="comment">//带路径压缩的并查集</span></div><div class="line">            <span class="keyword">while</span>(father.find(x)-&gt;second != x)&#123;</div><div class="line">                x = father[x];</div><div class="line">                father[x] = parent;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">return</span> parent;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//合并两个元素</span></div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">unionset</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</div><div class="line">            <span class="keyword">int</span> x_father = findfather(x);</div><div class="line">            <span class="keyword">int</span> y_father = findfather(y);</div><div class="line">            <span class="keyword">if</span>(x_father != y_father)&#123;</div><div class="line">                father[y_father] = x_father;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//计算并查集中有多少个不想交的子集合</span></div><div class="line">        <span class="function"><span class="keyword">int</span> <span class="title">countsets</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">unordered_set</span>&lt;<span class="keyword">int</span>&gt; father_set;</div><div class="line">            <span class="keyword">for</span>(<span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;::iterator iter = father.begin();iter != father.end();iter++)&#123;</div><div class="line">                <span class="keyword">int</span> parent = findfather(iter-&gt;first);</div><div class="line">                iter-&gt;second = parent;</div><div class="line">                father_set.insert(parent);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">return</span> father_set.size();</div><div class="line">        &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="相关题目"><a href="#相关题目" class="headerlink" title="相关题目"></a>相关题目</h2><ul>
+<li><a href="https://leetcode.com/problems/number-of-islands/description/" target="_blank" rel="external">leetcode200. Number of Islands</a></li>
+<li><a href="https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/description/" target="_blank" rel="external">leetcode323. Number of Connected Components in an Undirected Graph</a></li>
+<li><a href="https://leetcode.com/problems/number-of-islands-ii/description/" target="_blank" rel="external">leetcode305. Number of Islands II</a></li>
+<li><a href="https://leetcode.com/problems/graph-valid-tree/description/" target="_blank" rel="external">leetcode261. Graph Valid Tree</a></li>
+<li><a href="https://leetcode.com/problems/surrounded-regions/description/" target="_blank" rel="external">leetcode130. Surrounded Regions</a></li>
+<li>​</li>
+</ul>
+<h4 id="例题1"><a href="#例题1" class="headerlink" title="例题1"></a>例题1</h4><blockquote>
 <p>给定一个无向图，返回其中有几个连通子图，以及每个连通子图中都有哪些元素。</p>
 </blockquote>
 <h4 id="例题2"><a href="#例题2" class="headerlink" title="例题2"></a>例题2</h4><blockquote>
@@ -477,16 +497,7 @@
 <li>初始化集合中的每一个点，father指向自己。</li>
 <li>遍历每一条边，对边的首尾两个节点做union操作。（如果两个点已经属于一个boss了，则不操作，不属于一个操作的话，合并。）</li>
 </ol>
-<h3 id="并查集的优化"><a href="#并查集的优化" class="headerlink" title="并查集的优化"></a>并查集的优化</h3><h4 id="带路径压缩的查询操作"><a href="#带路径压缩的查询操作" class="headerlink" title="带路径压缩的查询操作"></a>带路径压缩的查询操作</h4><p>baseline的查询流程：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">A--&gt;B--&gt;C--&gt;D--&gt;E--&gt;F</div></pre></td></tr></table></figure>
-<p>优化：</p>
-<p>第一次找到A的boos为F，再次沿该路径遍历，把路程中的所有点的boss都指向F。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">A-&gt;F</div><div class="line">B-&gt;F</div><div class="line">C-&gt;F</div><div class="line">D-&gt;F</div><div class="line">E-&gt;F</div><div class="line">F-&gt;F</div></pre></td></tr></table></figure>
-<p>平均时间复杂度降至<script type="math/tex">O(1)</script></p>
-<p>带路径压缩的查询操作模板：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure>
-<p>此时合并操作的时间复杂度也降至<script type="math/tex">O(1)</script></p>
-<h3 id="什么时候用并查集？"><a href="#什么时候用并查集？" class="headerlink" title="什么时候用并查集？"></a>什么时候用并查集？</h3><ul>
+<script type="math/tex; mode=display">O(1)</script><h3 id="什么时候用并查集？"><a href="#什么时候用并查集？" class="headerlink" title="什么时候用并查集？"></a>什么时候用并查集？</h3><ul>
 <li>集合合并</li>
 <li>判断两个点是否在同一个集合内</li>
 </ul>
@@ -496,8 +507,15 @@
 <p>初始化并查集为0</p>
 <p>每次新加入一个点，如果其上下左右都是0，则无需合并，岛屿数++；</p>
 <p>如果上下左右有1，岛屿数++，每合并一次岛屿数—。</p>
+<h3 id="leetcode200-Number-of-Islands"><a href="#leetcode200-Number-of-Islands" class="headerlink" title="leetcode200. Number of Islands"></a>leetcode200. Number of Islands</h3><blockquote>
+<p>Given a 2d grid map of <code>&#39;1&#39;</code>s (land) and <code>&#39;0&#39;</code>s (water), count the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.</p>
+</blockquote>
+<p>​    <strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">11110</div><div class="line">11010</div><div class="line">11000</div><div class="line">00000</div><div class="line"></div><div class="line">Answer: 1</div></pre></td></tr></table></figure>
+<p>​    1代表陆地，0代表海洋，上下左右相邻的在同一个岛屿上，给出岛屿的个数。</p>
 <h4 id="follow-up-2"><a href="#follow-up-2" class="headerlink" title="follow up 2"></a>follow up 2</h4><p>留了两个作业</p>
-<h2 id="trie字典树"><a href="#trie字典树" class="headerlink" title="trie字典树"></a>trie字典树</h2><p>源自单词：retrieve</p>
+<h1 id="trie字典树"><a href="#trie字典树" class="headerlink" title="trie字典树"></a>trie字典树</h1><p><img src="http://omaby2s5z.bkt.clouddn.com/2017-11-06-17-49-17.png" alt=""> </p>
+<p>源自单词：retrieve</p>
 <p>hash和trie的比较：</p>
 <div class="table-container">
 <table>
@@ -528,7 +546,7 @@
 <p>查找前缀</p>
 <p>例题：</p>
 <p>Word search II</p>
-<h2 id="扫描线"><a href="#扫描线" class="headerlink" title="扫描线"></a>扫描线</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://stomachache007.wordpress.com/2017/10/23/%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95%E9%AB%98%E7%BA%A7%E7%8F%AD%E7%AC%94%E8%AE%B02-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8A/" target="_blank" rel="external">stomachache007的blog</a></p>
+<h1 id="扫描线"><a href="#扫描线" class="headerlink" title="扫描线"></a>扫描线</h1><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://stomachache007.wordpress.com/2017/10/23/%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95%E9%AB%98%E7%BA%A7%E7%8F%AD%E7%AC%94%E8%AE%B02-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8A/" target="_blank" rel="external">stomachache007的blog</a></p>
 
       
     </div>
@@ -707,7 +725,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据结构（上）"><span class="nav-number">1.</span> <span class="nav-text">数据结构（上）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Union-Find并查集"><span class="nav-number">1.1.</span> <span class="nav-text">Union Find并查集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#并查集：一种用来解决集合查询合并的数据结构"><span class="nav-number">1.1.1.</span> <span class="nav-text">并查集：一种用来解决集合查询合并的数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并查集的精髓"><span class="nav-number">1.1.2.</span> <span class="nav-text">并查集的精髓</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化：带路径压缩的并查集"><span class="nav-number">1.1.3.</span> <span class="nav-text">优化：带路径压缩的并查集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例题"><span class="nav-number">1.1.4.</span> <span class="nav-text">例题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例题1"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">例题1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例题2"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">例题2</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并查集的优化"><span class="nav-number">1.1.5.</span> <span class="nav-text">并查集的优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#带路径压缩的查询操作"><span class="nav-number">1.1.5.1.</span> <span class="nav-text">带路径压缩的查询操作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么时候用并查集？"><span class="nav-number">1.1.6.</span> <span class="nav-text">什么时候用并查集？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#习题"><span class="nav-number">1.1.7.</span> <span class="nav-text">习题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#base"><span class="nav-number">1.1.7.1.</span> <span class="nav-text">base</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#follow-up-1"><span class="nav-number">1.1.7.2.</span> <span class="nav-text">follow up 1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#follow-up-2"><span class="nav-number">1.1.7.3.</span> <span class="nav-text">follow up 2</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#trie字典树"><span class="nav-number">1.2.</span> <span class="nav-text">trie字典树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扫描线"><span class="nav-number">1.3.</span> <span class="nav-text">扫描线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.4.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Union-Find并查集"><span class="nav-number">1.</span> <span class="nav-text">Union Find并查集</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#并查集"><span class="nav-number">1.1.</span> <span class="nav-text">并查集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并查集的精髓"><span class="nav-number">1.2.</span> <span class="nav-text">并查集的精髓</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并查集的优化"><span class="nav-number">1.3.</span> <span class="nav-text">并查集的优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并查集模板-c-版"><span class="nav-number">1.4.</span> <span class="nav-text">并查集模板(c++版)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关题目"><span class="nav-number">1.5.</span> <span class="nav-text">相关题目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例题1"><span class="nav-number">1.5.0.1.</span> <span class="nav-text">例题1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例题2"><span class="nav-number">1.5.0.2.</span> <span class="nav-text">例题2</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么时候用并查集？"><span class="nav-number">1.5.1.</span> <span class="nav-text">什么时候用并查集？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#习题"><span class="nav-number">1.5.2.</span> <span class="nav-text">习题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#base"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">base</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#follow-up-1"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">follow up 1</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#leetcode200-Number-of-Islands"><span class="nav-number">1.5.3.</span> <span class="nav-text">leetcode200. Number of Islands</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#follow-up-2"><span class="nav-number">1.5.3.1.</span> <span class="nav-text">follow up 2</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#trie字典树"><span class="nav-number">2.</span> <span class="nav-text">trie字典树</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#扫描线"><span class="nav-number">3.</span> <span class="nav-text">扫描线</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.1.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -757,7 +775,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">41.1k</span>
+    <span title="Site words total count">41.5k</span>
   
         
 <div class="busuanzi-count">
