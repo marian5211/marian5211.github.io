@@ -86,6 +86,7 @@
 <meta property="og:description" content="准备开题，先看一下国内的相关硕士学位论文，知网上down的。 2017 大数据平台下的互联网广告点击率预估模型 基于腾讯社交广告数据集，hive+hadoop环境下实现GBDT+FM分布式点击率预估，用到贝叶斯平滑等，竞赛在分布式环境下的扩展。    ​  2016 针对在线广告实时竞价系统的相关算法研究、电子科大、郭威 将竞价策略总结为预算控制和估价算法两个步骤，提出一种预算步进（buget p">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2017-11-02-19-39-45.png">
+<meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2017-11-16-22-39-56.png">
 <meta property="og:updated_time" content="2017-11-15T12:57:17.025Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DSP国内硕士论文总结">
@@ -395,7 +396,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  443
+                  1,087
                 </span>
               
 
@@ -411,7 +412,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  4
                 </span>
               
             </div>
@@ -454,9 +455,6 @@
 <p>这个问题通常是一个约束最优化问题，约束是广告主一天的广告预算，最优某个性能指标，如点击数或转化数。</p>
 </li>
 </ul>
-<ul>
-<li>​</li>
-</ul>
 <h2 id="2015"><a href="#2015" class="headerlink" title="2015"></a>2015</h2><ul>
 <li><p><strong>在线广告 DSP 平台实时竞价算法的研究与实现 、上海交通、韩静</strong></p>
 <p>主要研究实时竞价算法，点击率预估和竞价策略。</p>
@@ -468,9 +466,54 @@
 </li>
 </ul>
 <ul>
-<li>​</li>
+<li><p><strong>广告点击率预估的深层神经网络模型研究</strong> 北邮 王孝舒</p>
+<p>Criteo竞赛数据</p>
+<p>baseline：LR</p>
+<p>优化：DNN，分别选取sigmod和Relu作为激活函数进行实验</p>
+</li>
+<li><p>互联网广告精准投放平台设计与实现 成都理工 葛泽泽</p>
+<p>基于hadoop、hive实现DSP平台</p>
+<p><strong>国内外发展情况可参考</strong></p>
+</li>
+<li><p>基于流式计算的广告特征提取系统的设计与实现 钟晓诚 南京大学</p>
+<p>做的是搜索广告的</p>
+<p>流式广告特征提取系统，实时处理广告数据，不断训练、更新ctr预估模型，基于百度开发的流式计算框架Task Manager，集合HDFS\MapReduce</p>
+<p>可以将广告特征数据反映到线上模型的时间缩短至分钟级</p>
+<p>​</p>
+</li>
+<li><p>基于逻辑回归的在线广告ctr优化和预测 浙江大学 代成雷</p>
+<p>用了LR和FTRL进行ctr预估</p>
+</li>
+<li><p>基于深度学习的搜索广告点击率预测方法研究 哈工大 李思琴</p>
+<p>GPU、深度学习CTR预估与贝叶斯分类、LR、svm对比</p>
+<p><strong>卷积神经网络</strong></p>
+<p>KDD2012数据集</p>
+<p>特征用到w2v</p>
+<p>评估：AUC</p>
+<p>​</p>
+</li>
+<li><p>在线广告中实时竞价机制研究与算法实现 华中师范 朱丽辉</p>
+<p>当竞价较低时，提升竞价能大幅增加赢得竞价的概率；当竞价较高时，降低竞价对赢得竞价的概率影响不大。提出了预算再分配模型，将竞价空间分成不同的区间，将预算消耗在最优价格区间。结合上述两点给出了一个基于动态点击率预估的分段竞价算法，很好地解决了小广告主的利益问题。</p>
+<p>本文提出了一个＂预算再分配＂的竞价策略：将广告主的整个竞价空间按照价格的高低划分为三个区间Ｐｉ，Ｐ２，Ｐ３，当估价在ＰＩ，Ｐ３的时候，对其进行相应的降价措施，当估价在Ｐ２的时候对其进行提价操作。</p>
+<p>核心思想：当广告主的预算在非常有限的情况下，应该放弃那些过高的竞价以及没意义的竞价（估价过低），将预算尽量分配在适当的竞价范围。</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2017-11-16-22-39-56.png" alt=""> </p>
+<p>数据集：ipinyou</p>
+</li>
+<li><p>​</p>
+</li>
 </ul>
-<h2 id="2014"><a href="#2014" class="headerlink" title="2014"></a>2014</h2><h2 id=""><a href="#" class="headerlink" title=" "></a> </h2>
+<h2 id="2014"><a href="#2014" class="headerlink" title="2014"></a>2014</h2><h2 id="2013"><a href="#2013" class="headerlink" title="2013"></a>2013</h2><ul>
+<li><p>互联网广告精准投放平台研究 华中师范 李志</p>
+<p>实现了一个DSP平台</p>
+<p>用贝叶斯分类，对用户特征进行分类</p>
+<p><strong>背景写的很好，有国内外DSP产品比较</strong></p>
+<p><strong>平台设计和流程需要参考</strong></p>
+<p>​</p>
+</li>
+<li><p>​</p>
+</li>
+</ul>
+<h2 id=""><a href="#" class="headerlink" title=" "></a> </h2>
       
     </div>
     
@@ -593,7 +636,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-count">72</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -615,7 +658,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -650,7 +693,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#2017"><span class="nav-number">1.</span> <span class="nav-text">2017</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2016"><span class="nav-number">2.</span> <span class="nav-text">2016</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2015"><span class="nav-number">3.</span> <span class="nav-text">2015</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2014"><span class="nav-number">4.</span> <span class="nav-text">2014</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">5.</span> <span class="nav-text"> </span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#2017"><span class="nav-number">1.</span> <span class="nav-text">2017</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2016"><span class="nav-number">2.</span> <span class="nav-text">2016</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2015"><span class="nav-number">3.</span> <span class="nav-text">2015</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2014"><span class="nav-number">4.</span> <span class="nav-text">2014</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2013"><span class="nav-number">5.</span> <span class="nav-text">2013</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">6.</span> <span class="nav-text"> </span></a></li></ol></div>
             
 
           </div>
@@ -700,7 +743,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">46.2k</span>
+    <span title="Site words total count">49.8k</span>
   
         
 <div class="busuanzi-count">
