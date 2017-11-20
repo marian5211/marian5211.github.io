@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/小鸡.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/小鸡.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/小鸡.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="DP," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Triangle题目 Given a triangle, find the minimum path sum from top to bottom. Each step you may move to adjacent numbers on the row below. For example, given the following triangle &amp;gt; [&amp;gt;      [2],&amp;g">
+<meta name="keywords" content="DP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【九章算法基础班】动态规划">
+<meta property="og:url" content="http://yoursite.com/2017/11/18/【九章算法基础班】动态规划/index.html">
+<meta property="og:site_name" content="Siyao&#39;s Blog">
+<meta property="og:description" content="Triangle题目 Given a triangle, find the minimum path sum from top to bottom. Each step you may move to adjacent numbers on the row below. For example, given the following triangle &amp;gt; [&amp;gt;      [2],&amp;g">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://leetcode.com/static/images/problemset/robot_maze.png">
+<meta property="og:updated_time" content="2017-11-20T08:22:11.377Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【九章算法基础班】动态规划">
+<meta name="twitter:description" content="Triangle题目 Given a triangle, find the minimum path sum from top to bottom. Each step you may move to adjacent numbers on the row below. For example, given the following triangle &amp;gt; [&amp;gt;      [2],&amp;g">
+<meta name="twitter:image" content="https://leetcode.com/static/images/problemset/robot_maze.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Siyao'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/11/18/【九章算法基础班】动态规划/"/>
+
+
+
+
+
+  <title>【九章算法基础班】动态规划 | Siyao's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?22ca9e711cab30a2d33c6a2c25780e5f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Siyao's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/18/【九章算法基础班】动态规划/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siyao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/小鸡.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siyao's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【九章算法基础班】动态规划</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-18T23:35:24+08:00">
+                2017-11-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/九章算法/" itemprop="url" rel="index">
+                    <span itemprop="name">九章算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,580
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Triangle"><a href="#Triangle" class="headerlink" title="Triangle"></a><a href="https://leetcode.com/problems/triangle" target="_blank" rel="external">Triangle</a></h2><h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><blockquote>
+<p>Given a triangle, find the minimum path sum from top to bottom. Each step you may move to adjacent numbers on the row below.</p>
+<p>For example, given the following triangle</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt; [</div><div class="line">&gt;      [2],</div><div class="line">&gt;     [3,4],</div><div class="line">&gt;    [6,5,7],</div><div class="line">&gt;   [4,1,8,3]</div><div class="line">&gt; ]</div><div class="line">&gt;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p>The minimum path sum from top to bottom is <code>11</code> (i.e., 2 + 3 + 5 + 1 = 11).</p>
+</blockquote>
+<p>题目是说，从三角形的最上层走到最下层，每次只走到下一层的相邻元素，求从顶点走到最下层的最短路径长度。</p>
+<h3 id="方法1：DFS遍历"><a href="#方法1：DFS遍历" class="headerlink" title="方法1：DFS遍历"></a>方法1：DFS遍历</h3><p>从上往下深度优先遍历搜索，记录所有情况之中最小值</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">int</span> best = Integer.MAX_VALUE;;</div><div class="line"></div><div class="line"><span class="comment">//sum为走到当前节点但不包含当前节点的路径和</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; triangle,<span class="keyword">int</span> i,<span class="keyword">int</span> j,<span class="keyword">int</span> sum)</span></span>&#123;</div><div class="line">  <span class="comment">//搜索结束条件：走过了最下面一层</span></div><div class="line">  <span class="keyword">int</span> height = triangle.size();</div><div class="line">  <span class="keyword">if</span>(i==height)&#123;</div><div class="line">    best = Math.min(best,sum);</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">  &#125;</div><div class="line">  dfs(triangle,i+<span class="number">1</span>,j,sum+triangle.get(i).get(j));</div><div class="line">  dfs(triangle,i+<span class="number">1</span>,j+<span class="number">1</span>,sum+triangle.get(i).get(j));</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minimumTotal</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; triangles)</span> </span>&#123;</div><div class="line">  dfs(triangles,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>);</div><div class="line">  <span class="keyword">return</span> best;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>时间复杂度<script type="math/tex">O(2^n)</script></p>
+<h3 id="方法2：分治法"><a href="#方法2：分治法" class="headerlink" title="方法2：分治法"></a>方法2：分治法</h3><p>从最底层走到某个点[i,j]的最短路径长度可以分解为两个子问题：</p>
+<ol>
+<li>这个点自身的路径 长度+下一层左边节点路径长度</li>
+<li>这个点自身的路径 长度+下一层左右边节点路径长度</li>
+</ol>
+<p>最终的结果需要取这两种情况的最小值。</p>
+<p><strong>边界条件</strong>：最下面一层的最小路径长度是1</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">divide</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; triangles,<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</div><div class="line">  <span class="comment">//边界条件：最下面一层的路径长度是0</span></div><div class="line">  <span class="keyword">int</span> height = triangles.size();</div><div class="line">  <span class="keyword">if</span>(x==height)</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">  <span class="comment">//其余点的路径长度是下一层左右两个路径长度+自身长度的最小值。</span></div><div class="line">  <span class="keyword">return</span> triangles.get(x).get(y) + Math.min(</div><div class="line">    divide(triangles,x+<span class="number">1</span>,y),</div><div class="line">    divide(triangles,x+<span class="number">1</span>,y+<span class="number">1</span>)</div><div class="line">  );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>时间复杂度<script type="math/tex">O(2^n)</script></p>
+<h3 id="方法3：记忆化搜索"><a href="#方法3：记忆化搜索" class="headerlink" title="方法3：记忆化搜索"></a>方法3：记忆化搜索</h3><p>显然上面的方法有很多重复计算的值：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">/**</div><div class="line">  [x,y]</div><div class="line">    ↓    ↘</div><div class="line">[x+1,y] [x+1,y+1]</div><div class="line">   ↓      ↘ ↓       ↘</div><div class="line">[x+2,y] [x+2,y+1] [x+2,y+2]</div><div class="line">**/</div></pre></td></tr></table></figure>
+<p>其中[x+2,y+1]就被重复计算了两次。</p>
+<p>可以将这些多次重复计算的值存下来，计算过一次之后后面再用到就可以避免重复计算了。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">int</span> best = Integer.MAX_VALUE;</div><div class="line">List&lt;List&lt;Integer&gt;&gt; tri = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line"><span class="keyword">int</span>[][] hash;<span class="comment">//存储已经计算过的节点值</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">memorySearch</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</div><div class="line">  <span class="keyword">if</span>(x == tri.size()-<span class="number">1</span>)&#123;</div><div class="line">    hash[x][y]=tri.get(x).get(y);</div><div class="line">    <span class="keyword">return</span> hash[x][y];</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">if</span>(hash[x][y]!= Integer.MAX_VALUE)&#123;</div><div class="line">    <span class="keyword">return</span> hash[x][y];</div><div class="line">  &#125;</div><div class="line">  hash[x][y] = tri.get(x).get(y)+Math.min(</div><div class="line">    memorySearch(x+<span class="number">1</span>,y),</div><div class="line">    memorySearch(x+<span class="number">1</span>,y+<span class="number">1</span>)</div><div class="line">  );</div><div class="line">  <span class="keyword">return</span> hash[x][y];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minimumTotal</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; triangles)</span> </span>&#123;</div><div class="line">  hash = <span class="keyword">new</span> <span class="keyword">int</span>[triangles.size()][triangles.get(triangles.size()-<span class="number">1</span>).size()];</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; hash.length;i++)&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; triangles.get(i).size();j++)&#123;</div><div class="line">      hash[i][j] = Integer.MAX_VALUE;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> memorySearch(<span class="number">0</span>,<span class="number">0</span>);</div><div class="line">  <span class="comment">//return best;</span></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>时间复杂度<script type="math/tex">O(n^2)</script></p>
+<h3 id="方法4：多重循环"><a href="#方法4：多重循环" class="headerlink" title="方法4：多重循环"></a>方法4：多重循环</h3><h4 id="实现方式1：自底向上"><a href="#实现方式1：自底向上" class="headerlink" title="实现方式1：自底向上"></a>实现方式1：自底向上</h4><p>从终点（最下面一层）出发，逐层向上至终点。</p>
+<p><strong>状态：</strong>f[i,j]表示从最下面一层到点[i,j]最短路径长度</p>
+<p><strong>方程：</strong>f[i,j] = a[i,j]+min(f[i+1,j],f[i+1,j+1])</p>
+<p><strong>初始化：</strong>f[i,j] = a[i,j],其中i是最下面一行</p>
+<p><strong>答案：</strong>f[0,0]</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">dpUp</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; triangles)</span></span>&#123;</div><div class="line">  hash = <span class="keyword">new</span> <span class="keyword">int</span>[triangles.size()][triangles.get(triangles.size()-<span class="number">1</span>).size()];</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ;i &lt; triangles.size();i++)&#123;</div><div class="line">    hash[triangles.size()-<span class="number">1</span>][i] = triangles.get(triangles.size()-<span class="number">1</span>).get(i);</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i =triangles.size()-<span class="number">2</span>; i &gt;= <span class="number">0</span> ;i--)&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ;j &lt;i+<span class="number">1</span>;j++)&#123;</div><div class="line">      hash[i][j] = triangles.get(i).get(j) + Math.min(hash[i+<span class="number">1</span>][j],hash[i+<span class="number">1</span>][j+<span class="number">1</span>]);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> hash[<span class="number">0</span>][<span class="number">0</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="实现方式2：自顶向下"><a href="#实现方式2：自顶向下" class="headerlink" title="实现方式2：自顶向下"></a>实现方式2：自顶向下</h4><p>从起点（顶点）出发，逐层向下至最后一层。</p>
+<p><strong>状态：</strong>f[i,j]表示从最顶点到点[i,j]最短路径长度</p>
+<p><strong>方程：</strong>f[i,j] = a[i,j]+min(f[i-1,j-1],f[i-1,j])</p>
+<p><strong>初始化：</strong>f[0,0] = a[0,0]</p>
+<p><strong>答案：</strong>min(f[i,j]),其中i是最下面一层</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">dpDown</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; triangles)</span></span>&#123;</div><div class="line">  hash = <span class="keyword">new</span> <span class="keyword">int</span>[triangles.size()][triangles.get(triangles.size()-<span class="number">1</span>).size()];</div><div class="line">  hash[<span class="number">0</span>][<span class="number">0</span>] = triangles.get(<span class="number">0</span>).get(<span class="number">0</span>);</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">1</span>; i &lt; triangles.size();i++)&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span> ;j &lt;i+<span class="number">1</span>;j++)&#123;</div><div class="line">      <span class="keyword">if</span>(j==<span class="number">0</span>)&#123;</div><div class="line">        hash[i][j] = triangles.get(i).get(j) + hash[i-<span class="number">1</span>][j];</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">else</span> <span class="keyword">if</span>(j == i)&#123;</div><div class="line">        hash[i][j] = triangles.get(i).get(j) + hash[i-<span class="number">1</span>][j-<span class="number">1</span>];</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">else</span>&#123;</div><div class="line">        hash[i][j] = triangles.get(i).get(j)+Math.min(hash[i-<span class="number">1</span>][j-<span class="number">1</span>],hash[i-<span class="number">1</span>][j]);</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">int</span> min = Integer.MAX_VALUE;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; triangles.get(triangles.size()-<span class="number">1</span>).size();i++)&#123;</div><div class="line">    <span class="keyword">if</span>(hash[triangles.size()-<span class="number">1</span>][i] &lt; min)&#123;</div><div class="line">      min = hash[triangles.size()-<span class="number">1</span>][i];</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> min;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="总结一下"><a href="#总结一下" class="headerlink" title="总结一下"></a>总结一下</h2><h3 id="什么时候用DP"><a href="#什么时候用DP" class="headerlink" title="什么时候用DP"></a>什么时候用DP</h3><p>三个条件满足其一则极有可能是需要用DP求解：</p>
+<ol>
+<li>求最大、最小值</li>
+<li>判断是否可行</li>
+<li>统计方案个数</li>
+</ol>
+<h3 id="什么时候不用DP"><a href="#什么时候不用DP" class="headerlink" title="什么时候不用DP"></a>什么时候不用DP</h3><p>三个条件满足其一则极不可能用DP：</p>
+<ol>
+<li>输出所有方案</li>
+<li>给得是集合，不是序列（元素顺序不可换）</li>
+<li>暴力算法的时间复杂度已经是多项式复杂度了（n^2,n^3）,dp擅长将指数复杂度优化到多相似复杂度</li>
+</ol>
+<h2 id="动态规划四要素："><a href="#动态规划四要素：" class="headerlink" title="动态规划四要素："></a>动态规划四要素：</h2><p><strong>状态</strong>：<code>f[][]</code>的含义，<strong>最难</strong>！</p>
+<p><strong>方程</strong>：状态之间的联系，怎么用小状态算大状态</p>
+<p><strong>初始化</strong>：最小状态是什么，起点</p>
+<p><strong>答案</strong>：最大状态是什么，终点</p>
+<p><strong>两种方法：</strong></p>
+<ol>
+<li>自顶向下：从起点出发到终点</li>
+<li>自底向上：从终点出发，反推至起点</li>
+</ol>
+<p><strong>VS递归三要素</strong></p>
+<ul>
+<li>定义（状态）<ul>
+<li>接受了什么参数</li>
+<li>做了什么事情</li>
+<li>返回了什么值</li>
+</ul>
+</li>
+<li>拆解（方程）<ul>
+<li>符合将参数变小</li>
+</ul>
+</li>
+<li>出口（初始化）<ul>
+<li>什么时候可以直接return</li>
+</ul>
+</li>
+</ul>
+<h2 id="Minimum-Path-Sum"><a href="#Minimum-Path-Sum" class="headerlink" title="Minimum Path Sum"></a><a href="https://leetcode.com/problems/minimum-path-sum" target="_blank" rel="external">Minimum Path Sum</a></h2><blockquote>
+<p>Given a <em>m</em> x <em>n</em> grid filled with non-negative numbers, find a path from top left to bottom right which <em>minimizes</em> the sum of all numbers along its path.</p>
+<p><strong>Note:</strong> You can only move either down or right at any point in time.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt; [[1,3,1],</div><div class="line">&gt;  [1,5,1],</div><div class="line">&gt;  [4,2,1]]</div><div class="line">&gt;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p>Given the above grid map, return </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt; 7</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p>. Because the path 1→3→1→1→1 minimizes the sum.</p>
+</blockquote>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>坐标性动态规划</p>
+<p><strong>状态：</strong>f[i,j]表示从(0,0)出发走到(i,j)的路径长度</p>
+<p><strong>方程：</strong>f[i,j] = a[i,j] + min(f[i-1,j],f[i,j-1]),只能从左边和上边走过来</p>
+<p><strong>初始化：</strong>初始化二维数组时，初始化第0行和第0列</p>
+<p><strong>答案：</strong>f[end,end]</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minPathSum</span><span class="params">(<span class="keyword">int</span>[][] grid)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span>[][] path = <span class="keyword">new</span> <span class="keyword">int</span>[grid.length][grid[<span class="number">0</span>].length];</div><div class="line">        path[<span class="number">0</span>][<span class="number">0</span>] = grid[<span class="number">0</span>][<span class="number">0</span>];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; grid[<span class="number">0</span>].length;i++)&#123;</div><div class="line">            path[<span class="number">0</span>][i] = grid[<span class="number">0</span>][i] + path[<span class="number">0</span>][i-<span class="number">1</span>];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; grid.length;j++)&#123;</div><div class="line">            path[j][<span class="number">0</span>] = grid[j][<span class="number">0</span>] + path[j-<span class="number">1</span>][<span class="number">0</span>];</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; grid.length;i++) &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; grid[<span class="number">0</span>].length; j++) &#123;</div><div class="line">                path[i][j] = grid[i][j] + Math.min(path[i - <span class="number">1</span>][j], path[i][j - <span class="number">1</span>]);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> path[grid.length-<span class="number">1</span>][grid[<span class="number">0</span>].length-<span class="number">1</span>];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Unique-Paths"><a href="#Unique-Paths" class="headerlink" title="Unique Paths"></a><a href="https://leetcode.com/problems/unique-paths" target="_blank" rel="external">Unique Paths</a></h2><blockquote>
+<p>A robot is located at the top-left corner of a <em>m</em> x <em>n</em> grid (marked ‘Start’ in the diagram below).</p>
+<p>The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right corner of the grid (marked ‘Finish’ in the diagram below).</p>
+<p>How many possible unique paths are there?</p>
+<p><img src="https://leetcode.com/static/images/problemset/robot_maze.png" alt="img"></p>
+</blockquote>
+<p>从左上角走到右下角的方案个数</p>
+<p>到右下角可能从上面或者左边的点过来。</p>
+<p>f[i,j]：从(0,0)到(i,j)的方案个数</p>
+<p>状态转移方程：f[i,j] = f[i-1,j]+f[i,j-1]</p>
+<p>初始化：第0行和第0列的方案数为1，f[i,0]=f[0,j]=1</p>
+<h2 id="Unique-Paths-II"><a href="#Unique-Paths-II" class="headerlink" title="Unique Paths II"></a><a href="https://leetcode.com/problems/unique-paths-ii" target="_blank" rel="external">Unique Paths II</a></h2><h2 id="Climbing-Stairs"><a href="#Climbing-Stairs" class="headerlink" title="Climbing Stairs"></a><a href="https://leetcode.com/problems/climbing-stairs" target="_blank" rel="external">Climbing Stairs</a></h2><blockquote>
+<p>You are climbing a stair case. It takes <em>n</em> steps to reach to the top.</p>
+<p>Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?</p>
+<p><strong>Note:</strong> Given <em>n</em> will be a positive integer.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt; Input: 2</div><div class="line">&gt; Output:  2</div><div class="line">&gt; Explanation:  There are two ways to climb to the top.</div><div class="line">&gt;</div><div class="line">&gt; 1. 1 step + 1 step</div><div class="line">&gt; 2. 2 steps</div><div class="line">&gt;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt; Input: 3</div><div class="line">&gt; Output:  3</div><div class="line">&gt; Explanation:  There are three ways to climb to the top.</div><div class="line">&gt;</div><div class="line">&gt; 1. 1 step + 1 step + 1 step</div><div class="line">&gt; 2. 1 step + 2 steps</div><div class="line">&gt; 3. 2 steps + 1 step</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><p>看成是一维数组，从起点走到终点，每次只能走1或2步。</p>
+<p>f[i]：走到i点的方案数</p>
+<p>转移方程：f[i] = f[i-1]+f[i-1]，因为只能走一步或者两步，所以只能从前一个或者两个格子过来。</p>
+<h2 id="Jump-Game"><a href="#Jump-Game" class="headerlink" title="Jump Game"></a><a href="https://leetcode.com/problems/jump-game" target="_blank" rel="external">Jump Game</a></h2><p>动态规划可以做，但是贪心法是最优方法</p>
+<blockquote>
+<p>Given an array of non-negative integers, you are initially positioned at the first index of the array.</p>
+<p>Each element in the array represents your maximum jump length at that position.</p>
+<p>Determine if you are able to reach the last index.</p>
+<p>For example:<br>A = <code>[2,3,1,1,4]</code>, return <code>true</code>.</p>
+<p>A = <code>[3,2,1,0,4]</code>, return <code>false</code>.</p>
+</blockquote>
+<h3 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h3><p>判断是否可以跳到最后一步：是否有可行方案问题</p>
+<p>坐标型动态规划，一维坐标</p>
+<p>state：s[i]，是否能从起点跳到i点</p>
+<p>取决于前面是否存在点j：</p>
+<ol>
+<li>从起点是否能跳到j点：s[j]</li>
+<li>从j是否能跳到i：j+s[j]&gt;=i</li>
+</ol>
+<p>转移方程：s[i] = s[j] &amp;&amp; j+s[j]&gt;=i（j&lt;i）</p>
+<h2 id="Jump-Game-II"><a href="#Jump-Game-II" class="headerlink" title="Jump Game II"></a><a href="https://leetcode.com/problems/jump-game-ii" target="_blank" rel="external">Jump Game II</a></h2><blockquote>
+<p>Given an array of non-negative integers, you are initially positioned at the first index of the array.</p>
+<p>Each element in the array represents your maximum jump length at that position.</p>
+<p>Your goal is to reach the last index in the minimum number of jumps.</p>
+<p>For example:<br>Given array A = <code>[2,3,1,1,4]</code></p>
+<p>The minimum number of jumps to reach the last index is <code>2</code>. (Jump <code>1</code> step from index 0 to 1, then <code>3</code> steps to the last index.)</p>
+</blockquote>
+<p>求跳跃最少的方案跳跃次数</p>
+<p>求最小，坐标型动态规划</p>
+<p>state:s[i]从起点出发跳到i点需要步数</p>
+<p>转移方程：s[i] = min(s[j]+1),j满足条件可以一步跳到i，加个判断</p>
+<h2 id="Longest-Increasing-Subsequence"><a href="#Longest-Increasing-Subsequence" class="headerlink" title="Longest Increasing Subsequence"></a><a href="https://leetcode.com/problems/longest-increasing-subsequence" target="_blank" rel="external">Longest Increasing Subsequence</a></h2><blockquote>
+<p>Given an unsorted array of integers, find the length of longest increasing subsequence.</p>
+<p>For example,<br>Given <code>[10, 9, 2, 5, 3, 7, 101, 18]</code>,<br>The longest increasing subsequence is <code>[2, 3, 7, 101]</code>, therefore the length is <code>4</code>. Note that there may be more than one LIS combination, it is only necessary for you to return the length.</p>
+<p>Your algorithm should run in O(<em>n2</em>) complexity.</p>
+</blockquote>
+<p>subqequence：子序列，可以跳着取</p>
+<p>substring：子串，相连的，不可以跳着取</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>DP和二分法</p>
+<p>判断是否使用DP：</p>
+<ol>
+<li>求最长</li>
+<li>一维序列，元素位置不可交换</li>
+<li>暴力复杂度是O(2^n)</li>
+</ol>
+<p>看成是小人跳木桩，数组的值为木桩的高度，小人每次踩一个更高的木桩</p>
+<p>state：f[i]表示从任意一个木桩出发，从低到高，跳到i点，最多踩过多少个木桩</p>
+<p>转移方程：f[i] = max(f[j]+1) j满足：j&lt;i &amp;&amp; nums[j]&lt;nums[i]</p>
+<p>初始化：f[0] = f[1] = …= f[n-1] = 1 从前面的任何一个点出发跳到此处要经过多少根木桩，初始化时，只经过自己跳到自己踩过的木桩树为1。</p>
+<p>return：max(f[1],f[2],….,f[n-1]) 因为递增子序列不一定以最后一个元素为结尾，这道题要求的是最长的子序列，所以需要在所有的点里面找到最大的值返回。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DP/" rel="tag"># DP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/18/【九章算法强化班】课程笔记3——堆Heap/" rel="next" title="【九章算法强化班】课程笔记3——堆Heap">
+                <i class="fa fa-chevron-left"></i> 【九章算法强化班】课程笔记3——堆Heap
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/20/【RTB论文笔记】/" rel="prev" title="【RTB论文笔记】">
+                【RTB论文笔记】 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/小鸡.png"
+                alt="Siyao" />
+            
+              <p class="site-author-name" itemprop="name">Siyao</p>
+              <p class="site-description motion-element" itemprop="description">siyao小朋友画圈圈的地方</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Triangle"><span class="nav-number">1.</span> <span class="nav-text">Triangle</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目"><span class="nav-number">1.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法1：DFS遍历"><span class="nav-number">1.2.</span> <span class="nav-text">方法1：DFS遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法2：分治法"><span class="nav-number">1.3.</span> <span class="nav-text">方法2：分治法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法3：记忆化搜索"><span class="nav-number">1.4.</span> <span class="nav-text">方法3：记忆化搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法4：多重循环"><span class="nav-number">1.5.</span> <span class="nav-text">方法4：多重循环</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实现方式1：自底向上"><span class="nav-number">1.5.1.</span> <span class="nav-text">实现方式1：自底向上</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现方式2：自顶向下"><span class="nav-number">1.5.2.</span> <span class="nav-text">实现方式2：自顶向下</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结一下"><span class="nav-number">2.</span> <span class="nav-text">总结一下</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么时候用DP"><span class="nav-number">2.1.</span> <span class="nav-text">什么时候用DP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么时候不用DP"><span class="nav-number">2.2.</span> <span class="nav-text">什么时候不用DP</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态规划四要素："><span class="nav-number">3.</span> <span class="nav-text">动态规划四要素：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Minimum-Path-Sum"><span class="nav-number">4.</span> <span class="nav-text">Minimum Path Sum</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分析"><span class="nav-number">4.1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">4.2.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unique-Paths"><span class="nav-number">5.</span> <span class="nav-text">Unique Paths</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unique-Paths-II"><span class="nav-number">6.</span> <span class="nav-text">Unique Paths II</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Climbing-Stairs"><span class="nav-number">7.</span> <span class="nav-text">Climbing Stairs</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分析-1"><span class="nav-number">7.1.</span> <span class="nav-text">分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jump-Game"><span class="nav-number">8.</span> <span class="nav-text">Jump Game</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分析-2"><span class="nav-number">8.1.</span> <span class="nav-text">分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jump-Game-II"><span class="nav-number">9.</span> <span class="nav-text">Jump Game II</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Longest-Increasing-Subsequence"><span class="nav-number">10.</span> <span class="nav-text">Longest Increasing Subsequence</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">10.1.</span> <span class="nav-text">思路</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Siyao</span>
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a></div>
+
+
+
+
+
+ 
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">52.6k</span>
+  
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人次
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
