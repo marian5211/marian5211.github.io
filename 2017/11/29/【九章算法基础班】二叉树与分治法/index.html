@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/小鸡.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/小鸡.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/小鸡.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="二叉树," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="数组：内存空间连续，支持下标访问，访问时间复杂度O(1) 链表：内存空间不联系，不支持下表访问，访问时间复杂度O(n) 树形分析法求解时间复杂度：T(n) = T(n/2)+O(1)   -&amp;gt;  O(logn)T(n) = T(n/2)+O(n) -&amp;gt; O(n)T(n) = 2T(n/2) + O(1) -&amp;gt; O(n)T(n) = 2T(n/2) + O(1) -&amp;gt; O(n)O(1)：一次拆">
+<meta name="keywords" content="二叉树">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【九章算法基础班】二叉树与分治法">
+<meta property="og:url" content="http://yoursite.com/2017/11/29/【九章算法基础班】二叉树与分治法/index.html">
+<meta property="og:site_name" content="Siyao&#39;s Blog">
+<meta property="og:description" content="数组：内存空间连续，支持下标访问，访问时间复杂度O(1) 链表：内存空间不联系，不支持下表访问，访问时间复杂度O(n) 树形分析法求解时间复杂度：T(n) = T(n/2)+O(1)   -&amp;gt;  O(logn)T(n) = T(n/2)+O(n) -&amp;gt; O(n)T(n) = 2T(n/2) + O(1) -&amp;gt; O(n)T(n) = 2T(n/2) + O(1) -&amp;gt; O(n)O(1)：一次拆">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-29T15:54:50.916Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【九章算法基础班】二叉树与分治法">
+<meta name="twitter:description" content="数组：内存空间连续，支持下标访问，访问时间复杂度O(1) 链表：内存空间不联系，不支持下表访问，访问时间复杂度O(n) 树形分析法求解时间复杂度：T(n) = T(n/2)+O(1)   -&amp;gt;  O(logn)T(n) = T(n/2)+O(n) -&amp;gt; O(n)T(n) = 2T(n/2) + O(1) -&amp;gt; O(n)T(n) = 2T(n/2) + O(1) -&amp;gt; O(n)O(1)：一次拆">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Siyao'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/11/29/【九章算法基础班】二叉树与分治法/"/>
+
+
+
+
+
+  <title>【九章算法基础班】二叉树与分治法 | Siyao's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?22ca9e711cab30a2d33c6a2c25780e5f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Siyao's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/29/【九章算法基础班】二叉树与分治法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siyao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/小鸡.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siyao's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【九章算法基础班】二叉树与分治法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-29T23:54:50+08:00">
+                2017-11-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/九章算法/" itemprop="url" rel="index">
+                    <span itemprop="name">九章算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,032
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>数组：内存空间连续，支持下标访问，访问时间复杂度<script type="math/tex">O(1)</script></p>
+<p>链表：内存空间不联系，不支持下表访问，访问时间复杂度<script type="math/tex">O(n)</script></p>
+<h2 id="树形分析法求解时间复杂度："><a href="#树形分析法求解时间复杂度：" class="headerlink" title="树形分析法求解时间复杂度："></a>树形分析法求解时间复杂度：</h2><script type="math/tex; mode=display">T(n) = T(n/2)+O(1)   ->  O(logn)</script><script type="math/tex; mode=display">T(n) = T(n/2)+O(n) -> O(n)</script><script type="math/tex; mode=display">T(n) = 2T(n/2) + O(1) -> O(n)</script><figure class="highlight java"><table><tr><td class="code"><pre><div class="line">T(n) = <span class="number">2</span>T(n/<span class="number">2</span>) + O(<span class="number">1</span>) -&gt; O(n)</div><div class="line">O(<span class="number">1</span>)：一次拆分所需时间</div><div class="line"> --	 			        n</div><div class="line">  |               ↙             ↘       ················O(<span class="number">1</span>)拆分所需时间</div><div class="line">  |            n/<span class="number">2</span>                n/<span class="number">2</span></div><div class="line">log(n)      ↙       ↘          ↙       ↘	················O(<span class="number">2</span>)</div><div class="line">  |       n/<span class="number">4</span>       n/<span class="number">4</span>       n/<span class="number">4</span>       n/<span class="number">4</span></div><div class="line">  |      ↙  ↘      ↙  ↘     ↙  ↘      ↙  ↘	················O(<span class="number">4</span>)</div><div class="line">  |    n/<span class="number">8</span>  n/<span class="number">8</span>  n/<span class="number">8</span>  n/<span class="number">8</span>  n/<span class="number">8</span>  n/<span class="number">8</span>   n/<span class="number">8</span>  n/<span class="number">8</span>   			</div><div class="line">  |			················				················O(n)</div><div class="line">  | n/n	n/n	n/n		·············	n/n	n/n	n/n</div><div class="line"> --</div><div class="line"> O(<span class="number">1</span>+<span class="number">2</span>+<span class="number">4</span>+....+n) = O(<span class="number">2</span>n-<span class="number">1</span>) = O(n)</div><div class="line"> 由此如果T(n) = <span class="number">2</span>T(n/<span class="number">2</span>) + O(<span class="number">1</span>)，则时间复杂度为O(n)</div></pre></td></tr></table></figure>
+<script type="math/tex; mode=display">T(n) = 2T(n/2) + O(n) -> O(n*logn)</script><figure class="highlight java"><table><tr><td class="code"><pre><div class="line">T(n) = <span class="number">2</span>T(n/<span class="number">2</span>) + O(n) -&gt; O(n)</div><div class="line">O(n)：一次拆分所需时间</div><div class="line"> --	 			        n</div><div class="line">  |               ↙             ↘       ··············O(n)拆分所需时间</div><div class="line">  |            n/<span class="number">2</span>                n/<span class="number">2</span></div><div class="line">log(n)      ↙       ↘          ↙       ↘	··············O(n/<span class="number">2</span>)*<span class="number">2</span>=O(n)</div><div class="line">  |       n/<span class="number">4</span>       n/<span class="number">4</span>       n/<span class="number">4</span>       n/<span class="number">4</span></div><div class="line">  |      ↙  ↘      ↙  ↘     ↙  ↘      ↙  ↘	·············O(n/<span class="number">4</span>)*<span class="number">4</span>=O(n)</div><div class="line">  |    n/<span class="number">8</span>  n/<span class="number">8</span>  n/<span class="number">8</span>  n/<span class="number">8</span>  n/<span class="number">8</span>  n/<span class="number">8</span>   n/<span class="number">8</span>  n/<span class="number">8</span>   			</div><div class="line">  |			················				·············O(n/n)*n=O(n)</div><div class="line">  | n/n	n/n	n/n		·············	n/n	n/n	n/n</div><div class="line"> --</div><div class="line"> O(n+n+...+n)*logn = O(nlogn)</div><div class="line"> 由此如果T(n) = <span class="number">2</span>T(n/<span class="number">2</span>) + O(n)，则时间复杂度为O(nlogn)</div></pre></td></tr></table></figure>
+<h2 id="树的遍历"><a href="#树的遍历" class="headerlink" title="树的遍历"></a>树的遍历</h2><p>树的遍历三种方式：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line">     <span class="number">1</span></div><div class="line">    ↙ ↘</div><div class="line">  <span class="number">2</span>     <span class="number">3</span></div><div class="line"> ↙ ↘</div><div class="line"><span class="number">4</span>   <span class="number">5</span></div><div class="line">- 前序遍历（根左右）: <span class="number">1</span>-&gt;<span class="number">2</span>-&gt;<span class="number">4</span>-&gt;<span class="number">5</span>-&gt;<span class="number">3</span></div><div class="line">- 中序遍历（左根右）: <span class="number">4</span>-&gt;<span class="number">2</span>-&gt;<span class="number">5</span>-&gt;<span class="number">1</span>-&gt;<span class="number">3</span></div><div class="line">- 后序遍历（左右根）: <span class="number">4</span>-&gt;<span class="number">5</span>-&gt;<span class="number">3</span>-&gt;<span class="number">2</span>-&gt;<span class="number">1</span></div></pre></td></tr></table></figure>
+<h3 id="1-前序遍历Binary-Tree-Preorder-Traversal"><a href="#1-前序遍历Binary-Tree-Preorder-Traversal" class="headerlink" title="1.前序遍历Binary Tree Preorder Traversal"></a>1.前序遍历<a href="https://leetcode.com/problems/binary-tree-preorder-traversal" target="_blank" rel="external">Binary Tree Preorder Traversal</a></h3><h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><blockquote>
+<p>Given a binary tree, return the <em>preorder</em> traversal of its nodes’ values.</p>
+<p>For example:<br>Given binary tree <code>[1,null,2,3]</code>,</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt;    1</div><div class="line">&gt;     \</div><div class="line">&gt;      2</div><div class="line">&gt;     /</div><div class="line">&gt;    3</div><div class="line">&gt;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p>return <code>[1,2,3]</code>.</p>
+</blockquote>
+<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><ol>
+<li><p>递归法</p>
+<p>首先遍历根节点，然后对其左节点做前序遍历，对其右节点做前序遍历。</p>
+<p><strong>递归三要素</strong>：</p>
+<ul>
+<li>定义：要做什么事情，这道题就是先遍历父亲节点，然后左节点、右节点</li>
+<li>拆分：差分成同样的问题，但规模变小，本题就是拆成左子树和右子树，对左子树和右字数分别做前序遍历</li>
+<li>结束条件：遇到空节点停止。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">preorderTraversal</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">  ArrayList&lt;Integer&gt; result = <span class="keyword">new</span> ArrayList();</div><div class="line">  traverse(root,result);</div><div class="line">  <span class="keyword">return</span> result;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">traverse</span><span class="params">(TreeNode root,ArrayList&lt;Integer&gt; result)</span></span>&#123;</div><div class="line">  <span class="keyword">if</span>(root==<span class="keyword">null</span>)&#123;</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">else</span>&#123;</div><div class="line">    result.add(root.val);</div><div class="line">    traverse(root.left,result);</div><div class="line">    traverse(root.right,result);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>分治法</p>
+<p>分而治之，先分开求结果，再合并</p>
+<p>先得到左子树的结果，再得到右子树的结果，然后将左子、右子树、root结果合并得到最终结果。</p>
+<p>通常来说，分治法的函数是有返回值的。</p>
+<p><strong>分治法三要素：</strong></p>
+<ul>
+<li>定义：要做什么事情</li>
+<li>拆分与合并问题：</li>
+<li>结束条件。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> ArrayList&lt;Integer&gt; <span class="title">divide</span><span class="params">(TreeNode root)</span></span>&#123;</div><div class="line">  <span class="comment">//结束条件</span></div><div class="line">  <span class="keyword">if</span>(root==<span class="keyword">null</span>)&#123;</div><div class="line">    ArrayList&lt;Integer&gt; res = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">    <span class="keyword">return</span> res;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">//拆分问题，获取子问题结果</span></div><div class="line">  ArrayList&lt;Integer&gt; leftres = divide(root.left);</div><div class="line">  ArrayList&lt;Integer&gt; righttres = divide(root.right);</div><div class="line"></div><div class="line">  <span class="comment">//合并子问题</span></div><div class="line">  ArrayList&lt;Integer&gt; result = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">  result.add(root.val);</div><div class="line">  result.addAll(leftres);</div><div class="line">  result.addAll(righttres);</div><div class="line"></div><div class="line">  <span class="comment">//返回结果</span></div><div class="line">  <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+<li><p>非递归方法</p>
+<p><strong>阅读理解并背诵</strong></p>
+<p>利用stack实现树的前序遍历，每次弹出栈顶元素，先后压入其右孩子和左孩子。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">preorderTraversal</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        Stack&lt;TreeNode&gt; stack = <span class="keyword">new</span> Stack&lt;TreeNode&gt;();</div><div class="line">        List&lt;Integer&gt; preorder = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">        </div><div class="line">        <span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">return</span> preorder;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//根节点入栈</span></div><div class="line">        stack.push(root);</div><div class="line">        <span class="keyword">while</span> (!stack.empty()) &#123;</div><div class="line">            TreeNode node = stack.pop();</div><div class="line">            preorder.add(node.val);</div><div class="line">            <span class="comment">//右孩子入栈</span></div><div class="line">            <span class="keyword">if</span> (node.right != <span class="keyword">null</span>) &#123;</div><div class="line">                stack.push(node.right);</div><div class="line">            &#125;</div><div class="line">          <span class="comment">//左孩子入栈</span></div><div class="line">            <span class="keyword">if</span> (node.left != <span class="keyword">null</span>) &#123;</div><div class="line">                stack.push(node.left);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> preorder;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+</ol>
+<p>中序遍历的非递非常重要！！！！</p>
+<h3 id="中序遍历Binary-Tree-Inorder-Traversal"><a href="#中序遍历Binary-Tree-Inorder-Traversal" class="headerlink" title="中序遍历Binary Tree Inorder Traversal"></a>中序遍历<a href="https://leetcode.com/problems/binary-tree-inorder-traversal" target="_blank" rel="external">Binary Tree Inorder Traversal</a></h3><h4 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h4><blockquote>
+<p>Given a binary tree, return the <em>inorder</em> traversal of its nodes’ values.</p>
+<p>For example:<br>Given binary tree <code>[1,null,2,3]</code>,</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt;    1</div><div class="line">&gt;     \</div><div class="line">&gt;      2</div><div class="line">&gt;     /</div><div class="line">&gt;    3</div><div class="line">&gt;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p>return <code>[1,3,2]</code>.</p>
+</blockquote>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="comment">//递归</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">helper</span><span class="params">(TreeNode root,ArrayList&lt;Integer&gt; result)</span></span>&#123;</div><div class="line">        <span class="comment">//终止条件</span></div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//拆分问题</span></div><div class="line">        helper(root.left,result);</div><div class="line">        result.add(root.val);</div><div class="line">        helper(root.right,result);</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        ArrayList&lt;Integer&gt; result = <span class="keyword">new</span> ArrayList();</div><div class="line">        helper(root,result);</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"><span class="comment">//分治法</span></div><div class="line">    <span class="function"><span class="keyword">public</span> ArrayList&lt;Integer&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        <span class="comment">//终止条件</span></div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">        &#125;</div><div class="line">        ArrayList&lt;Integer&gt; result = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">        <span class="comment">//拆分</span></div><div class="line">        ArrayList&lt;Integer&gt; leftRes = inorderTraversal(root.left);</div><div class="line">        ArrayList&lt;Integer&gt; rightRes = inorderTraversal(root.right);</div><div class="line"></div><div class="line">        <span class="comment">//合并</span></div><div class="line">        result.addAll(leftRes);</div><div class="line">        result.add(root.val);</div><div class="line">        result.addAll(rightRes);</div><div class="line"></div><div class="line">        <span class="comment">//返回结果</span></div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"><span class="comment">//非递归方法，很重要！！！！！！！！！！！！！！！</span></div><div class="line"><span class="function"><span class="keyword">public</span> ArrayList&lt;Integer&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        Stack&lt;TreeNode&gt; stack = <span class="keyword">new</span> Stack&lt;TreeNode&gt;();</div><div class="line">        ArrayList&lt;Integer&gt; result = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</div><div class="line">        TreeNode curt = root;</div><div class="line">        <span class="keyword">while</span> (curt != <span class="keyword">null</span> || !stack.empty()) &#123;</div><div class="line">            <span class="keyword">while</span> (curt != <span class="keyword">null</span>) &#123;</div><div class="line">                stack.add(curt);</div><div class="line">                curt = curt.left;</div><div class="line">            &#125;</div><div class="line">            curt = stack.pop();</div><div class="line">            result.add(curt.val);</div><div class="line">            curt = curt.right;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h3 id="后序遍历Binary-Tree-Postorder-Traversal"><a href="#后序遍历Binary-Tree-Postorder-Traversal" class="headerlink" title="后序遍历Binary Tree Postorder Traversal"></a>后序遍历<a href="https://leetcode.com/problems/binary-tree-postorder-traversal" target="_blank" rel="external">Binary Tree Postorder Traversal</a></h3><h4 id="题目-2"><a href="#题目-2" class="headerlink" title="题目"></a>题目</h4><blockquote>
+<p>Given a binary tree, return the <em>postorder</em> traversal of its nodes’ values.</p>
+<p>For example:<br>Given binary tree <code>{1,#,2,3}</code>,</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt;    1</div><div class="line">&gt;     \</div><div class="line">&gt;      2</div><div class="line">&gt;     /</div><div class="line">&gt;    3</div><div class="line">&gt;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p>return <code>[3,2,1]</code>.</p>
+</blockquote>
+<h4 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure>
+<h3 id="分治法相比于遍历法的优点："><a href="#分治法相比于遍历法的优点：" class="headerlink" title="分治法相比于遍历法的优点："></a>分治法相比于遍历法的优点：</h3><ol>
+<li>无需全局变量存储结果，无需helper函数</li>
+<li>可并行</li>
+</ol>
+<h3 id="Maximum-Depth-of-Binary-Tree"><a href="#Maximum-Depth-of-Binary-Tree" class="headerlink" title="Maximum Depth of Binary Tree"></a><a href="https://leetcode.com/problems/maximum-depth-of-binary-tree" target="_blank" rel="external">Maximum Depth of Binary Tree</a></h3><h3 id="题目-3"><a href="#题目-3" class="headerlink" title="题目"></a>题目</h3><blockquote>
+<p>Given a binary tree, find its maximum depth.</p>
+<p>The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.</p>
+</blockquote>
+<p>给定一个数，求出树的最大深度</p>
+<h4 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxDepth</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">  <span class="comment">//终止条件</span></div><div class="line">  <span class="keyword">if</span>(root == <span class="keyword">null</span>)&#123;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">//拆分成求解左子树和右子树的最大深度</span></div><div class="line">  <span class="keyword">int</span> leftDepth = maxDepth(root.left);</div><div class="line">  <span class="keyword">int</span> rihtDepth = maxDepth(root.right);</div><div class="line"></div><div class="line">  <span class="comment">//合并，根节点的最大深度=max(左子树最大深度，右子树最大深度)+1</span></div><div class="line">  <span class="keyword">int</span> res = Math.max(leftDepth,rihtDepth)+<span class="number">1</span>;</div><div class="line">  <span class="comment">//返回结果</span></div><div class="line">  <span class="keyword">return</span> res;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Balanced-Binary-Tree"><a href="#Balanced-Binary-Tree" class="headerlink" title="Balanced Binary Tree"></a><a href="https://leetcode.com/problems/balanced-binary-tree" target="_blank" rel="external">Balanced Binary Tree</a></h3><h4 id="题目-4"><a href="#题目-4" class="headerlink" title="题目"></a>题目</h4><blockquote>
+<p>Given a binary tree, determine if it is height-balanced.</p>
+<p>For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of <em>every</em> node never differ by more than 1.</p>
+</blockquote>
+<p>判断二叉树是否是平衡二叉树：</p>
+<ol>
+<li>左右子树平衡</li>
+<li>左子树和右子树的高度差不超过1</li>
+</ol>
+<h4 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h4><figure class="highlight java"><table><tr><td class="code"><pre><div class="line">考虑某一个时间成立或者不成立需要考虑多个因素的时候，需要定义一个<span class="class"><span class="keyword">class</span> <span class="title">ResultType</span>把这两个值包进去，存储中间结果。</span></div><div class="line"><span class="class">	//定义<span class="title">resultType</span></span></div><div class="line"><span class="class">	<span class="title">class</span> <span class="title">ResultType</span></span>&#123;</div><div class="line">        <span class="keyword">boolean</span> isBalanced;<span class="comment">//是否平衡</span></div><div class="line">        <span class="keyword">int</span> maxDepth;<span class="comment">//最大深度</span></div><div class="line">        ResultType(<span class="keyword">boolean</span> isBalanced,<span class="keyword">int</span> maxDepth)&#123;</div><div class="line">            <span class="keyword">this</span>.isBalanced = isBalanced;</div><div class="line">            <span class="keyword">this</span>.maxDepth = maxDepth;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//</span></div><div class="line">    <span class="function"><span class="keyword">public</span> ResultType <span class="title">helper</span><span class="params">(TreeNode root)</span></span>&#123;</div><div class="line">        <span class="comment">//结束条件</span></div><div class="line">        <span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ResultType(<span class="keyword">true</span>,<span class="number">0</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//拆分成分别计算左子树的右子树信息</span></div><div class="line">        ResultType leftRes = helper(root.left);</div><div class="line">        ResultType rightRes = helper(root.right);</div><div class="line">        </div><div class="line">        <span class="comment">//如果左右有一个不是平衡树</span></div><div class="line">        <span class="keyword">if</span>(!leftRes.isBalanced || !rightRes.isBalanced)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ResultType(<span class="keyword">false</span>,-<span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//都是平衡树，但深度差&gt;1</span></div><div class="line">        <span class="keyword">if</span>(Math.abs(leftRes.maxDepth-rightRes.maxDepth) &gt;<span class="number">1</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ResultType(<span class="keyword">false</span>,-<span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//都是平衡树，深度差&lt;=1，node节点最大深度=max(左、右子树深度)+1</span></div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ResultType(<span class="keyword">true</span>,Math.max(rightRes.maxDepth,leftRes.maxDepth)+<span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isBalanced</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> helper(root).isBalanced;<span class="comment">//返回根节点是否是平衡。</span></div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h3 id="Lowest-Common-Ancestor-of-a-Binary-Tree"><a href="#Lowest-Common-Ancestor-of-a-Binary-Tree" class="headerlink" title="Lowest Common Ancestor of a Binary Tree"></a><a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree" target="_blank" rel="external">Lowest Common Ancestor of a Binary Tree</a></h3><h4 id="题目-5"><a href="#题目-5" class="headerlink" title="题目"></a>题目</h4><blockquote>
+<p>Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.</p>
+<p>According to the <a href="https://en.wikipedia.org/wiki/Lowest_common_ancestor" target="_blank" rel="external">definition of LCA on Wikipedia</a>: “The lowest common ancestor is defined between two nodes v and w as the lowest node in T that has both v and w as descendants (where we allow <strong>a node to be a descendant of itself</strong>).”</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt;         _______3______</div><div class="line">&gt;        /              \</div><div class="line">&gt;     ___5__          ___1__</div><div class="line">&gt;    /      \        /      \</div><div class="line">&gt;    6      _2       0       8</div><div class="line">&gt;          /  \</div><div class="line">&gt;          7   4</div><div class="line">&gt;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p>For example, the lowest common ancestor (LCA) of nodes <code>5</code> and <code>1</code> is <code>3</code>. Another example is LCA of nodes <code>5</code> and <code>4</code> is <code>5</code>, since a node can be a descendant of itself according to the LCA definition.</p>
+</blockquote>
+<p>给一棵二叉树和二叉树上的两个点，返回其最近公共祖先</p>
+<h4 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h4><figure class="highlight java"><table><tr><td class="code"><pre><div class="line">如果二叉树中存储了父亲节点，则可以从两个点出发往上寻找至root:</div><div class="line">比如<span class="number">5</span>和<span class="number">1</span>：</div><div class="line"><span class="number">5</span>:[<span class="number">5</span>,<span class="number">3</span>]</div><div class="line"><span class="number">1</span>:[<span class="number">1</span>,<span class="number">3</span>]</div><div class="line">得到路径之后从后向前遍历，<span class="number">3</span>,<span class="number">3</span>一样，<span class="number">5</span>,<span class="number">1</span>不一样了，所以最近公共祖先是<span class="number">3</span></div><div class="line"></div><div class="line">再比如<span class="number">5</span>和<span class="number">4</span>：</div><div class="line"><span class="number">5</span>:[<span class="number">5</span>,<span class="number">3</span>]</div><div class="line"><span class="number">4</span>:[<span class="number">4</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">3</span>]</div><div class="line">从后向前遍历，发现<span class="number">3</span>,<span class="number">5</span>之后不一样了，所以公共祖先是<span class="number">5</span></div><div class="line"></div><div class="line">如果没有存储父亲节的信息，给定root节点和连个点n1,n2:</div><div class="line">        _______3______</div><div class="line">       /              \</div><div class="line">    ___5__          ___1__</div><div class="line">   /      \        /      \</div><div class="line">   <span class="number">6</span>      _2       <span class="number">0</span>       <span class="number">8</span></div><div class="line">         /  \</div><div class="line">         <span class="number">7</span>   <span class="number">4</span></div><div class="line">n1和n2的分布情况有以下几种：</div><div class="line"><span class="number">1</span>.其中有一个是root -&gt; 返回root</div><div class="line"><span class="number">2</span>.全在左子树 -&gt; 返回左子树root</div><div class="line"><span class="number">3</span>.全在右子树 -&gt; 返回右子树root</div><div class="line"><span class="number">4</span>.一个在左子树、一个在右子树 -&gt; 返回root</div><div class="line"><span class="number">5</span>.这两个点不在这棵树里 -&gt; 返回<span class="keyword">null</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> TreeNode <span class="title">lowestCommonAncestor</span><span class="params">(TreeNode root, TreeNode p, TreeNode q)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(root == p || root == q)&#123;<span class="comment">//其中有一个是根节点</span></div><div class="line">            <span class="keyword">return</span> root;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//拆分,分别在左、右子树中寻找LCA</span></div><div class="line">        TreeNode left = lowestCommonAncestor(root.left,p,q);</div><div class="line">        TreeNode right = lowestCommonAncestor(root.right,p,q);</div><div class="line"></div><div class="line">        <span class="comment">//合并</span></div><div class="line">        <span class="keyword">if</span>(left != <span class="keyword">null</span> &amp;&amp; right != <span class="keyword">null</span>)&#123;<span class="comment">//一个在左子树，一个在右子树，则LCA为root</span></div><div class="line">            <span class="keyword">return</span> root;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(left != <span class="keyword">null</span>)&#123;<span class="comment">//两个节点都在左子树</span></div><div class="line">            <span class="keyword">return</span> left;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(right != <span class="keyword">null</span>)&#123;<span class="comment">//两个节点都在右子树</span></div><div class="line">            <span class="keyword">return</span> right;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> <span class="comment">//左右子树的LCA都是null,都没有这俩节点</span></div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>二叉树的深度优先搜索DFS</p>
+<p>二叉树的广度优先搜索BFS</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/二叉树/" rel="tag"># 二叉树</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/27/Bid-Optimizing-and-Inventory-Scoring-in-Targeted-Online论文笔记/" rel="next" title="Bid Optimizing and Inventory Scoring in Targeted Online论文笔记">
+                <i class="fa fa-chevron-left"></i> Bid Optimizing and Inventory Scoring in Targeted Online论文笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/小鸡.png"
+                alt="Siyao" />
+            
+              <p class="site-author-name" itemprop="name">Siyao</p>
+              <p class="site-description motion-element" itemprop="description">siyao小朋友画圈圈的地方</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#树形分析法求解时间复杂度："><span class="nav-number">1.</span> <span class="nav-text">树形分析法求解时间复杂度：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#树的遍历"><span class="nav-number">2.</span> <span class="nav-text">树的遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-前序遍历Binary-Tree-Preorder-Traversal"><span class="nav-number">2.1.</span> <span class="nav-text">1.前序遍历Binary Tree Preorder Traversal</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目"><span class="nav-number">2.1.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析"><span class="nav-number">2.1.2.</span> <span class="nav-text">分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中序遍历Binary-Tree-Inorder-Traversal"><span class="nav-number">2.2.</span> <span class="nav-text">中序遍历Binary Tree Inorder Traversal</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码"><span class="nav-number">2.2.2.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后序遍历Binary-Tree-Postorder-Traversal"><span class="nav-number">2.3.</span> <span class="nav-text">后序遍历Binary Tree Postorder Traversal</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目-2"><span class="nav-number">2.3.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码-1"><span class="nav-number">2.3.2.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分治法相比于遍历法的优点："><span class="nav-number">2.4.</span> <span class="nav-text">分治法相比于遍历法的优点：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maximum-Depth-of-Binary-Tree"><span class="nav-number">2.5.</span> <span class="nav-text">Maximum Depth of Binary Tree</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题目-3"><span class="nav-number">2.6.</span> <span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码-2"><span class="nav-number">2.6.1.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Balanced-Binary-Tree"><span class="nav-number">2.7.</span> <span class="nav-text">Balanced Binary Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目-4"><span class="nav-number">2.7.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析-1"><span class="nav-number">2.7.2.</span> <span class="nav-text">分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lowest-Common-Ancestor-of-a-Binary-Tree"><span class="nav-number">2.8.</span> <span class="nav-text">Lowest Common Ancestor of a Binary Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目-5"><span class="nav-number">2.8.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析-2"><span class="nav-number">2.8.2.</span> <span class="nav-text">分析</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Siyao</span>
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a></div>
+
+
+
+
+
+ 
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">61.9k</span>
+  
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人次
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
