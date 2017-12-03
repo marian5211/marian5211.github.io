@@ -438,11 +438,9 @@
 
       
         
-          
-          数组：内存空间连续，支持下标访问，访问时间复杂度O(1)
-链表：内存空间不联系，不支持下表访问，访问时间复杂度O(n)
-树形分析法求解时间复杂度：T(n) = T(n/2)+O(1)   ->  O(logn)T(n) = T(n/2)+O(n) -> O(n)T(n) = 2T(n/2) + O(1) -> O(n)T(n) = 2T(n/2) + O(1) -&gt; O(n)O(1)：一次拆分所需时间 --	 			        n  |               ↙             ↘       ················O(1)拆分所需时间  |         
-          ...
+          <p>数组：内存空间连续，支持下标访问，访问时间复杂度<script type="math/tex">O(1)</script></p>
+<p>链表：内存空间不联系，不支持下表访问，访问时间复杂度<script type="math/tex">O(n)</script></p>
+<h2 id="树形分析法求解时间复杂度："><a href="#树形分析法求解时间复杂度：" class="headerlink" title="树形分析法求解时间复杂度："></a>树形分析法求解时间复杂度：</h2><script type="math/tex; mode=display">T(n) = T(n/2)+O(1)   ->  O(logn)</script><script type="math/tex; mode=display">T(n) = T(n/2)+O(n) -> O(n)</script><script type="math/tex; mode=display">T(n) = 2T(n/2) + O(1) -> O(n)</script><figure class="highlight java"><table><tr><td class="code"><pre><div class="line">T(n) = <span class="number">2</span>T(n/<span class="number">2</span>) + O(<span class="number">1</span>) -&gt; O(n)</div><div class="line">O(<span class="number">1</span>)：一次拆分所需时间</div><div class="line"> --	 			        n</div><div class="line">  |               ↙             ↘       ················O(<span class="number">1</span>)拆分所需时间</div><div class="line">  |            n/<span class="number">2</span>                n/<span class="number">2</span></div><div class="line">log(n)      ↙       ↘          ↙       ↘	················O(<span class="number">2</span>)</div><div class="line">  |       n/<span class="number">4</span>       n/<span class="number">4</span>       n/<span class="number">4</span>       n/<span class="number">4</span></div><div class="line">  |      ↙  ↘      ↙  ↘     ↙  ↘      ↙  ↘	················O(<span class="number">4</span>)</div><div class="line">  |    n/<span class="number">8</span>  n/<span class="number">8</span>  n/<span class="number">8</span>  n/<span class="number">8</span>  n/<span class="number">8</span>  n/<span class="number">8</span>   n/<span class="number">8</span>  n/<span class="number">8</span>   			</div><div class="line">  |			················				················O(n)</div><div class="line">  | n/n	n/n	n/n		·············	n/n	n/n	n/n</div><div class="line"> --</div><div class="line"> O(<span class="number">1</span>+<span class="number">2</span>+<span class="number">4</span>+....+n) = O(<span class="number">2</span>n-<span class="number">1</span>) = O(n)</div><div class="line"> 由此如果T(n) = <span class="number">2</span>T(n/<span class="number">2</span>) + O(<span class="number">1</span>)，则时间复杂度为O(n)</div></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/11/29/【九章算法基础班】二叉树与分治法/#more" rel="contents">
