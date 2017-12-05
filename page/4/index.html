@@ -1556,11 +1556,10 @@ i++并重复第二步直到i==n-1。排序完成。
 
       
         
-          
-          Optimal Real-Time Bidding for Display Advertising——KDD2014参考着师兄的博客计算广告小窥[中]这孙子怎么什么都知道，仔细读完了这篇paper，总结一下，方便日后回顾
-ps:十分感谢师兄@面包包包包包包，看了师兄的三篇博客可算是入了门，不然真是一头雾水hold不住啊
-这篇文章的核心就是提出了一个非线性的竞价函数，相比于KDD2012的《Bid Optimizing and Inventory Scoring in Targeted Online Advertising》中提出的线性竞价函数，本文认为出价应该与点击率、转化率等指标具有非线性关
-          ...
+          <h2 id="Optimal-Real-Time-Bidding-for-Display-Advertising——KDD2014"><a href="#Optimal-Real-Time-Bidding-for-Display-Advertising——KDD2014" class="headerlink" title="Optimal Real-Time Bidding for Display Advertising——KDD2014"></a>Optimal Real-Time Bidding for Display Advertising——KDD2014</h2><p>参考着师兄的博客<a href="http://blog.csdn.net/Breada/article/details/50697030" target="_blank" rel="external">计算广告小窥[中]这孙子怎么什么都知道</a>，仔细读完了这篇paper，总结一下，方便日后回顾</p>
+<p>ps:十分感谢师兄@<a href="http://blog.csdn.net/breada" target="_blank" rel="external">面包包包包包包</a>，看了师兄的三篇博客可算是入了门，不然真是一头雾水hold不住啊</p>
+<p>这篇文章的核心就是提出了一个<strong>非线性的竞价函数</strong>，相比于KDD2012的<a href="http://cwds.uw.edu/sites/default/files/p804.pdf" target="_blank" rel="external">《Bid Optimizing and Inventory Scoring in Targeted Online Advertising》</a>中提出的线性竞价函数，本文认为出价应该与点击率、转化率等指标具有<strong>非线性关系</strong></p>
+<p>首先，文章将现实问题用数学方法建模为限制条件下的优化问题，并通过拉格朗日乘子法，求得出价策略的数学表达式（非线性竞价函数）；然后利用iPinYou数据拟合出价策略中的参数；最后，做实验验证结果，发现了一个有意思的结论：相比少量高品质的展示机会，那些大量低品质的展示机会同样可以具有较好的广告效果，值得出价。这个发现对于那些预算不够，同时又想做广告的小广告主来说，简直就是福音。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/07/17/Optimal-Real-Time-Bidding-for-Display-Advertising论文笔记/#more" rel="contents">

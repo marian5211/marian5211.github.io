@@ -451,6 +451,7 @@
 </div>
 <p>可以看出，对一串矩阵做乘法操作，乘法的顺序影响到算法的时间复杂度。由此，引出矩阵链乘法问题：</p>
 <p><strong>给定n个矩阵的链<script type="math/tex"><A_1,A_2,...,A_n></script>，矩阵<script type="math/tex">A_i</script> 的规模为<script type="math/tex">p_{i-1} \times p_i</script>，确定代价最低的计算顺序，使得计算乘积$A_1A_2A_n$所需标量乘法次数最小。</strong></p>
+<a id="more"></a>
 <h3 id="用DP解决此问题"><a href="#用DP解决此问题" class="headerlink" title="用DP解决此问题"></a>用DP解决此问题</h3><p>DP四步骤：</p>
 <ol>
 <li>可以将求解<script type="math/tex">A_1,*A_2*...*A_n</script>所需要的乘法次数问题划分成两个子问题：求解<script type="math/tex">A_1,*A_2*...*A_k</script>所需要的乘法次数+求解<script type="math/tex">A_{k+1},*A_{k+2}*...*A_n</script>所需要的乘法次数+<script type="math/tex">p_0*p_k*p_n</script></li>

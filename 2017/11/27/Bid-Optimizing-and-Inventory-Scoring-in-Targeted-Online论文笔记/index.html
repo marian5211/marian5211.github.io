@@ -77,12 +77,12 @@
 
 
 
-<meta name="description" content="Bid Optimizing and Inventory Scoring in Targeted Online Advertising这篇文章来自美国一家很优秀的DSP公司——M6D,介绍了DSP的工作流程和其中的一个核心技术：real-time bidding(实时竞价技术) 实时竞价：找准正确的广告信息和广告位信息，以一个能够反映真实价格的竞拍价格参与广告展示机会的竞价 M6D竞价流程 追踪用">
+<meta name="description" content="Bid Optimizing and Inventory Scoring in Targeted Online Advertising这篇文章来自美国一家很优秀的DSP公司——M6D,介绍了DSP的工作流程和其中的一个核心技术：real-time bidding(实时竞价技术) 实时竞价：找准正确的广告信息和广告位信息，以一个能够反映真实价格的竞拍价格参与广告展示机会的竞价">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Bid Optimizing and Inventory Scoring in Targeted Online论文笔记">
 <meta property="og:url" content="http://yoursite.com/2017/11/27/Bid-Optimizing-and-Inventory-Scoring-in-Targeted-Online论文笔记/index.html">
 <meta property="og:site_name" content="Siyao&#39;s Blog">
-<meta property="og:description" content="Bid Optimizing and Inventory Scoring in Targeted Online Advertising这篇文章来自美国一家很优秀的DSP公司——M6D,介绍了DSP的工作流程和其中的一个核心技术：real-time bidding(实时竞价技术) 实时竞价：找准正确的广告信息和广告位信息，以一个能够反映真实价格的竞拍价格参与广告展示机会的竞价 M6D竞价流程 追踪用">
+<meta property="og:description" content="Bid Optimizing and Inventory Scoring in Targeted Online Advertising这篇文章来自美国一家很优秀的DSP公司——M6D,介绍了DSP的工作流程和其中的一个核心技术：real-time bidding(实时竞价技术) 实时竞价：找准正确的广告信息和广告位信息，以一个能够反映真实价格的竞拍价格参与广告展示机会的竞价">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/05/09/59113178e5863.png">
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/05/09/591132bf75168.png">
@@ -94,7 +94,7 @@
 <meta property="og:updated_time" content="2017-11-29T16:44:06.762Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Bid Optimizing and Inventory Scoring in Targeted Online论文笔记">
-<meta name="twitter:description" content="Bid Optimizing and Inventory Scoring in Targeted Online Advertising这篇文章来自美国一家很优秀的DSP公司——M6D,介绍了DSP的工作流程和其中的一个核心技术：real-time bidding(实时竞价技术) 实时竞价：找准正确的广告信息和广告位信息，以一个能够反映真实价格的竞拍价格参与广告展示机会的竞价 M6D竞价流程 追踪用">
+<meta name="twitter:description" content="Bid Optimizing and Inventory Scoring in Targeted Online Advertising这篇文章来自美国一家很优秀的DSP公司——M6D,介绍了DSP的工作流程和其中的一个核心技术：real-time bidding(实时竞价技术) 实时竞价：找准正确的广告信息和广告位信息，以一个能够反映真实价格的竞拍价格参与广告展示机会的竞价">
 <meta name="twitter:image" content="https://ooo.0o0.ooo/2017/05/09/59113178e5863.png">
 
 
@@ -439,6 +439,7 @@
       
         <h2 id="Bid-Optimizing-and-Inventory-Scoring-in-Targeted-Online-Advertising"><a href="#Bid-Optimizing-and-Inventory-Scoring-in-Targeted-Online-Advertising" class="headerlink" title="Bid Optimizing and Inventory Scoring in Targeted Online Advertising"></a>Bid Optimizing and Inventory Scoring in Targeted Online Advertising</h2><p>这篇文章来自美国一家很优秀的DSP公司——M6D,介绍了DSP的工作流程和其中的一个核心技术：real-time bidding(实时竞价技术)</p>
 <p>实时竞价：找准正确的广告信息和广告位信息，以一个能够反映真实价格的竞拍价格参与广告展示机会的竞价</p>
+<a id="more"></a>
 <h2 id="M6D竞价流程"><a href="#M6D竞价流程" class="headerlink" title="M6D竞价流程"></a>M6D竞价流程</h2><ol>
 <li><strong>追踪用户行为</strong>：DSP公司通常会在广告主的网站上埋点（即放上一个1x1的不可见像素），这样当互联网用户第一次访问广告主的网站时，就会得到DSP公司的一个cookie，这样DSP公司就可以追踪到这个网民的在广告主网站上的行为了(这些数据也叫action data)。DSP公司还会和第三方的网站合作（例如：新浪，腾讯），在他们的网站上也埋点，或者向DMP购买网民行为数据，这样就可以追踪到网民在这些网站上的行为了(这些数据也叫mapping data)。这里值得一提的是，DSP公司对某一个用户记录的cookie和第三方网站或DMP或exchange记录的cookie是不一样的，这里需要一个叫Cookie Mapping的过程，这不是本文重点，以下假设DSP已经做好了Cookie Mapping，每个用户有一个唯一的id标识。</li>
 <li>受众选择（audience selection）: m6d对每一个campaign(即每一个广告主的每个推广活动), 训练一个audience selection model, 该模型以在广告主的网站上发生转化行为（转化行为可以是注册成为用户，点击某个特定页面，购买产品。每个广告主对转化的定义不一样）的用户为正例，没有发生转化行为的用户为负例（是的，正负例很不均匀，通常要做采样和结果修正）。得到模型后，对所有的用户预估对这个campaign的转化概率p(c | u),即该用户u有多大的概率会在广告主的网站上发生转化行为（c表示conversion），去掉大多数转化概率非常小的用户，将目标用户根据转化概率高低分到不同的segments中。这样我们对每个campaign就找到了很多的目标用户，而且这些用户根据他们的质量高低，被分别放在不同的segments中。</li>

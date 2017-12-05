@@ -448,6 +448,7 @@
 <p>ps:十分感谢师兄@<a href="http://blog.csdn.net/breada" target="_blank" rel="external">面包包包包包包</a>，看了师兄的三篇博客可算是入了门，不然真是一头雾水hold不住啊</p>
 <p>这篇文章的核心就是提出了一个<strong>非线性的竞价函数</strong>，相比于KDD2012的<a href="http://cwds.uw.edu/sites/default/files/p804.pdf" target="_blank" rel="external">《Bid Optimizing and Inventory Scoring in Targeted Online Advertising》</a>中提出的线性竞价函数，本文认为出价应该与点击率、转化率等指标具有<strong>非线性关系</strong></p>
 <p>首先，文章将现实问题用数学方法建模为限制条件下的优化问题，并通过拉格朗日乘子法，求得出价策略的数学表达式（非线性竞价函数）；然后利用iPinYou数据拟合出价策略中的参数；最后，做实验验证结果，发现了一个有意思的结论：相比少量高品质的展示机会，那些大量低品质的展示机会同样可以具有较好的广告效果，值得出价。这个发现对于那些预算不够，同时又想做广告的小广告主来说，简直就是福音。</p>
+<a id="more"></a>
 <h2 id="模型建立"><a href="#模型建立" class="headerlink" title="模型建立"></a>模型建立</h2><h3 id="选择合适的出价策略，在预算的限制下实现广告效果最大化"><a href="#选择合适的出价策略，在预算的限制下实现广告效果最大化" class="headerlink" title="选择合适的出价策略，在预算的限制下实现广告效果最大化"></a>选择合适的出价策略，在预算的限制下实现广告效果最大化</h3><p>把这句话用数学的形式表达出来就是下面的样子：</p>
 <p><img src="https://ooo.0o0.ooo/2017/05/11/59141e20788bf.png" alt=""> </p>
 <p>看起来来有点复杂，其实很简单，两个式子，第一行是优化目标：寻找似的收益最大化的出价函数b()</p>

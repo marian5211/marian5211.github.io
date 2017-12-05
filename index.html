@@ -617,12 +617,8 @@
 
       
         
-          
-          Bid Optimizing and Inventory Scoring in Targeted Online Advertising这篇文章来自美国一家很优秀的DSP公司——M6D,介绍了DSP的工作流程和其中的一个核心技术：real-time bidding(实时竞价技术)
-实时竞价：找准正确的广告信息和广告位信息，以一个能够反映真实价格的竞拍价格参与广告展示机会的竞价
-M6D竞价流程
-追踪用户行为：DSP公司通常会在广告主的网站上埋点（即放上一个1x1的不可见像素），这样当互联网用户第一次访问广告主的网站时，就会得到DSP公司的一个cookie，这样DSP公司就可以追踪到这个网民的在广告
-          ...
+          <h2 id="Bid-Optimizing-and-Inventory-Scoring-in-Targeted-Online-Advertising"><a href="#Bid-Optimizing-and-Inventory-Scoring-in-Targeted-Online-Advertising" class="headerlink" title="Bid Optimizing and Inventory Scoring in Targeted Online Advertising"></a>Bid Optimizing and Inventory Scoring in Targeted Online Advertising</h2><p>这篇文章来自美国一家很优秀的DSP公司——M6D,介绍了DSP的工作流程和其中的一个核心技术：real-time bidding(实时竞价技术)</p>
+<p>实时竞价：找准正确的广告信息和广告位信息，以一个能够反映真实价格的竞拍价格参与广告展示机会的竞价</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/11/27/Bid-Optimizing-and-Inventory-Scoring-in-Targeted-Online论文笔记/#more" rel="contents">
@@ -777,18 +773,7 @@ M6D竞价流程
 
       
         
-          
-          Fagin’s Algorithm and Threshold AlgorithmFagin算法和Threshold算法都是Top-K排序领域的经典算法(K代表只要对前K个值排序值)，不同于传统Top-k对一维数组前K个值排序，Fargin和Threshhold算法适用于参考多个排序指标时对前k个物品排序。
-比如说我要去旅游，选酒店的时候我有两个指标：
-
-价格合适
-好评率
-
-那么我在网站上得到了下面的酒店信息：
- 
-能够想到的一种常规的做法是对两种评价指标分别赋予一个权重w_1,w_2，然后计算两种指标的加权得分:
-score = w_1*Cheapness+w_2*Rating然后按照sco
-          ...
+          <h2 id="Fagin’s-Algorithm-and-Threshold-Algorithm"><a href="#Fagin’s-Algorithm-and-Threshold-Algorithm" class="headerlink" title="Fagin’s Algorithm and Threshold Algorithm"></a>Fagin’s Algorithm and Threshold Algorithm</h2><p>Fagin算法和Threshold算法都是Top-K排序领域的经典算法(K代表只要对前K个值排序值)，不同于传统Top-k对一维数组前K个值排序，Fargin和Threshhold算法适用于<strong>参考多个排序指标时对前k个物品排序</strong>。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/11/22/搜索引擎Top-k快速检索问题/#more" rel="contents">
@@ -976,16 +961,19 @@ score = w_1*Cheapness+w_2*Rating然后按照sco
 
       
         
-          
-          Triangle题目
-Given a triangle, find the minimum path sum from top to bottom. Each step you may move to adjacent numbers on the row below.
-For example, given the following triangle
-&gt; [&gt;      [2],&gt;     [3,4],&gt;    [6,5,7],&gt;   [4,1,8,3]&gt; ]&gt;&gt;
-
-&gt;
-
-The minimum path sum from top to 
-          ...
+          <h2 id="Triangle"><a href="#Triangle" class="headerlink" title="Triangle"></a><a href="https://leetcode.com/problems/triangle" target="_blank" rel="external">Triangle</a></h2><h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><blockquote>
+<p>Given a triangle, find the minimum path sum from top to bottom. Each step you may move to adjacent numbers on the row below.</p>
+<p>For example, given the following triangle</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line">&gt; [</div><div class="line">&gt;      [<span class="number">2</span>],</div><div class="line">&gt;     [<span class="number">3</span>,<span class="number">4</span>],</div><div class="line">&gt;    [<span class="number">6</span>,<span class="number">5</span>,<span class="number">7</span>],</div><div class="line">&gt;   [<span class="number">4</span>,<span class="number">1</span>,<span class="number">8</span>,<span class="number">3</span>]</div><div class="line">&gt; ]</div><div class="line">&gt;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p>The minimum path sum from top to bottom is <code>11</code> (i.e., 2 + 3 + 5 + 1 = 11).</p>
+</blockquote>
+<p>题目是说，从三角形的最上层走到最下层，每次只走到下一层的相邻元素，求从顶点走到最下层的最短路径长度。</p>
+<h3 id="方法1：DFS遍历"><a href="#方法1：DFS遍历" class="headerlink" title="方法1：DFS遍历"></a>方法1：DFS遍历</h3><p>从上往下深度优先遍历搜索，记录所有情况之中最小值</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">int</span> best = Integer.MAX_VALUE;;</div><div class="line"></div><div class="line"><span class="comment">//sum为走到当前节点但不包含当前节点的路径和</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; triangle,<span class="keyword">int</span> i,<span class="keyword">int</span> j,<span class="keyword">int</span> sum)</span></span>&#123;</div><div class="line">  <span class="comment">//搜索结束条件：走过了最下面一层</span></div><div class="line">  <span class="keyword">int</span> height = triangle.size();</div><div class="line">  <span class="keyword">if</span>(i==height)&#123;</div><div class="line">    best = Math.min(best,sum);</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">  &#125;</div><div class="line">  dfs(triangle,i+<span class="number">1</span>,j,sum+triangle.get(i).get(j));</div><div class="line">  dfs(triangle,i+<span class="number">1</span>,j+<span class="number">1</span>,sum+triangle.get(i).get(j));</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minimumTotal</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; triangles)</span> </span>&#123;</div><div class="line">  dfs(triangles,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>);</div><div class="line">  <span class="keyword">return</span> best;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>时间复杂度<script type="math/tex">O(2^n)</script></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/11/18/【九章算法基础班】动态规划(上)/#more" rel="contents">
@@ -1173,16 +1161,15 @@ The minimum path sum from top to
 
       
         
-          
-          堆Trapping Rain Water
-Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it is able to trap after raining.
-For example,Given [0,1,0,2,1,0,1,3,2,1,2,1], return 6.
-
-
-向柱子中灌水，求能够灌水的总量。
-分析可以从边缘向内灌水，灌水的高度不会超过边缘柱子的高度的最小值，所以说：边缘高度奠定了灌水的基调
-从低的一
-          ...
+          <h1 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h1><h2 id="Trapping-Rain-Water"><a href="#Trapping-Rain-Water" class="headerlink" title="Trapping Rain Water"></a><a href="https://leetcode.com/problems/trapping-rain-water" target="_blank" rel="external">Trapping Rain Water</a></h2><blockquote>
+<p>Given <em>n</em> non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it is able to trap after raining.</p>
+<p>For example,<br>Given <code>[0,1,0,2,1,0,1,3,2,1,2,1]</code>, return <code>6</code>.</p>
+<p><img src="http://www.leetcode.com/static/images/problemset/rainwatertrap.png" alt="img"></p>
+</blockquote>
+<p>向柱子中灌水，求能够灌水的总量。</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>可以从边缘向内灌水，灌水的高度不会超过边缘柱子的高度的最小值，所以说：<strong>边缘高度奠定了灌水的基调</strong></p>
+<p>从低的一边（高度为h）向内灌水，能够灌水的量为（h-h_temp），遇到更高的柱子时，更新边缘。</p>
+<p>显然，这是一个<strong>双指针</strong>问题。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/11/18/【九章算法强化班】课程笔记3——堆Heap/#more" rel="contents">
@@ -1370,17 +1357,16 @@ For example,Given [0,1,0,2,1,0,1,3,2,1,2,1], return 6.
 
       
         
-          
-          扫描线lintcode391. 数飞机题目
-给出飞机的起飞和降落时间的列表，用 interval 序列表示. 请计算出天上同时最多有多少架飞机？
-样例
-对于每架飞机的起降时间列表：[[1,10],[2,3],[5,8],[4,7]], 返回3。
-
-分析 
-计算空中的飞机个数，可以看成用一个线从左到右扫描的过程，计算每一时刻空中飞机的数量。
-优化：只计算所有线段起始位置时天上的飞机即可，因为只有起始点是可能发生变化的点。遇到起点，天上的飞机数+1，遇到终点则-1。
-因此，我们先将所有线段的起点、终点排序，并标记是起点还是终点，然后从小到大遍历这些点，遇到起点则+1，遇到终点-1，返回过程中最大的
-          ...
+          <h1 id="扫描线"><a href="#扫描线" class="headerlink" title="扫描线"></a>扫描线</h1><h2 id="lintcode391-数飞机"><a href="#lintcode391-数飞机" class="headerlink" title="lintcode391. 数飞机"></a><a href="http://www.lintcode.com/zh-cn/problem/number-of-airplanes-in-the-sky/" target="_blank" rel="external">lintcode391. 数飞机</a></h2><h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><blockquote>
+<p>给出飞机的起飞和降落时间的列表，用 interval 序列表示. 请计算出天上同时最多有多少架飞机？</p>
+<p>样例</p>
+<p>对于每架飞机的起降时间列表：<code>[[1,10],[2,3],[5,8],[4,7]]</code>, 返回<code>3</code>。</p>
+</blockquote>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p><img src="http://omaby2s5z.bkt.clouddn.com/2017-11-17-20-40-58.png" alt=""> </p>
+<p>计算空中的飞机个数，可以看成用一个线从左到右扫描的过程，计算每一时刻空中飞机的数量。</p>
+<p>优化：只计算所有线段起始位置时天上的飞机即可，因为只有起始点是可能发生变化的点。遇到起点，天上的飞机数+1，遇到终点则-1。</p>
+<p>因此，我们先将所有线段的起点、终点排序，并标记是起点还是终点，然后从小到大遍历这些点，遇到起点则+1，遇到终点-1，返回过程中最大的数值即为空中飞机数的最大值。</p>
+<p><strong>需要注意的是</strong>：在同一点上会同时有开始点和结尾点，此时应该把结尾点放在前面，否则会出现多计算的情况。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/11/17/【九章算法强化班】课程笔记2——扫描线/#more" rel="contents">
@@ -1530,7 +1516,7 @@ For example,Given [0,1,0,2,1,0,1,3,2,1,2,1], return 6.
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  936
+                  941
                 </span>
               
 
@@ -1568,40 +1554,7 @@ For example,Given [0,1,0,2,1,0,1,3,2,1,2,1], return 6.
 
       
         
-          
-          
-
-
-
-题目
-题意
-知识点
-思路
-
-
-
-
-208.Implement Trie (Prefix Tree)
-实现一个Trie树模板，支持插入、搜索、前缀搜索操作
-Trie
-
-
-
-211.Add and Search Word - Data structure design
-实现Trie树的插入、搜索，支持搜索”a.b”格式，”.”表示通配符
-Trie+DFS
-
-
-
-677.Map Sum Pairs
-单词有权重，输入前缀词，给出所有以此为前缀的词的权重之和
-Trie+DFS
-
-
-
-200.Number of Islands
-统计中有0,1，相邻1为island，统计island个数(连通子图)
-          ...
+          <p>leetcode刷题总结</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/11/16/【leetcode】题目摘要/#more" rel="contents">
@@ -1789,19 +1742,18 @@ Trie+DFS
 
       
         
-          
-          Trie树leetcode相关题目
-Add and Search Word - Data structure design
-Map Sum Pairs
-Word Search II
-​
-
-Trie字典树源自单词：retrieve
-Trie树，即字典树/前缀树，又称单词查找树或键树，是一种树形结构。典型应用是用于统计和排序大量的字符串（但不仅限于字符串），所以经常被搜索引擎系统用于文本词频统计。它的优点是最大限度地减少无谓的字符串比较，查询效率比较高。
-假设有[b，abc，abd，bcd，abcd，efg，hii ]这6个单词 , 查找abc 在不在字典里面
- 
-将单词插入Trie树，只在跟之前
-          ...
+          <h1 id="Trie树"><a href="#Trie树" class="headerlink" title="Trie树"></a>Trie树</h1><h2 id="leetcode相关题目"><a href="#leetcode相关题目" class="headerlink" title="leetcode相关题目"></a>leetcode相关题目</h2><ul>
+<li><del><a href="https://leetcode.com/problems/add-and-search-word-data-structure-design/" target="_blank" rel="external">Add and Search Word - Data structure design</a></del></li>
+<li><del><a href="https://leetcode.com/problems/map-sum-pairs/" target="_blank" rel="external">Map Sum Pairs</a></del></li>
+<li><del><a href="https://leetcode.com/problems/word-search-ii/" target="_blank" rel="external">Word Search II</a></del></li>
+<li>​</li>
+</ul>
+<h2 id="Trie字典树"><a href="#Trie字典树" class="headerlink" title="Trie字典树"></a>Trie字典树</h2><p>源自单词：retrieve</p>
+<p>Trie树，即字典树/前缀树，又称单词查找树或键树，是一种树形结构。典型应用是用于统计和排序大量的字符串（但不仅限于字符串），所以经常被搜索引擎系统用于文本词频统计。它的优点是最大限度地减少无谓的字符串比较，查询效率比较高。</p>
+<p>假设有[b，abc，abd，bcd，abcd，efg，hii ]这6个单词 , 查找abc 在不在字典里面</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2017-11-06-17-49-17.png" alt=""> </p>
+<p>将单词插入Trie树，只在跟之前的字符串出现分歧时分裂，对最后一个字母做标记，这样查找的时候，根据最后一个字母的标记，即可判断出该单词是否出现过。</p>
+<p>这里有一个巧妙的操作，可以让插入和查询操作同时完成，所以查询的时间复杂度简化为所要查询的单词的长度，即<script type="math/tex">O(1)</script>。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/11/14/【九章算法强化班】课程笔记2——Trie树/#more" rel="contents">
@@ -1978,17 +1930,14 @@ Trie树，即字典树/前缀树，又称单词查找树或键树，是一种树
 
       
         
-          
-          LR真的很基础而且也非常非常重要，算法面试必考，啃了好多遍，总结一下，希望能够经常复习。
-暑假去头条面试，一面的面试官问到：
-
-推导一下LR吧
-为什么要用sigmod函数
-如何优化求解（梯度下降）
-代码实现一下
-
-LR模型推导梯度下降求解LR代码实现
-          
+          <p>LR真的很基础而且也非常非常重要，算法面试必考，啃了好多遍，总结一下，希望能够经常复习。</p>
+<p>暑假去头条面试，一面的面试官问到：</p>
+<ol>
+<li>推导一下LR吧</li>
+<li>为什么要用sigmod函数</li>
+<li>如何优化求解（梯度下降）</li>
+<li>代码实现一下</li>
+</ol>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/11/06/Logistic-Regression相关/#more" rel="contents">

@@ -464,6 +464,7 @@
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>可以从边缘向内灌水，灌水的高度不会超过边缘柱子的高度的最小值，所以说：<strong>边缘高度奠定了灌水的基调</strong></p>
 <p>从低的一边（高度为h）向内灌水，能够灌水的量为（h-h_temp），遇到更高的柱子时，更新边缘。</p>
 <p>显然，这是一个<strong>双指针</strong>问题。</p>
+<a id="more"></a>
 <p><img src="http://omaby2s5z.bkt.clouddn.com/2017-11-18-15-31-18.png" alt=""> </p>
 <p>开始时，令总水量sum=0，双指针指向边缘，左选择较小的向内移动，假如选择左边指针。</p>
 <p><img src="http://omaby2s5z.bkt.clouddn.com/2017-11-18-15-32-16.png" alt=""> </p>
