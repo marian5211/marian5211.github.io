@@ -4,34 +4,16 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/11/02/DSP%E5%9B%BD%E5%86%85%E7%A1%95%E5%A3%AB%E8%AE%BA%E6%96%87%E6%80%BB%E7%BB%93/</loc>
-    <lastmod>2017-12-03T14:13:17.028Z</lastmod>
+    <loc>http://yoursite.com/2017/11/04/%E3%80%90%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95%E5%BC%BA%E5%8C%96%E7%8F%AD%E3%80%91%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B01/</loc>
+    <lastmod>2017-12-07T11:41:16.225Z</lastmod>
     <data>
         <display>
-        <title>DSP国内硕士论文总结</title>
-        <pubTime>2017-11-02T09:01:51.000Z</pubTime>
+        <title>【九章算法强化班】课程笔记2</title>
+        <pubTime>2017-11-04T03:05:07.000Z</pubTime>
         
-        <tag>DSP</tag>
+        <tag>九章算法</tag>
          
-         
-           
-             
-              <breadCrumb title="DSP" url="http://yoursite.com/categories/DSP/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2017/11/16/%E3%80%90leetcode%E3%80%91%E9%A2%98%E7%9B%AE%E6%91%98%E8%A6%81/</loc>
-    <lastmod>2017-12-03T14:13:17.027Z</lastmod>
-    <data>
-        <display>
-        <title></title>
-        <pubTime>2017-11-16T01:56:40.000Z</pubTime>
-        
-        <tag>leetcode</tag>
+        <tag>heap</tag>
          
          
            
@@ -47,22 +29,17 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/11/29/%E3%80%90%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%8F%AD%E3%80%91%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%8E%E5%88%86%E6%B2%BB%E6%B3%95/</loc>
-    <lastmod>2017-12-03T14:13:17.027Z</lastmod>
+    <loc>http://yoursite.com/2017/11/27/Bid-Optimizing-and-Inventory-Scoring-in-Targeted-Online%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2017-12-07T11:41:16.225Z</lastmod>
     <data>
         <display>
-        <title>【九章算法基础班】二叉树与分治法</title>
-        <pubTime>2017-11-29T15:54:50.000Z</pubTime>
+        <title>Bid Optimizing and Inventory Scoring in Targeted Online论文笔记</title>
+        <pubTime>2017-11-27T13:39:03.000Z</pubTime>
         
-        <tag>二叉树</tag>
-         
          
            
              
-              <breadCrumb title="算法" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/"/>
-          
-             
-              <breadCrumb title="九章算法" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95/"/>
+              <breadCrumb title="RTB" url="http://yoursite.com/categories/RTB/"/>
           
         </display>
     </data>
@@ -70,23 +47,15 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/11/18/%E3%80%90%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%8F%AD%E3%80%91%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92(%E4%B8%8A)/</loc>
-    <lastmod>2017-11-29T16:44:06.762Z</lastmod>
+    <loc>http://yoursite.com/2017/11/22/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8ETop-k%E5%BF%AB%E9%80%9F%E6%A3%80%E7%B4%A2%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2017-12-07T11:41:16.225Z</lastmod>
     <data>
         <display>
-        <title>【九章算法基础班】动态规划（上）</title>
-        <pubTime>2017-11-18T15:35:24.000Z</pubTime>
+        <title>搜索引擎Top-k快速检索问题</title>
+        <pubTime>2017-11-22T08:20:52.000Z</pubTime>
         
-        <tag>DP</tag>
-         
          
            
-             
-              <breadCrumb title="算法" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/"/>
-          
-             
-              <breadCrumb title="九章算法" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95/"/>
-          
         </display>
     </data>
     </url>
@@ -94,7 +63,7 @@
     
   <url>
     <loc>http://yoursite.com/2017/11/18/%E3%80%90%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95%E5%BC%BA%E5%8C%96%E7%8F%AD%E3%80%91%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B03%E2%80%94%E2%80%94%E5%A0%86Heap/</loc>
-    <lastmod>2017-11-29T16:44:06.762Z</lastmod>
+    <lastmod>2017-12-07T11:41:16.225Z</lastmod>
     <data>
         <display>
         <title>【九章算法强化班】课程笔记3——堆Heap</title>
@@ -117,7 +86,7 @@
     
   <url>
     <loc>http://yoursite.com/2017/11/17/%E3%80%90%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95%E5%BC%BA%E5%8C%96%E7%8F%AD%E3%80%91%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B02%E2%80%94%E2%80%94%E6%89%AB%E6%8F%8F%E7%BA%BF/</loc>
-    <lastmod>2017-11-29T16:44:06.762Z</lastmod>
+    <lastmod>2017-12-07T11:41:16.225Z</lastmod>
     <data>
         <display>
         <title>【九章算法强化班】课程笔记2——扫描线</title>
@@ -141,8 +110,52 @@
 
     
   <url>
+    <loc>http://yoursite.com/2017/11/01/%E3%80%90%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E3%80%91%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E4%BA%8C%EF%BC%89%E7%9F%A9%E9%98%B5%E9%93%BE%E4%B9%98%E6%B3%95/</loc>
+    <lastmod>2017-12-07T11:41:16.225Z</lastmod>
+    <data>
+        <display>
+        <title>【算法导论】动态规划（二）矩阵链乘法</title>
+        <pubTime>2017-11-01T14:54:11.000Z</pubTime>
+        
+        <tag>DP</tag>
+         
+        <tag>算法导论</tag>
+         
+         
+           
+             
+              <breadCrumb title="算法导论" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2017/10/31/%E3%80%90%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E3%80%91%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E4%B8%80%EF%BC%89%E9%92%A2%E6%9D%A1%E5%88%87%E5%89%B2/</loc>
+    <lastmod>2017-12-07T11:41:16.225Z</lastmod>
+    <data>
+        <display>
+        <title>【算法导论】动态规划（一）钢条切割</title>
+        <pubTime>2017-10-31T14:44:19.000Z</pubTime>
+        
+        <tag>DP</tag>
+         
+        <tag>算法导论</tag>
+         
+         
+           
+             
+              <breadCrumb title="算法导论" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2017/11/14/%E3%80%90%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95%E5%BC%BA%E5%8C%96%E7%8F%AD%E3%80%91%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B02%E2%80%94%E2%80%94Trie%E6%A0%91/</loc>
-    <lastmod>2017-11-29T16:44:06.762Z</lastmod>
+    <lastmod>2017-12-07T11:41:16.225Z</lastmod>
     <data>
         <display>
         <title>【九章算法强化班】课程笔记2——Trie树</title>
@@ -166,12 +179,32 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/11/27/Bid-Optimizing-and-Inventory-Scoring-in-Targeted-Online%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2017-11-29T16:44:06.762Z</lastmod>
+    <loc>http://yoursite.com/2017/11/06/Logistic-Regression%E7%9B%B8%E5%85%B3/</loc>
+    <lastmod>2017-12-07T11:41:16.225Z</lastmod>
     <data>
         <display>
-        <title>Bid Optimizing and Inventory Scoring in Targeted Online论文笔记</title>
-        <pubTime>2017-11-27T13:39:03.000Z</pubTime>
+        <title>Logistic Regression相关</title>
+        <pubTime>2017-11-06T14:47:50.000Z</pubTime>
+        
+        <tag>LR</tag>
+         
+         
+           
+             
+              <breadCrumb title="machine learning" url="http://yoursite.com/categories/machine-learning/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2017/07/17/Optimal-Real-Time-Bidding-for-Display-Advertising%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2017-12-07T11:41:16.225Z</lastmod>
+    <data>
+        <display>
+        <title>Optimal Real-Time Bidding for Display Advertising论文笔记</title>
+        <pubTime>2017-07-17T06:04:26.000Z</pubTime>
         
          
            
@@ -184,12 +217,37 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/11/22/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8ETop-k%E5%BF%AB%E9%80%9F%E6%A3%80%E7%B4%A2%E9%97%AE%E9%A2%98/</loc>
-    <lastmod>2017-11-29T16:44:06.762Z</lastmod>
+    <loc>http://yoursite.com/2017/11/05/%E3%80%90%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95%E5%BC%BA%E5%8C%96%E7%8F%AD%E3%80%91%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B02%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/</loc>
+    <lastmod>2017-12-07T11:41:16.225Z</lastmod>
     <data>
         <display>
-        <title>搜索引擎Top-k快速检索问题</title>
-        <pubTime>2017-11-22T08:20:52.000Z</pubTime>
+        <title>【九章算法强化班】课程笔记2——并查集</title>
+        <pubTime>2017-11-05T08:28:47.000Z</pubTime>
+        
+        <tag>算法</tag>
+         
+        <tag>UnionFind</tag>
+         
+         
+           
+             
+              <breadCrumb title="算法" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/"/>
+          
+             
+              <breadCrumb title="九章" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/%E4%B9%9D%E7%AB%A0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2017/12/07/WAND%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2017-12-07T11:41:16.225Z</lastmod>
+    <data>
+        <display>
+        <title>WAND算法</title>
+        <pubTime>2017-12-07T03:39:47.000Z</pubTime>
         
          
            
@@ -199,8 +257,77 @@
 
     
   <url>
+    <loc>http://yoursite.com/2017/11/16/%E3%80%90leetcode%E3%80%91%E9%A2%98%E7%9B%AE%E6%91%98%E8%A6%81/</loc>
+    <lastmod>2017-12-07T11:41:16.225Z</lastmod>
+    <data>
+        <display>
+        <title></title>
+        <pubTime>2017-11-16T01:56:40.000Z</pubTime>
+        
+        <tag>leetcode</tag>
+         
+         
+           
+             
+              <breadCrumb title="算法" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/"/>
+          
+             
+              <breadCrumb title="leetcode" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/leetcode/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2017/11/29/%E3%80%90%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%8F%AD%E3%80%91%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%8E%E5%88%86%E6%B2%BB%E6%B3%95/</loc>
+    <lastmod>2017-12-07T11:41:16.225Z</lastmod>
+    <data>
+        <display>
+        <title>【九章算法基础班】二叉树与分治法</title>
+        <pubTime>2017-11-29T15:54:50.000Z</pubTime>
+        
+        <tag>二叉树</tag>
+         
+         
+           
+             
+              <breadCrumb title="算法" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/"/>
+          
+             
+              <breadCrumb title="九章算法" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2017/11/18/%E3%80%90%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%8F%AD%E3%80%91%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92(%E4%B8%8A)/</loc>
+    <lastmod>2017-12-07T11:41:16.225Z</lastmod>
+    <data>
+        <display>
+        <title>【九章算法基础班】动态规划</title>
+        <pubTime>2017-11-18T15:35:24.000Z</pubTime>
+        
+        <tag>DP</tag>
+         
+         
+           
+             
+              <breadCrumb title="算法" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/"/>
+          
+             
+              <breadCrumb title="九章算法" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2017/11/20/%E3%80%90RTB%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0%E3%80%91/</loc>
-    <lastmod>2017-11-29T16:44:06.762Z</lastmod>
+    <lastmod>2017-12-07T11:41:16.225Z</lastmod>
     <data>
         <display>
         <title>【RTB论文笔记】</title>
@@ -213,6 +340,26 @@
           
              
               <breadCrumb title="RTB" url="http://yoursite.com/categories/%E5%B9%BF%E5%91%8A/RTB/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2017/11/02/DSP%E5%9B%BD%E5%86%85%E7%A1%95%E5%A3%AB%E8%AE%BA%E6%96%87%E6%80%BB%E7%BB%93/</loc>
+    <lastmod>2017-12-03T14:13:17.028Z</lastmod>
+    <data>
+        <display>
+        <title>DSP国内硕士论文总结</title>
+        <pubTime>2017-11-02T09:01:51.000Z</pubTime>
+        
+        <tag>DSP</tag>
+         
+         
+           
+             
+              <breadCrumb title="DSP" url="http://yoursite.com/categories/DSP/"/>
           
         </display>
     </data>
@@ -240,51 +387,6 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/11/05/%E3%80%90%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95%E5%BC%BA%E5%8C%96%E7%8F%AD%E3%80%91%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B02%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86/</loc>
-    <lastmod>2017-11-15T12:57:17.027Z</lastmod>
-    <data>
-        <display>
-        <title>【九章算法强化班】课程笔记2——并查集</title>
-        <pubTime>2017-11-05T08:28:47.000Z</pubTime>
-        
-        <tag>算法</tag>
-         
-        <tag>UnionFind</tag>
-         
-         
-           
-             
-              <breadCrumb title="算法" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/"/>
-          
-             
-              <breadCrumb title="九章" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/%E4%B9%9D%E7%AB%A0/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2017/11/06/Logistic-Regression%E7%9B%B8%E5%85%B3/</loc>
-    <lastmod>2017-11-06T14:47:50.130Z</lastmod>
-    <data>
-        <display>
-        <title>Logistic Regression相关</title>
-        <pubTime>2017-11-06T14:47:50.000Z</pubTime>
-        
-        <tag>LR</tag>
-         
-         
-           
-             
-              <breadCrumb title="machine learning" url="http://yoursite.com/categories/machine-learning/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://yoursite.com/2017/11/06/%E3%80%90%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%92%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E3%80%91%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B01/</loc>
     <lastmod>2017-11-06T12:26:32.269Z</lastmod>
     <data>
@@ -296,28 +398,6 @@
            
              
               <breadCrumb title="DeepLearning" url="http://yoursite.com/categories/DeepLearning/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2017/10/31/%E3%80%90%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E3%80%91%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E4%B8%80%EF%BC%89%E9%92%A2%E6%9D%A1%E5%88%87%E5%89%B2/</loc>
-    <lastmod>2017-11-06T07:53:34.978Z</lastmod>
-    <data>
-        <display>
-        <title>【算法导论】动态规划（一）钢条切割</title>
-        <pubTime>2017-10-31T14:44:19.000Z</pubTime>
-        
-        <tag>DP</tag>
-         
-        <tag>算法导论</tag>
-         
-         
-           
-             
-              <breadCrumb title="算法导论" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/"/>
           
         </display>
     </data>
@@ -389,62 +469,22 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/11/01/%E3%80%90%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E3%80%91%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E4%BA%8C%EF%BC%89%E7%9F%A9%E9%98%B5%E9%93%BE%E4%B9%98%E6%B3%95/</loc>
-    <lastmod>2017-11-04T08:47:16.413Z</lastmod>
-    <data>
-        <display>
-        <title>【算法导论】动态规划（二）矩阵链乘法</title>
-        <pubTime>2017-11-01T14:54:11.000Z</pubTime>
-        
-        <tag>DP</tag>
-         
-        <tag>算法导论</tag>
-         
-         
-           
-             
-              <breadCrumb title="算法导论" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2017/11/04/%E3%80%90%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95%E5%BC%BA%E5%8C%96%E7%8F%AD%E3%80%91%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B01/</loc>
-    <lastmod>2017-11-04T08:47:16.413Z</lastmod>
-    <data>
-        <display>
-        <title>【九章算法强化班】课程笔记2</title>
-        <pubTime>2017-11-04T03:05:07.000Z</pubTime>
-        
-        <tag>九章算法</tag>
-         
-        <tag>heap</tag>
-         
-         
-           
-             
-              <breadCrumb title="算法" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/"/>
-          
-             
-              <breadCrumb title="leetcode" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/leetcode/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2017/11/02/test-1/</loc>
+    <loc>http://yoursite.com/2017/11/04/c-STL%E4%B8%ADvector%E7%9A%84%E4%B8%80%E4%BA%9B%E6%93%8D%E4%BD%9C/</loc>
     <lastmod>2017-11-04T08:47:16.412Z</lastmod>
     <data>
         <display>
-        <title>test</title>
-        <pubTime>2017-11-02T06:12:42.000Z</pubTime>
+        <title>c++STL中vector的一些操作</title>
+        <pubTime>2017-11-04T08:36:41.000Z</pubTime>
         
+        <tag>c++</tag>
+         
+        <tag>vetcor</tag>
+         
          
            
+             
+              <breadCrumb title="c++" url="http://yoursite.com/categories/c/"/>
+          
         </display>
     </data>
     </url>
@@ -489,6 +529,26 @@
 
     
   <url>
+    <loc>http://yoursite.com/2017/11/04/c-STL%E4%B8%AD%E5%A0%86%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2017-11-04T08:47:16.412Z</lastmod>
+    <data>
+        <display>
+        <title>c++STL中堆的使用</title>
+        <pubTime>2017-11-04T03:18:38.000Z</pubTime>
+        
+        <tag>堆</tag>
+         
+         
+           
+             
+              <breadCrumb title="c++" url="http://yoursite.com/categories/c/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2017/11/04/%E5%9B%9E%E6%BA%AF%E6%B3%95%E3%80%81%E3%80%90leetcode%E3%80%9151-52-N-Queens/</loc>
     <lastmod>2017-11-04T08:47:16.412Z</lastmod>
     <data>
@@ -512,54 +572,12 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/11/04/c-STL%E4%B8%ADvector%E7%9A%84%E4%B8%80%E4%BA%9B%E6%93%8D%E4%BD%9C/</loc>
+    <loc>http://yoursite.com/2017/11/02/test-1/</loc>
     <lastmod>2017-11-04T08:47:16.412Z</lastmod>
     <data>
         <display>
-        <title>c++STL中vector的一些操作</title>
-        <pubTime>2017-11-04T08:36:41.000Z</pubTime>
-        
-        <tag>c++</tag>
-         
-        <tag>vetcor</tag>
-         
-         
-           
-             
-              <breadCrumb title="c++" url="http://yoursite.com/categories/c/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2017/11/04/c-STL%E4%B8%AD%E5%A0%86%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
-    <lastmod>2017-11-04T08:47:16.412Z</lastmod>
-    <data>
-        <display>
-        <title>c++STL中堆的使用</title>
-        <pubTime>2017-11-04T03:18:38.000Z</pubTime>
-        
-        <tag>堆</tag>
-         
-         
-           
-             
-              <breadCrumb title="c++" url="http://yoursite.com/categories/c/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2017/11/02/TPC-DS%E5%B7%A5%E5%85%B7%E7%94%9F%E6%88%90%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5Hive/</loc>
-    <lastmod>2017-11-04T08:47:16.411Z</lastmod>
-    <data>
-        <display>
-        <title>TPC_DS工具生成数据导入Hive</title>
-        <pubTime>2017-11-02T01:29:43.000Z</pubTime>
+        <title>test</title>
+        <pubTime>2017-11-02T06:12:42.000Z</pubTime>
         
          
            
@@ -583,6 +601,21 @@
              
               <breadCrumb title="hive" url="http://yoursite.com/categories/hive/"/>
           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2017/11/02/TPC-DS%E5%B7%A5%E5%85%B7%E7%94%9F%E6%88%90%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5Hive/</loc>
+    <lastmod>2017-11-04T08:47:16.411Z</lastmod>
+    <data>
+        <display>
+        <title>TPC_DS工具生成数据导入Hive</title>
+        <pubTime>2017-11-02T01:29:43.000Z</pubTime>
+        
+         
+           
         </display>
     </data>
     </url>
@@ -793,24 +826,6 @@
            
              
               <breadCrumb title="面经" url="http://yoursite.com/categories/%E9%9D%A2%E7%BB%8F/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2017/07/17/Optimal-Real-Time-Bidding-for-Display-Advertising%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2017-07-17T06:05:09.024Z</lastmod>
-    <data>
-        <display>
-        <title>Optimal Real-Time Bidding for Display Advertising论文笔记</title>
-        <pubTime>2017-07-17T06:04:26.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="RTB" url="http://yoursite.com/categories/RTB/"/>
           
         </display>
     </data>
