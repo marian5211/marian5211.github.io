@@ -77,17 +77,17 @@
 
 
 
-<meta name="description" content="线性模型不好捕捉交叉特征，FM由于模型复杂性，通常只能捕捉到两维特征交互，NN捕获低维特征能力弱。wide&amp;amp;deep模型能够同时获取低维特征，但是需要低纬、高维两部分特征分开输入模型，而且wide部分的特征也是需要专门的特征工程进行的。 现有模型要么偏重于处理低维度模型，或者高维度模型，或者需要依赖于专门的特征工程。本文我们提出一种end to end的方法可以同时获取高维度和低维度特征，">
+<meta name="description" content="线性模型不好捕捉交叉特征，FM由于模型复杂性，通常只能捕捉到两维特征交互，NN捕获低维特征能力弱。wide&amp;amp;deep模型能够同时获取低维特征，但是需要低纬、高维两部分特征分开输入模型，而且wide部分的特征也是需要专门的特征工程进行的。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DeepFM论文笔记">
 <meta property="og:url" content="http://yoursite.com/2017/12/10/DeepFM论文笔记/index.html">
 <meta property="og:site_name" content="Siyao&#39;s Blog">
-<meta property="og:description" content="线性模型不好捕捉交叉特征，FM由于模型复杂性，通常只能捕捉到两维特征交互，NN捕获低维特征能力弱。wide&amp;amp;deep模型能够同时获取低维特征，但是需要低纬、高维两部分特征分开输入模型，而且wide部分的特征也是需要专门的特征工程进行的。 现有模型要么偏重于处理低维度模型，或者高维度模型，或者需要依赖于专门的特征工程。本文我们提出一种end to end的方法可以同时获取高维度和低维度特征，">
+<meta property="og:description" content="线性模型不好捕捉交叉特征，FM由于模型复杂性，通常只能捕捉到两维特征交互，NN捕获低维特征能力弱。wide&amp;amp;deep模型能够同时获取低维特征，但是需要低纬、高维两部分特征分开输入模型，而且wide部分的特征也是需要专门的特征工程进行的。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-12-10T13:28:04.360Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DeepFM论文笔记">
-<meta name="twitter:description" content="线性模型不好捕捉交叉特征，FM由于模型复杂性，通常只能捕捉到两维特征交互，NN捕获低维特征能力弱。wide&amp;amp;deep模型能够同时获取低维特征，但是需要低纬、高维两部分特征分开输入模型，而且wide部分的特征也是需要专门的特征工程进行的。 现有模型要么偏重于处理低维度模型，或者高维度模型，或者需要依赖于专门的特征工程。本文我们提出一种end to end的方法可以同时获取高维度和低维度特征，">
+<meta name="twitter:description" content="线性模型不好捕捉交叉特征，FM由于模型复杂性，通常只能捕捉到两维特征交互，NN捕获低维特征能力弱。wide&amp;amp;deep模型能够同时获取低维特征，但是需要低纬、高维两部分特征分开输入模型，而且wide部分的特征也是需要专门的特征工程进行的。">
 
 
 
@@ -430,6 +430,7 @@
 
       
         <p>线性模型不好捕捉交叉特征，FM由于模型复杂性，通常只能捕捉到两维特征交互，NN捕获低维特征能力弱。wide&amp;deep模型能够同时获取低维特征，但是需要低纬、高维两部分特征分开输入模型，而且wide部分的特征也是需要专门的特征工程进行的。</p>
+<a id="more"></a>
 <p>现有模型要么偏重于处理低维度模型，或者高维度模型，或者需要依赖于专门的特征工程。本文我们提出一种end to end的方法可以同时获取高维度和低维度特征，无需额外的特征工程，可以将原有特征直接输入模型，主要贡献如下：</p>
 <ol>
 <li>整合FM和DNN，提出了DeepFM模型，像FM一样学习低维度交互特征，像DNN一样学习高维度交互特征，DeepFM可以endtoend训练不需要额外的特征工程</li>

@@ -617,12 +617,7 @@
 
       
         
-          
-          线性模型不好捕捉交叉特征，FM由于模型复杂性，通常只能捕捉到两维特征交互，NN捕获低维特征能力弱。wide&amp;deep模型能够同时获取低维特征，但是需要低纬、高维两部分特征分开输入模型，而且wide部分的特征也是需要专门的特征工程进行的。
-现有模型要么偏重于处理低维度模型，或者高维度模型，或者需要依赖于专门的特征工程。本文我们提出一种end to end的方法可以同时获取高维度和低维度特征，无需额外的特征工程，可以将原有特征直接输入模型，主要贡献如下：
-
-整合FM和DNN，提出了DeepFM模型，像FM一样学习低维度交互特征，像DNN一样学习高维度交互特征，DeepFM可以endtoen
-          ...
+          <p>线性模型不好捕捉交叉特征，FM由于模型复杂性，通常只能捕捉到两维特征交互，NN捕获低维特征能力弱。wide&amp;deep模型能够同时获取低维特征，但是需要低纬、高维两部分特征分开输入模型，而且wide部分的特征也是需要专门的特征工程进行的。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/12/10/DeepFM论文笔记/#more" rel="contents">
@@ -810,49 +805,71 @@
 
       
         
-          
-          二分查找classical Binary Search定义给定一个排序数组和一个元素n，返回元素n的位置
-
-
-
-
-index
-0
-1
-2
-3
-4
-5
-6
-7
-8
-
-
-
-
-num
-2
-3
-5
-8
-13
-21
-34
-55
-89
-
-
-
-
-查找元素5的位置
-方法初始化:
-​    start = 0;end = 8;mid = 4
-
-nums[mid] = 13;start = 0;end = 4,mid = 2
-nums[mid] = 5;find it!
-
-时间复杂度数据规模为n:T(n) = T(n/2)+O(1)其中O(1)为比较的时间复杂度，T(n/2)为比较之后时间复杂度是:O(logn)
-          ...
+          <h1 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h1><h2 id="classical-Binary-Search"><a href="#classical-Binary-Search" class="headerlink" title="classical Binary Search"></a>classical Binary Search</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>给定一个排序数组和一个元素n，返回元素n的位置</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>index</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>num</td>
+<td>2</td>
+<td>3</td>
+<td>5</td>
+<td>8</td>
+<td>13</td>
+<td>21</td>
+<td>34</td>
+<td>55</td>
+<td>89</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>查找元素5的位置</p>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>初始化:</p>
+<p>​    start = 0;end = 8;mid = 4</p>
+<ol>
+<li>nums[mid] = 13;start = 0;end = 4,mid = 2</li>
+<li>nums[mid] = 5;find it!</li>
+</ol>
+<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><figure class="highlight java"><table><tr><td class="code"><pre><div class="line">数据规模为n:</div><div class="line">T(n) = T(n/<span class="number">2</span>)+O(<span class="number">1</span>)</div><div class="line">其中O(<span class="number">1</span>)为比较的时间复杂度，T(n/<span class="number">2</span>)为比较之后</div><div class="line">时间复杂度是:O(logn)</div></pre></td></tr></table></figure>
+<h3 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h3><ol>
+<li><p>递归：</p>
+<ul>
+<li>优点：代码简洁</li>
+<li>缺点：递归利用栈空间，递归层数过多会导致栈溢出</li>
+</ul>
+</li>
+<li><p>while循环</p>
+<ul>
+<li>优点：占用空间小</li>
+<li>缺点：代码可读性稍差，不够简洁</li>
+</ul>
+<p>面试的时候用什么？</p>
+<p>如果用递归的方式写会好理解很多，就用递归写，不然就不用递归，在工程上，递归很容易导致栈溢出。</p>
+</li>
+</ol>
+<p>这道题用最好用非递归的方式写，因为是很简短的</p>
+<h3 id="通用模板"><a href="#通用模板" class="headerlink" title="通用模板"></a>通用模板</h3><ul>
+<li>start + 1 &lt; end</li>
+<li>mid = start +(end - start)/2;如果用(start + end)/2，如果start和end都很大相加就有可能溢出</li>
+<li>A[mid] = &lt; &gt; 三种情况讨论</li>
+<li>A[start] A[end]?target</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findPosition</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (nums.length &lt;= <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// write your code here</span></div><div class="line">        <span class="keyword">int</span> start = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> end = nums.length - <span class="number">1</span>;</div><div class="line">        <span class="keyword">while</span> (start + <span class="number">1</span> &lt; end) &#123;</div><div class="line">            <span class="comment">//中值</span></div><div class="line">            <span class="keyword">int</span> mid = start + (end - start) / <span class="number">2</span>;</div><div class="line">            <span class="comment">//三种情况讨论</span></div><div class="line">            <span class="keyword">if</span> (nums[mid] == target) &#123;</div><div class="line">                end = mid;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (nums[mid] &lt; target) &#123;</div><div class="line">                start = mid;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (nums[mid] &gt; target) &#123;</div><div class="line">                end = mid;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//结果</span></div><div class="line">        <span class="keyword">if</span> (nums[start] == target) &#123;</div><div class="line">            <span class="keyword">return</span> start;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (nums[end] == target) &#123;</div><div class="line">            <span class="keyword">return</span> end;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/12/07/【九章算法基础班】课程笔记1——二分法/#more" rel="contents">
@@ -1007,15 +1024,7 @@ nums[mid] = 5;find it!
 
       
         
-          
-           
-sort()：把terms按照posting单钱所指向的documentID排序，比如：
- 
-图中黄颜色的数字就是posting当前所指的documentID
-pTerm：从上到下累加发现大于U的那个term
-pivot:pTerm这一行当前所指的documentID
-
-          
+          <p><img src="http://omaby2s5z.bkt.clouddn.com/2017-12-07-14-24-15.png" alt="所致"> </p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/12/07/WAND算法/#more" rel="contents">
