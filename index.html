@@ -400,7 +400,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,851
+                  5,257
                 </span>
               
 
@@ -416,7 +416,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  13
+                  25
                 </span>
               
             </div>
@@ -443,7 +443,7 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="comment">//print() 打印完整链表</span></div><div class="line">ListNode node1 = <span class="keyword">new</span> ListNode(<span class="number">1</span>);</div><div class="line">ListNode node2 = <span class="keyword">new</span> ListNode(<span class="number">2</span>);</div><div class="line">ListNode node3 = <span class="keyword">new</span> ListNode(<span class="number">3</span>);</div><div class="line"></div><div class="line">ListNode head = node1;</div><div class="line">node1.next = node2;</div><div class="line">node2.next = node3;</div><div class="line"></div><div class="line">print(head);</div><div class="line"><span class="comment">//1-&gt;2-&gt;3</span></div><div class="line">node1 = node2;</div><div class="line">print(head);</div><div class="line"><span class="comment">//1-&gt;2-&gt;3</span></div><div class="line"></div><div class="line">ListNode包括一个值和一个指针，head占<span class="number">4</span>Byte(<span class="number">32</span>bit)空间，head实际上是一个指针，通过head所指向的地址去找对应节点存储的值和下一个指针。</div><div class="line"></div><div class="line">链表结构：</div><div class="line">    [<span class="number">1</span>,] -&gt;  [<span class="number">2</span>,] -&gt; [<span class="number">3</span>,]  </div><div class="line">      ↑        ↑       ↑</div><div class="line">   head,n1     n2     n3</div><div class="line">   <span class="number">4</span><span class="keyword">byte</span>     <span class="number">4</span><span class="keyword">byte</span>   <span class="number">4</span><span class="keyword">byte</span></div><div class="line">   </div><div class="line">node1和node2都是指向节点的指针，如果令node1 = node2,那么只是node1存储的地址和node2存储的地址一样了，但是链表的机构没有改变，所以输出依然是:</div><div class="line"><span class="number">1</span>-&gt;<span class="number">2</span>-&gt;<span class="number">3</span> </div><div class="line">  </div><div class="line">如果要改变链表的结构，需要node.next = balabala</div></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/11/【九章算法基础班】课程笔记——链表/#more" rel="contents">
+            <a class="btn" href="/2017/12/11/【九章算法基础班】课程笔记——链表/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -620,7 +620,7 @@
           <p>线性模型不好捕捉交叉特征，FM由于模型复杂性，通常只能捕捉到两维特征交互，NN捕获低维特征能力弱。wide&amp;deep模型能够同时获取低维特征，但是需要低纬、高维两部分特征分开输入模型，而且wide部分的特征也是需要专门的特征工程进行的。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/10/DeepFM论文笔记/#more" rel="contents">
+            <a class="btn" href="/2017/12/10/DeepFM论文笔记/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -872,7 +872,7 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findPosition</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (nums.length &lt;= <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// write your code here</span></div><div class="line">        <span class="keyword">int</span> start = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> end = nums.length - <span class="number">1</span>;</div><div class="line">        <span class="keyword">while</span> (start + <span class="number">1</span> &lt; end) &#123;</div><div class="line">            <span class="comment">//中值</span></div><div class="line">            <span class="keyword">int</span> mid = start + (end - start) / <span class="number">2</span>;</div><div class="line">            <span class="comment">//三种情况讨论</span></div><div class="line">            <span class="keyword">if</span> (nums[mid] == target) &#123;</div><div class="line">                end = mid;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (nums[mid] &lt; target) &#123;</div><div class="line">                start = mid;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (nums[mid] &gt; target) &#123;</div><div class="line">                end = mid;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//结果</span></div><div class="line">        <span class="keyword">if</span> (nums[start] == target) &#123;</div><div class="line">            <span class="keyword">return</span> start;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (nums[end] == target) &#123;</div><div class="line">            <span class="keyword">return</span> end;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/07/【九章算法基础班】课程笔记1——二分法/#more" rel="contents">
+            <a class="btn" href="/2017/12/07/【九章算法基础班】课程笔记1——二分法/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1027,7 +1027,7 @@
           <p><img src="http://omaby2s5z.bkt.clouddn.com/2017-12-07-14-24-15.png" alt="所致"> </p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/07/WAND算法/#more" rel="contents">
+            <a class="btn" href="/2017/12/07/WAND算法/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1217,7 +1217,7 @@
 <h2 id="树形分析法求解时间复杂度："><a href="#树形分析法求解时间复杂度：" class="headerlink" title="树形分析法求解时间复杂度："></a>树形分析法求解时间复杂度：</h2><script type="math/tex; mode=display">T(n) = T(n/2)+O(1)   ->  O(logn)</script><script type="math/tex; mode=display">T(n) = T(n/2)+O(n) -> O(n)</script><script type="math/tex; mode=display">T(n) = 2T(n/2) + O(1) -> O(n)</script><figure class="highlight java"><table><tr><td class="code"><pre><div class="line">T(n) = <span class="number">2</span>T(n/<span class="number">2</span>) + O(<span class="number">1</span>) -&gt; O(n)</div><div class="line">O(<span class="number">1</span>)：一次拆分所需时间</div><div class="line"> --	 			        n</div><div class="line">  |               ↙             ↘       ················O(<span class="number">1</span>)拆分所需时间</div><div class="line">  |            n/<span class="number">2</span>                n/<span class="number">2</span></div><div class="line">log(n)      ↙       ↘          ↙       ↘	················O(<span class="number">2</span>)</div><div class="line">  |       n/<span class="number">4</span>       n/<span class="number">4</span>       n/<span class="number">4</span>       n/<span class="number">4</span></div><div class="line">  |      ↙  ↘      ↙  ↘     ↙  ↘      ↙  ↘	················O(<span class="number">4</span>)</div><div class="line">  |    n/<span class="number">8</span>  n/<span class="number">8</span>  n/<span class="number">8</span>  n/<span class="number">8</span>  n/<span class="number">8</span>  n/<span class="number">8</span>   n/<span class="number">8</span>  n/<span class="number">8</span>   			</div><div class="line">  |			················				················O(n)</div><div class="line">  | n/n	n/n	n/n		·············	n/n	n/n	n/n</div><div class="line"> --</div><div class="line"> O(<span class="number">1</span>+<span class="number">2</span>+<span class="number">4</span>+....+n) = O(<span class="number">2</span>n-<span class="number">1</span>) = O(n)</div><div class="line"> 由此如果T(n) = <span class="number">2</span>T(n/<span class="number">2</span>) + O(<span class="number">1</span>)，则时间复杂度为O(n)</div></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/29/【九章算法基础班】课程笔记2——二叉树与分治法/#more" rel="contents">
+            <a class="btn" href="/2017/11/29/【九章算法基础班】课程笔记2——二叉树与分治法/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1395,7 +1395,7 @@
 <p>实时竞价：找准正确的广告信息和广告位信息，以一个能够反映真实价格的竞拍价格参与广告展示机会的竞价</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/27/Bid-Optimizing-and-Inventory-Scoring-in-Targeted-Online论文笔记/#more" rel="contents">
+            <a class="btn" href="/2017/11/27/Bid-Optimizing-and-Inventory-Scoring-in-Targeted-Online论文笔记/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1550,7 +1550,7 @@
           <h2 id="Fagin’s-Algorithm-and-Threshold-Algorithm"><a href="#Fagin’s-Algorithm-and-Threshold-Algorithm" class="headerlink" title="Fagin’s Algorithm and Threshold Algorithm"></a>Fagin’s Algorithm and Threshold Algorithm</h2><p>Fagin算法和Threshold算法都是Top-K排序领域的经典算法(K代表只要对前K个值排序值)，不同于传统Top-k对一维数组前K个值排序，Fargin和Threshhold算法适用于<strong>参考多个排序指标时对前k个物品排序</strong>。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/22/搜索引擎Top-k快速检索问题/#more" rel="contents">
+            <a class="btn" href="/2017/11/22/搜索引擎Top-k快速检索问题/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1751,7 +1751,7 @@
 <li><p><a href="http://www.kdd.org/kdd2016/papers/files/adp0722-geyikA.pdf" target="_blank" rel="external">Joint Optimization of Multiple Performance Metrics in Online Video Advertising</a> by Sahin Cem Geyik et al. KDD 2016.</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/20/【RTB论文笔记】/#more" rel="contents">
+            <a class="btn" href="/2017/11/20/【RTB论文笔记】/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1951,7 +1951,7 @@
 <p>时间复杂度<script type="math/tex">O(2^n)</script></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/18/【九章算法基础班】动态规划(上)/#more" rel="contents">
+            <a class="btn" href="/2017/11/18/【九章算法基础班】动态规划(上)/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2147,7 +2147,7 @@
 <p>显然，这是一个<strong>双指针</strong>问题。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/18/【九章算法强化班】课程笔记3——堆Heap/#more" rel="contents">
+            <a class="btn" href="/2017/11/18/【九章算法强化班】课程笔记3——堆Heap/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2330,7 +2330,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">77.9k</span>
+    <span title="Site words total count">80.6k</span>
   
         
 <div class="busuanzi-count">

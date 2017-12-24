@@ -65,7 +65,7 @@
 <h4 id="分析-5"><a href="#分析-5" class="headerlink" title="分析"></a>分析</h4><p>链表结构可能改变， 所以需要dummy node</p>
 <p>需要一个prev指针记录当前节点，初始化指向dummy_node两个curt指针分别指向两个链表当前节点，用于比较，将比较小的接在prev后面，知道两个curt中有一个为空，将另一个链表的后面直接接到prev后面。</p>
 <p>最后返回dummy.next</p>
-<h4 id="代码-5"><a href="#代码-5" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure>
+<h4 id="代码-5"><a href="#代码-5" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">mergeTwoLists</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</div><div class="line">        ListNode dummy = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</div><div class="line">        ListNode prev = dummy;</div><div class="line">        ListNode curt1 = l1;</div><div class="line">        ListNode curt2 = l2;</div><div class="line">        <span class="keyword">while</span> (curt1 != <span class="keyword">null</span> &amp;&amp; curt2 != <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(curt1.val &lt; curt2.val)&#123;</div><div class="line">                prev.next = curt1;</div><div class="line">                curt1 = curt1.next;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> &#123;</div><div class="line">                prev.next = curt2;</div><div class="line">                curt2 = curt2.next;</div><div class="line">            &#125;</div><div class="line">            prev = prev.next;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(curt1 == <span class="keyword">null</span>)&#123;</div><div class="line">            prev.next = curt2;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            prev.next = curt1;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> dummy.next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="Sort-List"><a href="#Sort-List" class="headerlink" title="Sort List"></a><a href="https://leetcode.com/problems/sort-list" target="_blank" rel="external">Sort List</a></h3><h4 id="题目-5"><a href="#题目-5" class="headerlink" title="题目"></a>题目</h4><p>Sort a linked list in <em>O</em>(<em>n</em> log <em>n</em>) time using constant space complexity.</p>
 <p>将链表排序，时间复杂度为 <em>O</em>(<em>n</em> log <em>n</em>)</p>
 <h4 id="分析-6"><a href="#分析-6" class="headerlink" title="分析"></a>分析</h4><p>时间复杂度为nlogn的排序：quick sort\merge sort\heap sort</p>
@@ -126,6 +126,140 @@
 <li>将mid之前的链表和mid之后反转的链表做merge操作</li>
 </ol>
 <h4 id="代码-7"><a href="#代码-7" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="comment">//找到中间位置的元素</span></div><div class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">findMid</span><span class="params">(ListNode head)</span></span>&#123;</div><div class="line">    <span class="keyword">if</span>(head == <span class="keyword">null</span>)&#123;</div><div class="line">        <span class="keyword">return</span> head;</div><div class="line">    &#125;</div><div class="line">    ListNode slow = head;</div><div class="line">    ListNode fast = head;</div><div class="line">    <span class="keyword">while</span>(fast.next != <span class="keyword">null</span> &amp;&amp; fast.next.next != <span class="keyword">null</span>)&#123;</div><div class="line">        slow = slow.next;</div><div class="line">        fast = fast.next.next;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> slow;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//链表反转</span></div><div class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">reverse</span><span class="params">(ListNode head)</span></span>&#123;</div><div class="line">    ListNode prev = <span class="keyword">null</span>;</div><div class="line">    ListNode curt = head;</div><div class="line">    <span class="keyword">while</span>(curt != <span class="keyword">null</span>)&#123;</div><div class="line">        ListNode temp = curt.next;</div><div class="line">        curt.next = prev;</div><div class="line">        prev = curt;</div><div class="line">        curt = temp;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> prev;</div><div class="line">&#125;</div><div class="line"><span class="comment">//交替merge</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">merge</span><span class="params">(ListNode left,ListNode right)</span></span>&#123;</div><div class="line">    ListNode prev = left;</div><div class="line">    ListNode curt1 = left.next;</div><div class="line">    ListNode curt2 = right;</div><div class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">    <span class="keyword">while</span>(curt1 != <span class="keyword">null</span> &amp;&amp; curt2 != <span class="keyword">null</span>)&#123;</div><div class="line">        <span class="keyword">if</span>(i % <span class="number">2</span> == <span class="number">0</span>)&#123;</div><div class="line">            prev.next = curt2;</div><div class="line">            curt2 = curt2.next;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            prev.next = curt1;</div><div class="line">            curt1 = curt1.next;</div><div class="line">        &#125;</div><div class="line">        prev = prev.next;</div><div class="line">        i++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(curt1 == <span class="keyword">null</span>)&#123;</div><div class="line">        prev.next = curt2;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> &#123;</div><div class="line">        prev.next = curt1;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reorderList</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">    <span class="comment">//边界条件</span></div><div class="line">    <span class="keyword">if</span>(head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span>)&#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//找到mid</span></div><div class="line">    ListNode mid = findMid(head);</div><div class="line"></div><div class="line">    <span class="comment">//将mid之后的部分反转</span></div><div class="line">    ListNode right = reverse(mid.next);</div><div class="line">    mid.next = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">    <span class="comment">//前半部分和反转后的后半部分merge</span></div><div class="line">    merge(head,right);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Fast-slow-pointer"><a href="#Fast-slow-pointer" class="headerlink" title="Fast-slow pointer"></a>Fast-slow pointer</h2><h3 id="1-Middle-of-Linked-List"><a href="#1-Middle-of-Linked-List" class="headerlink" title="1. Middle of Linked List"></a>1. Middle of Linked List</h3><p>寻找指针链表中点，快慢指针，快指针每次走两步，慢指针每次走一步，快指针走到链表结尾时，慢指针在中间</p>
+<h3 id="2-Remove-Nth-Node-From-End-of-List"><a href="#2-Remove-Nth-Node-From-End-of-List" class="headerlink" title="2 .Remove Nth Node From End of List"></a>2 .<a href="https://leetcode.com/problems/remove-nth-node-from-end-of-list/" target="_blank" rel="external">Remove Nth Node From End of List</a></h3><h4 id="题目-7"><a href="#题目-7" class="headerlink" title="题目"></a>题目</h4><blockquote>
+<p>Given a linked list, remove the <em>n</em>th node from the end of list and return its head.</p>
+<p>For example,</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt;    Given linked list: 1-&gt;2-&gt;3-&gt;4-&gt;5, and n = 2.</div><div class="line">&gt;</div><div class="line">&gt;    After removing the second node from the end, the linked list becomes 1-&gt;2-&gt;3-&gt;5.</div><div class="line">&gt;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p><strong>Note:</strong><br>Given <em>n</em> will always be valid.<br>Try to do this in one pass.</p>
+</blockquote>
+<p>删除掉从末尾开始第n个节点</p>
+<h4 id="分析-8"><a href="#分析-8" class="headerlink" title="分析"></a>分析</h4><p>两个指针，fast先走n+！步slow再出发，当fast==null时，slow指向倒数第n+1个节点，删掉slow后面的节点：slow.next = slow.next.next</p>
+<h4 id="代码-8"><a href="#代码-8" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">removeNthFromEnd</span><span class="params">(ListNode head, <span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">    ListNode dummy = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</div><div class="line">    dummy.next = head;</div><div class="line">    ListNode slow = dummy;</div><div class="line">    ListNode fast = dummy;</div><div class="line">    <span class="comment">//fast先走n+1步</span></div><div class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">    <span class="keyword">while</span>(i &lt;= n)&#123;</div><div class="line">        fast = fast.next;</div><div class="line">        i++;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//fast、slow同时向后遍历</span></div><div class="line">    <span class="keyword">while</span>(fast != <span class="keyword">null</span>)&#123;</div><div class="line">        fast =fast.next;</div><div class="line">        slow = slow.next;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//删除节点</span></div><div class="line">    slow.next = slow.next.next；</div><div class="line"></div><div class="line">    <span class="keyword">return</span> dummy.next;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="3-Linked-List-Cycle"><a href="#3-Linked-List-Cycle" class="headerlink" title="3. Linked List Cycle"></a>3. <a href="https://leetcode.com/problems/linked-list-cycle/" target="_blank" rel="external">Linked List Cycle</a></h3><h4 id="题目-8"><a href="#题目-8" class="headerlink" title="题目"></a>题目</h4><blockquote>
+<p>Given a linked list, determine if it has a cycle in it.</p>
+<p>Follow up:<br>Can you solve it without using extra space?</p>
+</blockquote>
+<p>给定一个链表，判断是否有圈</p>
+<h4 id="分析-9"><a href="#分析-9" class="headerlink" title="分析"></a>分析</h4><p>方法一：</p>
+<p>判断node是否有被重复访问</p>
+<p>从head出发，把所有访问过的点放到一个hash表里，空间复杂度O(n)</p>
+<p>方法二：</p>
+<p>一个快指针一个慢指针，如果路径上有环，快慢指针一定会相遇</p>
+<p>初始化：slow = head;fast = head.next</p>
+<h4 id="代码-9"><a href="#代码-9" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasCycle</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (head == <span class="keyword">null</span>)&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">    ListNode fast = head.next;</div><div class="line">    ListNode slow = head;</div><div class="line">    <span class="keyword">while</span>(fast != slow)&#123;</div><div class="line">        <span class="comment">//fast走到null</span></div><div class="line">        <span class="keyword">if</span>(fast == <span class="keyword">null</span> || fast.next == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">        fast = fast.next.next;</div><div class="line">        slow =slow.next;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//fast和slow相遇了</span></div><div class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="4-Linked-List-Cycle-II"><a href="#4-Linked-List-Cycle-II" class="headerlink" title="4. Linked List Cycle II"></a>4. <a href="https://leetcode.com/problems/linked-list-cycle-ii/" target="_blank" rel="external">Linked List Cycle II</a></h3><h4 id="题目-9"><a href="#题目-9" class="headerlink" title="题目"></a>题目</h4><blockquote>
+<p>Given a linked list, return the node where the cycle begins. If there is no cycle, return <code>null</code>.</p>
+<p><strong>Note:</strong> Do not modify the linked list.</p>
+<p><strong>Follow up</strong>:<br>Can you solve it without using extra space?</p>
+</blockquote>
+<p>是否有环，如果有，找到环的入口</p>
+<h4 id="分析-10"><a href="#分析-10" class="headerlink" title="分析"></a>分析</h4><p>slow从快慢指针相遇的地方出发，fast指针从初始地方出发，两个指针每次走一步，知道相遇，就是环的入口</p>
+<h4 id="代码-10"><a href="#代码-10" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">detectCycle</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">  <span class="keyword">if</span> (head == <span class="keyword">null</span>)&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">  &#125;</div><div class="line">  ListNode fast = head.next;</div><div class="line">  ListNode slow = head;</div><div class="line">  <span class="keyword">while</span>(fast != slow)&#123;</div><div class="line">    <span class="comment">//fast走到null</span></div><div class="line">    <span class="keyword">if</span>(fast == <span class="keyword">null</span> || fast.next == <span class="keyword">null</span>)&#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">    fast = fast.next.next;</div><div class="line">    slow = slow.next;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">//fast和slow相遇了</span></div><div class="line">  slow = head;</div><div class="line">  fast = fast.next;</div><div class="line">  <span class="keyword">while</span>(slow != fast)&#123;</div><div class="line">    slow = slow.next;</div><div class="line">    fast = fast.next;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> slow;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="5-Rotate-List"><a href="#5-Rotate-List" class="headerlink" title="5. Rotate List"></a>5. <a href="https://leetcode.com/problems/rotate-list/" target="_blank" rel="external">Rotate List</a></h3><h4 id="题目-10"><a href="#题目-10" class="headerlink" title="题目"></a>题目</h4><blockquote>
+<p>Given a list, rotate the list to the right by <em>k</em> places, where <em>k</em> is non-negative.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt; Given 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL and k = 2,</div><div class="line">&gt; return 4-&gt;5-&gt;1-&gt;2-&gt;3-&gt;NULL.</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<h4 id="分析-11"><a href="#分析-11" class="headerlink" title="分析"></a>分析</h4><p>将链表向后移k次</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line">Given <span class="number">1</span>-&gt;<span class="number">2</span>-&gt;<span class="number">3</span>-&gt;<span class="number">4</span>-&gt;<span class="number">5</span>-&gt;NULL and k = <span class="number">2</span>,</div><div class="line">            ↑  ↑  ↑</div><div class="line">node.next=head ↑  ↑</div><div class="line">      dummy.next tail.next=head</div></pre></td></tr></table></figure>
+<p>求解步骤：</p>
+<ol>
+<li>求链表长度len，如果k&gt;len,k = k%len;</li>
+<li>找到从后往前数第k个元素，也就是从前往后数第len-k个元素node，和末尾元素tail</li>
+<li>tail.next = dummy.next;dummy.next = node.next;node.next = null</li>
+</ol>
+<h4 id="代码-11"><a href="#代码-11" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">rotateRight</span><span class="params">(ListNode head, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">       <span class="keyword">if</span>(head == <span class="keyword">null</span>)&#123;</div><div class="line">           <span class="keyword">return</span> head;</div><div class="line">       &#125;</div><div class="line">       ListNode dummy = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</div><div class="line">       dummy.next = head;</div><div class="line">       ListNode tail = dummy;</div><div class="line">       <span class="keyword">int</span> len = <span class="number">0</span>;</div><div class="line">       <span class="keyword">while</span>(tail.next != <span class="keyword">null</span>)&#123;</div><div class="line">           tail = tail.next;</div><div class="line">           len++;</div><div class="line">       &#125;</div><div class="line">       k = k % len;</div><div class="line">       ListNode node = dummy;</div><div class="line">       <span class="keyword">int</span> i = <span class="number">1</span>;</div><div class="line">       <span class="keyword">while</span>(i &lt;= len - k)&#123;</div><div class="line">           node = node.next;</div><div class="line">           i++;</div><div class="line">       &#125;</div><div class="line">       tail.next = dummy.next;</div><div class="line">       dummy.next = node.next;</div><div class="line">       node.next = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">       <span class="keyword">return</span> dummy.next;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<h3 id="Merge-k-Sorted-Lists"><a href="#Merge-k-Sorted-Lists" class="headerlink" title="Merge k Sorted Lists"></a><a href="https://leetcode.com/problems/merge-k-sorted-lists/" target="_blank" rel="external">Merge k Sorted Lists</a></h3><h4 id="题目-11"><a href="#题目-11" class="headerlink" title="题目"></a>题目</h4><blockquote>
+<p>Merge <em>k</em> sorted linked lists and return it as one sorted list. Analyze and describe its complexity.</p>
+</blockquote>
+<p>merge k 个有序链表</p>
+<h4 id="分析-12"><a href="#分析-12" class="headerlink" title="分析"></a>分析</h4><p>一共三种方法，都需要掌握：</p>
+<p>方法一：heap</p>
+<p>用PriorityQueue实现</p>
+<p>第一个参数 - 第二个参数：升序，最小堆</p>
+<p>第二个参数 - 第一个参数：降序，最大堆</p>
+<p>初始化：将链表头放进去</p>
+<p>每次弹出最小的元素，放到结果链表后面，然后将其next入堆，重复上述</p>
+<p>N：所有数的个数</p>
+<p>K：链表个数</p>
+<p>时间复杂度：<script type="math/tex">O(NlogK)</script> ，heap中最多有k各元素，插入操作时间复杂度是<script type="math/tex">O(logk)</script></p>
+<p>空间复杂度：<script type="math/tex">O(K)</script></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="comment">//heap</span></div><div class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">mergeKLists</span><span class="params">(ListNode[] lists)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> k = lists.length;</div><div class="line">        PriorityQueue&lt;ListNode&gt; minHeap = <span class="keyword">new</span> PriorityQueue&lt;&gt;(<span class="keyword">new</span> Comparator&lt;ListNode&gt;() &#123;</div><div class="line">           <span class="comment">// @Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(ListNode o1, ListNode o2)</span> </span>&#123;</div><div class="line">                <span class="keyword">return</span> o1.val - o2.val;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        ListNode dummy = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</div><div class="line">        ListNode prev = dummy;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k;i++)&#123;</div><div class="line">            ListNode head = lists[i];</div><div class="line">            <span class="keyword">if</span>(head != <span class="keyword">null</span>)&#123;</div><div class="line">                minHeap.add(head);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span>(!minHeap.isEmpty())&#123;</div><div class="line">            ListNode curt = minHeap.poll();</div><div class="line">            prev.next = curt;</div><div class="line">            <span class="keyword">if</span>(curt.next != <span class="keyword">null</span>)&#123;</div><div class="line">                minHeap.add(curt.next);</div><div class="line">            &#125;</div><div class="line">            prev = prev.next;</div><div class="line">        &#125;</div><div class="line">        prev.next = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">return</span> dummy.next;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>方法二：分治法</p>
+<p>merge k 个链表</p>
+<ul>
+<li>拆分成merge前k/2个链表得到list1和merge后k/2个链表得到list2</li>
+<li>合并list1和 list2，得到结果</li>
+</ul>
+<p>递归调用求解上述子问题</p>
+<p>时间复杂度：<script type="math/tex">O(NlogK)</script></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line">     result</div><div class="line">     ↗    ↖</div><div class="line">   ↗      ↗ ↖</div><div class="line">↗  ↖    ↗   ↗  ↖</div><div class="line"><span class="number">1</span>	<span class="number">2</span> |	<span class="number">3</span> |	<span class="number">4</span>	<span class="number">5</span></div><div class="line"> </div><div class="line"></div><div class="line">    <span class="comment">//分治</span></div><div class="line">    <span class="comment">//merge两个List</span></div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">MergeTwoList</span><span class="params">(ListNode left,ListNode right)</span></span>&#123;</div><div class="line">        ListNode dummy = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</div><div class="line">        ListNode prev = dummy;</div><div class="line">        ListNode prev1 = left;</div><div class="line">        ListNode prev2 = right;</div><div class="line">        <span class="keyword">while</span>(prev1 != <span class="keyword">null</span> &amp;&amp; prev2 != <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(prev1.val &lt; prev2.val)&#123;</div><div class="line">                prev.next = prev1;</div><div class="line">                prev1 = prev1.next;</div><div class="line">                prev = prev.next;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                prev.next = prev2;</div><div class="line">                prev2 = prev2.next;</div><div class="line">                prev = prev.next;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(prev1 == <span class="keyword">null</span>)&#123;</div><div class="line">            prev.next = prev2;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(prev2 == <span class="keyword">null</span>)&#123;</div><div class="line">            prev.next = prev1;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> dummy.next;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//分治法mergek个数组</span></div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">divideMergeKList</span><span class="params">(ListNode[] lists,<span class="keyword">int</span> start,<span class="keyword">int</span> end)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(start == end)&#123;</div><div class="line">            <span class="keyword">return</span> lists[start];</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//拆分成两部分</span></div><div class="line">        ListNode left = divideMergeKList(lists,start,start+(end-start)/<span class="number">2</span>);</div><div class="line">        ListNode right = divideMergeKList(lists,start+(end-start)/<span class="number">2</span>+<span class="number">1</span>,end);</div><div class="line">        <span class="comment">//合并两部分结果返回</span></div><div class="line">        <span class="keyword">return</span> MergeTwoList(left,right);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//调用分治法</span></div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">DividemergeKLists</span><span class="params">(ListNode[] lists)</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> len = lists.length;</div><div class="line">        <span class="keyword">if</span>(len ==<span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> divideMergeKList(lists,<span class="number">0</span>,len-<span class="number">1</span>);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>方法三：两两合并</p>
+<p>1、2合并，3、4合并，….n</p>
+<p>向上递归合并</p>
+<p>时间复杂度：<script type="math/tex">O(NlogK)</script></p>
+<p>如果是1、2合并，然后忽然3合并，…n</p>
+<p>时间复杂度O(NK)</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"> <span class="comment">//两两合并</span></div><div class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">mergeKListsOneByOne</span><span class="params">(ListNode[] lists)</span></span>&#123;</div><div class="line">  <span class="keyword">if</span>(lists.length == <span class="number">0</span>)&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">  &#125;</div><div class="line">  List&lt;ListNode&gt; newlists = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; lists.length;i++) &#123;</div><div class="line">    newlists.add(lists[i]);</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">while</span> (newlists.size() &gt; <span class="number">1</span>)&#123;</div><div class="line">    List&lt;ListNode&gt; listTemp = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i+<span class="number">1</span> &lt; newlists.size();i+=<span class="number">2</span>)&#123;</div><div class="line">      listTemp.add(MergeTwoList(newlists.get(i),newlists.get(i+<span class="number">1</span>)));</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(newlists.size() % <span class="number">2</span> == <span class="number">1</span>)&#123;</div><div class="line">      listTemp.add(newlists.get(newlists.size()-<span class="number">1</span>));</div><div class="line">    &#125;</div><div class="line">    newlists = listTemp;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> newlists.get(<span class="number">0</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Copy-List-with-Random-Pointer"><a href="#Copy-List-with-Random-Pointer" class="headerlink" title="Copy List with Random Pointer"></a><a href="https://leetcode.com/problems/copy-list-with-random-pointer/" target="_blank" rel="external">Copy List with Random Pointer</a></h3><h4 id="题目-12"><a href="#题目-12" class="headerlink" title="题目"></a>题目</h4><blockquote>
+<p>A linked list is given such that each node contains an additional random pointer which could point to any node in the list or null.</p>
+<p>Return a deep copy of the list.</p>
+</blockquote>
+<p>给定一个链表，每个节点除包含一个next指针以外，还有一个指向任意节点的random pointer，clone链表</p>
+<h4 id="分析-13"><a href="#分析-13" class="headerlink" title="分析"></a>分析</h4><p>方法一：</p>
+<p>hash_map</p>
+<p>先按next指针复制链表，把原链表老节点和新链表新节点的映射关系存入hash_map，再遍历一遍原链表，按照hash_map中的对应关系，把random pointer在对应的新节点中标出。</p>
+<p>空间复杂度<script type="math/tex">O(n)</script></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> RandomListNode <span class="title">copyRandomList</span><span class="params">(RandomListNode head)</span> </span>&#123;</div><div class="line">       RandomListNode dummy = <span class="keyword">new</span> RandomListNode(<span class="number">0</span>);</div><div class="line">       RandomListNode prevNew = dummy;</div><div class="line">       RandomListNode prev = head;</div><div class="line">       HashMap&lt;RandomListNode,RandomListNode&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line">       <span class="comment">//将链表和next指针复制，对应点存入hashmap</span></div><div class="line">       <span class="keyword">while</span>(prev != <span class="keyword">null</span>)&#123;</div><div class="line">           RandomListNode temp = <span class="keyword">new</span> RandomListNode(prev.label);</div><div class="line">           prevNew.next = temp;</div><div class="line">           map.put(prev,prevNew.next);</div><div class="line">           prev = prev.next;</div><div class="line">           prevNew = prevNew.next;</div><div class="line">       &#125;</div><div class="line">       <span class="comment">//复制random poiner</span></div><div class="line">       prev = head;</div><div class="line">       prevNew = dummy.next;</div><div class="line">       <span class="keyword">while</span>(prev != <span class="keyword">null</span>)&#123;</div><div class="line">           prevNew.random = map.get(prev.random);</div><div class="line">           prev = prev.next;</div><div class="line">           prevNew = prevNew.next;</div><div class="line">       &#125;</div><div class="line">       <span class="keyword">return</span> dummy.next;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>方法二：</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2017-12-14-23-57-14.png" alt=""> </p>
+<h4 id="代码-12"><a href="#代码-12" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> RandomListNode <span class="title">copyRandomList2</span><span class="params">(RandomListNode head)</span> </span>&#123;</div><div class="line">  RandomListNode prev = head;</div><div class="line">  <span class="comment">//将每个元素都复制一份，插在原来元素的后面一位上</span></div><div class="line">  <span class="keyword">while</span>(prev != <span class="keyword">null</span>)&#123;</div><div class="line">    RandomListNode node = <span class="keyword">new</span> RandomListNode(prev.label);</div><div class="line">    node.next = prev.next;</div><div class="line">    prev.next = node;</div><div class="line">    prev = prev.next.next;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">//加入random pointer</span></div><div class="line">  prev = head;</div><div class="line">  <span class="keyword">while</span>(prev != <span class="keyword">null</span>)&#123;</div><div class="line">    <span class="keyword">if</span>(prev.random != <span class="keyword">null</span>)&#123;</div><div class="line">      prev.next.random = prev.random.next;</div><div class="line">    &#125;</div><div class="line">    prev = prev.next.next;</div><div class="line">  &#125;</div><div class="line">  <span class="comment">//删掉原来元素；</span></div><div class="line">  RandomListNode dummy = <span class="keyword">new</span> RandomListNode(<span class="number">0</span>);</div><div class="line">  dummy.next = head;</div><div class="line">  prev = dummy;</div><div class="line">  RandomListNode curt = head;</div><div class="line">  <span class="keyword">while</span>(curt != <span class="keyword">null</span>)&#123;</div><div class="line">    prev.next = curt.next;</div><div class="line">    curt.next = curt.next.next;</div><div class="line">    prev = prev.next;</div><div class="line">    curt = curt.next;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> dummy.next;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><img src="http://omaby2s5z.bkt.clouddn.com/2017-12-14-23-55-46.png" alt=""> </p>
+<h2 id="leetcode-相关习题"><a href="#leetcode-相关习题" class="headerlink" title="leetcode 相关习题"></a>leetcode 相关习题</h2><h3 id="Palindrome-Linked-List"><a href="#Palindrome-Linked-List" class="headerlink" title="Palindrome Linked List"></a><a href="https://leetcode.com/problems/palindrome-linked-list/" target="_blank" rel="external">Palindrome Linked List</a></h3><h4 id="题目-13"><a href="#题目-13" class="headerlink" title="题目"></a>题目</h4><blockquote>
+<p>Given a singly linked list, determine if it is a palindrome.</p>
+<p><strong>Follow up:</strong><br>Could you do it in O(n) time and O(1) space?</p>
+</blockquote>
+<p>给定链表，判读是否是回文串，要求时间复杂度<script type="math/tex">O(n)</script>，空间复杂度<script type="math/tex">O(1)</script></p>
+<h4 id="分析-14"><a href="#分析-14" class="headerlink" title="分析"></a>分析</h4><p>方法一：</p>
+<p>利用stack，先进后出的性质：</p>
+<ol>
+<li>找到终点，过程中将前半部分链表入栈</li>
+<li>继续向后遍历，出栈，对比元素是否一致</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isPalindromeStack</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">        <span class="comment">//空链表和只有一个元素</span></div><div class="line">        <span class="keyword">if</span>(head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//快慢指针寻找中点,前半部分元素入栈</span></div><div class="line">        Stack&lt;Integer&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</div><div class="line">        ListNode mid = head;</div><div class="line">        ListNode tail = head;</div><div class="line">        stack.push(head.val);</div><div class="line">        <span class="keyword">while</span>(tail.next != <span class="keyword">null</span> &amp;&amp; tail.next.next != <span class="keyword">null</span>)&#123;</div><div class="line">            mid = mid.next;</div><div class="line">            stack.push(mid.val);</div><div class="line">            tail = tail.next.next;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//如果是奇数个元素，将mid弹出，无须比较</span></div><div class="line">        <span class="keyword">if</span>(tail.next == <span class="keyword">null</span>)&#123;</div><div class="line">            stack.pop();</div><div class="line">        &#125;</div><div class="line">        mid = mid.next;</div><div class="line">        <span class="keyword">while</span>(mid != <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">int</span> temp = stack.peek();</div><div class="line">            <span class="keyword">if</span>(temp != mid.val)&#123;</div><div class="line">                <span class="keyword">return</span>  <span class="keyword">false</span>;</div><div class="line">            &#125;</div><div class="line">            stack.pop();</div><div class="line">            mid = mid.next;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>方法二：</p>
+<ol>
+<li>先找到中点</li>
+<li>将后半部分的链表反转</li>
+<li>对比前后两部分是否一致</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isPalindrome</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(head == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//快慢指针寻找中点</span></div><div class="line">        ListNode mid = head;</div><div class="line">        ListNode tail = head;</div><div class="line">        <span class="keyword">while</span>(tail.next != <span class="keyword">null</span> &amp;&amp; tail.next.next != <span class="keyword">null</span>)&#123;</div><div class="line">            mid = mid.next;</div><div class="line">            tail = tail.next.next;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//反转后半个链表</span></div><div class="line">        ListNode prev = <span class="keyword">null</span>;</div><div class="line">        ListNode curt = mid.next;</div><div class="line">        <span class="keyword">while</span>(curt !=  <span class="keyword">null</span>)&#123;</div><div class="line">            ListNode temp = curt.next;</div><div class="line">            curt.next = prev;</div><div class="line">            prev = curt;</div><div class="line">            curt = temp;</div><div class="line">        &#125;</div><div class="line">        mid.next = prev;</div><div class="line">        <span class="comment">//对比两段元素是否一致</span></div><div class="line">        ListNode first = head;</div><div class="line">        ListNode second = mid.next;</div><div class="line">        <span class="keyword">while</span>(second != <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">if</span>(first.val != second.val)&#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">            &#125;</div><div class="line">            first = first.next;</div><div class="line">            second = second.next;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h3 id="160-Intersection-of-Two-Linked-Lists"><a href="#160-Intersection-of-Two-Linked-Lists" class="headerlink" title="160.Intersection of Two Linked Lists"></a><a href="https://leetcode.com/problems/intersection-of-two-linked-lists/" target="_blank" rel="external">160.Intersection of Two Linked Lists</a></h3><h4 id="题目-14"><a href="#题目-14" class="headerlink" title="题目"></a>题目</h4><blockquote>
+<p>Write a program to find the node at which the intersection of two singly linked lists begins.</p>
+<p>For example, the following two linked lists:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt; A:          a1 → a2</div><div class="line">&gt;                    ↘</div><div class="line">&gt;                      c1 → c2 → c3</div><div class="line">&gt;                    ↗            </div><div class="line">&gt; B:     b1 → b2 → b3</div><div class="line">&gt;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p>begin to intersect at node c1.</p>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>If the two linked lists have no intersection at all, return <code>null</code>.</li>
+<li>The linked lists must retain their original structure after the function returns.</li>
+<li>You may assume there are no cycles anywhere in the entire linked structure.</li>
+<li>Your code should preferably run in O(n) time and use only O(1) memory.</li>
+</ul>
+</blockquote>
+<p>找到两个链表相交的地方</p>
+<h4 id="分析-15"><a href="#分析-15" class="headerlink" title="分析"></a>分析</h4><p>是个技巧题，想到了就能做出来，想不到就做不出来</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2017-12-22-20-02-17.png" alt=""> </p>
+<p>方法：</p>
+<p>两个指针分别遍历，一个先A后B，一个先B后A，两指针指向节点相等即为相交处</p>
+<h4 id="代码-13"><a href="#代码-13" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(headA == <span class="keyword">null</span> || headB == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        ListNode n1 = headA;</div><div class="line">        ListNode n2 = headB;</div><div class="line">        <span class="comment">//记录是否遍历第二个链表</span></div><div class="line">        <span class="keyword">boolean</span> flag1 = <span class="keyword">false</span>;</div><div class="line">        <span class="keyword">boolean</span> flag2 = <span class="keyword">false</span>;</div><div class="line">        <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</div><div class="line">            <span class="comment">//两个指针都遍历结束了，没有相交节点</span></div><div class="line">            <span class="keyword">if</span>(n1 == <span class="keyword">null</span> &amp;&amp; flag1)&#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="comment">//n1遍历完一个数组</span></div><div class="line">            <span class="keyword">if</span>(n1 == <span class="keyword">null</span> &amp;&amp; !flag1)&#123;</div><div class="line">                 n1 = headB;</div><div class="line">                 flag1 = <span class="keyword">true</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="comment">//n2遍历完一个数组</span></div><div class="line">            <span class="keyword">if</span>(n2 == <span class="keyword">null</span> &amp;&amp; !flag2)&#123;</div><div class="line">                n2 = headA;</div><div class="line">                flag2 = <span class="keyword">true</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (n1 == n2)&#123;</div><div class="line">                <span class="keyword">return</span> n1;</div><div class="line">            &#125;</div><div class="line">            n1 = n1.next;</div><div class="line">            n2 = n2.next;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 ]]></content>
       
         <categories>
@@ -1880,300 +2014,6 @@
 <td></td>
 <td></td>
 <td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
 </tr>
 </tbody>
 </table>
@@ -2238,6 +2078,83 @@
 <td></td>
 </tr>
 <tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h1><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>题目</th>
+<th>题意</th>
+<th>知识点</th>
+<th>思路</th>
+<th>难易</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://leetcode.com/problems/odd-even-linked-list/" target="_blank" rel="external">328.Odd Even Linked List</a></td>
+<td>给定链表，将偶数位放置在链表后，奇数位偶数位数字相对位置保持不变</td>
+<td>链表</td>
+<td></td>
+<td>简单</td>
+</tr>
+<tr>
+<td><a href="https://leetcode.com/problems/palindrome-linked-list/" target="_blank" rel="external">234Palindrome Linked List</a></td>
+<td>判断链表是否是回文串</td>
+<td>回文，链表</td>
+<td>1.找到链表中位数，将后半段反转，对比前后元素是否一致<br>2.利用stack，将前一半存起来，继续 向后扫描与stack中元素对比</td>
+<td>难</td>
+</tr>
+<tr>
+<td><a href="https://leetcode.com/problems/intersection-of-two-linked-lists/" target="_blank" rel="external">160.Intersection of Two Linked Lists</a></td>
+<td>找到两链表AA和B相交的位置</td>
+<td>链表</td>
+<td>两个指针分别遍历，一个先A后B，一个先B后A，两指针指向节点相等即为相交处</td>
+<td>技巧题</td>
+</tr>
+<tr>
+<td><a href="https://leetcode.com/problems/insertion-sort-list/" target="_blank" rel="external">147.Insertion Sort List</a></td>
+<td>链表的插入排序</td>
+<td>链表、插入排序</td>
+<td>建dummy节点，原链表元素按序插入dummy节点开头的链表</td>
+<td>技巧+中等</td>
+</tr>
+<tr>
+<td><a href="https://leetcode.com/problems/swap-nodes-in-pairs/" target="_blank" rel="external">24.Swap Nodes in Pairs</a></td>
+<td>从前向后，两两交换链表节点</td>
+<td>链表、交换</td>
+<td>从前向后遍历，两两交换</td>
+<td>简单</td>
+</tr>
+<tr>
+<td><a href="https://leetcode.com/problems/remove-linked-list-elements/" target="_blank" rel="external">203.Remove Linked List Elements</a></td>
+<td>给定链表和val，删除链表中所有值为val的元素</td>
+<td>链表、删除节点</td>
+<td>遍历，删除</td>
+<td>简单</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
 <td></td>
 <td></td>
 <td></td>
@@ -2725,7 +2642,7 @@ return count;
     <entry>
       <title><![CDATA[【九章算法强化班习题集】]]></title>
       <url>/2017/11/05/%E3%80%90%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95%E5%BC%BA%E5%8C%96%E7%8F%AD%E4%B9%A0%E9%A2%98%E9%9B%86%E3%80%91/</url>
-      <content type="html"><![CDATA[<link href="/style.css" rel="stylesheet" type="text/css"><script src="/crypto-js.js"></script><script src="/mcommon.js"></script><script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script> <div id="security"> <div> <div class="input-container"> <input type="password" class="form-control" id="pass" placeholder=" 请输入文章密码！ "/> <label for="pass"> 请输入文章密码！ </label> <div class="bottom-line"></div> </div> </div> </div> <div id="encrypt-blog" style="display:none"> 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 </div>]]></content>
+      <content type="html"><![CDATA[<link href="/style.css" rel="stylesheet" type="text/css"><script src="/crypto-js.js"></script><script src="/mcommon.js"></script><script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script> <div id="security"> <div> <div class="input-container"> <input type="password" class="form-control" id="pass" placeholder=" 请输入文章密码！ "/> <label for="pass"> 请输入文章密码！ </label> <div class="bottom-line"></div> </div> </div> </div> <div id="encrypt-blog" style="display:none"> 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 </div>]]></content>
       
         <categories>
             
@@ -2902,8 +2819,8 @@ return count;
     </entry>
     
     <entry>
-      <title><![CDATA[【九章算法强化班】课程笔记1]]></title>
-      <url>/2017/11/04/%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95%E5%BC%BA%E5%8C%96%E7%8F%AD%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B01/</url>
+      <title><![CDATA[【九章算法强化班】课程笔记2]]></title>
+      <url>/2017/11/04/%E3%80%90%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95%E5%BC%BA%E5%8C%96%E7%8F%AD%E3%80%91%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B01/</url>
       <content type="html"><![CDATA[<h1 id="求数组-矩阵的第k大元素"><a href="#求数组-矩阵的第k大元素" class="headerlink" title="求数组/矩阵的第k大元素"></a>求数组/矩阵的第k大元素</h1><p>涉及leetcode题目</p>
 <ol>
 <li><a href="https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/description/" target="_blank" rel="external">278. Kth Smallest Number In Matrix</a></li>
@@ -2916,6 +2833,7 @@ return count;
 <p>给定一个<script type="math/tex">n*n</script>的矩阵，满足行递增和列递增，要求返回第k大的元素。</p>
 <p><strong>example</strong></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">matrix = [</div><div class="line">   [ 1,  5,  9],</div><div class="line">   [10, 11, 13],</div><div class="line">   [12, 13, 15]</div><div class="line">],</div><div class="line">k = 8,</div><div class="line"></div><div class="line">return 13.</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><h4 id="方法1：堆"><a href="#方法1：堆" class="headerlink" title="方法1：堆"></a>方法1：堆</h4><p>看到第k大问题，要想到用<strong>堆</strong></p>
 <p>因为矩阵满足行递增和列递增，所以矩阵中的每一个元素的右边和下边元素一定比这个元素大。可以从左上角开始将元素放入一个最小堆中，每次从最小堆中取出一个元素，将其右边和下边的元素放入最小堆，这样就可以保证直到取出第k次的元素就是矩阵中第k大的元素。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span>&#123;</span></div><div class="line">    <span class="keyword">int</span> x;</div><div class="line">    <span class="keyword">int</span> y;</div><div class="line">    <span class="keyword">int</span> val;</div><div class="line">    Node(<span class="keyword">int</span> a,<span class="keyword">int</span> b,<span class="keyword">int</span> valin):x(a),y(b),val(valin)&#123;&#125;</div><div class="line">&#125;;</div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cmp</span>&#123;</span></div><div class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="keyword">const</span> Node &amp;a,<span class="keyword">const</span> Node &amp;b)</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">         <span class="keyword">return</span> a.val&gt;b.val;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">kthSmallest</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> rows = matrix.size();</div><div class="line">    <span class="keyword">int</span> cols = matrix[<span class="number">0</span>].size();</div><div class="line">    <span class="keyword">if</span>(rows*cols&lt;k)&#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; &gt; isin(rows,<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;(cols,<span class="number">0</span>));<span class="comment">//用于记录某元素是否已经入过堆</span></div><div class="line">    priority_queue&lt;Node,<span class="built_in">vector</span>&lt;Node&gt;,cmp&gt; minheap;</div><div class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> j = <span class="number">0</span>;</div><div class="line">    <span class="function">Node <span class="title">nodetemp</span><span class="params">(i,j,matrix[i][j])</span></span>;</div><div class="line">    minheap.push(nodetemp);</div><div class="line">    isin[i][j]=<span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> kkk=<span class="number">0</span>;</div><div class="line">    <span class="keyword">while</span>(kkk &lt; k<span class="number">-1</span>)&#123;</div><div class="line">        <span class="keyword">int</span> xtemp = minheap.top().x;</div><div class="line">        <span class="keyword">int</span> ytemp = minheap.top().y;</div><div class="line">        <span class="keyword">int</span> xadd = xtemp+<span class="number">1</span>;</div><div class="line">        <span class="keyword">int</span> yadd = ytemp+<span class="number">1</span>;</div><div class="line">        <span class="keyword">if</span>(xadd&gt;=matrix.size()||ytemp&gt;=matrix[<span class="number">0</span>].size()||isin[xadd][ytemp])&#123;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span>&#123;</div><div class="line">            minheap.push(Node(xadd,ytemp,matrix[xadd][ytemp]));</div><div class="line">            isin[xadd][ytemp]=<span class="number">1</span>;</div><div class="line">        &#125;      <span class="keyword">if</span>(yadd&gt;=matrix.size()||xtemp&gt;=matrix[<span class="number">0</span>].size()||isin[xtemp][yadd])&#123;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span>&#123;</div><div class="line">            minheap.push(Node(xtemp,yadd,matrix[xtemp][yadd]));</div><div class="line">            isin[xtemp][yadd]=<span class="number">1</span>;</div><div class="line">        &#125;        </div><div class="line">        minheap.pop();</div><div class="line">        kkk++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> minheap.top().val;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -3009,8 +2927,8 @@ return count;
     </entry>
     
     <entry>
-      <title><![CDATA[【九章算法强化班】课程笔记2]]></title>
-      <url>/2017/11/04/%E3%80%90%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95%E5%BC%BA%E5%8C%96%E7%8F%AD%E3%80%91%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B01/</url>
+      <title><![CDATA[【九章算法强化班】课程笔记1]]></title>
+      <url>/2017/11/04/%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95%E5%BC%BA%E5%8C%96%E7%8F%AD%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B01/</url>
       <content type="html"><![CDATA[<h1 id="求数组-矩阵的第k大元素"><a href="#求数组-矩阵的第k大元素" class="headerlink" title="求数组/矩阵的第k大元素"></a>求数组/矩阵的第k大元素</h1><p>涉及leetcode题目</p>
 <ol>
 <li><a href="https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/description/" target="_blank" rel="external">278. Kth Smallest Number In Matrix</a></li>
@@ -3023,7 +2941,6 @@ return count;
 <p>给定一个<script type="math/tex">n*n</script>的矩阵，满足行递增和列递增，要求返回第k大的元素。</p>
 <p><strong>example</strong></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">matrix = [</div><div class="line">   [ 1,  5,  9],</div><div class="line">   [10, 11, 13],</div><div class="line">   [12, 13, 15]</div><div class="line">],</div><div class="line">k = 8,</div><div class="line"></div><div class="line">return 13.</div></pre></td></tr></table></figure>
-<a id="more"></a>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><h4 id="方法1：堆"><a href="#方法1：堆" class="headerlink" title="方法1：堆"></a>方法1：堆</h4><p>看到第k大问题，要想到用<strong>堆</strong></p>
 <p>因为矩阵满足行递增和列递增，所以矩阵中的每一个元素的右边和下边元素一定比这个元素大。可以从左上角开始将元素放入一个最小堆中，每次从最小堆中取出一个元素，将其右边和下边的元素放入最小堆，这样就可以保证直到取出第k次的元素就是矩阵中第k大的元素。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span>&#123;</span></div><div class="line">    <span class="keyword">int</span> x;</div><div class="line">    <span class="keyword">int</span> y;</div><div class="line">    <span class="keyword">int</span> val;</div><div class="line">    Node(<span class="keyword">int</span> a,<span class="keyword">int</span> b,<span class="keyword">int</span> valin):x(a),y(b),val(valin)&#123;&#125;</div><div class="line">&#125;;</div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cmp</span>&#123;</span></div><div class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="keyword">const</span> Node &amp;a,<span class="keyword">const</span> Node &amp;b)</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">         <span class="keyword">return</span> a.val&gt;b.val;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">kthSmallest</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> rows = matrix.size();</div><div class="line">    <span class="keyword">int</span> cols = matrix[<span class="number">0</span>].size();</div><div class="line">    <span class="keyword">if</span>(rows*cols&lt;k)&#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; &gt; isin(rows,<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;(cols,<span class="number">0</span>));<span class="comment">//用于记录某元素是否已经入过堆</span></div><div class="line">    priority_queue&lt;Node,<span class="built_in">vector</span>&lt;Node&gt;,cmp&gt; minheap;</div><div class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> j = <span class="number">0</span>;</div><div class="line">    <span class="function">Node <span class="title">nodetemp</span><span class="params">(i,j,matrix[i][j])</span></span>;</div><div class="line">    minheap.push(nodetemp);</div><div class="line">    isin[i][j]=<span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> kkk=<span class="number">0</span>;</div><div class="line">    <span class="keyword">while</span>(kkk &lt; k<span class="number">-1</span>)&#123;</div><div class="line">        <span class="keyword">int</span> xtemp = minheap.top().x;</div><div class="line">        <span class="keyword">int</span> ytemp = minheap.top().y;</div><div class="line">        <span class="keyword">int</span> xadd = xtemp+<span class="number">1</span>;</div><div class="line">        <span class="keyword">int</span> yadd = ytemp+<span class="number">1</span>;</div><div class="line">        <span class="keyword">if</span>(xadd&gt;=matrix.size()||ytemp&gt;=matrix[<span class="number">0</span>].size()||isin[xadd][ytemp])&#123;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span>&#123;</div><div class="line">            minheap.push(Node(xadd,ytemp,matrix[xadd][ytemp]));</div><div class="line">            isin[xadd][ytemp]=<span class="number">1</span>;</div><div class="line">        &#125;      <span class="keyword">if</span>(yadd&gt;=matrix.size()||xtemp&gt;=matrix[<span class="number">0</span>].size()||isin[xtemp][yadd])&#123;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span>&#123;</div><div class="line">            minheap.push(Node(xtemp,yadd,matrix[xtemp][yadd]));</div><div class="line">            isin[xtemp][yadd]=<span class="number">1</span>;</div><div class="line">        &#125;        </div><div class="line">        minheap.pop();</div><div class="line">        kkk++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> minheap.top().val;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
