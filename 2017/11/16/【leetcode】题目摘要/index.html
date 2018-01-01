@@ -404,7 +404,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,279
+                  1,733
                 </span>
               
 
@@ -420,7 +420,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5
+                  7
                 </span>
               
             </div>
@@ -872,6 +872,349 @@
 <td>简单</td>
 </tr>
 <tr>
+<td><a href="https://leetcode.com/problems/add-two-numbers/" target="_blank" rel="external">2.Add Two Numbers</a></td>
+<td>给定两个链表表示两个数字，位数由低到高，返回链表表示两个链表的和</td>
+<td>链表</td>
+<td>遍历相加，记录进位</td>
+<td>简单</td>
+</tr>
+<tr>
+<td><a href="https://leetcode.com/problems/add-two-numbers-ii/" target="_blank" rel="external">445.Add Two Numbers II</a></td>
+<td>给定两个链表表示两个数字，位数由高到低，返回链表表示两个链表的和</td>
+<td>链表、反转</td>
+<td>反转-&gt;相加-&gt;反转</td>
+<td>简单</td>
+</tr>
+<tr>
+<td><a href="https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/" target="_blank" rel="external">109.Convert Sorted List to Binary Search Tree</a></td>
+<td></td>
+<td></td>
+<td></td>
+<td>难</td>
+</tr>
+<tr>
+<td><a href="https://leetcode.com/problems/plus-one-linked-list/" target="_blank" rel="external">369.Plus One Linked List</a></td>
+<td>给定链表代表一个数字，由高位到低位，返回该数字+1链表</td>
+<td>链表、反转</td>
+<td>1.反转-&gt;相加-&gt;反转<br>2.递归<br>3.技巧：找从后向前第一个不为9的元素+1，后面9置0</td>
+<td>简单+技巧</td>
+</tr>
+<tr>
+<td><a href="https://leetcode.com/problems/split-linked-list-in-parts/" target="_blank" rel="external">725.Split Linked List in Parts</a></td>
+<td>给定一个链表和数字k，将链表分为k段，每段长度差不大于1，长的放前面</td>
+<td>链表</td>
+<td>1.求链表长度len<br>2.m = len/k,n = len%k<br>3.前n个链表长度为m+1，其余长度为m</td>
+<td>简单</td>
+</tr>
+<tr>
+<td><a href="https://leetcode.com/problems/reverse-nodes-in-k-group/" target="_blank" rel="external">25.Reverse Nodes in k-Group</a></td>
+<td>给定链表和数字k，将链表分组，每组k个元素，按组反转</td>
+<td>链表、反转</td>
+<td>两指针指向分组头和尾，将头和尾之间的链表反转</td>
+<td>简单</td>
+</tr>
+<tr>
+<td><a href="https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/" target="_blank" rel="external">109.Convert Sorted List to Binary Search Tree</a></td>
+<td>链表转为高度平衡搜索二叉树</td>
+<td>链表、二叉搜索树</td>
+<td>递归，中点做为root，对左链表和右链表递归调用构建BST</td>
+<td>中等</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h1><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>题目</th>
+<th>题意</th>
+<th>知识点</th>
+<th>思路</th>
+<th>难易</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://leetcode.com/problems/merge-sorted-array" target="_blank" rel="external">88.Merge Sorted Array</a></td>
+<td>合并两个有序数组到第一个数组</td>
+<td>数组</td>
+<td>从后向前遍历，比较大小依次从后向前插入nums1</td>
+<td>简单</td>
+</tr>
+<tr>
+<td><a href="https://leetcode.com/problems/intersection-of-two-arrays" target="_blank" rel="external">349.Intersection of Two Arrays</a></td>
+<td>找两个数组交集，去重</td>
+<td>排序、hashmap</td>
+<td>1.排序<br>2.两指针遍历</td>
+<td>简单</td>
+</tr>
+<tr>
+<td><a href="https://leetcode.com/problems/intersection-of-two-arrays-ii" target="_blank" rel="external">350.Intersection of Two Arrays II</a></td>
+<td>找两个数组交集</td>
+<td>排序、hashmap</td>
+<td>1.排序<br>2.两指针遍历</td>
+<td>简单</td>
+</tr>
+<tr>
+<td><a href="https://leetcode.com/problems/sparse-matrix-multiplication" target="_blank" rel="external">311.Sparse Matrix Multiplication</a></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
 <td></td>
 <td></td>
 <td></td>
@@ -1017,7 +1360,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">80</span>
+                  <span class="site-state-item-count">81</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1074,7 +1417,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Binary-Search"><span class="nav-number">1.</span> <span class="nav-text">Binary Search</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LinkedList"><span class="nav-number"></span> <span class="nav-text">LinkedList</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Binary-Search"><span class="nav-number">1.</span> <span class="nav-text">Binary Search</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LinkedList"><span class="nav-number"></span> <span class="nav-text">LinkedList</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Array"><span class="nav-number"></span> <span class="nav-text">Array</span></a></div>
             
 
           </div>
@@ -1094,7 +1437,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -1124,7 +1467,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">80.6k</span>
+    <span title="Site words total count">90.2k</span>
   
         
 <div class="busuanzi-count">
