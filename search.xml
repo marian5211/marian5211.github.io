@@ -443,15 +443,151 @@
 <li>bc之间的位置都可以作为c，使得nums[a] + nums[b] &gt; nums[c]，result+= c-b。</li>
 </ol>
 <h4 id="代码-19"><a href="#代码-19" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">triangleNumber</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">  <span class="keyword">int</span> result = <span class="number">0</span>;</div><div class="line">  Arrays.sort(nums);</div><div class="line">  <span class="comment">//遍历a</span></div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> a = <span class="number">0</span>; a &lt; nums.length - <span class="number">2</span>;a++)&#123;</div><div class="line">    <span class="comment">//b和c做TwoSum</span></div><div class="line">    <span class="keyword">int</span> b = a+<span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> c = nums.length-<span class="number">1</span>;</div><div class="line">    <span class="keyword">while</span>(b &lt; c)&#123;</div><div class="line">      <span class="keyword">while</span>(b &lt; c &amp;&amp; nums[a] + nums[b] &lt;= nums[c])&#123;</div><div class="line">        c--;</div><div class="line">      &#125;<span class="comment">//跳出时nums[a] + nums[b] &gt; nums[c]或者b==c</span></div><div class="line">      <span class="keyword">if</span>(b &lt; c &amp;&amp; nums[a] + nums[b] &gt; nums[c])&#123;</div><div class="line">        result += c-b;</div><div class="line">      &#125;</div><div class="line">      b++;</div><div class="line">      c = nums.length - <span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="Partition类问题"><a href="#Partition类问题" class="headerlink" title="Partition类问题"></a>Partition类问题</h2><p>不开额外的空间，用两个指针分成两个、三个部分，利用quicksort的思想</p>
-<h3 id="partition-Array"><a href="#partition-Array" class="headerlink" title="partition Array"></a>partition Array</h3><p>两个指针，利用快速排序</p>
-<p><a href="https://leetcode.com/problems/sort-colors" target="_blank" rel="external">Sort Colors</a>  </p>
-<p><a href="http://www.lintcode.com/problem/sort-letters-by-case/" target="_blank" rel="external">http://www.lintcode.com/problem/sort-letters-by-case/</a></p>
-<h3 id="Array-Partition-I"><a href="#Array-Partition-I" class="headerlink" title="Array Partition I"></a><a href="https://leetcode.com/problems/array-partition-i" target="_blank" rel="external">Array Partition I</a></h3><blockquote>
-<p>Given an array of <strong>2n</strong> integers, your task is to group these integers into <strong>n</strong> pairs of integer, say (a1, b1), (a2, b2), …, (an, bn) which makes sum of min(ai, bi) for all i from 1 to n as large as possible.</p>
-<p><strong>Example 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt; Input: [1,4,3,2]</div><div class="line">&gt;</div><div class="line">&gt; Output: 4</div><div class="line">&gt; Explanation: n is 2, and the maximum sum of pairs is 4 = min(1, 2) + min(3, 4).</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+<h1 id="Partition类问题"><a href="#Partition类问题" class="headerlink" title="Partition类问题"></a>Partition类问题</h1><p>不开额外的空间，用两个指针分成两个、三个部分，利用quicksort的思想</p>
+<h3 id="partition-Array"><a href="#partition-Array" class="headerlink" title="partition Array"></a><a href="http://www.lintcode.com/en/problem/partition-array/" target="_blank" rel="external">partition Array</a></h3><h4 id="题目-26"><a href="#题目-26" class="headerlink" title="题目"></a>题目</h4><blockquote>
+<p>Given an array <code>nums</code> of integers and an int <code>k</code>, partition the array (i.e move the elements in “nums”) such that:</p>
+<ul>
+<li>All elements &lt; <em>k</em> are moved to the <em>left</em></li>
+<li>All elements &gt;= <em>k</em> are moved to the <em>right</em></li>
+</ul>
+<p>Return the partitioning index, i.e the first index <em>i</em> nums[<em>i</em>] &gt;= <em>k</em>.</p>
+<p>Example</p>
+<p>If nums = <code>[3,2,2,1]</code> and <code>k=2</code>, a valid answer is <code>1</code>.</p>
 </blockquote>
+<h4 id="分析-10"><a href="#分析-10" class="headerlink" title="分析"></a>分析</h4><p>利用quicksort的思想，两指针一前一后向中间遍历，前面遇到大的，后面遇到小的交换，最后判断nums[j]和target的大小关系，返回结果。</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-01-02-10-28-18.png" alt=""> </p>
+<h4 id="代码-20"><a href="#代码-20" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">partitionArray</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span>(nums.length==<span class="number">0</span>)&#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// write your code here</span></div><div class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> j = nums.length - <span class="number">1</span>;</div><div class="line">    <span class="keyword">while</span>(i &lt; j)&#123;</div><div class="line">        <span class="keyword">while</span>(i &lt; j &amp;&amp; nums[i] &lt; k)&#123;</div><div class="line">            i++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span>(i &lt; j &amp;&amp; nums[j] &gt;= k)&#123;</div><div class="line">            j--;</div><div class="line">        &#125;<span class="comment">//j右边都&gt;=k</span></div><div class="line">        <span class="keyword">if</span>(i &lt; j)&#123;</div><div class="line">            <span class="keyword">int</span> temp = nums[i];</div><div class="line">            nums[i] = nums[j];</div><div class="line">            nums[j] = temp;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(nums[j] &gt;= k)&#123;</div><div class="line">        <span class="keyword">return</span> j;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> j+<span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>两个指针，利用快速排序</p>
+<h3 id="Sort-Colors"><a href="#Sort-Colors" class="headerlink" title="Sort Colors"></a><a href="https://leetcode.com/problems/sort-colors" target="_blank" rel="external">Sort Colors</a></h3><h4 id="题目-27"><a href="#题目-27" class="headerlink" title="题目"></a>题目</h4><blockquote>
+<p>Given an array with <em>n</em> objects colored red, white or blue, sort them so that objects of the same color are adjacent, with the colors in the order red, white and blue.</p>
+<p>Here, we will use the integers 0, 1, and 2 to represent the color red, white, and blue respectively.</p>
+</blockquote>
+<h4 id="思路-14"><a href="#思路-14" class="headerlink" title="思路"></a>思路</h4><p>方法一：计数排序，遍历，记录0,1,2出现的个数，然后重新输出，时间复杂度<script type="math/tex">O(n)</script></p>
+<p>方法二：两次partition，先把0分一堆，1，2分一堆，然后再把1,2分开</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sortColorsPartition</span><span class="params">(<span class="keyword">int</span>[] nums)</span></span>&#123;</div><div class="line">  <span class="keyword">if</span>(nums.length &lt;= <span class="number">1</span>)&#123;</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">  <span class="keyword">int</span> j = nums.length-<span class="number">1</span>;</div><div class="line">  <span class="comment">//先分成左边都&lt;1，右边&gt;=1</span></div><div class="line">  <span class="keyword">while</span>(i &lt;= j)&#123;</div><div class="line">    <span class="keyword">while</span>(i &lt;= j &amp;&amp; nums[i] &lt; <span class="number">1</span>)&#123;</div><div class="line">      i++;</div><div class="line">    &#125;<span class="comment">//i是第一个&gt;=1的位置，或者是与j相遇且过了</span></div><div class="line">    <span class="keyword">while</span>(i &lt;= j &amp;&amp; nums[j] &gt;= <span class="number">1</span>)&#123;</div><div class="line">      j--;</div><div class="line">    &#125;<span class="comment">//j是第一个&lt;1的位置，或者是与i相遇且过了</span></div><div class="line">    <span class="comment">//如果还未相遇，交换ij元素，如果恰好相遇，</span></div><div class="line">    <span class="keyword">if</span>(i &lt;= j)&#123;</div><div class="line">      <span class="keyword">int</span> temp = nums[i];</div><div class="line">      nums[i] = nums[j];</div><div class="line">      nums[j] = temp;</div><div class="line">      i++;</div><div class="line">      j--;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="comment">//对右半段，分成成左边都&lt;2，右边&gt;=2</span></div><div class="line">  j = nums.length-<span class="number">1</span>;</div><div class="line">  <span class="keyword">while</span>(i &lt;= j)&#123;</div><div class="line">    <span class="keyword">while</span>(i &lt;= j &amp;&amp; nums[i] &lt; <span class="number">2</span>)&#123;</div><div class="line">      i++;</div><div class="line">    &#125;<span class="comment">//i是第一个&gt;=1的位置，或者是与j相遇了</span></div><div class="line">    <span class="keyword">while</span>(i &lt;= j &amp;&amp; nums[j] &gt;= <span class="number">2</span>)&#123;</div><div class="line">      j--;</div><div class="line">    &#125;<span class="comment">//j是第一个&lt;1的位置，或者是与i相遇了</span></div><div class="line">    <span class="keyword">if</span>(i &lt;= j)&#123;</div><div class="line">      <span class="keyword">int</span> temp = nums[i];</div><div class="line">      nums[i] = nums[j];</div><div class="line">      nums[j] = temp;</div><div class="line">      i++;</div><div class="line">      j--;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>方法三：背程序，三个指针三分法。</p>
+<ol>
+<li>i，j指向头和尾，mid在中间</li>
+<li>mid向后遍历，遇到0与i交换，遇到2与j交换</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sortColors</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">  <span class="keyword">if</span>(nums.length &lt;= <span class="number">1</span>)&#123;</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">  <span class="keyword">int</span> j = nums.length-<span class="number">1</span>;</div><div class="line">  <span class="keyword">int</span> mid = <span class="number">0</span>;</div><div class="line"></div><div class="line">  <span class="keyword">while</span>(mid &lt;= j)&#123;</div><div class="line">    <span class="keyword">if</span>(mid &lt;= j &amp;&amp; nums[mid] == <span class="number">1</span>)&#123;</div><div class="line">      mid++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(mid &lt;= j &amp;&amp; nums[mid] == <span class="number">0</span>) &#123;</div><div class="line">      <span class="keyword">int</span> temp = nums[i];</div><div class="line">      nums[i] = nums[mid];</div><div class="line">      nums[mid] = temp;</div><div class="line">      mid++;</div><div class="line">      i++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> &#123;</div><div class="line">      <span class="keyword">int</span> temp = nums[j];</div><div class="line">      nums[j] = nums[mid];</div><div class="line">      nums[mid] = temp;</div><div class="line">      j--;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="Sort-Colors-II"><a href="#Sort-Colors-II" class="headerlink" title="Sort Colors II"></a><a href="http://www.lintcode.com/en/problem/sort-colors-ii/" target="_blank" rel="external">Sort Colors II</a></h4><blockquote>
+<p>Given an array of <em>n</em> objects with <em>k</em> different colors (numbered from 1 to k), sort them so that objects of the same color are adjacent, with the colors in the order 1, 2, … k.</p>
+<p>Example</p>
+<p>Given colors=<code>[3, 2, 2, 1, 4]</code>, <code>k=4</code>, your code should sort colors in-place to <code>[1, 2, 2, 3, 4]</code>.</p>
+</blockquote>
+<h4 id="思路-15"><a href="#思路-15" class="headerlink" title="思路"></a>思路</h4><h4 id="代码-21"><a href="#代码-21" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sortColors2</span><span class="params">(<span class="keyword">int</span>[] colors, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">    <span class="comment">// write your code here</span></div><div class="line">    <span class="keyword">if</span>(colors.length &lt;= <span class="number">1</span>)&#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> j = colors.length-<span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> kk = <span class="number">2</span>;</div><div class="line">    <span class="comment">//先分成左边都&lt;1，右边&gt;=1</span></div><div class="line">    <span class="keyword">while</span>(kk &lt;= k)&#123;</div><div class="line">        <span class="keyword">while</span>(i &lt;= j)&#123;</div><div class="line">            <span class="keyword">while</span>(i &lt;= j &amp;&amp; colors[i] &lt; kk)&#123;</div><div class="line">                i++;</div><div class="line">            &#125;<span class="comment">//i是第一个&gt;=1的位置，或者是与j相遇且过了</span></div><div class="line">            <span class="keyword">while</span>(i &lt;= j &amp;&amp; colors[j] &gt;= kk)&#123;</div><div class="line">                j--;</div><div class="line">            &#125;<span class="comment">//j是第一个&lt;1的位置，或者是与i相遇且过了</span></div><div class="line">            <span class="comment">//如果还未相遇，交换ij元素，如果恰好相遇，</span></div><div class="line">            <span class="keyword">if</span>(i &lt;= j)&#123;</div><div class="line">                <span class="keyword">int</span> temp = colors[i];</div><div class="line">                colors[i] = colors[j];</div><div class="line">                colors[j] = temp;</div><div class="line">                i++;</div><div class="line">                j--;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        j = colors.length-<span class="number">1</span>;</div><div class="line">        kk++;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Sort-Letters-by-Case"><a href="#Sort-Letters-by-Case" class="headerlink" title="Sort Letters by Case"></a><a href="http://www.lintcode.com/en/problem/sort-letters-by-case/" target="_blank" rel="external">Sort Letters by Case</a></h3><h4 id="题目-28"><a href="#题目-28" class="headerlink" title="题目"></a>题目</h4><blockquote>
+<p>Given a string which contains only letters. Sort it by lower case first and upper case second.</p>
+<p>For <code>&quot;abAcD&quot;</code>, a reasonable answer is <code>&quot;acbAD&quot;</code></p>
+</blockquote>
+<p>给一串字母，把小写的排在左边，大写的排在右边</p>
+<h4 id="代码-22"><a href="#代码-22" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sortLetters</span><span class="params">(<span class="keyword">char</span>[] chars)</span> </span>&#123;</div><div class="line">  <span class="comment">// write your code here</span></div><div class="line">  <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">  <span class="keyword">int</span> j = chars.length - <span class="number">1</span>;</div><div class="line">  <span class="keyword">while</span> (i &lt; j)&#123;</div><div class="line">    <span class="keyword">while</span>(i &lt; j &amp;&amp; chars[i] &gt;= <span class="string">'a'</span>)&#123;</div><div class="line">      i++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span>(i &lt; j &amp;&amp; chars[j] &lt;= <span class="string">'Z'</span>)&#123;</div><div class="line">      j--;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(i &lt; j)&#123;</div><div class="line">      <span class="keyword">char</span> temp = chars[i];</div><div class="line">      chars[i] = chars[j];</div><div class="line">      chars[j] = temp;</div><div class="line">      i++;</div><div class="line">      j--;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Interleaving-Positive-and-Negative-Numbers"><a href="#Interleaving-Positive-and-Negative-Numbers" class="headerlink" title="Interleaving Positive and Negative Numbers"></a><a href="http://www.lintcode.com/en/problem/interleaving-positive-and-negative-numbers/" target="_blank" rel="external">Interleaving Positive and Negative Numbers</a></h3><blockquote>
+<p>Given an array with positive and negative integers. Re-range it to interleaving with positive and negative integers.</p>
+<p>Example</p>
+<p>Given <code>[-1, -2, -3, 4, 5, 6]</code>, after re-range, it will be <code>[-1, 5, -2, 4, -3, 6]</code> or any other reasonable answer.</p>
+</blockquote>
+<p>把正的和负的先都挑出来，然后交替放入数组。如果正的多余负的，先放正的，否则先放负的。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rerange</span><span class="params">(<span class="keyword">int</span>[] A)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span>[] zheng = <span class="keyword">new</span> <span class="keyword">int</span>[A.length];</div><div class="line">    <span class="keyword">int</span>[] fu = <span class="keyword">new</span> <span class="keyword">int</span>[A.length];</div><div class="line">    <span class="comment">// write your code here</span></div><div class="line">    <span class="keyword">int</span> zhengi = <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> fui = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; A.length;i++)&#123;</div><div class="line">        <span class="keyword">if</span>(A[i] &lt; <span class="number">0</span>)&#123;</div><div class="line">            fu[fui] = A[i];</div><div class="line">            fui++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            zheng[zhengi] = A[i];</div><div class="line">            zhengi++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(fui &lt; zhengi)&#123;</div><div class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> zhengj = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> fuj = <span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(i &lt; A.length-<span class="number">2</span>)&#123;</div><div class="line">            A[i] = zheng[zhengj];</div><div class="line">            zhengj++;</div><div class="line">            i++;</div><div class="line">            A[i] = fu[fuj];</div><div class="line">            fuj++;</div><div class="line">            i++;</div><div class="line">        &#125;</div><div class="line">        A[i] = zheng[zhengj];</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> zhengj = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> fuj = <span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(i &lt; A.length-<span class="number">2</span>)&#123;</div><div class="line">            A[i] = fu[fuj];</div><div class="line">            fuj++;</div><div class="line">            i++;</div><div class="line">            A[i] = zheng[zhengj];</div><div class="line">            zhengj++;</div><div class="line">            i++;</div><div class="line">        &#125;</div><div class="line">        A[i] = fu[fuj];</div><div class="line">        i++;</div><div class="line">        <span class="keyword">if</span>(A.length % <span class="number">2</span> == <span class="number">0</span>)&#123;</div><div class="line">            A[i] = zheng[zhengj];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Two-pointer问题"><a href="#Two-pointer问题" class="headerlink" title="Two pointer问题"></a>Two pointer问题</h1><h3 id="Longest-Substring-Without-Repeating-Characters"><a href="#Longest-Substring-Without-Repeating-Characters" class="headerlink" title="Longest Substring Without Repeating Characters"></a><a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/" target="_blank" rel="external">Longest Substring Without Repeating Characters</a></h3><h4 id="题目-29"><a href="#题目-29" class="headerlink" title="题目"></a>题目</h4><blockquote>
+<p>Given a string, find the length of the <strong>longest substring</strong> without repeating characters.</p>
+<p><strong>Examples:</strong></p>
+<p>Given <code>&quot;abcabcbb&quot;</code>, the answer is <code>&quot;abc&quot;</code>, which the length is 3.</p>
+<p>Given <code>&quot;bbbbb&quot;</code>, the answer is <code>&quot;b&quot;</code>, with the length of 1.</p>
+<p>Given <code>&quot;pwwkew&quot;</code>, the answer is <code>&quot;wke&quot;</code>, with the length of 3. Note that the answer must be a <strong>substring</strong>, <code>&quot;pwke&quot;</code>is a <em>subsequence</em> and not a substring.</p>
+</blockquote>
+<p>给定一个字符串，计算不包含重复字母的最长子串</p>
+<h4 id="分析-11"><a href="#分析-11" class="headerlink" title="分析"></a>分析</h4><p>用滑动窗口做，窗口边界left、right，用数组<code>int[] map = new int[256]</code>存储当前窗口内出现的元素，用maxlen、len_local记录最大长度和当前窗口长度</p>
+<ol>
+<li>初始化left,right=0</li>
+<li>right向后滑动，直至遇到窗口中已经存在该元素</li>
+<li>left向后滑动，窗口缩小，直至将已经出现过的元素挪到窗口外面</li>
+<li>循环更新local长度和全局最大长度</li>
+</ol>
+<h4 id="代码-23"><a href="#代码-23" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">  <span class="keyword">if</span>(s.length() &lt;= <span class="number">1</span>)&#123;</div><div class="line">    <span class="keyword">return</span> s.length();</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">int</span> left = <span class="number">0</span>;</div><div class="line">  <span class="keyword">int</span> right = <span class="number">0</span>;</div><div class="line">  <span class="keyword">int</span> maxlen = Integer.MIN_VALUE;</div><div class="line">  <span class="keyword">int</span> len_local = <span class="number">0</span>;<span class="comment">//局部长度</span></div><div class="line">  <span class="keyword">int</span>[] map = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">256</span>];</div><div class="line">  <span class="keyword">while</span>(right &lt; s.length())&#123;</div><div class="line">    <span class="comment">//如果字母还未出现过</span></div><div class="line">    <span class="keyword">if</span>(map[s.charAt(right)] == <span class="number">0</span>)&#123;</div><div class="line">      <span class="comment">//存入字母表</span></div><div class="line">      map[s.charAt(right)]++;</div><div class="line">      <span class="comment">//更新局部长度和全局最大长度</span></div><div class="line">      len_local++;</div><div class="line">      maxlen = Math.max(maxlen,len_local);</div><div class="line">      right++;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//出现过</span></div><div class="line">    <span class="keyword">else</span> &#123;</div><div class="line">      <span class="comment">//寻找之前该元素出现的位置</span></div><div class="line">      <span class="keyword">while</span> (s.charAt(left) != s.charAt(right))&#123;</div><div class="line">        <span class="comment">//路上把滑窗缩减的字母从字母表中去掉</span></div><div class="line">        map[s.charAt(left)]--;</div><div class="line">        left++;</div><div class="line">        len_local--;</div><div class="line">      &#125;<span class="comment">//跳出时left和right字母相等</span></div><div class="line">      left++;</div><div class="line">      right++;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> maxlen;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Implement-strStr"><a href="#Implement-strStr" class="headerlink" title="Implement strStr()"></a><a href="https://leetcode.com/problems/implement-strstr/" target="_blank" rel="external">Implement strStr()</a></h3><h4 id="题目-30"><a href="#题目-30" class="headerlink" title="题目"></a>题目</h4><blockquote>
+<p>Return the index of the first occurrence of needle in haystack, or <strong>-1</strong> if needle is not part of haystack.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt; Input: haystack = &quot;hello&quot;, needle = &quot;ll&quot;</div><div class="line">&gt; Output: 2</div><div class="line">&gt;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt; Input: haystack = &quot;aaaaa&quot;, needle = &quot;bba&quot;</div><div class="line">&gt; Output: -1</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<h4 id="分析-12"><a href="#分析-12" class="headerlink" title="分析"></a>分析</h4><p>方法一：双指针遍历比较判断每一个字符是否一样</p>
+<p>方法二：<code>return haystack.indexOf(needle);</code></p>
+<p>方法三：<code>haystack.substring(i, i + needle.length()).equals(needle)</code></p>
+<h4 id="代码-24"><a href="#代码-24" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">strStr</span><span class="params">(String haystack, String needle)</span> </span>&#123;</div><div class="line">  <span class="keyword">if</span>(needle.length() == <span class="number">0</span>)&#123;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">  <span class="keyword">int</span> j = <span class="number">0</span>;</div><div class="line">  <span class="keyword">int</span> k = <span class="number">0</span>;</div><div class="line">  <span class="keyword">while</span>(j &lt; haystack.length())&#123;</div><div class="line">    <span class="comment">//遇到相等的字母</span></div><div class="line">    <span class="keyword">if</span>(haystack.charAt(i) == needle.charAt(k))&#123;</div><div class="line">      <span class="comment">//j和k同时向后移动</span></div><div class="line">      <span class="keyword">while</span>(j &lt; haystack.length() &amp;&amp; k &lt; needle.length() &amp;&amp; haystack.charAt(j) == needle.charAt(k))&#123;</div><div class="line">        j++;</div><div class="line">        k++;</div><div class="line">      &#125;<span class="comment">//跳出时或者到头了或者有不相等的了</span></div><div class="line">      <span class="comment">//如果k到头了，说明已经包含了needls</span></div><div class="line">      <span class="keyword">if</span>(k == needle.length())&#123;</div><div class="line">        <span class="keyword">return</span> i;</div><div class="line">      &#125;</div><div class="line">      <span class="comment">//j到头了，剩下的字符串不够长了，不可能包含了</span></div><div class="line">      <span class="keyword">else</span> <span class="keyword">if</span>(j == haystack.length())&#123;</div><div class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">else</span> &#123;</div><div class="line">        i++;</div><div class="line">        j = i;</div><div class="line">        k = <span class="number">0</span>;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    <span class="comment">//不是相等的字母，ij向后移动</span></div><div class="line">    <span class="keyword">else</span>&#123;</div><div class="line">      i++;</div><div class="line">      j++;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Reverse-Vowels-of-a-String"><a href="#Reverse-Vowels-of-a-String" class="headerlink" title="Reverse Vowels of a String"></a><a href="https://leetcode.com/problems/reverse-vowels-of-a-string/" target="_blank" rel="external">Reverse Vowels of a String</a></h3><h4 id="题目-31"><a href="#题目-31" class="headerlink" title="题目"></a>题目</h4><blockquote>
+<p>Write a function that takes a string as input and reverse only the vowels of a string.</p>
+<p><strong>Example 1:</strong><br>Given s = “hello”, return “holle”.</p>
+<p><strong>Example 2:</strong><br>Given s = “leetcode”, return “leotcede”.</p>
+<p><strong>Note:</strong><br>The vowels does not include the letter “y”.</p>
+</blockquote>
+<p>对换元音字母</p>
+<h4 id="分析-13"><a href="#分析-13" class="headerlink" title="分析"></a>分析</h4><p>两指针一前一后向中间遍历，遇到元音对换即可。</p>
+<p>这里需要注意的是java的String是不可更改的，需要用StringBuilder复制一份再做修改：<code>result.setCharAt(i,s.charAt(j))</code>;</p>
+<h4 id="代码-25"><a href="#代码-25" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReverseVowelsofaString</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isVowel</span><span class="params">(<span class="keyword">char</span> ch)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(ch == <span class="string">'a'</span> || ch == <span class="string">'e'</span> || ch == <span class="string">'i'</span> || ch == <span class="string">'o'</span> || ch == <span class="string">'u'</span></div><div class="line">                || ch == <span class="string">'A'</span> || ch == <span class="string">'E'</span> || ch == <span class="string">'I'</span> || ch == <span class="string">'O'</span> || ch == <span class="string">'U'</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">reverseVowels</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        StringBuilder result = <span class="keyword">new</span> StringBuilder(s);</div><div class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> j = s.length() -<span class="number">1</span>;</div><div class="line">        <span class="keyword">while</span> (i &lt; j)&#123;</div><div class="line">            <span class="keyword">while</span>(i &lt; j &amp;&amp; !isVowel(s.charAt(i)))&#123;</div><div class="line">                i++;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">while</span>(i &lt; j &amp;&amp; !isVowel(s.charAt(j)))&#123;</div><div class="line">                j--;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">char</span> temp = s.charAt(i);</div><div class="line">            result.setCharAt(i,s.charAt(j));</div><div class="line">            result.setCharAt(j,temp);</div><div class="line">            i++;</div><div class="line">            j--;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> result.toString();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Valid-Palindrome"><a href="#Valid-Palindrome" class="headerlink" title="Valid Palindrome"></a><a href="https://leetcode.com/problems/valid-palindrome/" target="_blank" rel="external">Valid Palindrome</a></h3><h4 id="题目-32"><a href="#题目-32" class="headerlink" title="题目"></a>题目</h4><blockquote>
+<p>Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.</p>
+<p>For example,<br><code>&quot;A man, a plan, a canal: Panama&quot;</code> is a palindrome.<br><code>&quot;race a car&quot;</code> is <em>not</em> a palindrome.</p>
+</blockquote>
+<p>有效回文串，判断字符串中的有效字符是否可以构成有效回文串，其中有效字符仅包括字母和数字，大小写算同一个字母</p>
+<h4 id="分析-14"><a href="#分析-14" class="headerlink" title="分析"></a>分析</h4><p>步骤</p>
+<ol>
+<li>需要一个确定是否是有效字符的函数<code>isvalid</code>,利用java中的<code>Character.isLetter()</code>和<code>Character.isDigit()</code></li>
+<li>两指针一前一后遍历，遇到无效字符跳过，比较两指针指向的字符是否相等，如果不相等直接返回false</li>
+</ol>
+<h4 id="代码-26"><a href="#代码-26" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isvalid</span> <span class="params">(<span class="keyword">char</span> c)</span> </span>&#123;</div><div class="line">  <span class="keyword">return</span> Character.isLetter(c) || Character.isDigit(c);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isPalindrome</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">  <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">  <span class="keyword">int</span> j = s.length()-<span class="number">1</span>;</div><div class="line">  <span class="keyword">while</span> (i &lt; j)&#123;</div><div class="line">    <span class="keyword">while</span>(i &lt; j &amp;&amp; !isvalid(s.charAt(i)))&#123;</div><div class="line">      i++;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//全是invalid字符的情况</span></div><div class="line">    <span class="keyword">if</span>(i == s.length())&#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span>(i &lt; j &amp;&amp; !isvalid(s.charAt(j)))&#123;</div><div class="line">      j--;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(Character.toLowerCase(s.charAt(i)) != Character.toLowerCase(s.charAt(j)))&#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">    i++;j--;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Valid-Palindrome-II"><a href="#Valid-Palindrome-II" class="headerlink" title="Valid Palindrome II"></a><a href="https://leetcode.com/problems/valid-palindrome-ii/description/" target="_blank" rel="external">Valid Palindrome II</a></h3><h4 id="题目-33"><a href="#题目-33" class="headerlink" title="题目"></a>题目</h4><blockquote>
+<p>Given a non-empty string <code>s</code>, you may delete <strong>at most</strong> one character. Judge whether you can make it a palindrome.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt; Input: &quot;aba&quot;</div><div class="line">&gt; Output: True</div><div class="line">&gt;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt; Input: &quot;abca&quot;</div><div class="line">&gt; Output: True</div><div class="line">&gt; Explanation: You could delete the character &apos;c&apos;.</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>给定字符串，判断如果最多可以去掉一个字符，改字符串是否可以成为回文串</p>
+<h4 id="分析-15"><a href="#分析-15" class="headerlink" title="分析"></a>分析</h4><p>跟上一题的思路有点不太一样，没有想到巧妙的方法</p>
+<p>两指针指向头尾，如果两个指针指向元素相等，则i++;j—</p>
+<p>如果两指针指向元素不相等，那么s[i+1]~s[j]和s[i]~s[j-1]中必然有一个是回文串</p>
+<h4 id="代码-27"><a href="#代码-27" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="comment">//判断是否是回文串</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isPalindrome</span><span class="params">(String s,<span class="keyword">int</span> start,<span class="keyword">int</span> end)</span></span>&#123;</div><div class="line">  <span class="keyword">if</span>(start == end)&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">int</span> left = start;</div><div class="line">  <span class="keyword">int</span> right = end;</div><div class="line">  <span class="keyword">while</span>(left &lt; right)&#123;</div><div class="line">    <span class="keyword">if</span>(s.charAt(left) != s.charAt(right))&#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">    left++;</div><div class="line">    right--;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">validPalindrome</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">  <span class="keyword">if</span>(s.length() &lt;= <span class="number">2</span>)&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">  <span class="keyword">int</span> j = s.length() -<span class="number">1</span>;</div><div class="line">  <span class="keyword">while</span> (i &lt; j)&#123;</div><div class="line">    <span class="keyword">if</span>(s.charAt(i) == s.charAt(j))&#123;</div><div class="line">      i++;</div><div class="line">      j--;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span>&#123;</div><div class="line">      <span class="keyword">return</span> isPalindrome(s,i,j-<span class="number">1</span>) || isPalindrome(s,i+<span class="number">1</span>,j);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Longest-Word-in-Dictionary-through-Deleting"><a href="#Longest-Word-in-Dictionary-through-Deleting" class="headerlink" title="Longest Word in Dictionary through Deleting"></a><a href="https://leetcode.com/problems/longest-word-in-dictionary-through-deleting/" target="_blank" rel="external">Longest Word in Dictionary through Deleting</a></h3><h4 id="题目-34"><a href="#题目-34" class="headerlink" title="题目"></a>题目</h4><blockquote>
+<p>Given a string and a string dictionary, find the longest string in the dictionary that can be formed by deleting some characters of the given string. If there are more than one possible results, return the longest word with the smallest lexicographical order. If there is no possible result, return the empty string.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt; Input:</div><div class="line">&gt; s = &quot;abpcplea&quot;, d = [&quot;ale&quot;,&quot;apple&quot;,&quot;monkey&quot;,&quot;plea&quot;]</div><div class="line">&gt;</div><div class="line">&gt; Output: </div><div class="line">&gt; &quot;apple&quot;</div><div class="line">&gt;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt; Input:</div><div class="line">&gt; s = &quot;abpcplea&quot;, d = [&quot;a&quot;,&quot;b&quot;,&quot;c&quot;]</div><div class="line">&gt;</div><div class="line">&gt; Output: </div><div class="line">&gt; &quot;a&quot;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>给定一个字符串s和一个字符串数组d,返回d中字符串是s的子序列的最长字符串，如果有长度相同的则返回在字母表中顺序最靠前的</p>
+<h4 id="思路-16"><a href="#思路-16" class="headerlink" title="思路"></a>思路</h4><p>遍历d中的字符串，看其是否能够由s的子序列构成，如果能，更新最大长度，如果和当前最大长度相等，取字典序小的</p>
+<h4 id="代码-28"><a href="#代码-28" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="comment">//判断是否能够是s的子序列</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">issubqueue</span><span class="params">(String s,String stemp)</span></span>&#123;</div><div class="line">  <span class="keyword">int</span> si = <span class="number">0</span>;</div><div class="line">  <span class="keyword">int</span> stempi = <span class="number">0</span>;</div><div class="line">  <span class="keyword">while</span>(si &lt; s.length() &amp;&amp; stempi &lt; stemp.length())&#123;</div><div class="line">    <span class="keyword">while</span>(si &lt; s.length() &amp;&amp; s.charAt(si) != stemp.charAt(stempi))&#123;</div><div class="line">      si++;</div><div class="line">    &#125;<span class="comment">//跳出时si==len或者遇到相等的了</span></div><div class="line">    <span class="keyword">if</span>(si == s.length())&#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">    si++;</div><div class="line">    stempi++;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> stempi == stemp.length();</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">public</span> String <span class="title">findLongestWord</span><span class="params">(String s, List&lt;String&gt; d)</span> </span>&#123;</div><div class="line">  <span class="keyword">int</span> maxlen = Integer.MIN_VALUE;</div><div class="line">  String result = <span class="keyword">new</span> String();</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; d.size();i++)&#123;</div><div class="line">    String stemp = d.get(i);</div><div class="line">    <span class="keyword">int</span> len = stemp.length();</div><div class="line">    <span class="keyword">boolean</span> flag = issubqueue(s,stemp);</div><div class="line">    <span class="keyword">if</span>(flag)&#123;</div><div class="line">      <span class="keyword">if</span>(len &gt; maxlen)&#123;</div><div class="line">        maxlen = len;</div><div class="line">        result= stemp;</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">if</span>(len == maxlen &amp;&amp; stemp.compareTo(result) &lt; <span class="number">0</span>)&#123;</div><div class="line">        result = stemp;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里判断t是否是s的子序列存在优化的空间，可以利用Java的String中的indexOf(char,indexfrom)来判断。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="comment">//s是否包含t</span></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isContain</span><span class="params">(String s,String t)</span></span>&#123;</div><div class="line">  <span class="keyword">if</span>(t.length() &gt; s.length())&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">int</span> pos = <span class="number">0</span>;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; t.length();i++)&#123;</div><div class="line">    pos = s.indexOf(t.charAt(i),pos);</div><div class="line">    <span class="keyword">if</span>(pos != -<span class="number">1</span>)&#123;</div><div class="line">      pos++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> &#123;<span class="keyword">return</span> <span class="keyword">false</span>;&#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Permutation-in-String"><a href="#Permutation-in-String" class="headerlink" title="Permutation in String"></a><a href="https://leetcode.com/problems/permutation-in-string/" target="_blank" rel="external">Permutation in String</a></h3><h4 id="题目-35"><a href="#题目-35" class="headerlink" title="题目"></a>题目</h4><blockquote>
+<p>Given two strings s1 and s2, write a function to return true if s2 contains the permutation of s1. In other words, one of the first string’s permutations is the substring of the second string.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt; Input:s1 = &quot;ab&quot; s2 = &quot;eidbaooo&quot;</div><div class="line">&gt; Output:True</div><div class="line">&gt; Explanation: s2 contains one permutation of s1 (&quot;ba&quot;).</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt; Input:s1= &quot;ab&quot; s2 = &quot;eidboaoo&quot;</div><div class="line">&gt; Output: False</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>给定字符串s1和s2，返回s2中是否包含一个子串，使得该子串可以由s1中字母的某种排列方式构成。</p>
+<h4 id="分析-16"><a href="#分析-16" class="headerlink" title="分析"></a>分析</h4><p>滑动窗口法，窗口长度设置为s1的长度，在s2中寻找s1的排列子串</p>
+<p>窗口向右滑动，直到窗口内出现的字母以及每个字母出现的次数和s1中一样，此时找到了满足条件的子数组。</p>
+<p>将s1中出现的字母和每个字母出现的次数记录在一个hashtable中，因为只有26个字母，可以用一个长度为26的数组记录每个字母出现的次数</p>
+<h4 id="代码-29"><a href="#代码-29" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSame</span><span class="params">(<span class="keyword">int</span>[] s1map,<span class="keyword">int</span>[] s2map)</span></span>&#123;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; <span class="number">26</span>;i++)&#123;</div><div class="line">    <span class="keyword">if</span>(s1map[i] != s2map[i])&#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">checkInclusion</span><span class="params">(String s1, String s2)</span> </span>&#123;</div><div class="line">  <span class="keyword">if</span>(s1.length() &gt; s2.length())&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">int</span>[] s1map = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">26</span>];</div><div class="line">  <span class="keyword">int</span>[] s2map = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">26</span>];</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; s1.length();i++)&#123;</div><div class="line">    s1map[s1.charAt(i) - <span class="string">'a'</span>]++;</div><div class="line">    s2map[s2.charAt(i) - <span class="string">'a'</span>]++;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; s2.length() - s1.length();i++)&#123;</div><div class="line">    <span class="keyword">if</span>(isSame(s1map,s2map))&#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">    s2map[s2.charAt(s1.length()+i) - <span class="string">'a'</span>]++;</div><div class="line">    s2map[s2.charAt(i) - <span class="string">'a'</span>]--;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> isSame(s1map,s2map);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h4><p>这里判断字符串相等还有可以优化的空间，用变量count表示当前窗口内和s1出现相同次数的字母的个数，当count == 26，则所有的字母都出现相同次数了，找到了解。当滑窗向后移动时，需要更新count</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">checkInclusion2</span><span class="params">(String s1, String s2)</span> </span>&#123;</div><div class="line">  <span class="keyword">if</span>(s1.length() &gt; s2.length())&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">int</span> count = <span class="number">0</span>;</div><div class="line">  <span class="keyword">int</span>[] s1map = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">26</span>];</div><div class="line">  <span class="keyword">int</span>[] s2map = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">26</span>];</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; s1.length();i++)&#123;</div><div class="line">    s1map[s1.charAt(i) - <span class="string">'a'</span>]++;</div><div class="line">    s2map[s2.charAt(i) - <span class="string">'a'</span>]++;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; <span class="number">26</span>;i++)&#123;</div><div class="line">    <span class="keyword">if</span>(s1map[i] == s2map[i])&#123;</div><div class="line">      count++;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; s2.length() - s1.length();i++)&#123;</div><div class="line">    <span class="keyword">int</span> r = s2.charAt(s1.length()+i) - <span class="string">'a'</span>;</div><div class="line">    <span class="keyword">int</span> l = s2.charAt(i) - <span class="string">'a'</span>;</div><div class="line">    <span class="comment">//所有字母出现次数相等</span></div><div class="line">    <span class="keyword">if</span>(count == <span class="number">26</span>)&#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//窗口将右边元素加入</span></div><div class="line">    s2map[r]++;</div><div class="line">    <span class="keyword">if</span>(s1map[r] == s2map[r])&#123;<span class="comment">//新加入元素后这个元素变得个数相等了</span></div><div class="line">      count++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(s2map[r] == s1map[r]+<span class="number">1</span>)&#123;<span class="comment">//新加入元素后比s1多一个了</span></div><div class="line">      count--;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">////窗口将左边元素去掉</span></div><div class="line">    s2map[l]--;</div><div class="line">    <span class="keyword">if</span>(s1map[l] == s2map[l])&#123;</div><div class="line">      count++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(s1map[l] == s2map[l]+<span class="number">1</span>)&#123;</div><div class="line">      count--;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> count == <span class="number">26</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 ]]></content>
       
         <categories>
@@ -2976,6 +3112,286 @@
 </tbody>
 </table>
 </div>
+<h1 id="Two-Pointers"><a href="#Two-Pointers" class="headerlink" title="Two Pointers"></a>Two Pointers</h1><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>题目</th>
+<th>题意</th>
+<th>知识点</th>
+<th>思路</th>
+<th>难易</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://leetcode.com/problems/sort-transformed-array/" target="_blank" rel="external">360.Sort Transformed Array</a></td>
+<td>给定有序数组，计算ax^2+bx+c，返回结果依然有序</td>
+<td>two pointers</td>
+<td>根据二次函数性质，a&gt;0先减后增，比较两指针，从后向前插入，a&lt;0反之</td>
+<td>简单</td>
+</tr>
+<tr>
+<td><a href="https://leetcode.com/problems/max-consecutive-ones" target="_blank" rel="external">485.Max Consecutive Ones</a></td>
+<td>给定数组有0有1，返回连续1的最大长度</td>
+<td>two pointers</td>
+<td>两指针滑窗，记录当前最大长度，遇到0跳过重新开始</td>
+<td>简单</td>
+</tr>
+<tr>
+<td><a href="https://leetcode.com/problems/max-consecutive-ones-ii" target="_blank" rel="external">487.Max Consecutive Ones II</a></td>
+<td>给定数组有0有1，最多可以把一个0变成1，返回连续1的最大长度</td>
+<td>two pointers</td>
+<td>两指针滑窗，记录窗口内0的个数，超过1缩小窗口大小，记录滑窗最大长度</td>
+<td>简单</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
 ]]></content>
       
         <categories>
@@ -3456,7 +3872,7 @@ return count;
     <entry>
       <title><![CDATA[【九章算法强化班习题集】]]></title>
       <url>/2017/11/05/%E3%80%90%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95%E5%BC%BA%E5%8C%96%E7%8F%AD%E4%B9%A0%E9%A2%98%E9%9B%86%E3%80%91/</url>
-      <content type="html"><![CDATA[<link href="/style.css" rel="stylesheet" type="text/css"><script src="/crypto-js.js"></script><script src="/mcommon.js"></script><script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script> <div id="security"> <div> <div class="input-container"> <input type="password" class="form-control" id="pass" placeholder=" 请输入文章密码！ "/> <label for="pass"> 请输入文章密码！ </label> <div class="bottom-line"></div> </div> </div> </div> <div id="encrypt-blog" style="display:none"> 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 </div>]]></content>
+      <content type="html"><![CDATA[<link href="/style.css" rel="stylesheet" type="text/css"><script src="/crypto-js.js"></script><script src="/mcommon.js"></script><script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script> <div id="security"> <div> <div class="input-container"> <input type="password" class="form-control" id="pass" placeholder=" 请输入文章密码！ "/> <label for="pass"> 请输入文章密码！ </label> <div class="bottom-line"></div> </div> </div> </div> <div id="encrypt-blog" style="display:none"> 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 </div>]]></content>
       
         <categories>
             
