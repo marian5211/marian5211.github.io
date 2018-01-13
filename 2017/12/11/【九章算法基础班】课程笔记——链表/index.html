@@ -408,7 +408,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  5,257
+                  5,288
                 </span>
               
 
@@ -424,7 +424,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  25
+                  26
                 </span>
               
             </div>
@@ -597,7 +597,7 @@
 <p><strong>Follow up</strong>:<br>Can you solve it without using extra space?</p>
 </blockquote>
 <p>是否有环，如果有，找到环的入口</p>
-<h4 id="分析-10"><a href="#分析-10" class="headerlink" title="分析"></a>分析</h4><p>slow从快慢指针相遇的地方出发，fast指针从初始地方出发，两个指针每次走一步，知道相遇，就是环的入口</p>
+<h4 id="分析-10"><a href="#分析-10" class="headerlink" title="分析"></a>分析</h4><p>slow从快慢指针相遇的地方出发，fast指针从初始地方出发，两个指针每次走一步，直到相遇，就是环的入口</p>
 <h4 id="代码-10"><a href="#代码-10" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">detectCycle</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">  <span class="keyword">if</span> (head == <span class="keyword">null</span>)&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">  &#125;</div><div class="line">  ListNode fast = head.next;</div><div class="line">  ListNode slow = head;</div><div class="line">  <span class="keyword">while</span>(fast != slow)&#123;</div><div class="line">    <span class="comment">//fast走到null</span></div><div class="line">    <span class="keyword">if</span>(fast == <span class="keyword">null</span> || fast.next == <span class="keyword">null</span>)&#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">    fast = fast.next.next;</div><div class="line">    slow = slow.next;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">//fast和slow相遇了</span></div><div class="line">  slow = head;</div><div class="line">  fast = fast.next;</div><div class="line">  <span class="keyword">while</span>(slow != fast)&#123;</div><div class="line">    slow = slow.next;</div><div class="line">    fast = fast.next;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> slow;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="5-Rotate-List"><a href="#5-Rotate-List" class="headerlink" title="5. Rotate List"></a>5. <a href="https://leetcode.com/problems/rotate-list/" target="_blank" rel="external">Rotate List</a></h3><h4 id="题目-10"><a href="#题目-10" class="headerlink" title="题目"></a>题目</h4><blockquote>
 <p>Given a list, rotate the list to the right by <em>k</em> places, where <em>k</em> is non-negative.</p>
@@ -699,7 +699,7 @@
 <p><img src="http://omaby2s5z.bkt.clouddn.com/2017-12-22-20-02-17.png" alt=""> </p>
 <p>方法：</p>
 <p>两个指针分别遍历，一个先A后B，一个先B后A，两指针指向节点相等即为相交处</p>
-<h4 id="代码-13"><a href="#代码-13" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(headA == <span class="keyword">null</span> || headB == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        ListNode n1 = headA;</div><div class="line">        ListNode n2 = headB;</div><div class="line">        <span class="comment">//记录是否遍历第二个链表</span></div><div class="line">        <span class="keyword">boolean</span> flag1 = <span class="keyword">false</span>;</div><div class="line">        <span class="keyword">boolean</span> flag2 = <span class="keyword">false</span>;</div><div class="line">        <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</div><div class="line">            <span class="comment">//两个指针都遍历结束了，没有相交节点</span></div><div class="line">            <span class="keyword">if</span>(n1 == <span class="keyword">null</span> &amp;&amp; flag1)&#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="comment">//n1遍历完一个数组</span></div><div class="line">            <span class="keyword">if</span>(n1 == <span class="keyword">null</span> &amp;&amp; !flag1)&#123;</div><div class="line">                 n1 = headB;</div><div class="line">                 flag1 = <span class="keyword">true</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="comment">//n2遍历完一个数组</span></div><div class="line">            <span class="keyword">if</span>(n2 == <span class="keyword">null</span> &amp;&amp; !flag2)&#123;</div><div class="line">                n2 = headA;</div><div class="line">                flag2 = <span class="keyword">true</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (n1 == n2)&#123;</div><div class="line">                <span class="keyword">return</span> n1;</div><div class="line">            &#125;</div><div class="line">            n1 = n1.next;</div><div class="line">            n2 = n2.next;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h4 id="代码-13"><a href="#代码-13" class="headerlink" title="代码"></a>代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(headA == <span class="keyword">null</span> || headB == <span class="keyword">null</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        ListNode n1 = headA;</div><div class="line">        ListNode n2 = headB;</div><div class="line">        <span class="comment">//记录是否遍历第二个链表</span></div><div class="line">        <span class="keyword">boolean</span> flag1 = <span class="keyword">false</span>;</div><div class="line">        <span class="keyword">boolean</span> flag2 = <span class="keyword">false</span>;</div><div class="line">        <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</div><div class="line">            <span class="comment">//两个指针都遍历结束了，没有相交节点</span></div><div class="line">            <span class="keyword">if</span>(n1 == <span class="keyword">null</span> &amp;&amp; flag1)&#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="comment">//n1遍历完一个数组</span></div><div class="line">            <span class="keyword">if</span>(n1 == <span class="keyword">null</span> &amp;&amp; !flag1)&#123;</div><div class="line">                 n1 = headB;</div><div class="line">                 flag1 = <span class="keyword">true</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="comment">//n2遍历完一个数组</span></div><div class="line">            <span class="keyword">if</span>(n2 == <span class="keyword">null</span> &amp;&amp; !flag2)&#123;</div><div class="line">                n2 = headA;</div><div class="line">                flag2 = <span class="keyword">true</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (n1 == n2)&#123;</div><div class="line">                <span class="keyword">return</span> n1;</div><div class="line">            &#125;</div><div class="line">            n1 = n1.next;</div><div class="line">            n2 = n2.next;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findDuplicate</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; nums.length;i++)&#123;</div><div class="line">            <span class="keyword">int</span> idx = Math.abs(nums[i]);</div><div class="line">            <span class="keyword">if</span>(nums[idx] &lt; <span class="number">0</span>)&#123;</div><div class="line">                <span class="keyword">return</span> idx;</div><div class="line">            &#125;</div><div class="line">            nums[idx] = -nums[idx];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -817,7 +817,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -924,7 +924,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">96.4k</span>
+    <span title="Site words total count">100.7k</span>
   
         
 <div class="busuanzi-count">
