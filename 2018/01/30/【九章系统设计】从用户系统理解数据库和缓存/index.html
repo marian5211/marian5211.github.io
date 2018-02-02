@@ -85,6 +85,9 @@
 <meta property="og:description" content="outline Design User System用户系统 Mencached 优化数据库查询软件 Authentication 用户验证 SQL VS NoSQL 如何选取数据库 Friendship 存储好友关系（不用graph DB用什么）   How to Scale? Sharding Consistent Hashing(第5节) Replica(第5节)    4S分析 Scena">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2018-01-31-00-30-58.png">
+<meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2018-02-01-23-23-56.png">
+<meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2018-02-01-23-28-05.png">
+<meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2018-02-01-23-44-43.png">
 <meta property="og:updated_time" content="2018-01-30T15:49:17.574Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【九章系统设计】从用户系统理解数据库和缓存">
@@ -346,6 +349,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/系统设计/" itemprop="url" rel="index">
+                    <span itemprop="name">系统设计</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -372,7 +397,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  547
+                  1,157
                 </span>
               
 
@@ -388,7 +413,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  4
                 </span>
               
             </div>
@@ -506,6 +531,65 @@
 <h2 id="Mem-Cache"><a href="#Mem-Cache" class="headerlink" title="Mem-Cache"></a>Mem-Cache</h2><p>内存中的Cache</p>
 <p>Memcached：一个内存cache软件，就看成hashmap用</p>
 <p><img src="http://omaby2s5z.bkt.clouddn.com/2018-01-31-00-30-58.png" alt=""> </p>
+<p>memcached如何优化DB的查询?</p>
+<p>先去cache中查找，如果没有，再去DB中查找：</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-02-01-23-23-56.png" alt=""> </p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-02-01-23-28-05.png" alt=""> </p>
+<p>分析：</p>
+<p>我们认为database中的才是最正确的</p>
+<p>A：database set时可能会出现问题，但没有太大问题，比如你发了一条微博，显示没成功。</p>
+<p>但是如果database成功了，cache更新失败了，那么用户得到的数据都是更新之前的数据。</p>
+<p>B：如果cache成功了，但是database没有成功，cache里存的不是database中的真正数据，看成脏数据。</p>
+<p>C：如果cache delete成功了，但是database更新失败，没关系，还可以去database里面读取</p>
+<p>D：如果database 修改成功了，但是cache失败了，此时用户从cache读取的就是之前的数据</p>
+<p>相比之下C比较好，但是C也存在一定的问题：</p>
+<p>比如第8行和第9行程序，如果我们刚刚获取了user但是这个时候有另一个进程修改了用户信息，此时再更新cache中的user信息就是旧数据了。</p>
+<h2 id="Authentication-Service"><a href="#Authentication-Service" class="headerlink" title="Authentication Service"></a>Authentication Service</h2><ul>
+<li>如何实现用户登录和保持登录</li>
+<li>会话表，session</li>
+</ul>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-02-01-23-44-43.png" alt=""> </p>
+<ul>
+<li>用户Login之后<ul>
+<li>创建一个session对象</li>
+<li>并把seesion_key作为cookie返回给浏览器</li>
+<li>浏览器将该值记录在浏览器的cookie中</li>
+<li>用户每次想服务器发送的访问，都会自动带上该网站所有的cookie</li>
+<li>此时服务器检测到cookie中的session_key是有效的，就认为用户登录了</li>
+</ul>
+</li>
+<li>用户logout之后，从session table中删除对应的数据</li>
+<li>Session table存在哪？<ul>
+<li>数据库？</li>
+<li>缓存？</li>
+<li>都可以？</li>
+<li>理论上都可以的，但是如果只存在cache中，一旦负责cache的机器宕机，就会有很多用户同时需要重新登录，所以存在数据库里更好一些，如果访问用户多的话，可以用cache做优化。</li>
+</ul>
+</li>
+</ul>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ul>
+<li>对于用户系统而言：<ul>
+<li>写很少</li>
+<li>读很多</li>
+</ul>
+</li>
+<li>写操作很少，意味着<ul>
+<li>从QPS角度来说，一台mysql就够了</li>
+</ul>
+</li>
+<li>读操作很多，意味着<ul>
+<li>可以使用memcached进行读操作的缓存优化</li>
+</ul>
+</li>
+<li>进一步的问题，如果读写操作都很多怎么办？<ul>
+<li>方法一：使用更多的数据库服务器分摊流量</li>
+<li>方法二：使用像Redis这样的读写操作都很快的Cache-through型数据库<ul>
+<li>Memcached是一个Cached-aside型的database,Client需要自己负责管理Cache-miss时的数据的loading</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <p>35:41</p>
 <p>缓存淘汰算法：</p>
 <ol>
@@ -629,7 +713,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">94</span>
+                  <span class="site-state-item-count">95</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -640,7 +724,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -686,7 +770,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#outline"><span class="nav-number">1.</span> <span class="nav-text">outline</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4S分析"><span class="nav-number">1.1.</span> <span class="nav-text">4S分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cache"><span class="nav-number">1.2.</span> <span class="nav-text">Cache</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mem-Cache"><span class="nav-number">1.3.</span> <span class="nav-text">Mem-Cache</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#outline"><span class="nav-number">1.</span> <span class="nav-text">outline</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4S分析"><span class="nav-number">1.1.</span> <span class="nav-text">4S分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cache"><span class="nav-number">1.2.</span> <span class="nav-text">Cache</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mem-Cache"><span class="nav-number">1.3.</span> <span class="nav-text">Mem-Cache</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Authentication-Service"><span class="nav-number">1.4.</span> <span class="nav-text">Authentication Service</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">1.5.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -736,7 +820,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">127.5k</span>
+    <span title="Site words total count">132.5k</span>
   
         
 <div class="busuanzi-count">
