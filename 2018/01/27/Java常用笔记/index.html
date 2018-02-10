@@ -84,7 +84,7 @@
 <meta property="og:site_name" content="Siyao&#39;s Blog">
 <meta property="og:description" content="JAVA集合类ArrayList删除指定值元素错误做法：for(int i = 0, len = list.size(); i &amp;lt; len; i++)&amp;#123;      if(list.get(i) == 1) &amp;#123;         list.remove(i);      &amp;#125;  &amp;#125; 因为删除了元素，但是未改变迭代的下标，这样当迭代到最后一个的时候就会抛异常。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-29T10:24:19.268Z">
+<meta property="og:updated_time" content="2018-02-08T07:05:26.549Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java常用笔记">
 <meta name="twitter:description" content="JAVA集合类ArrayList删除指定值元素错误做法：for(int i = 0, len = list.size(); i &amp;lt; len; i++)&amp;#123;      if(list.get(i) == 1) &amp;#123;         list.remove(i);      &amp;#125;  &amp;#125; 因为删除了元素，但是未改变迭代的下标，这样当迭代到最后一个的时候就会抛异常。">
@@ -370,7 +370,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  294
+                  335
                 </span>
               
 
@@ -386,7 +386,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             </div>
@@ -419,6 +419,15 @@
 <h3 id="2-已有模板，定义排序顺序（最大堆、最小堆）"><a href="#2-已有模板，定义排序顺序（最大堆、最小堆）" class="headerlink" title="2.已有模板，定义排序顺序（最大堆、最小堆）"></a>2.已有模板，定义排序顺序（最大堆、最小堆）</h3><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="comment">//先定义一个比较器</span></div><div class="line">Comparator&lt;Integer&gt; cmp = <span class="keyword">new</span> Comparator&lt;Integer&gt;()&#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Integer e1,Integer e2)</span></span>&#123;</div><div class="line">            <span class="keyword">return</span> e1 - e2;<span class="comment">//最小堆，默认</span></div><div class="line">         	<span class="comment">//return e2-e1;最大堆</span></div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">PriorityQueue&lt;Integer&gt; heap = <span class="keyword">new</span> PriorityQueue(cmp);</div></pre></td></tr></table></figure>
 <p>Long型数据：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><div class="line">Comparator&lt;Long&gt; cmp = <span class="keyword">new</span> Comparator&lt;Long&gt;()&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Long e1,Long e2)</span></span>&#123;</div><div class="line">    <span class="keyword">return</span> Long.compare(e1,e2);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">PriorityQueue&lt;Long&gt; heap = <span class="keyword">new</span> PriorityQueue(cmp);</div></pre></td></tr></table></figure>
+<h2 id="string和int相互转化"><a href="#string和int相互转化" class="headerlink" title="string和int相互转化"></a>string和int相互转化</h2><h3 id="string转int"><a href="#string转int" class="headerlink" title="string转int"></a>string转int</h3><ol>
+<li>int i = Integer.parseInt(String s);</li>
+<li>int i = Integer.valueOf(String s).intValue();</li>
+</ol>
+<h3 id="int转string"><a href="#int转string" class="headerlink" title="int转string"></a>int转string</h3><ol>
+<li>String s = String.valueOf(i);</li>
+<li>String s = Integer.toString(i);</li>
+<li>String s= “”+i;</li>
+</ol>
 
       
     </div>
@@ -536,7 +545,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">95</span>
+                  <span class="site-state-item-count">98</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -593,7 +602,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JAVA集合类ArrayList删除指定值元素"><span class="nav-number">1.</span> <span class="nav-text">JAVA集合类ArrayList删除指定值元素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#错误做法："><span class="nav-number">1.1.</span> <span class="nav-text">错误做法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正确做法："><span class="nav-number">1.2.</span> <span class="nav-text">正确做法：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#比较、排序Comparator-Comparable"><span class="nav-number">2.</span> <span class="nav-text">比较、排序Comparator/Comparable</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-自定义的类后面需要按指定属性实现排序等操作"><span class="nav-number">2.1.</span> <span class="nav-text">1.自定义的类后面需要按指定属性实现排序等操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-已有模板，定义排序顺序（最大堆、最小堆）"><span class="nav-number">2.2.</span> <span class="nav-text">2.已有模板，定义排序顺序（最大堆、最小堆）</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JAVA集合类ArrayList删除指定值元素"><span class="nav-number">1.</span> <span class="nav-text">JAVA集合类ArrayList删除指定值元素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#错误做法："><span class="nav-number">1.1.</span> <span class="nav-text">错误做法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正确做法："><span class="nav-number">1.2.</span> <span class="nav-text">正确做法：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#比较、排序Comparator-Comparable"><span class="nav-number">2.</span> <span class="nav-text">比较、排序Comparator/Comparable</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-自定义的类后面需要按指定属性实现排序等操作"><span class="nav-number">2.1.</span> <span class="nav-text">1.自定义的类后面需要按指定属性实现排序等操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-已有模板，定义排序顺序（最大堆、最小堆）"><span class="nav-number">2.2.</span> <span class="nav-text">2.已有模板，定义排序顺序（最大堆、最小堆）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#string和int相互转化"><span class="nav-number">3.</span> <span class="nav-text">string和int相互转化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#string转int"><span class="nav-number">3.1.</span> <span class="nav-text">string转int</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#int转string"><span class="nav-number">3.2.</span> <span class="nav-text">int转string</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -643,7 +652,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">132.5k</span>
+    <span title="Site words total count">144.5k</span>
   
         
 <div class="busuanzi-count">
