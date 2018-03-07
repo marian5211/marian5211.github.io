@@ -105,7 +105,9 @@
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-02-10-21-22-22.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-02-10-21-31-37.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-02-10-22-18-36.png">
-<meta property="og:updated_time" content="2018-03-05T16:31:49.258Z">
+<meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2018-03-06-11-17-32.png">
+<meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2018-03-06-12-05-53.png">
+<meta property="og:updated_time" content="2018-03-06T02:41:49.251Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【九章系统设计】一致性哈希&amp;短网址系统设计">
 <meta name="twitter:description" content="outline  consistent hashing 一致性哈性复习：数据量过大，需要将数据拆分，有两种拆分方式：  纵向：不同表存在不同机器，按常用字段和不常用字段将表拆分存在不同机器 横向：将数据横向切分，存在不同的机器上  为什么要做一致性hash？ 一种简单的hash算法：将数据存在第%n个机器上 当增加一台机器时（n -&amp;gt; n+1），需要迁移的数据量非常大 因此这个hash算法称">
@@ -414,7 +416,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3,514
+                  4,136
                 </span>
               
 
@@ -430,7 +432,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  13
+                  15
                 </span>
               
             </div>
@@ -452,17 +454,17 @@
 
       
         <h1 id="outline"><a href="#outline" class="headerlink" title="outline"></a>outline</h1><p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-05-16-18-40.png" alt=""> </p>
-<h2 id="consistent-hashing-一致性哈性"><a href="#consistent-hashing-一致性哈性" class="headerlink" title="consistent hashing 一致性哈性"></a>consistent hashing 一致性哈性</h2><h3 id="复习："><a href="#复习：" class="headerlink" title="复习："></a>复习：</h3><p>数据量过大，需要将数据拆分，有两种拆分方式：</p>
+<h1 id="consistent-hashing-一致性哈性"><a href="#consistent-hashing-一致性哈性" class="headerlink" title="consistent hashing 一致性哈性"></a>consistent hashing 一致性哈性</h1><h2 id="复习："><a href="#复习：" class="headerlink" title="复习："></a>复习：</h2><p>数据量过大，需要将数据拆分，有两种拆分方式：</p>
 <ol>
 <li>纵向：不同表存在不同机器，按常用字段和不常用字段将表拆分存在不同机器</li>
 <li>横向：将数据横向切分，存在不同的机器上</li>
 </ol>
-<h3 id="为什么要做一致性hash？"><a href="#为什么要做一致性hash？" class="headerlink" title="为什么要做一致性hash？"></a>为什么要做一致性hash？</h3><ul>
+<h2 id="为什么要做一致性hash？"><a href="#为什么要做一致性hash？" class="headerlink" title="为什么要做一致性hash？"></a>为什么要做一致性hash？</h2><ul>
 <li>一种简单的hash算法：将数据存在第%n个机器上</li>
 <li>当增加一台机器时（n -&gt; n+1），需要迁移的数据量非常大</li>
 <li>因此这个hash算法称为<strong>不一致hash</strong></li>
 </ul>
-<h3 id="一个简单的一致性hash算法："><a href="#一个简单的一致性hash算法：" class="headerlink" title="一个简单的一致性hash算法："></a>一个简单的一致性hash算法：</h3><ul>
+<h2 id="一个简单的一致性hash算法："><a href="#一个简单的一致性hash算法：" class="headerlink" title="一个简单的一致性hash算法："></a>一个简单的一致性hash算法：</h2><ul>
 <li><p>将key模一个很大的数，比如360</p>
 </li>
 <li><p>将360分配给n台机器，每个机器负责一段区间</p>
@@ -480,7 +482,7 @@
 <li>数据分布不均匀：分摊数据后，各机器数据分布不均匀</li>
 <li>迁移压力大：新机器只能从与之相邻的两台机器上迁移数据，导致这两台老机器负载过大</li>
 </ol>
-<h3 id="一个更实用的一致性hashing"><a href="#一个更实用的一致性hashing" class="headerlink" title="一个更实用的一致性hashing"></a>一个更实用的一致性hashing</h3><p>将机器（IP或者名字）与数据，都看做环上的一个点！！</p>
+<h2 id="一个更实用的一致性hashing"><a href="#一个更实用的一致性hashing" class="headerlink" title="一个更实用的一致性hashing"></a>一个更实用的一致性hashing</h2><p>将机器（IP或者名字）与数据，都看做环上的一个点！！</p>
 <ol>
 <li>将机器映射到环上，如下图所示的ABCD是四个机器<br><a href="http://om1bxijvl.bkt.clouddn.com/2018-02-01-22-39-02.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-02-01-22-39-02.png" alt="img"></a></li>
 <li>比如有个数据，蓝色的点，散在了蓝色点出。那么就顺时针去找一个机器，把这个数据放在这个机器上，即B<br><a href="http://om1bxijvl.bkt.clouddn.com/2018-02-01-22-40-32.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-02-01-22-40-32.png" alt="img"></a></li>
@@ -520,7 +522,7 @@
 <p>问题1：需要存储数据在环的哪里吗？<br>不需要。因为这个数据在哪里与其它数据在哪里没有关系。只需要在环上计算数据所在的点的下一个位置的机器是哪个即可。</p>
 <p>问题：那这个1000能变成100万吗？<br>太多也不行。查询效率会变低。就是在比较均匀的情况下选一个比较快的就行。</p>
 <p>思考：哪种数据结构能够支持这种“顺时针”寻找下一个机器的功能呢？——链表是不行的，因为链表长度太大，查找很慢。用TreeMap!! 就是一个红黑树，能在LogN的时间内寻找比n大的最小值。</p>
-<h2 id="数据备份-Replica"><a href="#数据备份-Replica" class="headerlink" title="数据备份 Replica"></a>数据备份 Replica</h2><h3 id="问题：Backup和Replica有什么区别？"><a href="#问题：Backup和Replica有什么区别？" class="headerlink" title="问题：Backup和Replica有什么区别？"></a>问题：Backup和Replica有什么区别？</h3><p>Backup</p>
+<h1 id="数据备份-Replica"><a href="#数据备份-Replica" class="headerlink" title="数据备份 Replica"></a>数据备份 Replica</h1><h2 id="问题：Backup和Replica有什么区别？"><a href="#问题：Backup和Replica有什么区别？" class="headerlink" title="问题：Backup和Replica有什么区别？"></a>问题：Backup和Replica有什么区别？</h2><p>Backup</p>
 <ul>
 <li>一般是周期性的，比如每天晚上进行一次备份</li>
 <li>当数据丢失的时候，通常只能恢复到之前的某个时间点</li>
@@ -534,7 +536,7 @@
 </ul>
 <p>思考：既然 Replica 更牛，那么还需要 Backup么？</p>
 <p>backup便宜哇~</p>
-<h3 id="MySQL类型数据库的Replica"><a href="#MySQL类型数据库的Replica" class="headerlink" title="MySQL类型数据库的Replica"></a>MySQL类型数据库的Replica</h3><p>以MySQL为代表的的SQL型数据库，通常自带Master Slave模式的Replica方法。Master负责写，Slave负责读。Slave从Master中同步对数据的操作。</p>
+<h2 id="MySQL类型数据库的Replica"><a href="#MySQL类型数据库的Replica" class="headerlink" title="MySQL类型数据库的Replica"></a>MySQL类型数据库的Replica</h2><p>以MySQL为代表的的SQL型数据库，通常自带Master Slave模式的Replica方法。Master负责写，Slave负责读。Slave从Master中同步对数据的操作。</p>
 <p><strong>Master - slave原理</strong>：Write Ahead Log</p>
 <p>SQL数据库的任何操作，都会以Log的形式做一份记录。</p>
 <p>比如Master上的数据A在B时刻从C改成了D，那么Master会通知Slave来读Log（不是同步值，而是同步操作！）。Slave被激活后，告诉master我可以更新了，之后Master有任何操作就会通知slave来读log然后slave会同步操作</p>
@@ -545,8 +547,8 @@
 <li>将一台slave升级为master, 接受读 + 写</li>
 <li>可能会造成一定程度的数据丢失和不一致</li>
 </ul>
-<h3 id="NoSQL类型数据库的Replica"><a href="#NoSQL类型数据库的Replica" class="headerlink" title="NoSQL类型数据库的Replica"></a>NoSQL类型数据库的Replica</h3><p>以Cassandra为代表的的NoSQL数据库，通常将数据“顺时针”存储在Consistent hashing环上的三个vitual nodes中。</p>
-<h3 id="MySQL和NoSQL型数据库的Replica比较"><a href="#MySQL和NoSQL型数据库的Replica比较" class="headerlink" title="MySQL和NoSQL型数据库的Replica比较"></a><strong>MySQL和NoSQL型数据库的Replica比较</strong></h3><p><strong>SQL</strong></p>
+<h2 id="NoSQL类型数据库的Replica"><a href="#NoSQL类型数据库的Replica" class="headerlink" title="NoSQL类型数据库的Replica"></a>NoSQL类型数据库的Replica</h2><p>以Cassandra为代表的的NoSQL数据库，通常将数据“顺时针”存储在Consistent hashing环上的三个vitual nodes中。</p>
+<h2 id="MySQL和NoSQL型数据库的Replica比较"><a href="#MySQL和NoSQL型数据库的Replica比较" class="headerlink" title="MySQL和NoSQL型数据库的Replica比较"></a>MySQL和NoSQL型数据库的Replica比较</h2><p><strong>SQL</strong></p>
 <ul>
 <li>“自带” 的 Replica 方式是 Master Slave</li>
 <li>“手动” 的 Replica 方式也可以在 Consistent Hashing 环上顺时针存三份</li>
@@ -556,9 +558,9 @@
 <li>“自带” 的 Replica 方式就是 Consistent Hashing 环上顺时针存三份</li>
 <li>“手动” 的 Replica 方式：就不需要手动了，NoSQL就是在 Sharding 和 Replica 上帮你偷懒用的！</li>
 </ul>
-<h2 id="设计短网址系统-Design-Tiny-URL"><a href="#设计短网址系统-Design-Tiny-URL" class="headerlink" title="设计短网址系统 Design Tiny URL"></a>设计短网址系统 Design Tiny URL</h2><p>短网址生成网站：</p>
+<h1 id="设计短网址系统-Design-Tiny-URL"><a href="#设计短网址系统-Design-Tiny-URL" class="headerlink" title="设计短网址系统 Design Tiny URL"></a>设计短网址系统 Design Tiny URL</h1><p>短网址生成网站：</p>
 <p><a href="https://bitly.com/" target="_blank" rel="external">https://bitly.com/</a><br><a href="https://goo.gl/" target="_blank" rel="external">https://goo.gl/</a></p>
-<h3 id="系统设计的常见误区："><a href="#系统设计的常见误区：" class="headerlink" title="系统设计的常见误区："></a>系统设计的常见误区：</h3><p><strong>以下几个是误区</strong></p>
+<h2 id="系统设计的常见误区："><a href="#系统设计的常见误区：" class="headerlink" title="系统设计的常见误区："></a>系统设计的常见误区：</h2><p><strong>以下几个是误区</strong></p>
 <ul>
 <li>系统一定巨大无比 —— ×</li>
 <li>必须用NoSQL —— ×</li>
@@ -571,7 +573,7 @@
 <li>画图：根据分析结果设计“可行解”—— Service+Storage</li>
 <li>进化：研究可能遇到的问题，优化系统 —— Scale</li>
 </ol>
-<h3 id="1-Scenario-场景-需求分析"><a href="#1-Scenario-场景-需求分析" class="headerlink" title="1. Scenario 场景 需求分析"></a>1. Scenario 场景 需求分析</h3><h4 id="我要设计啥"><a href="#我要设计啥" class="headerlink" title="我要设计啥"></a>我要设计啥</h4><ul>
+<h2 id="1-Scenario-场景-需求分析"><a href="#1-Scenario-场景-需求分析" class="headerlink" title="1. Scenario 场景 需求分析"></a>1. Scenario 场景 需求分析</h2><h4 id="我要设计啥"><a href="#我要设计啥" class="headerlink" title="我要设计啥"></a>我要设计啥</h4><ul>
 <li>根据长URL生成短URL<br><a href="http://om1bxijvl.bkt.clouddn.com/2018-02-03-22-35-36.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-02-03-22-35-36.png" alt="img"></a></li>
 <li>根据短URL还原长URL<br><a href="http://om1bxijvl.bkt.clouddn.com/2018-02-03-22-36-01.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-02-03-22-36-01.png" alt="img"></a></li>
 </ul>
@@ -598,7 +600,7 @@
 </li>
 </ol>
 <p>前3点：2k QPS ，一台SSD支持的MySQL完全可以搞定！</p>
-<h3 id="2-Service-服务"><a href="#2-Service-服务" class="headerlink" title="2. Service 服务"></a>2. Service 服务</h3><h4 id="逻辑块聚类与接口设计"><a href="#逻辑块聚类与接口设计" class="headerlink" title="逻辑块聚类与接口设计"></a>逻辑块聚类与接口设计</h4><ol>
+<h2 id="2-Service-服务"><a href="#2-Service-服务" class="headerlink" title="2. Service 服务"></a>2. Service 服务</h2><h4 id="逻辑块聚类与接口设计"><a href="#逻辑块聚类与接口设计" class="headerlink" title="逻辑块聚类与接口设计"></a>逻辑块聚类与接口设计</h4><ol>
 <li><p>TinyUrl只有一个UrlService</p>
 <ul>
 <li>本身就是一个小Application</li>
@@ -616,7 +618,7 @@
 </li>
 </ol>
 <p><a href="http://om1bxijvl.bkt.clouddn.com/2018-02-03-22-49-19.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-02-03-22-49-19.png" alt="img"></a></p>
-<h3 id="3-Storage-数据存储"><a href="#3-Storage-数据存储" class="headerlink" title="3. Storage 数据存储"></a>3. Storage 数据存储</h3><p>两个步骤：</p>
+<h2 id="3-Storage-数据存储"><a href="#3-Storage-数据存储" class="headerlink" title="3. Storage 数据存储"></a>3. Storage 数据存储</h2><p>两个步骤：</p>
 <ol>
 <li>选择存储结构</li>
 <li>细化数据表</li>
@@ -661,19 +663,19 @@
 <li>对Scalability的要求有多高？—— 存储和QPS要求都不高，单机都可以搞定。SQL+1</li>
 <li>是否需要Sequential ID？—— 取决于你的算法是什么 : 如何将Long URL 转化为 Short URL</li>
 </ul>
-<h3 id="4-算法：-如何将Long-URL-转化为-Short-URL"><a href="#4-算法：-如何将Long-URL-转化为-Short-URL" class="headerlink" title="4. 算法： 如何将Long URL 转化为 Short URL"></a>4. 算法： 如何将Long URL 转化为 Short URL</h3><h4 id="4-1-算法1-使用哈希函数-Hash-Function（不可行）"><a href="#4-1-算法1-使用哈希函数-Hash-Function（不可行）" class="headerlink" title="4.1 算法1 使用哈希函数 Hash Function（不可行）"></a>4.1 算法1 使用哈希函数 Hash Function（不可行）</h4><p>比如取 Long Url 的 MD5 的最后 6 位——这个方法肯定是有问题的</p>
+<h2 id="4-算法：-如何将Long-URL-转化为-Short-URL"><a href="#4-算法：-如何将Long-URL-转化为-Short-URL" class="headerlink" title="4. 算法： 如何将Long URL 转化为 Short URL"></a>4. 算法： 如何将Long URL 转化为 Short URL</h2><h3 id="4-1-算法1-使用哈希函数-Hash-Function（不可行）"><a href="#4-1-算法1-使用哈希函数-Hash-Function（不可行）" class="headerlink" title="4.1 算法1 使用哈希函数 Hash Function（不可行）"></a>4.1 算法1 使用哈希函数 Hash Function（不可行）</h3><p>比如取 Long Url 的 MD5 的最后 6 位——这个方法肯定是有问题的</p>
 <ul>
 <li>优点：快</li>
 <li>缺点：难以设计一个没有冲突的哈希算法</li>
 </ul>
-<h4 id="4-2-算法2：随机生成-数据库去重"><a href="#4-2-算法2：随机生成-数据库去重" class="headerlink" title="4.2 算法2：随机生成 + 数据库去重"></a>4.2 算法2：随机生成 + 数据库去重</h4><p>随机一个 6 位的 ShortURL，如果没有被用过，就绑定到该 LongURL</p>
+<h3 id="4-2-算法2：随机生成-数据库去重"><a href="#4-2-算法2：随机生成-数据库去重" class="headerlink" title="4.2 算法2：随机生成 + 数据库去重"></a>4.2 算法2：随机生成 + 数据库去重</h3><p>随机一个 6 位的 ShortURL，如果没有被用过，就绑定到该 LongURL</p>
 <p>伪代码如下：<br><a href="http://om1bxijvl.bkt.clouddn.com/2018-02-03-23-00-12.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-02-03-23-00-12.png" alt="img"></a></p>
 <ul>
 <li>优点：实现简单</li>
 <li>缺点：生成短网址的长度随着短网址越来越多变得越来越慢</li>
 <li>可行性：其实能凑合用。在生活中有很多随机编码的，例如机票码、酒店码，是不可重复的，就是用这种方法弄的。</li>
 </ul>
-<h4 id="4-3-算法3：进制转换-Base62"><a href="#4-3-算法3：进制转换-Base62" class="headerlink" title="4.3 算法3：进制转换 Base62"></a>4.3 算法3：进制转换 Base62</h4><p><a href="http://om1bxijvl.bkt.clouddn.com/2018-02-10-20-55-32.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-02-10-20-55-32.png" alt="img"></a></p>
+<h3 id="4-3-算法3：进制转换-Base62"><a href="#4-3-算法3：进制转换-Base62" class="headerlink" title="4.3 算法3：进制转换 Base62"></a>4.3 算法3：进制转换 Base62</h3><p><a href="http://om1bxijvl.bkt.clouddn.com/2018-02-10-20-55-32.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-02-10-20-55-32.png" alt="img"></a></p>
 <ul>
 <li>Base62<ul>
 <li>将6位的short url看成一个62进制的数（0-9,a-z,A-Z）</li>
@@ -693,7 +695,7 @@
 </ul>
 </li>
 </ul>
-<h4 id="4-4-算法2与3的比较"><a href="#4-4-算法2与3的比较" class="headerlink" title="4.4 算法2与3的比较"></a>4.4 算法2与3的比较</h4><ul>
+<h3 id="4-4-算法2与3的比较"><a href="#4-4-算法2与3的比较" class="headerlink" title="4.4 算法2与3的比较"></a>4.4 算法2与3的比较</h3><ul>
 <li><p><strong>基于随机生成的方法</strong><br>需要根据 Long 查询 Short，也需要根据 Short 查询 Long。基本上work solution如下图所示：<br><a href="http://om1bxijvl.bkt.clouddn.com/2018-02-10-21-00-54.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-02-10-21-00-54.png" alt="img"></a><br>如果选择用 SQL 型数据库，表结构如下：<br><a href="http://om1bxijvl.bkt.clouddn.com/2018-02-10-20-58-03.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-02-10-20-58-03.png" alt="img"></a><br>并且需要对shortKey和longURL分别建索引<br>• <a href="https://zh.wikipedia.org/wiki/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95" target="_blank" rel="external">什么是索引？</a><br>• <a href="http://www.cnblogs.com/morvenhuang/archive/2009/03/30/1425534.html" target="_blank" rel="external">索引的原理？</a><br>也可以选用 NoSQL 数据库，但是需要建立两张表（大多数NoSQL数据库不支持二级索引）。以 Cassandra 为例子<br>第一张表：根据 Long 查询 Short<br>row_key=longURL, column_key=ShortURL, value=null or timestamp<br>第二张表：根据 Short 查询 Long<br>row_key=shortURL, column_key=LongURL, value=null or timestamp</p>
 </li>
 <li><p><strong>基于进制转换的方法</strong><br>因为需要用到自增ID（Sequential ID），因此只能选择使用 SQL 型数据库。表单结构如下，shortURL 可以不存储在表单里，因为可以根据 id 来进行换算</p>
@@ -701,7 +703,7 @@
 <p><a href="http://om1bxijvl.bkt.clouddn.com/2018-02-10-21-02-19.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-02-10-21-02-19.png" alt="img"></a></p>
 </li>
 </ul>
-<h3 id="5-Scale-优化"><a href="#5-Scale-优化" class="headerlink" title="5. Scale 优化"></a>5. Scale 优化</h3><h4 id="5-1-如何提高响应速度？"><a href="#5-1-如何提高响应速度？" class="headerlink" title="5.1 如何提高响应速度？"></a>5.1 如何提高响应速度？</h4><p><strong>读操作的优化</strong></p>
+<h2 id="5-Scale-优化"><a href="#5-Scale-优化" class="headerlink" title="5. Scale 优化"></a>5. Scale 优化</h2><h3 id="5-1-如何提高响应速度？"><a href="#5-1-如何提高响应速度？" class="headerlink" title="5.1 如何提高响应速度？"></a>5.1 如何提高响应速度？</h3><p><strong>读操作的优化</strong></p>
 <p>既然读操作比较多，那么可以用cache的方式去提速。</p>
 <ul>
 <li>cache里存什么？<ul>
@@ -711,7 +713,7 @@
 </li>
 <li>查询的流程图：<br><a href="http://om1bxijvl.bkt.clouddn.com/2018-02-10-21-22-22.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-02-10-21-22-22.png" alt="img"></a></li>
 </ul>
-<h4 id="5-2-如何提速？"><a href="#5-2-如何提速？" class="headerlink" title="5.2 如何提速？"></a>5.2 如何提速？</h4><ul>
+<h3 id="5-2-如何提速？"><a href="#5-2-如何提速？" class="headerlink" title="5.2 如何提速？"></a>5.2 如何提速？</h3><ul>
 <li><p>利用地理位置信息加速</p>
 </li>
 <li><p>优化服务器速度</p>
@@ -732,7 +734,7 @@
 </ul>
 </li>
 </ul>
-<h4 id="5-3-数据量扩展"><a href="#5-3-数据量扩展" class="headerlink" title="5.3 数据量扩展"></a>5.3 数据量扩展</h4><p>如果数据量很大，一台MySQL搞不定了</p>
+<h3 id="5-3-数据量扩展"><a href="#5-3-数据量扩展" class="headerlink" title="5.3 数据量扩展"></a>5.3 数据量扩展</h3><p>如果数据量很大，一台MySQL搞不定了</p>
 <ul>
 <li>什么时候需要扩展多台服务器？<ul>
 <li>Cache资源不够</li>
@@ -790,7 +792,7 @@
 </ul>
 </li>
 </ul>
-<p><strong>下面是一种更好的sharding办法：</strong></p>
+<p><strong>下面是一种更好的sharding办法，不需要全局递增ID：</strong></p>
 </li>
 <li><p>如果最开始shortkey为6位，那就增加一位前置位：</p>
 <ul>
@@ -805,12 +807,58 @@
 <li>无需广播</li>
 <li>无论short2long还是long2short都可直接定位数据所在服务器</li>
 </ul>
+</li>
+<li><p>当新加入一个longURL时，先通过hash(long_url)%62得到机器ID，然后在该机器上，通过该台机器的自增ID通过进制转换得到6位shortkey</p>
+</li>
+<li><p>用户已知shortURL时，先按第一位获取到机器ID，然后在此机器上查询longURL</p>
 <p>那么当前的架构就变成了：</p>
 </li>
 </ul>
 </li>
 </ul>
 <p><a href="http://om1bxijvl.bkt.clouddn.com/2018-02-10-22-18-36.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-02-10-22-18-36.png" alt="img"></a></p>
+<h3 id="5-4-Multi-region-的进一步优化"><a href="#5-4-Multi-region-的进一步优化" class="headerlink" title="5.4 Multi region 的进一步优化"></a>5.4 Multi region 的进一步优化</h3><p>上面的架构图还有优化的空间：</p>
+<ul>
+<li>网站服务器与数据库服务器之间的通信</li>
+<li>中心化服务器集群与跨地域的web server之间的通信较慢，比如如果中心数据库放在美国，那么中国的服务器需要访问美国的数据库，通信较慢</li>
+</ul>
+<p>解决方法1：重写数据库到中国，中国用户访问中国数据库</p>
+<p>问题：重写数据库，一致性问题如何解决？很难解决</p>
+<p>正确打开方式：</p>
+<p>想一想用户习惯：</p>
+<ol>
+<li>中国的用户一般访问的网站是中国的，美国的用户一般访问的网站是美国的</li>
+<li>中国用户访问时，会被DNS分配中国的服务器</li>
+</ol>
+<p>因此我们可以用<strong>地域信息</strong>进行sharding，也就是说按照网站的地域信息将其数据分开存储在不同地方的数据库中</p>
+<p>​    如何获得网站的地域信息？做一张用户经常访问的网站数据表</p>
+<p>这样中国用户要访问的网站大多在位于中国的数据库中，响应速度就会比较快，当然也有少量中国用户需要访问美国网站的情况，就直接去访问美国数据库就好，反正不会慢对少，毕竟中国访问中国是主流需求，优化系统就是要优化主要需求。</p>
+<p>最终架构图</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-06-11-17-32.png" alt=""> </p>
+<h3 id="5-5-自定义短链接"><a href="#5-5-自定义短链接" class="headerlink" title="5.5 自定义短链接"></a>5.5 自定义短链接</h3><p>用户自定义短网址 -&gt; 长网址映射</p>
+<p><a href="http://tiny.url/google/" target="_blank" rel="external">http://tiny.url/google/</a> =&gt; <a href="http://www.google.com" target="_blank" rel="external">http://www.google.com</a><br><a href="http://tiny.url/systemdesign/" target="_blank" rel="external">http://tiny.url/systemdesign/</a> =&gt; <a href="http://www.jiuzhang.com/course/2/" target="_blank" rel="external">http://www.jiuzhang.com/course/2/</a></p>
+<p><strong>一个错误的想法是：</strong></p>
+<p>在URLtable中增加一个column，存放自定义的URL，因为这一列大部分会是空的，浪费空间。</p>
+<p>正确打开方式：</p>
+<ul>
+<li>新建一张表存储自定义URL<ul>
+<li>CustomURL Table</li>
+</ul>
+</li>
+</ul>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-06-12-05-53.png" alt=""> </p>
+<ul>
+<li>已知长链接查询短链接的时候：<ul>
+<li>先查询customURL table</li>
+<li>再查询URL table</li>
+</ul>
+</li>
+<li>用户想要由长链接自定一个新的短链接的时候<ul>
+<li>查询是否已经在URLtable中存在了</li>
+<li>再在CustomURL table 中查询和插入</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -844,6 +892,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/06/【腾讯转化率预估】比赛总结/" rel="prev" title="【腾讯转化率预估比赛】总结">
+                【腾讯转化率预估比赛】总结 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -924,7 +976,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">100</span>
+                  <span class="site-state-item-count">102</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -981,7 +1033,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#outline"><span class="nav-number">1.</span> <span class="nav-text">outline</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#consistent-hashing-一致性哈性"><span class="nav-number">1.1.</span> <span class="nav-text">consistent hashing 一致性哈性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#复习："><span class="nav-number">1.1.1.</span> <span class="nav-text">复习：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要做一致性hash？"><span class="nav-number">1.1.2.</span> <span class="nav-text">为什么要做一致性hash？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个简单的一致性hash算法："><span class="nav-number">1.1.3.</span> <span class="nav-text">一个简单的一致性hash算法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个更实用的一致性hashing"><span class="nav-number">1.1.4.</span> <span class="nav-text">一个更实用的一致性hashing</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据备份-Replica"><span class="nav-number">1.2.</span> <span class="nav-text">数据备份 Replica</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题：Backup和Replica有什么区别？"><span class="nav-number">1.2.1.</span> <span class="nav-text">问题：Backup和Replica有什么区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL类型数据库的Replica"><span class="nav-number">1.2.2.</span> <span class="nav-text">MySQL类型数据库的Replica</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NoSQL类型数据库的Replica"><span class="nav-number">1.2.3.</span> <span class="nav-text">NoSQL类型数据库的Replica</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL和NoSQL型数据库的Replica比较"><span class="nav-number">1.2.4.</span> <span class="nav-text">MySQL和NoSQL型数据库的Replica比较</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计短网址系统-Design-Tiny-URL"><span class="nav-number">1.3.</span> <span class="nav-text">设计短网址系统 Design Tiny URL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#系统设计的常见误区："><span class="nav-number">1.3.1.</span> <span class="nav-text">系统设计的常见误区：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Scenario-场景-需求分析"><span class="nav-number">1.3.2.</span> <span class="nav-text">1. Scenario 场景 需求分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#我要设计啥"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">我要设计啥</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#QPS-Storage"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">QPS + Storage</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Service-服务"><span class="nav-number">1.3.3.</span> <span class="nav-text">2. Service 服务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#逻辑块聚类与接口设计"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">逻辑块聚类与接口设计</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Storage-数据存储"><span class="nav-number">1.3.4.</span> <span class="nav-text">3. Storage 数据存储</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#选择存储结构-SQL-vs-NoSQL"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">选择存储结构 SQL vs NoSQL</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-算法：-如何将Long-URL-转化为-Short-URL"><span class="nav-number">1.3.5.</span> <span class="nav-text">4. 算法： 如何将Long URL 转化为 Short URL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-算法1-使用哈希函数-Hash-Function（不可行）"><span class="nav-number">1.3.5.1.</span> <span class="nav-text">4.1 算法1 使用哈希函数 Hash Function（不可行）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-算法2：随机生成-数据库去重"><span class="nav-number">1.3.5.2.</span> <span class="nav-text">4.2 算法2：随机生成 + 数据库去重</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-算法3：进制转换-Base62"><span class="nav-number">1.3.5.3.</span> <span class="nav-text">4.3 算法3：进制转换 Base62</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-算法2与3的比较"><span class="nav-number">1.3.5.4.</span> <span class="nav-text">4.4 算法2与3的比较</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Scale-优化"><span class="nav-number">1.3.6.</span> <span class="nav-text">5. Scale 优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-如何提高响应速度？"><span class="nav-number">1.3.6.1.</span> <span class="nav-text">5.1 如何提高响应速度？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-如何提速？"><span class="nav-number">1.3.6.2.</span> <span class="nav-text">5.2 如何提速？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-数据量扩展"><span class="nav-number">1.3.6.3.</span> <span class="nav-text">5.3 数据量扩展</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#outline"><span class="nav-number">1.</span> <span class="nav-text">outline</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#consistent-hashing-一致性哈性"><span class="nav-number">2.</span> <span class="nav-text">consistent hashing 一致性哈性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#复习："><span class="nav-number">2.1.</span> <span class="nav-text">复习：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要做一致性hash？"><span class="nav-number">2.2.</span> <span class="nav-text">为什么要做一致性hash？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个简单的一致性hash算法："><span class="nav-number">2.3.</span> <span class="nav-text">一个简单的一致性hash算法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个更实用的一致性hashing"><span class="nav-number">2.4.</span> <span class="nav-text">一个更实用的一致性hashing</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据备份-Replica"><span class="nav-number">3.</span> <span class="nav-text">数据备份 Replica</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题：Backup和Replica有什么区别？"><span class="nav-number">3.1.</span> <span class="nav-text">问题：Backup和Replica有什么区别？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL类型数据库的Replica"><span class="nav-number">3.2.</span> <span class="nav-text">MySQL类型数据库的Replica</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NoSQL类型数据库的Replica"><span class="nav-number">3.3.</span> <span class="nav-text">NoSQL类型数据库的Replica</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL和NoSQL型数据库的Replica比较"><span class="nav-number">3.4.</span> <span class="nav-text">MySQL和NoSQL型数据库的Replica比较</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设计短网址系统-Design-Tiny-URL"><span class="nav-number">4.</span> <span class="nav-text">设计短网址系统 Design Tiny URL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#系统设计的常见误区："><span class="nav-number">4.1.</span> <span class="nav-text">系统设计的常见误区：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Scenario-场景-需求分析"><span class="nav-number">4.2.</span> <span class="nav-text">1. Scenario 场景 需求分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#我要设计啥"><span class="nav-number">4.2.0.1.</span> <span class="nav-text">我要设计啥</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#QPS-Storage"><span class="nav-number">4.2.0.2.</span> <span class="nav-text">QPS + Storage</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Service-服务"><span class="nav-number">4.3.</span> <span class="nav-text">2. Service 服务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#逻辑块聚类与接口设计"><span class="nav-number">4.3.0.1.</span> <span class="nav-text">逻辑块聚类与接口设计</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Storage-数据存储"><span class="nav-number">4.4.</span> <span class="nav-text">3. Storage 数据存储</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#选择存储结构-SQL-vs-NoSQL"><span class="nav-number">4.4.0.1.</span> <span class="nav-text">选择存储结构 SQL vs NoSQL</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-算法：-如何将Long-URL-转化为-Short-URL"><span class="nav-number">4.5.</span> <span class="nav-text">4. 算法： 如何将Long URL 转化为 Short URL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-算法1-使用哈希函数-Hash-Function（不可行）"><span class="nav-number">4.5.1.</span> <span class="nav-text">4.1 算法1 使用哈希函数 Hash Function（不可行）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-算法2：随机生成-数据库去重"><span class="nav-number">4.5.2.</span> <span class="nav-text">4.2 算法2：随机生成 + 数据库去重</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-算法3：进制转换-Base62"><span class="nav-number">4.5.3.</span> <span class="nav-text">4.3 算法3：进制转换 Base62</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-算法2与3的比较"><span class="nav-number">4.5.4.</span> <span class="nav-text">4.4 算法2与3的比较</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Scale-优化"><span class="nav-number">4.6.</span> <span class="nav-text">5. Scale 优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-如何提高响应速度？"><span class="nav-number">4.6.1.</span> <span class="nav-text">5.1 如何提高响应速度？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-如何提速？"><span class="nav-number">4.6.2.</span> <span class="nav-text">5.2 如何提速？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-数据量扩展"><span class="nav-number">4.6.3.</span> <span class="nav-text">5.3 数据量扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-Multi-region-的进一步优化"><span class="nav-number">4.6.4.</span> <span class="nav-text">5.4 Multi region 的进一步优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-自定义短链接"><span class="nav-number">4.6.5.</span> <span class="nav-text">5.5 自定义短链接</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -1031,7 +1083,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">157.2k</span>
+    <span title="Site words total count">164.1k</span>
   
         
 <div class="busuanzi-count">

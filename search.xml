@@ -3,20 +3,420 @@
   
     
     <entry>
+      <title><![CDATA[【腾讯社交广告算法大赛】贝叶斯平滑]]></title>
+      <url>/2018/03/07/%E3%80%90%E8%85%BE%E8%AE%AF%E7%A4%BE%E4%BA%A4%E5%B9%BF%E5%91%8A%E7%AE%97%E6%B3%95%E5%A4%A7%E8%B5%9B%E3%80%91%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%B9%B3%E6%BB%91/</url>
+      <content type="html"><![CDATA[<h3 id="矩估计"><a href="#矩估计" class="headerlink" title="矩估计"></a>矩估计</h3>]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[【腾讯转化率预估比赛】总结]]></title>
+      <url>/2018/03/06/%E3%80%90%E8%85%BE%E8%AE%AF%E8%BD%AC%E5%8C%96%E7%8E%87%E9%A2%84%E4%BC%B0%E3%80%91%E6%AF%94%E8%B5%9B%E6%80%BB%E7%BB%93/</url>
+      <content type="html"><![CDATA[<p>第一届腾讯社交广告算法大赛复赛成绩0.101941，排名26名，在此总结一下。</p>
+<p><a href="https://ooo.0o0.ooo/2017/07/11/59646ce45d3e0.png" target="_blank" rel="external"><img src="https://ooo.0o0.ooo/2017/07/11/59646ce45d3e0.png" alt="img"></a></p>
+<h1 id="1-题目简介"><a href="#1-题目简介" class="headerlink" title="1. 题目简介"></a>1. 题目简介</h1><h2 id="1-1-移动App广告转化率预估"><a href="#1-1-移动App广告转化率预估" class="headerlink" title="1.1 移动App广告转化率预估"></a>1.1 移动App广告转化率预估</h2><p>详细赛题见<a href="http://algo.tpai.qq.com/home/information/index.html" target="_blank" rel="external">官方网站</a></p>
+<blockquote>
+<p>计算广告是互联网最重要的商业模式之一，广告投放效果通常通过曝光、点击和转化各环节来衡量，大多数广告系统受广告效果数据回流的限制只能通过曝光或点击作为投放效果的衡量标准开展优化。腾讯社交广告(<a href="http://ads.tencent.com/" target="_blank" rel="external">http://ads.tencent.com</a>)发挥特有的用户识别和转化跟踪数据能力，帮助广告主跟踪广告投放后的转化效果，基于广告转化数据训练转化率预估模型(pCVR，Predicted Conversion Rate)，在广告排序中引入pCVR因子优化广告投放效果，提升ROI。</p>
+<p>本题目以移动App广告为研究对象，预测App广告点击后被激活的概率：pCVR=P(conversion=1 | Ad,User,Context)，即给定广告、用户和上下文情况下广告被点击后发生激活的概率。</p>
+</blockquote>
+<p>总结起来就是说，在业界，大多数广告系统是通过点击率来投放广告的，因为转化追踪起来是比较困难的，然而腾讯凭借平台优势很好地追踪了广告投放之后的转化情况，以此训练<strong>转化率预估模型</strong>，用转化率来指导广告投放，进而提升ROI。</p>
+<p><strong>因此赛题就是给我们17-30号两周（15天）的移动APP广告（投放在移动端的APP广告）数据，让我们训练转化率模型做转化率预估，即预测第31号App广告点击后被激活的概率。</strong></p>
+<h2 id="1-2-评估方式："><a href="#1-2-评估方式：" class="headerlink" title="1.2 评估方式："></a>1.2 评估方式：</h2><p>通过Logarithmic Loss评估(越小越好)，公式如下：</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-06-14-36-51.png" alt=""> </p>
+<p>其中，</p>
+<ul>
+<li>N是测试样本总数</li>
+<li><script type="math/tex">y_i</script>是二值变量，取值为0或1，表示第i个样本的label</li>
+<li><script type="math/tex">p_i</script>是模型预测第i个样本label为1的概率</li>
+</ul>
+<h1 id="2-数据"><a href="#2-数据" class="headerlink" title="2. 数据"></a>2. 数据</h1><h2 id="2-1-数据量"><a href="#2-1-数据量" class="headerlink" title="2.1 数据量"></a>2.1 数据量</h2><p><strong>数据量：初赛30w/天；决赛300w/天</strong></p>
+<h2 id="2-2-数据表"><a href="#2-2-数据表" class="headerlink" title="2.2 数据表"></a>2.2 数据表</h2><p>接下来看看给的数据长啥样。</p>
+<p>一共给了8张表：</p>
+<p>test+train+下面这些：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>文件类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用户基础特征文件(<em>user.csv</em>)</td>
+<td>每行代表一个用户，各字段之间由逗号分隔，顺序依次为：“userID，age，gender，education，marriageStatus，haveBaby，hometown，residence”。</td>
+</tr>
+<tr>
+<td>用户App安装列表文件(<em>user_installedapps.csv</em>)</td>
+<td>每行代表一个用户安装的单个App，各字段之间由逗号分隔，顺序依次为：“userID，appID”。特别的，我们提供了截止到第1天0点用户全部的App安装列表。</td>
+</tr>
+<tr>
+<td>用户App安装流水文件(<em>user_app_actions.csv</em>)</td>
+<td>每行代表一个用户的单个App操作流水，各字段之间由逗号分隔，顺序依次为：“userID，installTime，appID”。特别的，我们提供了训练数据开始时间之前16天开始连续30天的操作流水，即第1天0点到第31天0点。</td>
+</tr>
+<tr>
+<td>App特征文件(<em>app_categories.csv</em>)</td>
+<td>每行代表一个App，各字段之间由逗号分隔，顺序依次为：“appID，appCategory”。</td>
+</tr>
+<tr>
+<td>广告特征文件(<em>ad.csv</em>)</td>
+<td>每行描述一条广告素材，各字段之间由逗号分隔，顺序依次为“creativeID，adID，camgaignID，advertiserID，appID，appPlatform”。</td>
+</tr>
+<tr>
+<td>广告位特征文件(<em>position.csv</em>)</td>
+<td>每行描述一个广告位，各字段之间由逗号分隔，顺序依次为：“positionID，sitesetID，positionType”。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code>train.csv</code> 训练数据集 ：</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-06-14-30-00.png" alt=""> </p>
+<p>17到30号共14天点击数据。</p>
+<p>每一条训练样本即为一条广告<strong>点击日志</strong>(点击时间用clickTime表示)，样本label取值0或1，其中0表示点击后没有发生转化，1表示点击后有发生转化，如果label为1，还会提供转化回流时间。</p>
+<p>每一条数据其中label表示是否转化，经统计<strong>转化率大概1/40</strong></p>
+<p>数据量：初赛30w/天；决赛300w/天</p>
+<p><code>test.csv</code> 线上测试数据</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-06-14-30-28.png" alt=""> </p>
+<p>31号一天数据，字段和test一致，需要预测lable</p>
+<p><code>ad.csv</code> 广告基本特征</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-06-15-30-44.png" alt="">     <img src="http://omaby2s5z.bkt.clouddn.com/2018-03-06-15-26-24.png" alt=""> </p>
+<p>这里广告结构分为四级：广告主——推广计划——广告——素材。<strong>之后会用到这个层级结构做贝叶斯平滑。</strong></p>
+<p><code>user.csv</code> 用户信息表</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-06-15-31-49.png" alt=""> </p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-06-15-28-05.png" alt=""> </p>
+<p>就是用户的一些基本特征啦，性别年龄blabla</p>
+<p><code>app_category.csv</code> appID对应的类别信息</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-06-15-32-49.png" alt="">                      <img src="http://omaby2s5z.bkt.clouddn.com/2018-03-06-15-28-21.png" alt=""> </p>
+<p>就是appID和对应的categoryID，其中类目标签有两层，使用3位数字编码，百位数表示一级类目，十位个位数表示二级类目，如“210”表示一级类目编号为2，二级类目编号为10，类目未知或者无法获取时，标记为0。</p>
+<p><code>position.csv</code> 广告位信息</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-06-15-33-15.png" alt=""> </p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-06-15-28-46.png" alt=""> </p>
+<p>没啥说的，就是广告位信息，直接merge就行</p>
+<p><code>user_app_actions.csv</code> 用户安装app流水，1——30天的，包含安装时间</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-06-15-34-00.png" alt="">        <img src="http://omaby2s5z.bkt.clouddn.com/2018-03-06-15-29-01.png" alt=""> </p>
+<p>用户近期的app安装行为，这里可以挖掘出用户的偏好类别，时间等等。。。</p>
+<p><code>user_installedapps.csv</code>用户历史安装过的app，第一天0点之前的</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-06-15-34-31.png" alt="">         <img src="http://omaby2s5z.bkt.clouddn.com/2018-03-06-15-30-00.png" alt=""> </p>
+<p>用户自注册以来安装过的appID，有待挖掘。。。</p>
+<h2 id="2-3-总结"><a href="#2-3-总结" class="headerlink" title="2.3 总结"></a>2.3 总结</h2><p>总结一下，一共有三类特征，用户特征、广告特征、上下文特征，官网也给了个很好的总结表：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>特征</th>
+<th>分类</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>广告特征</td>
+<td>账户ID(<em>advertiserID</em>)</td>
+<td>腾讯社交广告的账户结构分为四级：账户——推广计划——广告——素材，账户对应一家特定的广告主。</td>
+</tr>
+<tr>
+<td></td>
+<td>推广计划ID(<em>campaignID</em>)</td>
+<td>推广计划是广告的集合，类似电脑文件夹功能。广告主可以将推广平台、预算限额、是否匀速投放等条件相同的广告放在同一个推广计划中，方便管理。</td>
+</tr>
+<tr>
+<td></td>
+<td>广告ID(<em>adID</em>)</td>
+<td>腾讯社交广告管理平台中的广告是指广告主创建的广告创意(或称广告素材)及广告展示相关设置，包含广告的基本信息(广告名称，投放时间等)，广告的推广目标，投放平台，投放的广告规格，所投放的广告创意，广告的受众(即广告的定向设置)，广告出价等信息。单个推广计划下的广告数不设上限。</td>
+</tr>
+<tr>
+<td></td>
+<td>素材ID(<em>creativeID</em>)</td>
+<td>展示给用户直接看到的广告内容，一条广告下可以有多组素材。</td>
+</tr>
+<tr>
+<td></td>
+<td>AppID(<em>appID</em>)</td>
+<td>广告推广的目标页面链接地址，即点击后想要展示给用户的页面，此处页面特指具体的App。多个推广计划或广告可以同时推广同一个App。</td>
+</tr>
+<tr>
+<td></td>
+<td>App分类(<em>appCategory</em>)</td>
+<td>App开发者设定的App类目标签，类目标签有两层，使用3位数字编码，百位数表示一级类目，十位个位数表示二级类目，如“210”表示一级类目编号为2，二级类目编号为10，类目未知或者无法获取时，标记为0。</td>
+</tr>
+<tr>
+<td></td>
+<td>App平台(<em>appPlatform</em>)</td>
+<td>App所属操作系统平台，取值为Android，iOS，未知。同一个appID只会属于一个平台。</td>
+</tr>
+<tr>
+<td>用户特征</td>
+<td>用户ID(<em>userID</em>)</td>
+<td>唯一标识一个用户</td>
+</tr>
+<tr>
+<td></td>
+<td>年龄(<em>age</em>)</td>
+<td>取值范围[0, 80]，其中0表示未知。</td>
+</tr>
+<tr>
+<td></td>
+<td>性别(<em>gender</em>)</td>
+<td>取值包括男，女，未知。</td>
+</tr>
+<tr>
+<td></td>
+<td>学历(<em>education</em>)</td>
+<td>用户当前最高学历，不区分在读生和毕业生，取值包括小学，初中，高中，专科，本科，硕士，博士，未知</td>
+</tr>
+<tr>
+<td></td>
+<td>婚恋状态(<em>marriageStatus</em>)</td>
+<td>用户当前感情状况，取值包括单身，新婚，已婚，未知。</td>
+</tr>
+<tr>
+<td></td>
+<td>育儿状态(<em>haveBaby</em>)</td>
+<td>用户当前孕育宝宝状态，取值包括孕育中，宝宝0~6个月，宝宝6~12个月，宝宝1~2岁，宝宝2~3岁，育儿但宝宝年龄未知，未知。</td>
+</tr>
+<tr>
+<td></td>
+<td>家乡/籍贯(<em>hometown</em>)</td>
+<td>用户出生地，取值具体到市级城市，使用二级编码，千位百位数表示省份，十位个位数表示省内城市，如1806表示省份编号为18，城市编号是省内的6号，编号0表示未知。</td>
+</tr>
+<tr>
+<td></td>
+<td>常住地(<em>residence</em>)</td>
+<td>最近一段时间用户长期居住的地方，取值具体到市级城市，编码方式与家乡相同。</td>
+</tr>
+<tr>
+<td></td>
+<td>App安装列表(<em>appInstallList</em>)</td>
+<td>截止到某一时间点用户全部的App安装列表(appID)，已过滤高频和低频App。</td>
+</tr>
+<tr>
+<td></td>
+<td>App安装流水</td>
+<td>最近一段时间内用户安装App行为流水，包括appID，行为发生时间(installTime)和app类别(appCategory)，已过滤高频和低频App。</td>
+</tr>
+<tr>
+<td></td>
+<td>注：2~8基于用户个人注册资料和算法自动修正得到，9~10基于用户行为日志统计得到。</td>
+<td></td>
+</tr>
+<tr>
+<td>上下文特征</td>
+<td>广告位ID(<em>positionID</em>)</td>
+<td>广告曝光的具体位置，如QQ空间Feeds广告位。</td>
+</tr>
+<tr>
+<td></td>
+<td>站点集合ID(<em>sitesetID</em>)</td>
+<td>多个广告位的聚合，如QQ空间</td>
+</tr>
+<tr>
+<td></td>
+<td>广告位类型(<em>positionType</em>)</td>
+<td>对于某些站点，人工定义的一套广告位规格分类，如Banner广告位。</td>
+</tr>
+<tr>
+<td></td>
+<td>联网方式(<em>connectionType</em>)</td>
+<td>移动设备当前使用的联网方式，取值包括2G，3G，4G，WIFI，未知</td>
+</tr>
+<tr>
+<td></td>
+<td>运营商(<em>telecomsOperator</em>)</td>
+<td>移动设备当前使用的运营商，取值包括中国移动，中国联通，中国电信，未知</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>接下来的任务就是从这些给的数据里面挖掘有用的信息去训练模型预测转化率啦。</p>
+<h1 id="3-主要流程"><a href="#3-主要流程" class="headerlink" title="3. 主要流程"></a>3. 主要流程</h1><p>这是Kaggle上数据挖掘比赛的黄金流程图：<br><a href="http://om1bxijvl.bkt.clouddn.com/2017-06-07-15-44-01.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2017-06-07-15-44-01.png" alt="img"></a></p>
+<p>我们也是采用这个流程来做的~</p>
+<h1 id="4-数据分析-amp-清洗"><a href="#4-数据分析-amp-清洗" class="headerlink" title="4. 数据分析&amp;清洗"></a>4. 数据分析&amp;清洗</h1><h2 id="4-1-数据分析"><a href="#4-1-数据分析" class="headerlink" title="4.1 数据分析"></a>4.1 数据分析</h2><p>拿到数据第一件事就是要好好分析数据！！！不仅一开始要分析，训练完也要根据结果分析，所以数据分析是要贯穿整个流程的，只有通过不断的分析统计，才能挖掘到数据背后的价值啊~</p>
+<p>上面介绍数据表的时候已经有了一部分简单粗暴的分析了，实际上拿到赛题的时候进行的数据统计和分析远比上面的多，比如还统计了广告主上传回流时间的分布，上传回流时间在5,4,3,2,1天内的百分比，用户转化时间段分布各维度转化率情况（比如各广告主、广告计划、性别、年龄、app的转化率等等)…….</p>
+<p>这些都是数据清洗和特征工程的依据。</p>
+<h2 id="4-2-数据清洗"><a href="#4-2-数据清洗" class="headerlink" title="4.2 数据清洗"></a>4.2 数据清洗</h2><p>按天对训练集<code>train.csv</code>转化率进行了统计</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-06-16-37-49.png" alt=""> </p>
+<p>其中19号可能由于节日等原因导致转化率有点高，但是考虑到如果去掉这一天的数据就会丢失大一部分信息所以最终没有去掉。</p>
+<p>而由于回流时间的存在，最后四天的数据会不准确，也就是说后五天的数据中有一部分实际上是转化了的，但广告主还没有来得及将这条转化汇报给广告系统，导致数据集中的label被误标记为了0（实际上是1）</p>
+<p>这里我们尝试了两种方法：</p>
+<ol>
+<li>根据经验猜测回流数据是广告主网站反馈回来的，所以我们计算了各广告主在最后五天内的最后一次回流反馈时间，将各广告主最后一次回流返回时间之后的数据删除掉这样就在一定程度上减少了不准确的负样本。这样筛去了大概有3万条。这样的做法带来的问题是有一些真正的负样本也被去除掉了。</li>
+<li>由于最后两天数据的问题比较大，所以干脆直接把最后两天的数据删掉，不用这两天的数据训练模型，这样带来的问题是有一些在这两天新上线的广告就没有得到充分的训练。</li>
+</ol>
+<h1 id="5-特征工程"><a href="#5-特征工程" class="headerlink" title="5. 特征工程"></a>5. 特征工程</h1><p>一开始的时候我们采用了很多基本特征，即各种基础的category型特征（AppID, UserID, creativeID, pisitionID等）的onehot编码，又对单特征进行了一定的统计，比如某广告的转化率，某种联网方式的转化率等。后来看了大神“为情所困的少年”的分享，才反应过来其实无论是onehot还是对ID单维度的统计特征，其实都是对于一个特征的一种表达，从一定意义上是重复的。我个人感觉onehot之后的稀疏特征更适合于线性模型，如LR；而统计量的连续特征更适合于树模型，如GBDT。</p>
+<p>回头来看，其实特征工程需要根据模型预先选择方向。李沐说过，模型是使用离散特征还是连续特征，其实是一个“海量离散特征+简单模型” 同 “少量连续特征+复杂模型”的权衡。既可以离散化用线性模型，也可以用连续特征加深度学习。就看是喜欢折腾特征还是折腾模型了。通常来说，前者容易，而且可以n个人一起并行做，有成功经验；后者目前看很赞，能走多远还须拭目以待。</p>
+<p>后来这两种思路在初赛和决赛中我们的都尝试了：</p>
+<h2 id="5-1-海量离散特征-简单模型"><a href="#5-1-海量离散特征-简单模型" class="headerlink" title="5.1 海量离散特征+简单模型"></a>5.1 海量离散特征+简单模型</h2><p>在初赛的开始阶段，我们将各种基础的category型特征进行onehot编码，然后构造了一些单维度的统计特征，比如某广告的转化率，某种联网方式的转化率等，然后构造了一些组合特征，将这些特征onehot之后输入了LR模型就开始训练和预测了。</p>
+<p>对于LR这种线性模型来说，它更适合于onehot类型的特征，首先它对于稀疏高维特征处理是无压力的，其次离散化后的特征对异常数据有很强的鲁棒性，这些在参考文献2<a href="http://blog.csdn.net/yang090510118/article/details/39478033" target="_blank" rel="external">逻辑回归LR的特征为什么要先离散化</a>中可以看到。</p>
+<p>对于一些onehot之后维度很大的特征，我们通过统计，取高频的一部分，舍弃低频的一部分，进行onehot。但随着构造特征的增多，onehot之后的向量维度剧增，这时就会带来维度灾难问题，见参考文献4<a href="https://zhuanlan.zhihu.com/p/26945814" target="_blank" rel="external">机器学习中的维度灾难</a>。不仅如此，这时基本上也就被设备问题限制死了。</p>
+<p>这很烦。于是我们就换模型了。</p>
+<h2 id="5-2-少量连续特征-复杂模型"><a href="#5-2-少量连续特征-复杂模型" class="headerlink" title="5.2 少量连续特征+复杂模型"></a>5.2 少量连续特征+复杂模型</h2><p>既然要预测的是转化率，我们不如把特征转化为<strong>转化率特征</strong>，这样特征就变成了连续值，同时我们还抽取了一些<strong>统计特征</strong>，比如某广告在一天之内、n天之内的<strong>点击量，转化量</strong>，某用户历史安装次数、APP历史被安装次数，等等，然后输入树模型中训练。感谢“为情所困”大神的分享，树模型比LR快了不少。</p>
+<h2 id="5-3-组合特征构造"><a href="#5-3-组合特征构造" class="headerlink" title="5.3 组合特征构造"></a>5.3 组合特征构造</h2><p>说到特征组合，从统计的角度解释，基本特征仅仅是真实特征分布在低维空间的映射，不足以描述真实分布，加入组合特征是为了在更高维空间拟合真实分布，使得预测更准确。<br>在初赛和决赛阶段，我们共使用过两种组合特征的表达：</p>
+<p><strong>1. 对离散ID进行hash生成新特征</strong></p>
+<p>在初期用LR的时候，我们采用的方式是hash。即对两个ID做hash运算，得到一个新特征。这是一个很巧妙的方法。例如下面这个表，我们做哈希：</p>
+<p>age×10+gendarage×10+gendar</p>
+<p>得到第三列：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>age</th>
+<th>gendar</th>
+<th>hash</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>10</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>21</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2</td>
+<td>32</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>第三列的的特征的取值有两位，十位是age,个位是gendar。新特征是一种新的交叉特征的体现。</p>
+<p><strong>2. 对组合进行统计生成新特征</strong></p>
+<p>像之前“为情所困”大神说过的那样，其实无论onehot还是统计特征，其实都是对于一个特征的一种表达。因为后期我们采用了GBDT，因此我们弃用了之前的hash组合方式，而选用统计量（即点击量、转化量和转化率）。这样就在一个维度上表达了这两个特征的组合，而且非常便于计算。</p>
+<p>实现：按字段groupby，获取统计量和转化率特征</p>
+<h2 id="5-4-特征选择"><a href="#5-4-特征选择" class="headerlink" title="5.4 特征选择"></a>5.4 特征选择</h2><p>我们用到了两种特征选择的方法：</p>
+<ol>
+<li>根据方差：方差很小的属性，意味着该属性的识别能力很差。极端情况下，方差为0，意味着该属性在所有样本上都是一个值，所以我们尽量选那些方差比较大，区分度比较好的特征。</li>
+<li>根据模型评分+相关系数矩阵：用GBDT训练会得到一个特征打分，可以作为筛选特征的依据，与此同时，我们发现，有一些特征之间有很强的相互作用，比如加入了某个特征之后会使之前排名很靠前的特征下降，因此我们还计算了特征之间的相关系数，对于相关系数较大的特征，我们就多次试验，反复选择</li>
+</ol>
+<p>特征之间的相关系数：</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-06-21-58-07.png" alt=""> </p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-06-21-49-00.png" alt=""> </p>
+<p>另外，“酱紫”学长对特征筛选还有一种建议就是直接对所有基本特征进行遍历两两组合，然后用卡方检验筛出来一些比较好的特征。这种方式很简单，大多数工作只需要交给模型来完成。<strong>日后学习一下</strong></p>
+<h2 id="5-5-用户-APP特征挖掘"><a href="#5-5-用户-APP特征挖掘" class="headerlink" title="5.5 用户-APP特征挖掘"></a>5.5 用户-APP特征挖掘</h2><p>特征说到这里，还有两个表没有充分利用上，<code>user_app_actions.csv</code> 和</p>
+<p><code>user_installedapps.csv</code> </p>
+<p><code>user_app_actions.csv</code> ：用户安装app流水，1——30天的，包含安装时间，既然包含安装时间，就可以提取出用户的偏好安装时间、类别、app的偏好安装时间、安装量等特征</p>
+<p><code>user_installedapps.csv</code> 用户历史安装app</p>
+<p>两个表都有用户和APP的安装信息，所以是否可以提取出用户和app之间的一些联系呢。思考一个问题，如果用户已经点击了某个APP的广告，那么是否会转化（下载）取决于什么呢？除了一些客观的因素，比如广告位（是否误点），联网方式等，当然是用户到底感不感兴趣！需不需要！</p>
+<p>想到这里就感觉是个推荐系统方面的问题了，所以我们查了一些资料，尝试了用三种方式表达用户和app之间的联系：</p>
+<ol>
+<li><p>tf-idf向量特征</p>
+<ol>
+<li>把用户看成文档，app、app所属的类别看成词</li>
+<li>把app、app所属的类别看成文档，用户看成词</li>
+</ol>
+<p>没什么提高</p>
+</li>
+<li><p>word-embedding特征</p>
+<p><code>user_app_actions.csv</code> 中包含用户的近期下载的app，根据时间可以得到app下载的顺序。</p>
+<p>把word2vec应用在用户app下载序列上，根据用户下载app的顺序，把app看做单词，也是可以形成这样的序列数据，进而训练处每个app对应的向量，看作是app的一个特征。</p>
+</li>
+<li><p>SVD分解</p>
+<p><code>user_installedapps.csv</code> 表中没有时间信息，也就不合适用word2vec来提取特征了，我们想到了用推荐系统中的常用套路：SVD分解</p>
+<p>关于SVD知识的补充日后可以看下面两篇文章：</p>
+<p><a href="http://blog.csdn.net/zhongkejingwang/article/details/43053513" target="_blank" rel="external">奇异值分解SVD原理详解及推导</a></p>
+<p><a href="http://blog.csdn.net/zhongkejingwang/article/details/43083603" target="_blank" rel="external">SVD在推荐系统中的应用详解以及算法推导</a></p>
+</li>
+</ol>
+<h2 id="5-6-贝叶斯平滑"><a href="#5-6-贝叶斯平滑" class="headerlink" title="5.6 贝叶斯平滑"></a>5.6 贝叶斯平滑</h2><p>这里我们参考了@<a href="https://cloud.tencent.com/developer/user/598572" target="_blank" rel="external">王照彬</a> 大神的平滑方式</p>
+<p> 例如对我们数据中存在的 root -&gt; advertiser -&gt; campaign -&gt; ad -&gt; creative 层级关系(root为训练集中全部样本), 这样的层级关系隐喻了在同一个父节点下的子节点, 其来自于同一个Beta分布, 所以我逐层进行了贝叶斯平滑, 且建立层级关系还有一个好处, 即对预测集出现的数据, 若该creativeID 在训练集从未出现过, 则在pandas.merge时该值为空, 则向上寻找其父节点的统计值, 最高一层为root, 是基与全部训练数据的统计, root的值不进行贝叶斯平滑, 且一定存在, 这就保证了当在预测集中遇到了未出现的样本时, 使用最合理的缺省值进行补全.</p>
+<p><img src="https://blog-10039692.file.myqcloud.com/1496913643639_4485_1496913644532.png" alt="img"></p>
+<p>关于贝叶斯平滑，有待补习，参考文章：</p>
+<p><a href="http://blog.csdn.net/jinping_shi/article/details/78334362" target="_blank" rel="external">转化率（CTR）预测的贝叶斯平滑</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/21724759" target="_blank" rel="external">计算广告的训练与平滑思想（下）</a></p>
+<h2 id="5-7-多线程抽取特征"><a href="#5-7-多线程抽取特征" class="headerlink" title="5.7 多线程抽取特征"></a>5.7 多线程抽取特征</h2><p>决赛数据集太大，而我们组合特征非常多。因此我们采用了多线程抽特征的方式。</p>
+<p>每个特征一个进程，同时对多个特征进行抽取。</p>
+<p>代码见<a href="https://github.com/zsyandjyhouse/TencentAD_contest" target="_blank" rel="external">TencentAD_contest</a>，extra_rate_thread_0623.py</p>
+<h2 id="5-8-总结"><a href="#5-8-总结" class="headerlink" title="5.8 总结"></a>5.8 总结</h2><p><a href="https://github.com/z564808896/Tencent_Social_Ads" target="_blank" rel="external">竟然有这种操作队分享</a>总结得非常好，我们的特征主要分为以下几类：</p>
+<ul>
+<li><p>Trick特征：</p>
+<ol>
+<li><p><strong>重复点击的数据条目</strong>：通过观察原始数据是不难发现的,有很多只有clickTime和label不一样的重复数据，按时间排序发现重复数据如果转化，label一般标在头或尾，少部分在中间，在训练集上出现的情况在测试集上也会出现，所以把重复点击数据中的第一条和最后一条标记出来，让模型去学习。后来进一步标注，非重复数据0，重复但不是第一条和最后一条1，重复且是第一条2，最后一条3。这里面包含用户的重复点击、creativeID的重复点击等</p>
+</li>
+<li><p>时间差特征：与重复第一条的时间差和重复最后一条的时间差特征，与前一条和后一条的时间差，甚至包括了重复组合特征的时间差特征</p>
+</li>
+<li><p>rank特征：重复数据的rank特征，同样包括重复的用户、广告等</p>
+<p>这里实现方面用到了pandas的 <code>shift()</code>操作，非常酷炫</p>
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><p>统计特征（单维+组合）：<br>原始特征主要三大类：广告特征、用户特征、位置特征，通过交叉组合算统计构造特征，由于机器限制，统计特征主要使用了转化率，部分特征还统计了点击次数和转化次数。前面已经说过，就不详细列举。</p>
+</li>
+<li><p>用户app行为挖掘特征：</p>
+<p>word-embedding特征、SVD特征</p>
+</li>
+</ul>
+<h1 id="6-训练集-测试集构造"><a href="#6-训练集-测试集构造" class="headerlink" title="6. 训练集/测试集构造"></a>6. 训练集/测试集构造</h1><p>尝试过两种方法：</p>
+<ol>
+<li><p><strong>滑动窗口</strong></p>
+<p>用每天的前七天的统计（统计指统计转化量、点击量、转化率，下同）来作为本天的特征。</p>
+<p>这样就得到了24-30号7天的特征数据，再加上31号的特征，然后用24-29做训练，得到模型，30号作为线下验证集合，验证模型的线下loss，然后将31号的特征输入到该模型，得到最终的线上预测结果，提交。</p>
+<p>​<br>如下图所示：<br><a href="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-49-53.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-49-53.png" alt="img"></a><br>经测试我们发现，即使我们去掉了30号的部分负样本，还是有一些问题的，30号的数据还是不够好，线上线下会不一致，因此我们改用28号做验证：<br><a href="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-53-21.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-53-21.png" alt="img"></a><br>这样做出于两种目的：一是尽量做到了线上线下统一，二是不让模型学习30号的样本数据，防止一些错误样本被模型学到。</p>
+</li>
+<li><p>用第一周统计，第二周做交叉验证并训练模型。如下图所示：<br><a href="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-59-59.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-59-59.png" alt="img"></a></p>
+</li>
+</ol>
+<p>相信很多人都用的是这两种其中的一种。我是一个对自己极度不自信的人，来来回回换了好几次。最终觉得第2种方式很稳定，线上线下较统一。第1种方式特征更新较快，模型更准确，但带来的问题就是线上线下不太统一。</p>
+<h1 id="7-模型训练和验证"><a href="#7-模型训练和验证" class="headerlink" title="7. 模型训练和验证"></a>7. 模型训练和验证</h1><p>操作系统：ubuntu14.04</p>
+<p>机器内存：256G</p>
+<p>语言：python</p>
+<p>用到的模型：</p>
+<ul>
+<li><p>LR：L1\L2</p>
+</li>
+<li><p>gbdt：xgboost,lightGBM</p>
+</li>
+<li><p>gbdt+lr</p>
+</li>
+<li><p>特征离散化+ffm：</p>
+<p>​    可以参考我的两篇文章</p>
+<p>​    <a href="https://siyaozhang.github.io/2017/03/14/Factorization-Machine%EF%BC%88FM%EF%BC%8C%E5%9B%A0%E5%AD%90%E5%88%86%E8%A7%A3%E6%9C%BA%EF%BC%89/" target="_blank" rel="external">Factorization Machine（<strong>FM</strong>，因子分解机）</a></p>
+<p>​    <a href="https://siyaozhang.github.io/2017/03/22/FFM%EF%BC%88field-aware-Factorization-Machine%EF%BC%89%E2%80%94%E2%80%94%E5%8D%87%E7%BA%A7%E7%89%88FM/" target="_blank" rel="external">F<strong>FM</strong>（field-aware Factorization Machine）——升级版<strong>FM</strong></a></p>
+</li>
+</ul>
+<h1 id="8-改进方向"><a href="#8-改进方向" class="headerlink" title="8. 改进方向"></a>8. 改进方向</h1><p>回流数据方面</p>
+<p>卡方检验</p>
+<h1 id="9-项目代码"><a href="#9-项目代码" class="headerlink" title="9. 项目代码"></a>9. 项目代码</h1><p><a href="https://github.com/zsyandjyhouse/TencentAD_contest" target="_blank" rel="external">TencentAD_contest</a></p>
+<h1 id="10-参考资料"><a href="#10-参考资料" class="headerlink" title="10. 参考资料"></a>10. 参考资料</h1><ol>
+<li><a href="https://zhuanlan.zhihu.com/p/26820998" target="_blank" rel="external">Kaggle 数据挖掘比赛经验分享</a></li>
+<li><a href="http://blog.csdn.net/yang090510118/article/details/39478033" target="_blank" rel="external">逻辑回归LR的特征为什么要先离散化</a></li>
+<li><a href="http://breezedeus.github.io/2014/11/20/breezedeus-feature-hashing.html" target="_blank" rel="external">特征哈希（Feature Hashing）</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/26945814" target="_blank" rel="external">机器学习中的维度灾难</a></li>
+<li><a href="http://blog.jasonding.top/2015/11/12/Feature%20Engineering/%E3%80%90%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B%E3%80%91%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9%E4%B8%8E%E7%89%B9%E5%BE%81%E5%AD%A6%E4%B9%A0/" target="_blank" rel="external">【特征工程】特征选择与特征学习</a></li>
+<li><a href="http://202.197.191.206:8080/30/text/chapter04/4_8.htm" target="_blank" rel="external">描述量选择及特征的组合优化</a></li>
+<li><a href="http://www.jianshu.com/p/8f6f94f1d275" target="_blank" rel="external">scikit-learn系列之特征选择</a></li>
+<li><a href="http://blog.csdn.net/shine19930820/article/details/71713680" target="_blank" rel="external">GBDT原理及利用GBDT构造新的特征-Python实现</a></li>
+<li><a href="http://www.bigbear2017.com/blog/2016/11/02/facebook-ctr-paper/" target="_blank" rel="external">很好的文献资料Facebook CTR Paper</a></li>
+<li><a href="https://github.com/z564808896/Tencent_Social_Ads" target="_blank" rel="external">竟然有这种操作队分享</a></li>
+<li><a href="https://www.qcloud.com/community/article/895055" target="_blank" rel="external">【SPA大赛】腾讯广告点击大赛：对stacking的一些基本介绍</a></li>
+<li><a href="http://blog.csdn.net/ben3ben/article/details/74838338" target="_blank" rel="external">第七名</a></li>
+</ol>
+<h1 id="11-top3方案"><a href="#11-top3方案" class="headerlink" title="11. top3方案"></a>11. top3方案</h1>]]></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[【九章系统设计】一致性哈希&短网址系统设计]]></title>
       <url>/2018/03/05/%E3%80%90%E4%B9%9D%E7%AB%A0%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E3%80%91%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C-%E7%9F%AD%E7%BD%91%E5%9D%80%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/</url>
       <content type="html"><![CDATA[<h1 id="outline"><a href="#outline" class="headerlink" title="outline"></a>outline</h1><p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-05-16-18-40.png" alt=""> </p>
-<h2 id="consistent-hashing-一致性哈性"><a href="#consistent-hashing-一致性哈性" class="headerlink" title="consistent hashing 一致性哈性"></a>consistent hashing 一致性哈性</h2><h3 id="复习："><a href="#复习：" class="headerlink" title="复习："></a>复习：</h3><p>数据量过大，需要将数据拆分，有两种拆分方式：</p>
+<h1 id="consistent-hashing-一致性哈性"><a href="#consistent-hashing-一致性哈性" class="headerlink" title="consistent hashing 一致性哈性"></a>consistent hashing 一致性哈性</h1><h2 id="复习："><a href="#复习：" class="headerlink" title="复习："></a>复习：</h2><p>数据量过大，需要将数据拆分，有两种拆分方式：</p>
 <ol>
 <li>纵向：不同表存在不同机器，按常用字段和不常用字段将表拆分存在不同机器</li>
 <li>横向：将数据横向切分，存在不同的机器上</li>
 </ol>
-<h3 id="为什么要做一致性hash？"><a href="#为什么要做一致性hash？" class="headerlink" title="为什么要做一致性hash？"></a>为什么要做一致性hash？</h3><ul>
+<h2 id="为什么要做一致性hash？"><a href="#为什么要做一致性hash？" class="headerlink" title="为什么要做一致性hash？"></a>为什么要做一致性hash？</h2><ul>
 <li>一种简单的hash算法：将数据存在第%n个机器上</li>
 <li>当增加一台机器时（n -&gt; n+1），需要迁移的数据量非常大</li>
 <li>因此这个hash算法称为<strong>不一致hash</strong></li>
 </ul>
-<h3 id="一个简单的一致性hash算法："><a href="#一个简单的一致性hash算法：" class="headerlink" title="一个简单的一致性hash算法："></a>一个简单的一致性hash算法：</h3><ul>
+<h2 id="一个简单的一致性hash算法："><a href="#一个简单的一致性hash算法：" class="headerlink" title="一个简单的一致性hash算法："></a>一个简单的一致性hash算法：</h2><ul>
 <li><p>将key模一个很大的数，比如360</p>
 </li>
 <li><p>将360分配给n台机器，每个机器负责一段区间</p>
@@ -34,7 +434,7 @@
 <li>数据分布不均匀：分摊数据后，各机器数据分布不均匀</li>
 <li>迁移压力大：新机器只能从与之相邻的两台机器上迁移数据，导致这两台老机器负载过大</li>
 </ol>
-<h3 id="一个更实用的一致性hashing"><a href="#一个更实用的一致性hashing" class="headerlink" title="一个更实用的一致性hashing"></a>一个更实用的一致性hashing</h3><p>将机器（IP或者名字）与数据，都看做环上的一个点！！</p>
+<h2 id="一个更实用的一致性hashing"><a href="#一个更实用的一致性hashing" class="headerlink" title="一个更实用的一致性hashing"></a>一个更实用的一致性hashing</h2><p>将机器（IP或者名字）与数据，都看做环上的一个点！！</p>
 <ol>
 <li>将机器映射到环上，如下图所示的ABCD是四个机器<br><a href="http://om1bxijvl.bkt.clouddn.com/2018-02-01-22-39-02.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-02-01-22-39-02.png" alt="img"></a></li>
 <li>比如有个数据，蓝色的点，散在了蓝色点出。那么就顺时针去找一个机器，把这个数据放在这个机器上，即B<br><a href="http://om1bxijvl.bkt.clouddn.com/2018-02-01-22-40-32.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-02-01-22-40-32.png" alt="img"></a></li>
@@ -74,7 +474,7 @@
 <p>问题1：需要存储数据在环的哪里吗？<br>不需要。因为这个数据在哪里与其它数据在哪里没有关系。只需要在环上计算数据所在的点的下一个位置的机器是哪个即可。</p>
 <p>问题：那这个1000能变成100万吗？<br>太多也不行。查询效率会变低。就是在比较均匀的情况下选一个比较快的就行。</p>
 <p>思考：哪种数据结构能够支持这种“顺时针”寻找下一个机器的功能呢？——链表是不行的，因为链表长度太大，查找很慢。用TreeMap!! 就是一个红黑树，能在LogN的时间内寻找比n大的最小值。</p>
-<h2 id="数据备份-Replica"><a href="#数据备份-Replica" class="headerlink" title="数据备份 Replica"></a>数据备份 Replica</h2><h3 id="问题：Backup和Replica有什么区别？"><a href="#问题：Backup和Replica有什么区别？" class="headerlink" title="问题：Backup和Replica有什么区别？"></a>问题：Backup和Replica有什么区别？</h3><p>Backup</p>
+<h1 id="数据备份-Replica"><a href="#数据备份-Replica" class="headerlink" title="数据备份 Replica"></a>数据备份 Replica</h1><h2 id="问题：Backup和Replica有什么区别？"><a href="#问题：Backup和Replica有什么区别？" class="headerlink" title="问题：Backup和Replica有什么区别？"></a>问题：Backup和Replica有什么区别？</h2><p>Backup</p>
 <ul>
 <li>一般是周期性的，比如每天晚上进行一次备份</li>
 <li>当数据丢失的时候，通常只能恢复到之前的某个时间点</li>
@@ -88,7 +488,7 @@
 </ul>
 <p>思考：既然 Replica 更牛，那么还需要 Backup么？</p>
 <p>backup便宜哇~</p>
-<h3 id="MySQL类型数据库的Replica"><a href="#MySQL类型数据库的Replica" class="headerlink" title="MySQL类型数据库的Replica"></a>MySQL类型数据库的Replica</h3><p>以MySQL为代表的的SQL型数据库，通常自带Master Slave模式的Replica方法。Master负责写，Slave负责读。Slave从Master中同步对数据的操作。</p>
+<h2 id="MySQL类型数据库的Replica"><a href="#MySQL类型数据库的Replica" class="headerlink" title="MySQL类型数据库的Replica"></a>MySQL类型数据库的Replica</h2><p>以MySQL为代表的的SQL型数据库，通常自带Master Slave模式的Replica方法。Master负责写，Slave负责读。Slave从Master中同步对数据的操作。</p>
 <p><strong>Master - slave原理</strong>：Write Ahead Log</p>
 <p>SQL数据库的任何操作，都会以Log的形式做一份记录。</p>
 <p>比如Master上的数据A在B时刻从C改成了D，那么Master会通知Slave来读Log（不是同步值，而是同步操作！）。Slave被激活后，告诉master我可以更新了，之后Master有任何操作就会通知slave来读log然后slave会同步操作</p>
@@ -99,8 +499,8 @@
 <li>将一台slave升级为master, 接受读 + 写</li>
 <li>可能会造成一定程度的数据丢失和不一致</li>
 </ul>
-<h3 id="NoSQL类型数据库的Replica"><a href="#NoSQL类型数据库的Replica" class="headerlink" title="NoSQL类型数据库的Replica"></a>NoSQL类型数据库的Replica</h3><p>以Cassandra为代表的的NoSQL数据库，通常将数据“顺时针”存储在Consistent hashing环上的三个vitual nodes中。</p>
-<h3 id="MySQL和NoSQL型数据库的Replica比较"><a href="#MySQL和NoSQL型数据库的Replica比较" class="headerlink" title="MySQL和NoSQL型数据库的Replica比较"></a><strong>MySQL和NoSQL型数据库的Replica比较</strong></h3><p><strong>SQL</strong></p>
+<h2 id="NoSQL类型数据库的Replica"><a href="#NoSQL类型数据库的Replica" class="headerlink" title="NoSQL类型数据库的Replica"></a>NoSQL类型数据库的Replica</h2><p>以Cassandra为代表的的NoSQL数据库，通常将数据“顺时针”存储在Consistent hashing环上的三个vitual nodes中。</p>
+<h2 id="MySQL和NoSQL型数据库的Replica比较"><a href="#MySQL和NoSQL型数据库的Replica比较" class="headerlink" title="MySQL和NoSQL型数据库的Replica比较"></a>MySQL和NoSQL型数据库的Replica比较</h2><p><strong>SQL</strong></p>
 <ul>
 <li>“自带” 的 Replica 方式是 Master Slave</li>
 <li>“手动” 的 Replica 方式也可以在 Consistent Hashing 环上顺时针存三份</li>
@@ -110,9 +510,9 @@
 <li>“自带” 的 Replica 方式就是 Consistent Hashing 环上顺时针存三份</li>
 <li>“手动” 的 Replica 方式：就不需要手动了，NoSQL就是在 Sharding 和 Replica 上帮你偷懒用的！</li>
 </ul>
-<h2 id="设计短网址系统-Design-Tiny-URL"><a href="#设计短网址系统-Design-Tiny-URL" class="headerlink" title="设计短网址系统 Design Tiny URL"></a>设计短网址系统 Design Tiny URL</h2><p>短网址生成网站：</p>
+<h1 id="设计短网址系统-Design-Tiny-URL"><a href="#设计短网址系统-Design-Tiny-URL" class="headerlink" title="设计短网址系统 Design Tiny URL"></a>设计短网址系统 Design Tiny URL</h1><p>短网址生成网站：</p>
 <p><a href="https://bitly.com/" target="_blank" rel="external">https://bitly.com/</a><br><a href="https://goo.gl/" target="_blank" rel="external">https://goo.gl/</a></p>
-<h3 id="系统设计的常见误区："><a href="#系统设计的常见误区：" class="headerlink" title="系统设计的常见误区："></a>系统设计的常见误区：</h3><p><strong>以下几个是误区</strong></p>
+<h2 id="系统设计的常见误区："><a href="#系统设计的常见误区：" class="headerlink" title="系统设计的常见误区："></a>系统设计的常见误区：</h2><p><strong>以下几个是误区</strong></p>
 <ul>
 <li>系统一定巨大无比 —— ×</li>
 <li>必须用NoSQL —— ×</li>
@@ -125,7 +525,7 @@
 <li>画图：根据分析结果设计“可行解”—— Service+Storage</li>
 <li>进化：研究可能遇到的问题，优化系统 —— Scale</li>
 </ol>
-<h3 id="1-Scenario-场景-需求分析"><a href="#1-Scenario-场景-需求分析" class="headerlink" title="1. Scenario 场景 需求分析"></a>1. Scenario 场景 需求分析</h3><h4 id="我要设计啥"><a href="#我要设计啥" class="headerlink" title="我要设计啥"></a>我要设计啥</h4><ul>
+<h2 id="1-Scenario-场景-需求分析"><a href="#1-Scenario-场景-需求分析" class="headerlink" title="1. Scenario 场景 需求分析"></a>1. Scenario 场景 需求分析</h2><h4 id="我要设计啥"><a href="#我要设计啥" class="headerlink" title="我要设计啥"></a>我要设计啥</h4><ul>
 <li>根据长URL生成短URL<br><a href="http://om1bxijvl.bkt.clouddn.com/2018-02-03-22-35-36.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-02-03-22-35-36.png" alt="img"></a></li>
 <li>根据短URL还原长URL<br><a href="http://om1bxijvl.bkt.clouddn.com/2018-02-03-22-36-01.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-02-03-22-36-01.png" alt="img"></a></li>
 </ul>
@@ -152,7 +552,7 @@
 </li>
 </ol>
 <p>前3点：2k QPS ，一台SSD支持的MySQL完全可以搞定！</p>
-<h3 id="2-Service-服务"><a href="#2-Service-服务" class="headerlink" title="2. Service 服务"></a>2. Service 服务</h3><h4 id="逻辑块聚类与接口设计"><a href="#逻辑块聚类与接口设计" class="headerlink" title="逻辑块聚类与接口设计"></a>逻辑块聚类与接口设计</h4><ol>
+<h2 id="2-Service-服务"><a href="#2-Service-服务" class="headerlink" title="2. Service 服务"></a>2. Service 服务</h2><h4 id="逻辑块聚类与接口设计"><a href="#逻辑块聚类与接口设计" class="headerlink" title="逻辑块聚类与接口设计"></a>逻辑块聚类与接口设计</h4><ol>
 <li><p>TinyUrl只有一个UrlService</p>
 <ul>
 <li>本身就是一个小Application</li>
@@ -170,7 +570,7 @@
 </li>
 </ol>
 <p><a href="http://om1bxijvl.bkt.clouddn.com/2018-02-03-22-49-19.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-02-03-22-49-19.png" alt="img"></a></p>
-<h3 id="3-Storage-数据存储"><a href="#3-Storage-数据存储" class="headerlink" title="3. Storage 数据存储"></a>3. Storage 数据存储</h3><p>两个步骤：</p>
+<h2 id="3-Storage-数据存储"><a href="#3-Storage-数据存储" class="headerlink" title="3. Storage 数据存储"></a>3. Storage 数据存储</h2><p>两个步骤：</p>
 <ol>
 <li>选择存储结构</li>
 <li>细化数据表</li>
@@ -215,19 +615,19 @@
 <li>对Scalability的要求有多高？—— 存储和QPS要求都不高，单机都可以搞定。SQL+1</li>
 <li>是否需要Sequential ID？—— 取决于你的算法是什么 : 如何将Long URL 转化为 Short URL</li>
 </ul>
-<h3 id="4-算法：-如何将Long-URL-转化为-Short-URL"><a href="#4-算法：-如何将Long-URL-转化为-Short-URL" class="headerlink" title="4. 算法： 如何将Long URL 转化为 Short URL"></a>4. 算法： 如何将Long URL 转化为 Short URL</h3><h4 id="4-1-算法1-使用哈希函数-Hash-Function（不可行）"><a href="#4-1-算法1-使用哈希函数-Hash-Function（不可行）" class="headerlink" title="4.1 算法1 使用哈希函数 Hash Function（不可行）"></a>4.1 算法1 使用哈希函数 Hash Function（不可行）</h4><p>比如取 Long Url 的 MD5 的最后 6 位——这个方法肯定是有问题的</p>
+<h2 id="4-算法：-如何将Long-URL-转化为-Short-URL"><a href="#4-算法：-如何将Long-URL-转化为-Short-URL" class="headerlink" title="4. 算法： 如何将Long URL 转化为 Short URL"></a>4. 算法： 如何将Long URL 转化为 Short URL</h2><h3 id="4-1-算法1-使用哈希函数-Hash-Function（不可行）"><a href="#4-1-算法1-使用哈希函数-Hash-Function（不可行）" class="headerlink" title="4.1 算法1 使用哈希函数 Hash Function（不可行）"></a>4.1 算法1 使用哈希函数 Hash Function（不可行）</h3><p>比如取 Long Url 的 MD5 的最后 6 位——这个方法肯定是有问题的</p>
 <ul>
 <li>优点：快</li>
 <li>缺点：难以设计一个没有冲突的哈希算法</li>
 </ul>
-<h4 id="4-2-算法2：随机生成-数据库去重"><a href="#4-2-算法2：随机生成-数据库去重" class="headerlink" title="4.2 算法2：随机生成 + 数据库去重"></a>4.2 算法2：随机生成 + 数据库去重</h4><p>随机一个 6 位的 ShortURL，如果没有被用过，就绑定到该 LongURL</p>
+<h3 id="4-2-算法2：随机生成-数据库去重"><a href="#4-2-算法2：随机生成-数据库去重" class="headerlink" title="4.2 算法2：随机生成 + 数据库去重"></a>4.2 算法2：随机生成 + 数据库去重</h3><p>随机一个 6 位的 ShortURL，如果没有被用过，就绑定到该 LongURL</p>
 <p>伪代码如下：<br><a href="http://om1bxijvl.bkt.clouddn.com/2018-02-03-23-00-12.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-02-03-23-00-12.png" alt="img"></a></p>
 <ul>
 <li>优点：实现简单</li>
 <li>缺点：生成短网址的长度随着短网址越来越多变得越来越慢</li>
 <li>可行性：其实能凑合用。在生活中有很多随机编码的，例如机票码、酒店码，是不可重复的，就是用这种方法弄的。</li>
 </ul>
-<h4 id="4-3-算法3：进制转换-Base62"><a href="#4-3-算法3：进制转换-Base62" class="headerlink" title="4.3 算法3：进制转换 Base62"></a>4.3 算法3：进制转换 Base62</h4><p><a href="http://om1bxijvl.bkt.clouddn.com/2018-02-10-20-55-32.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-02-10-20-55-32.png" alt="img"></a></p>
+<h3 id="4-3-算法3：进制转换-Base62"><a href="#4-3-算法3：进制转换-Base62" class="headerlink" title="4.3 算法3：进制转换 Base62"></a>4.3 算法3：进制转换 Base62</h3><p><a href="http://om1bxijvl.bkt.clouddn.com/2018-02-10-20-55-32.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-02-10-20-55-32.png" alt="img"></a></p>
 <ul>
 <li>Base62<ul>
 <li>将6位的short url看成一个62进制的数（0-9,a-z,A-Z）</li>
@@ -247,7 +647,7 @@
 </ul>
 </li>
 </ul>
-<h4 id="4-4-算法2与3的比较"><a href="#4-4-算法2与3的比较" class="headerlink" title="4.4 算法2与3的比较"></a>4.4 算法2与3的比较</h4><ul>
+<h3 id="4-4-算法2与3的比较"><a href="#4-4-算法2与3的比较" class="headerlink" title="4.4 算法2与3的比较"></a>4.4 算法2与3的比较</h3><ul>
 <li><p><strong>基于随机生成的方法</strong><br>需要根据 Long 查询 Short，也需要根据 Short 查询 Long。基本上work solution如下图所示：<br><a href="http://om1bxijvl.bkt.clouddn.com/2018-02-10-21-00-54.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-02-10-21-00-54.png" alt="img"></a><br>如果选择用 SQL 型数据库，表结构如下：<br><a href="http://om1bxijvl.bkt.clouddn.com/2018-02-10-20-58-03.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-02-10-20-58-03.png" alt="img"></a><br>并且需要对shortKey和longURL分别建索引<br>• <a href="https://zh.wikipedia.org/wiki/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95" target="_blank" rel="external">什么是索引？</a><br>• <a href="http://www.cnblogs.com/morvenhuang/archive/2009/03/30/1425534.html" target="_blank" rel="external">索引的原理？</a><br>也可以选用 NoSQL 数据库，但是需要建立两张表（大多数NoSQL数据库不支持二级索引）。以 Cassandra 为例子<br>第一张表：根据 Long 查询 Short<br>row_key=longURL, column_key=ShortURL, value=null or timestamp<br>第二张表：根据 Short 查询 Long<br>row_key=shortURL, column_key=LongURL, value=null or timestamp</p>
 </li>
 <li><p><strong>基于进制转换的方法</strong><br>因为需要用到自增ID（Sequential ID），因此只能选择使用 SQL 型数据库。表单结构如下，shortURL 可以不存储在表单里，因为可以根据 id 来进行换算</p>
@@ -255,7 +655,7 @@
 <p><a href="http://om1bxijvl.bkt.clouddn.com/2018-02-10-21-02-19.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-02-10-21-02-19.png" alt="img"></a></p>
 </li>
 </ul>
-<h3 id="5-Scale-优化"><a href="#5-Scale-优化" class="headerlink" title="5. Scale 优化"></a>5. Scale 优化</h3><h4 id="5-1-如何提高响应速度？"><a href="#5-1-如何提高响应速度？" class="headerlink" title="5.1 如何提高响应速度？"></a>5.1 如何提高响应速度？</h4><p><strong>读操作的优化</strong></p>
+<h2 id="5-Scale-优化"><a href="#5-Scale-优化" class="headerlink" title="5. Scale 优化"></a>5. Scale 优化</h2><h3 id="5-1-如何提高响应速度？"><a href="#5-1-如何提高响应速度？" class="headerlink" title="5.1 如何提高响应速度？"></a>5.1 如何提高响应速度？</h3><p><strong>读操作的优化</strong></p>
 <p>既然读操作比较多，那么可以用cache的方式去提速。</p>
 <ul>
 <li>cache里存什么？<ul>
@@ -265,7 +665,7 @@
 </li>
 <li>查询的流程图：<br><a href="http://om1bxijvl.bkt.clouddn.com/2018-02-10-21-22-22.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-02-10-21-22-22.png" alt="img"></a></li>
 </ul>
-<h4 id="5-2-如何提速？"><a href="#5-2-如何提速？" class="headerlink" title="5.2 如何提速？"></a>5.2 如何提速？</h4><ul>
+<h3 id="5-2-如何提速？"><a href="#5-2-如何提速？" class="headerlink" title="5.2 如何提速？"></a>5.2 如何提速？</h3><ul>
 <li><p>利用地理位置信息加速</p>
 </li>
 <li><p>优化服务器速度</p>
@@ -286,7 +686,7 @@
 </ul>
 </li>
 </ul>
-<h4 id="5-3-数据量扩展"><a href="#5-3-数据量扩展" class="headerlink" title="5.3 数据量扩展"></a>5.3 数据量扩展</h4><p>如果数据量很大，一台MySQL搞不定了</p>
+<h3 id="5-3-数据量扩展"><a href="#5-3-数据量扩展" class="headerlink" title="5.3 数据量扩展"></a>5.3 数据量扩展</h3><p>如果数据量很大，一台MySQL搞不定了</p>
 <ul>
 <li>什么时候需要扩展多台服务器？<ul>
 <li>Cache资源不够</li>
@@ -344,7 +744,7 @@
 </ul>
 </li>
 </ul>
-<p><strong>下面是一种更好的sharding办法：</strong></p>
+<p><strong>下面是一种更好的sharding办法，不需要全局递增ID：</strong></p>
 </li>
 <li><p>如果最开始shortkey为6位，那就增加一位前置位：</p>
 <ul>
@@ -359,12 +759,58 @@
 <li>无需广播</li>
 <li>无论short2long还是long2short都可直接定位数据所在服务器</li>
 </ul>
+</li>
+<li><p>当新加入一个longURL时，先通过hash(long_url)%62得到机器ID，然后在该机器上，通过该台机器的自增ID通过进制转换得到6位shortkey</p>
+</li>
+<li><p>用户已知shortURL时，先按第一位获取到机器ID，然后在此机器上查询longURL</p>
 <p>那么当前的架构就变成了：</p>
 </li>
 </ul>
 </li>
 </ul>
 <p><a href="http://om1bxijvl.bkt.clouddn.com/2018-02-10-22-18-36.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-02-10-22-18-36.png" alt="img"></a></p>
+<h3 id="5-4-Multi-region-的进一步优化"><a href="#5-4-Multi-region-的进一步优化" class="headerlink" title="5.4 Multi region 的进一步优化"></a>5.4 Multi region 的进一步优化</h3><p>上面的架构图还有优化的空间：</p>
+<ul>
+<li>网站服务器与数据库服务器之间的通信</li>
+<li>中心化服务器集群与跨地域的web server之间的通信较慢，比如如果中心数据库放在美国，那么中国的服务器需要访问美国的数据库，通信较慢</li>
+</ul>
+<p>解决方法1：重写数据库到中国，中国用户访问中国数据库</p>
+<p>问题：重写数据库，一致性问题如何解决？很难解决</p>
+<p>正确打开方式：</p>
+<p>想一想用户习惯：</p>
+<ol>
+<li>中国的用户一般访问的网站是中国的，美国的用户一般访问的网站是美国的</li>
+<li>中国用户访问时，会被DNS分配中国的服务器</li>
+</ol>
+<p>因此我们可以用<strong>地域信息</strong>进行sharding，也就是说按照网站的地域信息将其数据分开存储在不同地方的数据库中</p>
+<p>​    如何获得网站的地域信息？做一张用户经常访问的网站数据表</p>
+<p>这样中国用户要访问的网站大多在位于中国的数据库中，响应速度就会比较快，当然也有少量中国用户需要访问美国网站的情况，就直接去访问美国数据库就好，反正不会慢对少，毕竟中国访问中国是主流需求，优化系统就是要优化主要需求。</p>
+<p>最终架构图</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-06-11-17-32.png" alt=""> </p>
+<h3 id="5-5-自定义短链接"><a href="#5-5-自定义短链接" class="headerlink" title="5.5 自定义短链接"></a>5.5 自定义短链接</h3><p>用户自定义短网址 -&gt; 长网址映射</p>
+<p><a href="http://tiny.url/google/" target="_blank" rel="external">http://tiny.url/google/</a> =&gt; <a href="http://www.google.com" target="_blank" rel="external">http://www.google.com</a><br><a href="http://tiny.url/systemdesign/" target="_blank" rel="external">http://tiny.url/systemdesign/</a> =&gt; <a href="http://www.jiuzhang.com/course/2/" target="_blank" rel="external">http://www.jiuzhang.com/course/2/</a></p>
+<p><strong>一个错误的想法是：</strong></p>
+<p>在URLtable中增加一个column，存放自定义的URL，因为这一列大部分会是空的，浪费空间。</p>
+<p>正确打开方式：</p>
+<ul>
+<li>新建一张表存储自定义URL<ul>
+<li>CustomURL Table</li>
+</ul>
+</li>
+</ul>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-06-12-05-53.png" alt=""> </p>
+<ul>
+<li>已知长链接查询短链接的时候：<ul>
+<li>先查询customURL table</li>
+<li>再查询URL table</li>
+</ul>
+</li>
+<li>用户想要由长链接自定一个新的短链接的时候<ul>
+<li>查询是否已经在URLtable中存在了</li>
+<li>再在CustomURL table 中查询和插入</li>
+</ul>
+</li>
+</ul>
 ]]></content>
       
         <categories>
@@ -6806,7 +7252,7 @@ return count;
     <entry>
       <title><![CDATA[【九章算法强化班习题集】]]></title>
       <url>/2017/11/05/%E3%80%90%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95%E5%BC%BA%E5%8C%96%E7%8F%AD%E4%B9%A0%E9%A2%98%E9%9B%86%E3%80%91/</url>
-      <content type="html"><![CDATA[<link href="/style.css" rel="stylesheet" type="text/css"><script src="/crypto-js.js"></script><script src="/mcommon.js"></script><script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script> <div id="security"> <div> <div class="input-container"> <input type="password" class="form-control" id="pass" placeholder=" 请输入文章密码！ "/> <label for="pass"> 请输入文章密码！ </label> <div class="bottom-line"></div> </div> </div> </div> <div id="encrypt-blog" style="display:none"> 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 </div>]]></content>
+      <content type="html"><![CDATA[<link href="/style.css" rel="stylesheet" type="text/css"><script src="/crypto-js.js"></script><script src="/mcommon.js"></script><script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script> <div id="security"> <div> <div class="input-container"> <input type="password" class="form-control" id="pass" placeholder=" 请输入文章密码！ "/> <label for="pass"> 请输入文章密码！ </label> <div class="bottom-line"></div> </div> </div> </div> <div id="encrypt-blog" style="display:none"> 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 </div>]]></content>
       
         <categories>
             
