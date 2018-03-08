@@ -4,6 +4,21 @@
 
     
   <url>
+    <loc>http://yoursite.com/2018/03/08/%E3%80%90%E6%9C%AC%E7%AB%99%E7%9B%AE%E5%BD%95%E3%80%91/</loc>
+    <lastmod>2018-03-08T11:57:57.359Z</lastmod>
+    <data>
+        <display>
+        <title>【本站目录】</title>
+        <pubTime>2018-03-08T11:57:57.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2018/03/08/%E3%80%902017%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BE%8E%E3%80%91%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%80%BB%E7%BB%93/</loc>
     <lastmod>2018-03-08T10:12:33.425Z</lastmod>
     <data>
@@ -28,6 +43,12 @@
         
          
            
+             
+              <breadCrumb title="算法" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/"/>
+          
+             
+              <breadCrumb title="九章算法" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95/"/>
+          
         </display>
     </data>
     </url>
@@ -687,17 +708,20 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/07/17/Optimal-Real-Time-Bidding-for-Display-Advertising%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/</loc>
+    <loc>http://yoursite.com/2017/11/20/%E3%80%90RTB%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0%E3%80%91/</loc>
     <lastmod>2017-12-07T11:41:16.225Z</lastmod>
     <data>
         <display>
-        <title>Optimal Real-Time Bidding for Display Advertising论文笔记</title>
-        <pubTime>2017-07-17T06:04:26.000Z</pubTime>
+        <title>【RTB论文笔记】</title>
+        <pubTime>2017-11-20T06:43:23.000Z</pubTime>
         
          
            
              
-              <breadCrumb title="RTB" url="http://yoursite.com/categories/RTB/"/>
+              <breadCrumb title="广告" url="http://yoursite.com/categories/%E5%B9%BF%E5%91%8A/"/>
+          
+             
+              <breadCrumb title="RTB" url="http://yoursite.com/categories/%E5%B9%BF%E5%91%8A/RTB/"/>
           
         </display>
     </data>
@@ -711,46 +735,6 @@
         <display>
         <title>【算法导论】动态规划（二）矩阵链乘法</title>
         <pubTime>2017-11-01T14:54:11.000Z</pubTime>
-        
-        <tag>DP</tag>
-         
-        <tag>算法导论</tag>
-         
-         
-           
-             
-              <breadCrumb title="算法导论" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2017/11/27/Bid-Optimizing-and-Inventory-Scoring-in-Targeted-Online%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2017-12-07T11:41:16.225Z</lastmod>
-    <data>
-        <display>
-        <title>Bid Optimizing and Inventory Scoring in Targeted Online论文笔记</title>
-        <pubTime>2017-11-27T13:39:03.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="RTB" url="http://yoursite.com/categories/RTB/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2017/10/31/%E3%80%90%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E3%80%91%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E4%B8%80%EF%BC%89%E9%92%A2%E6%9D%A1%E5%88%87%E5%89%B2/</loc>
-    <lastmod>2017-12-07T11:41:16.225Z</lastmod>
-    <data>
-        <display>
-        <title>【算法导论】动态规划（一）钢条切割</title>
-        <pubTime>2017-10-31T14:44:19.000Z</pubTime>
         
         <tag>DP</tag>
          
@@ -792,15 +776,40 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/11/22/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8ETop-k%E5%BF%AB%E9%80%9F%E6%A3%80%E7%B4%A2%E9%97%AE%E9%A2%98/</loc>
+    <loc>http://yoursite.com/2017/10/31/%E3%80%90%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E3%80%91%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E4%B8%80%EF%BC%89%E9%92%A2%E6%9D%A1%E5%88%87%E5%89%B2/</loc>
     <lastmod>2017-12-07T11:41:16.225Z</lastmod>
     <data>
         <display>
-        <title>搜索引擎Top-k快速检索问题</title>
-        <pubTime>2017-11-22T08:20:52.000Z</pubTime>
+        <title>【算法导论】动态规划（一）钢条切割</title>
+        <pubTime>2017-10-31T14:44:19.000Z</pubTime>
+        
+        <tag>DP</tag>
+         
+        <tag>算法导论</tag>
+         
+         
+           
+             
+              <breadCrumb title="算法导论" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2017/11/27/Bid-Optimizing-and-Inventory-Scoring-in-Targeted-Online%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2017-12-07T11:41:16.225Z</lastmod>
+    <data>
+        <display>
+        <title>Bid Optimizing and Inventory Scoring in Targeted Online论文笔记</title>
+        <pubTime>2017-11-27T13:39:03.000Z</pubTime>
         
          
            
+             
+              <breadCrumb title="RTB" url="http://yoursite.com/categories/RTB/"/>
+          
         </display>
     </data>
     </url>
@@ -827,6 +836,39 @@
 
     
   <url>
+    <loc>http://yoursite.com/2017/11/22/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8ETop-k%E5%BF%AB%E9%80%9F%E6%A3%80%E7%B4%A2%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2017-12-07T11:41:16.225Z</lastmod>
+    <data>
+        <display>
+        <title>搜索引擎Top-k快速检索问题</title>
+        <pubTime>2017-11-22T08:20:52.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2017/07/17/Optimal-Real-Time-Bidding-for-Display-Advertising%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2017-12-07T11:41:16.225Z</lastmod>
+    <data>
+        <display>
+        <title>Optimal Real-Time Bidding for Display Advertising论文笔记</title>
+        <pubTime>2017-07-17T06:04:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="RTB" url="http://yoursite.com/categories/RTB/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2017/11/18/%E3%80%90%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%8F%AD%E3%80%91%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92(%E4%B8%8A)/</loc>
     <lastmod>2017-12-07T11:41:16.225Z</lastmod>
     <data>
@@ -843,27 +885,6 @@
           
              
               <breadCrumb title="九章算法" url="http://yoursite.com/categories/%E7%AE%97%E6%B3%95/%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2017/11/20/%E3%80%90RTB%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0%E3%80%91/</loc>
-    <lastmod>2017-12-07T11:41:16.225Z</lastmod>
-    <data>
-        <display>
-        <title>【RTB论文笔记】</title>
-        <pubTime>2017-11-20T06:43:23.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="广告" url="http://yoursite.com/categories/%E5%B9%BF%E5%91%8A/"/>
-          
-             
-              <breadCrumb title="RTB" url="http://yoursite.com/categories/%E5%B9%BF%E5%91%8A/RTB/"/>
           
         </display>
     </data>
@@ -968,16 +989,14 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/11/04/c-STL%E4%B8%ADvector%E7%9A%84%E4%B8%80%E4%BA%9B%E6%93%8D%E4%BD%9C/</loc>
+    <loc>http://yoursite.com/2017/11/04/c-STL%E4%B8%AD%E5%A0%86%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2017-11-04T08:47:16.412Z</lastmod>
     <data>
         <display>
-        <title>c++STL中vector的一些操作</title>
-        <pubTime>2017-11-04T08:36:41.000Z</pubTime>
+        <title>c++STL中堆的使用</title>
+        <pubTime>2017-11-04T03:18:38.000Z</pubTime>
         
-        <tag>c++</tag>
-         
-        <tag>vetcor</tag>
+        <tag>堆</tag>
          
          
            
@@ -990,14 +1009,16 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/11/04/c-STL%E4%B8%AD%E5%A0%86%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
+    <loc>http://yoursite.com/2017/11/04/c-STL%E4%B8%ADvector%E7%9A%84%E4%B8%80%E4%BA%9B%E6%93%8D%E4%BD%9C/</loc>
     <lastmod>2017-11-04T08:47:16.412Z</lastmod>
     <data>
         <display>
-        <title>c++STL中堆的使用</title>
-        <pubTime>2017-11-04T03:18:38.000Z</pubTime>
+        <title>c++STL中vector的一些操作</title>
+        <pubTime>2017-11-04T08:36:41.000Z</pubTime>
         
-        <tag>堆</tag>
+        <tag>c++</tag>
+         
+        <tag>vetcor</tag>
          
          
            
