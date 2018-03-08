@@ -108,7 +108,8 @@
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-49-53.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-53-21.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-59-59.png">
-<meta property="og:updated_time" content="2018-03-07T04:11:46.395Z">
+<meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2018-03-07-17-03-21.png">
+<meta property="og:updated_time" content="2018-03-07T07:41:46.397Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【腾讯转化率预估比赛】总结">
 <meta name="twitter:description" content="第一届腾讯社交广告算法大赛复赛成绩0.101941，排名26名，在此总结一下。  1. 题目简介1.1 移动App广告转化率预估详细赛题见官方网站  计算广告是互联网最重要的商业模式之一，广告投放效果通常通过曝光、点击和转化各环节来衡量，大多数广告系统受广告效果数据回流的限制只能通过曝光或点击作为投放效果的衡量标准开展优化。腾讯社交广告(http://ads.tencent.com)发挥特有的用户">
@@ -395,7 +396,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  6,273
+                  6,727
                 </span>
               
 
@@ -411,7 +412,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  22
+                  24
                 </span>
               
             </div>
@@ -744,7 +745,13 @@
 <h2 id="5-6-贝叶斯平滑"><a href="#5-6-贝叶斯平滑" class="headerlink" title="5.6 贝叶斯平滑"></a>5.6 贝叶斯平滑</h2><p>这里我们参考了@<a href="https://cloud.tencent.com/developer/user/598572" target="_blank" rel="external">王照彬</a> 大神的平滑方式</p>
 <p> 例如对我们数据中存在的 root -&gt; advertiser -&gt; campaign -&gt; ad -&gt; creative 层级关系(root为训练集中全部样本), 这样的层级关系隐喻了在同一个父节点下的子节点, 其来自于同一个Beta分布, 所以我逐层进行了贝叶斯平滑, 且建立层级关系还有一个好处, 即对预测集出现的数据, 若该creativeID 在训练集从未出现过, 则在pandas.merge时该值为空, 则向上寻找其父节点的统计值, 最高一层为root, 是基与全部训练数据的统计, root的值不进行贝叶斯平滑, 且一定存在, 这就保证了当在预测集中遇到了未出现的样本时, 使用最合理的缺省值进行补全.</p>
 <p><img src="https://blog-10039692.file.myqcloud.com/1496913643639_4485_1496913644532.png" alt="img"></p>
+<p>关于贝叶斯平滑，其核心思想就是说，当某些广告投放量比较少时，或者还未投放时，根据历史数据所统计的转化率特征是不准确的，比如有广告A和B，<script type="math/tex">r_A = 5/10</script>,<script type="math/tex">r_B = 50/100</script>,由于广告A的投放量还比较少，通过历史数据计算而得的<script type="math/tex">r_B</script> 就很有可能不准确，在比如如果某一个广告还未投放过，那么根据历史数据计算其转化率为0，放入模型中训练，也是非常不合理的，所以我们该如何解决呢？</p>
+<p>假设</p>
+<p>我们假设广告的转化率是服从伯努利分布的，也就是只有转化和不转化两种情况，伯努利的共轭显先验分布是贝塔分布，因此可以采用</p>
+<p>对于贝叶斯平滑参数的估计方法，可以采用矩估计、极大似然估计和EM算法，这里由于速度的限制，我们采用的是矩估计的方式，代码<a href="https://github.com/zsyandjyhouse/TencentAD_contest" target="_blank" rel="external">TencentAD_contest</a></p>
 <p>关于贝叶斯平滑，有待补习，参考文章：</p>
+<p><a href="http://blog.csdn.net/jinping_shi/article/details/53444100" target="_blank" rel="external">贝叶斯参数估计的理解</a></p>
+<p><a href="https://www.bbsmax.com/A/A7zgmjRk54/" target="_blank" rel="external">CTR预估中的贝叶斯平滑方法（二）参数估计和代码实现</a></p>
 <p><a href="http://blog.csdn.net/jinping_shi/article/details/78334362" target="_blank" rel="external">转化率（CTR）预测的贝叶斯平滑</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/21724759" target="_blank" rel="external">计算广告的训练与平滑思想（下）</a></p>
 <h2 id="5-7-多线程抽取特征"><a href="#5-7-多线程抽取特征" class="headerlink" title="5.7 多线程抽取特征"></a>5.7 多线程抽取特征</h2><p>决赛数据集太大，而我们组合特征非常多。因此我们采用了多线程抽特征的方式。</p>
@@ -791,7 +798,7 @@
 </li>
 <li><p>gbdt：xgboost,lightGBM</p>
 </li>
-<li><p>gbdt+lr</p>
+<li><p>gbdt+lr：Facebook论文中提出的一种方法</p>
 </li>
 <li><p>特征离散化+ffm：</p>
 <p>​    可以参考我的两篇文章</p>
@@ -799,10 +806,8 @@
 <p>​    <a href="https://siyaozhang.github.io/2017/03/22/FFM%EF%BC%88field-aware-Factorization-Machine%EF%BC%89%E2%80%94%E2%80%94%E5%8D%87%E7%BA%A7%E7%89%88FM/" target="_blank" rel="external">F<strong>FM</strong>（field-aware Factorization Machine）——升级版<strong>FM</strong></a></p>
 </li>
 </ul>
-<h1 id="8-改进方向"><a href="#8-改进方向" class="headerlink" title="8. 改进方向"></a>8. 改进方向</h1><p>回流数据方面</p>
-<p>卡方检验</p>
-<h1 id="9-项目代码"><a href="#9-项目代码" class="headerlink" title="9. 项目代码"></a>9. 项目代码</h1><p><a href="https://github.com/zsyandjyhouse/TencentAD_contest" target="_blank" rel="external">TencentAD_contest</a></p>
-<h1 id="10-参考资料"><a href="#10-参考资料" class="headerlink" title="10. 参考资料"></a>10. 参考资料</h1><ol>
+<h1 id="8-项目代码"><a href="#8-项目代码" class="headerlink" title="8. 项目代码"></a>8. 项目代码</h1><p><a href="https://github.com/zsyandjyhouse/TencentAD_contest" target="_blank" rel="external">TencentAD_contest</a></p>
+<h1 id="9-参考资料"><a href="#9-参考资料" class="headerlink" title="9. 参考资料"></a>9. 参考资料</h1><ol>
 <li><a href="https://zhuanlan.zhihu.com/p/26820998" target="_blank" rel="external">Kaggle 数据挖掘比赛经验分享</a></li>
 <li><a href="http://blog.csdn.net/yang090510118/article/details/39478033" target="_blank" rel="external">逻辑回归LR的特征为什么要先离散化</a></li>
 <li><a href="http://breezedeus.github.io/2014/11/20/breezedeus-feature-hashing.html" target="_blank" rel="external">特征哈希（Feature Hashing）</a></li>
@@ -816,7 +821,13 @@
 <li><a href="https://www.qcloud.com/community/article/895055" target="_blank" rel="external">【SPA大赛】腾讯广告点击大赛：对stacking的一些基本介绍</a></li>
 <li><a href="http://blog.csdn.net/ben3ben/article/details/74838338" target="_blank" rel="external">第七名</a></li>
 </ol>
-<h1 id="11-top3方案"><a href="#11-top3方案" class="headerlink" title="11. top3方案"></a>11. top3方案</h1>
+<h1 id="10-top3方案"><a href="#10-top3方案" class="headerlink" title="10. top3方案"></a>10. top3方案</h1><h3 id="10-1-top1"><a href="#10-1-top1" class="headerlink" title="10.1 top1"></a>10.1 top1</h3><p>特征工程非常细致，而且有理有据，都是经过仔细的分析统计抽取的特征，效果必然好，而且还做了模型创新，用</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-07-17-03-21.png" alt=""> </p>
+<h3 id="10-2-top2"><a href="#10-2-top2" class="headerlink" title="10.2 top2"></a>10.2 top2</h3><p>也是用了17-30号交叉验证，和我们相同的就不说了，说说不同的：</p>
+<p>回流数据不准处理方法：删掉30号平均回流时间较长的数据</p>
+<p>应该是这里回流的处理方式比较好，特征也比较细致，最后模型也做了stacking，模型大概跟我们差不多，但是我们ffm一直没训练好，最后也没有融合</p>
+<h3 id="10-3-top4"><a href="#10-3-top4" class="headerlink" title="10.3 top4"></a>10.3 top4</h3><p>deepFM</p>
+
       
     </div>
     
@@ -933,7 +944,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-count">105</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -990,7 +1001,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-题目简介"><span class="nav-number">1.</span> <span class="nav-text">1. 题目简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-移动App广告转化率预估"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 移动App广告转化率预估</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-评估方式："><span class="nav-number">1.2.</span> <span class="nav-text">1.2 评估方式：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-数据"><span class="nav-number">2.</span> <span class="nav-text">2. 数据</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-数据量"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 数据量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-数据表"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 数据表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-总结"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-主要流程"><span class="nav-number">3.</span> <span class="nav-text">3. 主要流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-数据分析-amp-清洗"><span class="nav-number">4.</span> <span class="nav-text">4. 数据分析&清洗</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-数据分析"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 数据分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-数据清洗"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 数据清洗</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-特征工程"><span class="nav-number">5.</span> <span class="nav-text">5. 特征工程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-海量离散特征-简单模型"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 海量离散特征+简单模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-少量连续特征-复杂模型"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 少量连续特征+复杂模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-组合特征构造"><span class="nav-number">5.3.</span> <span class="nav-text">5.3 组合特征构造</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-4-特征选择"><span class="nav-number">5.4.</span> <span class="nav-text">5.4 特征选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-5-用户-APP特征挖掘"><span class="nav-number">5.5.</span> <span class="nav-text">5.5 用户-APP特征挖掘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-6-贝叶斯平滑"><span class="nav-number">5.6.</span> <span class="nav-text">5.6 贝叶斯平滑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-7-多线程抽取特征"><span class="nav-number">5.7.</span> <span class="nav-text">5.7 多线程抽取特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-8-总结"><span class="nav-number">5.8.</span> <span class="nav-text">5.8 总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-训练集-测试集构造"><span class="nav-number">6.</span> <span class="nav-text">6. 训练集/测试集构造</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-模型训练和验证"><span class="nav-number">7.</span> <span class="nav-text">7. 模型训练和验证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-改进方向"><span class="nav-number">8.</span> <span class="nav-text">8. 改进方向</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-项目代码"><span class="nav-number">9.</span> <span class="nav-text">9. 项目代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-参考资料"><span class="nav-number">10.</span> <span class="nav-text">10. 参考资料</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#11-top3方案"><span class="nav-number">11.</span> <span class="nav-text">11. top3方案</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-题目简介"><span class="nav-number">1.</span> <span class="nav-text">1. 题目简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-移动App广告转化率预估"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 移动App广告转化率预估</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-评估方式："><span class="nav-number">1.2.</span> <span class="nav-text">1.2 评估方式：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-数据"><span class="nav-number">2.</span> <span class="nav-text">2. 数据</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-数据量"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 数据量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-数据表"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 数据表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-总结"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-主要流程"><span class="nav-number">3.</span> <span class="nav-text">3. 主要流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-数据分析-amp-清洗"><span class="nav-number">4.</span> <span class="nav-text">4. 数据分析&清洗</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-数据分析"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 数据分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-数据清洗"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 数据清洗</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-特征工程"><span class="nav-number">5.</span> <span class="nav-text">5. 特征工程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-海量离散特征-简单模型"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 海量离散特征+简单模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-少量连续特征-复杂模型"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 少量连续特征+复杂模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-组合特征构造"><span class="nav-number">5.3.</span> <span class="nav-text">5.3 组合特征构造</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-4-特征选择"><span class="nav-number">5.4.</span> <span class="nav-text">5.4 特征选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-5-用户-APP特征挖掘"><span class="nav-number">5.5.</span> <span class="nav-text">5.5 用户-APP特征挖掘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-6-贝叶斯平滑"><span class="nav-number">5.6.</span> <span class="nav-text">5.6 贝叶斯平滑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-7-多线程抽取特征"><span class="nav-number">5.7.</span> <span class="nav-text">5.7 多线程抽取特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-8-总结"><span class="nav-number">5.8.</span> <span class="nav-text">5.8 总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-训练集-测试集构造"><span class="nav-number">6.</span> <span class="nav-text">6. 训练集/测试集构造</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-模型训练和验证"><span class="nav-number">7.</span> <span class="nav-text">7. 模型训练和验证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-项目代码"><span class="nav-number">8.</span> <span class="nav-text">8. 项目代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-参考资料"><span class="nav-number">9.</span> <span class="nav-text">9. 参考资料</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-top3方案"><span class="nav-number">10.</span> <span class="nav-text">10. top3方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#10-1-top1"><span class="nav-number">10.0.1.</span> <span class="nav-text">10.1 top1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-2-top2"><span class="nav-number">10.0.2.</span> <span class="nav-text">10.2 top2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-3-top4"><span class="nav-number">10.0.3.</span> <span class="nav-text">10.3 top4</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -1040,7 +1051,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">164.1k</span>
+    <span title="Site words total count">173.9k</span>
   
         
 <div class="busuanzi-count">
