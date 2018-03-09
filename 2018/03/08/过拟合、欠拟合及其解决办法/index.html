@@ -77,17 +77,28 @@
 
 
 
-<meta name="description" content="简介 Word2vec 是 Google 在 2013 年年中开源的一款将词表征为实数值向量的高效工具, 其利用深度学习的思想，可以通过训练，把对文本内容的处理简化为 K 维向量空间中的向量运算，而向量空间上的相似度可以用来表示文本语义上的相似度。Word2vec输出的词向量可以被用来做很多 NLP 相关的工作，比如聚类、找同义词、词性分析等等。如果换个思路， 把词当做特征，那么Word2vec就">
+<meta name="description" content="1. 过拟合与欠拟合​    机器学习中一个重要的话题便是模型的泛化能力，泛化能力强的模型才是好模型. ​    对于训练好的模型，若在训练集表现差，不必说在测试集表现同样会很差，这可能是欠拟合导致；若模型在训练集表现非常好，却在测试集上差强人意，则这便是过拟合导致的. ​    过拟合与欠拟合也可以用 Bias 与 Variance （偏差和方差）的角度来解释，欠拟合会导致高 Bias ，过拟合">
 <meta property="og:type" content="article">
-<meta property="og:title" content="word2vec（文本深度表示模型）">
-<meta property="og:url" content="http://yoursite.com/2017/04/04/word2vec（文本深度表示模型）/index.html">
+<meta property="og:title" content="过拟合、欠拟合及其解决办法">
+<meta property="og:url" content="http://yoursite.com/2018/03/08/过拟合、欠拟合及其解决办法/index.html">
 <meta property="og:site_name" content="Siyao&#39;s Blog">
-<meta property="og:description" content="简介 Word2vec 是 Google 在 2013 年年中开源的一款将词表征为实数值向量的高效工具, 其利用深度学习的思想，可以通过训练，把对文本内容的处理简化为 K 维向量空间中的向量运算，而向量空间上的相似度可以用来表示文本语义上的相似度。Word2vec输出的词向量可以被用来做很多 NLP 相关的工作，比如聚类、找同义词、词性分析等等。如果换个思路， 把词当做特征，那么Word2vec就">
+<meta property="og:description" content="1. 过拟合与欠拟合​    机器学习中一个重要的话题便是模型的泛化能力，泛化能力强的模型才是好模型. ​    对于训练好的模型，若在训练集表现差，不必说在测试集表现同样会很差，这可能是欠拟合导致；若模型在训练集表现非常好，却在测试集上差强人意，则这便是过拟合导致的. ​    过拟合与欠拟合也可以用 Bias 与 Variance （偏差和方差）的角度来解释，欠拟合会导致高 Bias ，过拟合">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-04-04T09:00:19.723Z">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-7b5523e2f3ef416698cfecaebc73df36_hd.jpg">
+<meta property="og:image" content="http://i.imgur.com/6jbxq15.jpg">
+<meta property="og:image" content="http://i.imgur.com/kju5RTZ.jpg">
+<meta property="og:image" content="http://i.imgur.com/HCkJZYl.jpg">
+<meta property="og:image" content="http://i.imgur.com/9WnBBu1.jpg">
+<meta property="og:image" content="http://i.imgur.com/mebEC90.jpg">
+<meta property="og:image" content="http://i.imgur.com/qM83geg.jpg">
+<meta property="og:image" content="http://i.imgur.com/Xs2p2EN.jpg">
+<meta property="og:image" content="http://i.imgur.com/yDETU7x.jpg">
+<meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2018-03-08-23-02-04.png">
+<meta property="og:updated_time" content="2018-03-08T15:11:46.377Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="word2vec（文本深度表示模型）">
-<meta name="twitter:description" content="简介 Word2vec 是 Google 在 2013 年年中开源的一款将词表征为实数值向量的高效工具, 其利用深度学习的思想，可以通过训练，把对文本内容的处理简化为 K 维向量空间中的向量运算，而向量空间上的相似度可以用来表示文本语义上的相似度。Word2vec输出的词向量可以被用来做很多 NLP 相关的工作，比如聚类、找同义词、词性分析等等。如果换个思路， 把词当做特征，那么Word2vec就">
+<meta name="twitter:title" content="过拟合、欠拟合及其解决办法">
+<meta name="twitter:description" content="1. 过拟合与欠拟合​    机器学习中一个重要的话题便是模型的泛化能力，泛化能力强的模型才是好模型. ​    对于训练好的模型，若在训练集表现差，不必说在测试集表现同样会很差，这可能是欠拟合导致；若模型在训练集表现非常好，却在测试集上差强人意，则这便是过拟合导致的. ​    过拟合与欠拟合也可以用 Bias 与 Variance （偏差和方差）的角度来解释，欠拟合会导致高 Bias ，过拟合">
+<meta name="twitter:image" content="https://pic3.zhimg.com/80/v2-7b5523e2f3ef416698cfecaebc73df36_hd.jpg">
 
 
 
@@ -117,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/04/04/word2vec（文本深度表示模型）/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/03/08/过拟合、欠拟合及其解决办法/"/>
 
 
 
 
 
-  <title>word2vec（文本深度表示模型） | Siyao's Blog</title>
+  <title>过拟合、欠拟合及其解决办法 | Siyao's Blog</title>
   
 
 
@@ -304,7 +315,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/04/word2vec（文本深度表示模型）/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/08/过拟合、欠拟合及其解决办法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Siyao">
@@ -321,7 +332,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">word2vec（文本深度表示模型）</h1>
+          <h1 class="post-title" itemprop="name headline">过拟合、欠拟合及其解决办法</h1>
         
 
         <div class="post-meta">
@@ -333,8 +344,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-04T16:59:51+08:00">
-                2017-04-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-08T21:27:34+08:00">
+                2018-03-08
               </time>
             
 
@@ -343,28 +354,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/deep-learning/" itemprop="url" rel="index">
-                    <span itemprop="name">deep learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -392,7 +381,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  541
+                  3,553
                 </span>
               
 
@@ -408,7 +397,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  13
                 </span>
               
             </div>
@@ -429,15 +418,93 @@
       
 
       
-        <p>简介</p>
-<p>Word2vec 是 Google 在 2013 年年中开源的一款将词表征为实数值向量的高效工具, 其利用深度学习的思想，可以通过训练，把对文本内容的处理简化为 K 维向量空间中的向量运算，而向量空间上的相似度可以用来表示文本语义上的相似度。Word2vec输出的词向量可以被用来做很多 NLP 相关的工作，比如聚类、找同义词、词性分析等等。如果换个思路， 把词当做特征，那么Word2vec就可以把特征映射到 K 维向量空间，可以为文本数据寻求更加深层次的特征表示 。</p>
-<p>Word2vec 使用的是 Distributed representation 的词向量表示方式。Distributed representation 最早由 Hinton在 1986 年提出[4]。其基本思想是 通过训练将每个词映射成 K 维实数向量（K 一般为模型中的超参数），通过词之间的距离（比如 cosine 相似度、欧氏距离等）来判断它们之间的语义相似度.其采用一个 三层的神经网络 ，输入层-隐层-输出层。有个核心的技术是 根据词频用Huffman编码 ，使得所有词频相似的词隐藏层激活的内容基本一致，出现频率越高的词语，他们激活的隐藏层数目越少，这样有效的降低了计算的复杂度。而Word2vec大受欢迎的一个原因正是其高效性，Mikolov 在论文[2]中指出，一个优化的单机版本一天可训练上千亿词。</p>
-<p>这个三层神经网络本身是 对语言模型进行建模 ，但也同时 获得一种单词在向量空间上的表示 ，而这个副作用才是Word2vec的真正目标。</p>
-<p>与潜在语义分析（Latent Semantic Index, LSI）、潜在狄立克雷分配（Latent Dirichlet Allocation，LDA）的经典过程相比，Word2vec利用了词的上下文，语义信息更加地丰富。</p>
-<p>参考文献</p>
-<p>有道技术沙龙-Deep Learning实战之word2vec</p>
-<p>卷积和pooling</p>
-<p>Deep Learning in NLP （一）词向量和语言模型</p>
+        <h2 id="1-过拟合与欠拟合"><a href="#1-过拟合与欠拟合" class="headerlink" title="1. 过拟合与欠拟合"></a>1. 过拟合与欠拟合</h2><p>​    <strong>机器学习中一个重要的话题便是模型的泛化能力，泛化能力强的模型才是好模型</strong>.</p>
+<p>​    对于训练好的模型，若在训练集表现差，不必说在测试集表现同样会很差，这可能是欠拟合导致；若模型在训练集表现非常好，却在测试集上差强人意，则这便是过拟合导致的.</p>
+<p>​    过拟合与欠拟合也可以用 Bias 与 Variance （偏差和方差）的角度来解释，<strong>欠拟合会导致高 Bias ，过拟合会导致高 Variance ，所以模型需要在 Bias 与 Variance 之间做出一个权衡。</strong></p>
+<p>​    使用简单的模型去拟合复杂数据时，会导致模型很难拟合数据的真实分布，这时模型便欠拟合了，或者说有很大的 Bias，<strong>Bias 即为模型的期望输出与其真实输出之间的差异</strong>；有时为了得到比较精确的模型而过度拟合训练数据，或者模型复杂度过高时，可能连训练数据的噪音也拟合了，导致模型在训练集上效果非常好，但泛化性能却很差，这时模型便过拟合了，或者说有很大的 Variance，这时模型在不同训练集上得到的模型波动比较大，<strong>Variance 刻画了不同训练集得到的模型的输出与这些模型期望输出的差异</strong>。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-7b5523e2f3ef416698cfecaebc73df36_hd.jpg" alt="img"></p>
+<h2 id="2-常用解决办法"><a href="#2-常用解决办法" class="headerlink" title="2. 常用解决办法"></a>2. 常用解决办法</h2><p><strong>(1)解决欠拟合的方法：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">1、增加新特征，可以考虑加入进特征组合、高次特征，来增大假设空间;</div><div class="line">2、尝试非线性模型，比如核SVM 、决策树、DNN等模型;</div><div class="line">3、如果有正则项可以较小正则项参数 $\lambda$;</div><div class="line">4、Boosting ,Boosting 往往会有较小的 Bias，比如 Gradient Boosting 等.</div></pre></td></tr></table></figure>
+<p><strong>(2)解决过拟合的方法：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">1、交叉检验，通过交叉检验得到较优的模型参数;</div><div class="line">2、early stop</div><div class="line">3、特征选择，减少特征数或使用较少的特征组合，对于按区间离散化的特征，增大划分的区间;</div><div class="line">4、正则化，常用的有 L1、L2 正则。而且 L1正则还可以自动进行特征选择;</div><div class="line">5、如果有正则项则可以考虑增大正则项参数 lambda;</div><div class="line">6、增加训练数据可以有限的避免过拟合;</div><div class="line">7、Bagging,将多个弱学习器Bagging 一下效果会好很多，比如随机森林等.</div></pre></td></tr></table></figure>
+<p><strong>（3）DNN中常见的方法：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">1、早停策略。本质上是交叉验证策略，选择合适的训练次数，避免训练的网络过度拟合训练数据。</div><div class="line">2、集成学习策略。而DNN可以用Bagging的思路来正则化。首先我们要对原始的m个训练样本进行有放回随机采样，构建N组m个样本的数据集，然后分别用这N组数据集去训练我们的DNN。即采用我们的前向传播算法和反向传播算法得到N个DNN模型的W,b参数组合，最后对N个DNN模型的输出用加权平均法或者投票法决定最终输出。不过用集成学习Bagging的方法有一个问题，就是我们的DNN模型本来就比较复杂，参数很多。现在又变成了N个DNN模型，这样参数又增加了N倍，从而导致训练这样的网络要花更加多的时间和空间。因此一般N的个数不能太多，比如5-10个就可以了。</div><div class="line">3、DropOut策略。所谓的Dropout指的是在用前向传播算法和反向传播算法训练DNN模型时，一批数据迭代时，随机的从全连接DNN网络中去掉一部分隐藏层的神经元。　在对训练集中的一批数据进行训练时，我们随机去掉一部分隐藏层的神经元，并用去掉隐藏层的神经元的网络来拟合我们的一批训练数据。使用基于dropout的正则化比基于bagging的正则化简单，这显而易见，当然天下没有免费的午餐，由于dropout会将原始数据分批迭代，因此原始数据集最好较大，否则模型可能会欠拟合。</div></pre></td></tr></table></figure>
+<h2 id="3-L1和L2正则化方法"><a href="#3-L1和L2正则化方法" class="headerlink" title="3. L1和L2正则化方法"></a>3. L1和L2正则化方法</h2><p><strong>目的：防止过拟合，提高泛化能力</strong></p>
+<h3 id="3-1-定义"><a href="#3-1-定义" class="headerlink" title="3.1 定义"></a>3.1 定义</h3><p>给定数据集<script type="math/tex">D={(x_1,y_1),(x_2,y_2),…(x_m,y_m)}</script>,其中<script type="math/tex">x\in R^d,y\in R</script>.</p>
+<p>考虑最简单的线性回归，以平方误差为损失函数，则优化目标为：</p>
+<script type="math/tex; mode=display">min_w\sum_{i=1}^m(y_i-w^Tx_i)^2</script><p>当样本特征很多，而样本数较少时，上式很容易陷入过拟合。解决方案，正则化项。</p>
+<p><strong><script type="math/tex">L2</script>范数正则化（“岭回归”(redge regression)）：</strong></p>
+<script type="math/tex; mode=display">min_w\sum_{i=1}^m(y_i-w^Tx_i)^2+\lambda ||w||_2^2</script><p><strong><script type="math/tex">L1</script>范数正则化：</strong></p>
+<script type="math/tex; mode=display">min_w\sum_{i=1}^m(y_i-w^Tx_i)^2+\lambda ||w||_1</script><h3 id="3-2-L1和L2的异同"><a href="#3-2-L1和L2的异同" class="headerlink" title="3.2 L1和L2的异同"></a>3.2 L1和L2的异同</h3><p>相同点：都用于避免过拟合</p>
+<p>不同点：</p>
+<ol>
+<li>L1可以让一部分特征的系数缩小到0，从而间接实现<strong>特征选择</strong>。所以L1适用于特征之间有关联的情况。</li>
+<li>L2让所有特征的系数都缩小，但是不会减为0，它会使<strong>优化求解稳定快速</strong>。所以L2适用于特征之间没有关联的情况</li>
+</ol>
+<p>总结一下就是 <strong>L1正则化产生稀疏的权值, L2正则化产生平滑的权值</strong>。为什么会这样？这里面的本质原因是什么呢？下面我们从两个角度来解释这个问题。</p>
+<h4 id="角度1：数学公式"><a href="#角度1：数学公式" class="headerlink" title="角度1：数学公式"></a>角度1：数学公式</h4><p><strong>L1 regularization:</strong></p>
+<p>在原始的代价函数后面加上一个L1正则化项，即所有权重w的绝对值的和，乘以λ/n（这里不像L2正则化项那样，需要再乘以1/2，具体原因上面已经说过。）</p>
+<p><img src="http://i.imgur.com/6jbxq15.jpg" alt="img"></p>
+<p>同样先计算导数：</p>
+<p><img src="http://i.imgur.com/kju5RTZ.jpg" alt="img"></p>
+<p>上式中sgn(w)表示w的符号。那么权重w的更新规则为：</p>
+<p><img src="http://i.imgur.com/HCkJZYl.jpg" alt="img"></p>
+<p>比原始的更新规则多出了η <em> λ </em> sgn(w)/n这一项。当w为正时，更新后的w变小。当w为负时，更新后的w变大——因此它的效果就是让w往0靠，使网络中的权重尽可能为0，也就相当于减小了网络复杂度，防止过拟合。</p>
+<p>另外，上面没有提到一个问题，当w为0时怎么办？当w等于0时，|W|是不可导的，所以我们只能按照原始的未经正则化的方法去更新w，这就相当于去掉η<em>λ</em>sgn(w)/n这一项，所以我们可以规定sgn(0)=0，这样就把w=0的情况也统一进来了。（在编程的时候，令sgn(0)=0,sgn(w&gt;0)=1,sgn(w&lt;0)=-1）</p>
+<p><strong>L2 regularization（权重衰减）</strong>:</p>
+<p>L2正则化就是在代价函数后面再加上一个正则化项：</p>
+<p><img src="http://i.imgur.com/9WnBBu1.jpg" alt="img"></p>
+<p>C0代表原始的代价函数，后面那一项就是L2正则化项，它是这样来的：所有参数w的平方的和，除以训练集的样本大小n。λ就是正则项系数，权衡正则项与C0项的比重。另外还有一个系数1/2，1/2经常会看到，主要是为了后面求导的结果方便，后面那一项求导会产生一个2，与1/2相乘刚好凑整。</p>
+<p>L2正则化项是怎么避免overfitting的呢？我们推导一下看看，先求导：</p>
+<p><img src="http://i.imgur.com/mebEC90.jpg" alt="img"></p>
+<p>可以发现L2正则化项对b的更新没有影响，但是对于w的更新有影响:</p>
+<p><img src="http://i.imgur.com/qM83geg.jpg" alt="img"></p>
+<p>在不使用L2正则化时，求导结果中w前系数为1，现在w前面系数为 1−ηλ/n ，因为η、λ、n都是正的，所以 1−ηλ/n小于1，它的效果是减小w，这也就是权重衰减（weight decay）的由来。当然考虑到后面的导数项，w最终的值可能增大也可能减小。</p>
+<p>另外，需要提一下，对于基于mini-batch的随机梯度下降，w和b更新的公式跟上面给出的有点不同：</p>
+<p><img src="http://i.imgur.com/Xs2p2EN.jpg" alt="img"></p>
+<p><img src="http://i.imgur.com/yDETU7x.jpg" alt="img"></p>
+<p>对比上面w的更新公式，可以发现后面那一项变了，变成所有导数加和，乘以η再除以m，m是一个mini-batch中样本的个数。</p>
+<p>到目前为止，我们只是解释了L2正则化项有让w“变小”的效果，但是还没解释为什么w“变小”可以防止overfitting？一个所谓“显而易见”的解释就是：更小的权值w，从某种意义上说，表示网络的复杂度更低，对数据的拟合刚刚好（这个法则也叫做奥卡姆剃刀），而在实际应用中，也验证了这一点，L2正则化的效果往往好于未经正则化的效果。</p>
+<h4 id="角度2：几何空间"><a href="#角度2：几何空间" class="headerlink" title="角度2：几何空间"></a>角度2：几何空间</h4><p>（西瓜书-253页的解释） </p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-08-23-02-04.png" alt=""></p>
+<p>​    简化到2维的情形，如上图所示。其中，左边是L1图示，右边是L2图示，左边的方形线上是L1中w1/w2取值区间，右边得圆形线上是L2中w1/w2的取值区间，绿色的圆圈表示w1/w2取不同值时整个正则化项的值的等高线（凸函数），从等高线和w1/w2取值区间的交点可以看到，L1中两个权值倾向于一个较大另一个为0，L2中两个权值倾向于均为非零的较小数。这也就是L1稀疏，L2平滑的效果。</p>
+<h2 id="4-bagging-and-boosting"><a href="#4-bagging-and-boosting" class="headerlink" title="4. bagging  and boosting"></a>4. bagging  and boosting</h2><h3 id="4-1-bootstrap采样"><a href="#4-1-bootstrap采样" class="headerlink" title="4.1 bootstrap采样"></a>4.1 bootstrap采样</h3><p>​    名字来自成语“pull up by your own bootstraps”，意思是依靠你自己的资源，称为自助法，它是一种有放回的抽样方法，它是非参数统计中一种重要的估计统计量方差进而进行区间估计的统计方法。其核心思想和基本步骤如下：<br>　　（1） 采用重抽样技术从原始样本中抽取一定数量（自己给定）的样本，此过程允许重复抽样。<br>　　（2） 根据抽出的样本计算给定的统计量T。<br>　　（3） 重复上述N次（一般大于1000），得到N个统计量T。<br>　　（4） 计算上述N个统计量T的样本方差，得到统计量的方差。<br>　　应该说Bootstrap是现代统计学较为流行的一种统计方法，在小样本时效果很好。通过方差的估计可以构造置信区间等，其运用范围得到进一步延伸。</p>
+<h3 id="4-2-bagging-bootstrap-aggregating"><a href="#4-2-bagging-bootstrap-aggregating" class="headerlink" title="4.2 bagging (bootstrap aggregating)"></a>4.2 bagging (bootstrap aggregating)</h3><p>Bagging即套袋法，其算法过程如下：</p>
+<p>A）从原始样本集中抽取训练集。每轮从原始样本集中使用Bootstraping的方法抽取n个训练样本（在训练集中，有些样本可能被多次抽取到，而有些样本可能一次都没有被抽中）。共进行k轮抽取，得到k个训练集。（k个训练集之间是相互独立的）</p>
+<p>B）每次使用一个训练集得到一个模型，k个训练集共得到k个模型。（注：这里并没有具体的分类算法或回归方法，我们可以根据具体问题采用不同的分类或回归方法，如决策树、感知器等）</p>
+<p>C）对分类问题：将上步得到的k个模型采用投票的方式得到分类结果；对回归问题，计算上述模型的均值作为最后的结果。（所有模型的重要性相同）</p>
+<h3 id="4-3-boosting"><a href="#4-3-boosting" class="headerlink" title="4.3 boosting"></a>4.3 boosting</h3><p>其主要思想是将弱分类器组装成一个强分类器。在PAC（概率近似正确）学习框架下，则一定可以将弱分类器组装成一个强分类器。</p>
+<p>关于Boosting的两个核心问题：</p>
+<p>1）在每一轮如何改变训练数据的权值或概率分布？</p>
+<p>通过提高那些在前一轮被弱分类器分错样例的权值，减小前一轮分对样例的权值，来使得分类器对误分的数据有较好的效果。</p>
+<p>2）通过什么方式来组合弱分类器？</p>
+<p>通过加法模型将弱分类器进行线性组合，比如AdaBoost通过加权多数表决的方式，即增大错误率小的分类器的权值，同时减小错误率较大的分类器的权值。</p>
+<p>而提升树通过拟合残差的方式逐步减小残差，将每一步生成的模型叠加得到最终模型。</p>
+<h3 id="4-4-Bagging，Boosting二者之间的区别"><a href="#4-4-Bagging，Boosting二者之间的区别" class="headerlink" title="4.4 Bagging，Boosting二者之间的区别"></a>4.4 Bagging，Boosting二者之间的区别</h3><p>Bagging和Boosting的区别：</p>
+<p>1）样本选择上：</p>
+<p>Bagging：训练集是在原始集中有放回选取的，从原始集中选出的各轮训练集之间是独立的。</p>
+<p>Boosting：每一轮的训练集不变，只是训练集中每个样例在分类器中的权重发生变化。而权值是根据上一轮的分类结果进行调整。</p>
+<p>2）样例权重：</p>
+<p>Bagging：使用均匀取样，每个样例的权重相等</p>
+<p>Boosting：根据错误率不断调整样例的权值，错误率越大则权重越大。</p>
+<p>3）预测函数：</p>
+<p>Bagging：所有预测函数的权重相等。</p>
+<p>Boosting：每个弱分类器都有相应的权重，对于分类误差小的分类器会有更大的权重。</p>
+<p>4）并行计算：</p>
+<p>Bagging：各个预测函数可以并行生成</p>
+<p>Boosting：各个预测函数只能顺序生成，因为后一个模型参数需要前一轮模型的结果。</p>
+<p>3)方差和偏差：</p>
+<p>Bagging：偏差不变，方差变小，解决过拟合</p>
+<p>Boosting：偏差变小，解决欠拟合</p>
+<p>这两种方法都是把若干个分类器整合为一个分类器的方法，只是整合的方式不一样，最终得到不一样的效果，将不同的分类算法套入到此类算法框架中一定程度上会提高了原单一分类器的分类效果，但是也增大了计算量。</p>
+<p>下面是将决策树与这些算法框架进行结合所得到的新的算法：</p>
+<p>1）Bagging + 决策树 = 随机森林</p>
+<p>2）AdaBoost + 决策树 = 提升树</p>
+<p>3）Gradient Boosting + 决策树 = GBDT</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://zhuanlan.zhihu.com/p/29707029" target="_blank" rel="external">机器学习防止欠拟合、过拟合方法</a></p>
+<p><a href="http://blog.csdn.net/u012162613/article/details/44261657" target="_blank" rel="external">正则化方法：L1和L2 regularization、数据集扩增、dropout</a></p>
+<p><a href="https://vimsky.com/article/969.html" target="_blank" rel="external">为什么L1稀疏，L2平滑？</a></p>
+<p><a href="https://www.jianshu.com/p/cb0ad5939629" target="_blank" rel="external">Bagging和Boosting 概念及区别</a></p>
 
       
     </div>
@@ -462,8 +529,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/04/北邮ACM2017-A题/" rel="next" title="北邮ACM2017热身赛-A题">
-                <i class="fa fa-chevron-left"></i> 北邮ACM2017热身赛-A题
+              <a href="/2018/03/08/【本站目录】/" rel="next" title="【本站目录】">
+                <i class="fa fa-chevron-left"></i> 【本站目录】
               </a>
             
           </div>
@@ -471,10 +538,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/04/04/增强学习/" rel="prev" title="增强学习">
-                增强学习 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -526,8 +589,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -593,6 +665,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-过拟合与欠拟合"><span class="nav-number">1.</span> <span class="nav-text">1. 过拟合与欠拟合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-常用解决办法"><span class="nav-number">2.</span> <span class="nav-text">2. 常用解决办法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-L1和L2正则化方法"><span class="nav-number">3.</span> <span class="nav-text">3. L1和L2正则化方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-定义"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-L1和L2的异同"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 L1和L2的异同</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#角度1：数学公式"><span class="nav-number">3.2.1.</span> <span class="nav-text">角度1：数学公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#角度2：几何空间"><span class="nav-number">3.2.2.</span> <span class="nav-text">角度2：几何空间</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-bagging-and-boosting"><span class="nav-number">4.</span> <span class="nav-text">4. bagging  and boosting</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-bootstrap采样"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 bootstrap采样</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-bagging-bootstrap-aggregating"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 bagging (bootstrap aggregating)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-boosting"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 boosting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-Bagging，Boosting二者之间的区别"><span class="nav-number">4.4.</span> <span class="nav-text">4.4 Bagging，Boosting二者之间的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">5.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
