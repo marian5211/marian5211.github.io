@@ -405,7 +405,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  7,781
+                  7,885
                 </span>
               
 
@@ -421,7 +421,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  39
+                  40
                 </span>
               
             </div>
@@ -832,7 +832,23 @@
 <p>可以转化为背包问题：</p>
 <p>数组总和为36，一半为18</p>
 <p>背包容量为18，用数组中的数字尽量将背包装满</p>
-<h3 id="Partition-Equal-Subset-Sum"><a href="#Partition-Equal-Subset-Sum" class="headerlink" title="Partition Equal Subset Sum"></a><a href="https://leetcode.com/problems/partition-equal-subset-sum" target="_blank" rel="external">Partition Equal Subset Sum</a></h3><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PartitionEqualSubsetSum</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canPartition</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length;i++)&#123;</div><div class="line">            sum += nums[i];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(sum%<span class="number">2</span> != <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">        sum = sum/<span class="number">2</span>;</div><div class="line">        <span class="keyword">boolean</span>[][] dp = <span class="keyword">new</span> <span class="keyword">boolean</span>[nums.length+<span class="number">1</span>][sum+<span class="number">1</span>];</div><div class="line">        <span class="comment">//chushihua</span></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; nums.length+<span class="number">1</span>;i++)&#123;</div><div class="line">            dp[i][<span class="number">0</span>] = <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.length+<span class="number">1</span>;i++)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>;j &lt; sum+<span class="number">1</span>;j++)&#123;</div><div class="line">                <span class="keyword">if</span>(j &lt; nums[i-<span class="number">1</span>])&#123;</div><div class="line">                    dp[i][j] = dp[i-<span class="number">1</span>][j];</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span>&#123;</div><div class="line">                    dp[i][j] = dp[i-<span class="number">1</span>][j] || dp[i-<span class="number">1</span>][j-nums[i-<span class="number">1</span>]];</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> dp[nums.length][sum];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Partition-Equal-Subset-Sum"><a href="#Partition-Equal-Subset-Sum" class="headerlink" title="Partition Equal Subset Sum"></a><a href="https://leetcode.com/problems/partition-equal-subset-sum" target="_blank" rel="external">Partition Equal Subset Sum</a></h3><blockquote>
+<p>Given a <strong>non-empty</strong> array containing <strong>only positive integers</strong>, find if the array can be partitioned into two subsets such that the sum of elements in both subsets is equal.</p>
+<p><strong>Note:</strong></p>
+<ol>
+<li>Each of the array element will not exceed 100.</li>
+<li>The array size will not exceed 200.</li>
+</ol>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt; Input: [1, 5, 11, 5]</div><div class="line">&gt;</div><div class="line">&gt; Output: true</div><div class="line">&gt;</div><div class="line">&gt; Explanation: The array can be partitioned as [1, 5, 5] and [11].</div><div class="line">&gt;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt; Input: [1, 2, 3, 5]</div><div class="line">&gt;</div><div class="line">&gt; Output: false</div><div class="line">&gt;</div><div class="line">&gt; Explanation: The array cannot be partitioned into equal sum subsets.</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>返回是否能够取到整个数组的一半。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PartitionEqualSubsetSum</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canPartition</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length;i++)&#123;</div><div class="line">            sum += nums[i];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(sum%<span class="number">2</span> != <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">        &#125;</div><div class="line">        sum = sum/<span class="number">2</span>;</div><div class="line">        <span class="keyword">boolean</span>[][] dp = <span class="keyword">new</span> <span class="keyword">boolean</span>[nums.length+<span class="number">1</span>][sum+<span class="number">1</span>];</div><div class="line">        <span class="comment">//chushihua</span></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; nums.length+<span class="number">1</span>;i++)&#123;</div><div class="line">            dp[i][<span class="number">0</span>] = <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.length+<span class="number">1</span>;i++)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>;j &lt; sum+<span class="number">1</span>;j++)&#123;</div><div class="line">                <span class="keyword">if</span>(j &lt; nums[i-<span class="number">1</span>])&#123;</div><div class="line">                    dp[i][j] = dp[i-<span class="number">1</span>][j];</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span>&#123;</div><div class="line">                    dp[i][j] = dp[i-<span class="number">1</span>][j] || dp[i-<span class="number">1</span>][j-nums[i-<span class="number">1</span>]];</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> dp[nums.length][sum];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="例题5-Backpack-II"><a href="#例题5-Backpack-II" class="headerlink" title="例题5.  Backpack II"></a>例题5.  <a href="http://www.lintcode.com/en/problem/backpack-ii/" target="_blank" rel="external">Backpack II</a></h3><p>给定物品占空间和物品价值数组，背包容量，如何装能够使得背物品价值最高</p>
 <p>不可以用贪心算法</p>
 <p>分析：</p>
@@ -976,7 +992,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">108</span>
+                  <span class="site-state-item-count">110</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1083,7 +1099,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">192.1k</span>
+    <span title="Site words total count">194.7k</span>
   
         
 <div class="busuanzi-count">

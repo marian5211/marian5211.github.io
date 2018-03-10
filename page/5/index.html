@@ -304,6 +304,420 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/18/【九章算法基础班】动态规划(上)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siyao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/小鸡.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siyao's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/18/【九章算法基础班】动态规划(上)/" itemprop="url">【九章算法基础班】动态规划</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-18T23:35:24+08:00">
+                2017-11-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/九章算法/" itemprop="url" rel="index">
+                    <span itemprop="name">九章算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  6,447
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  31
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="Triangle"><a href="#Triangle" class="headerlink" title="Triangle"></a><a href="https://leetcode.com/problems/triangle" target="_blank" rel="external">Triangle</a></h2><h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><blockquote>
+<p>Given a triangle, find the minimum path sum from top to bottom. Each step you may move to adjacent numbers on the row below.</p>
+<p>For example, given the following triangle</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line">&gt; [</div><div class="line">&gt;      [<span class="number">2</span>],</div><div class="line">&gt;     [<span class="number">3</span>,<span class="number">4</span>],</div><div class="line">&gt;    [<span class="number">6</span>,<span class="number">5</span>,<span class="number">7</span>],</div><div class="line">&gt;   [<span class="number">4</span>,<span class="number">1</span>,<span class="number">8</span>,<span class="number">3</span>]</div><div class="line">&gt; ]</div><div class="line">&gt;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p>The minimum path sum from top to bottom is <code>11</code> (i.e., 2 + 3 + 5 + 1 = 11).</p>
+</blockquote>
+<p>题目是说，从三角形的最上层走到最下层，每次只走到下一层的相邻元素，求从顶点走到最下层的最短路径长度。</p>
+<h3 id="方法1：DFS遍历"><a href="#方法1：DFS遍历" class="headerlink" title="方法1：DFS遍历"></a>方法1：DFS遍历</h3><p>从上往下深度优先遍历搜索，记录所有情况之中最小值</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">int</span> best = Integer.MAX_VALUE;;</div><div class="line"></div><div class="line"><span class="comment">//sum为走到当前节点但不包含当前节点的路径和</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; triangle,<span class="keyword">int</span> i,<span class="keyword">int</span> j,<span class="keyword">int</span> sum)</span></span>&#123;</div><div class="line">  <span class="comment">//搜索结束条件：走过了最下面一层</span></div><div class="line">  <span class="keyword">int</span> height = triangle.size();</div><div class="line">  <span class="keyword">if</span>(i==height)&#123;</div><div class="line">    best = Math.min(best,sum);</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">  &#125;</div><div class="line">  dfs(triangle,i+<span class="number">1</span>,j,sum+triangle.get(i).get(j));</div><div class="line">  dfs(triangle,i+<span class="number">1</span>,j+<span class="number">1</span>,sum+triangle.get(i).get(j));</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minimumTotal</span><span class="params">(List&lt;List&lt;Integer&gt;&gt; triangles)</span> </span>&#123;</div><div class="line">  dfs(triangles,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>);</div><div class="line">  <span class="keyword">return</span> best;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>时间复杂度<script type="math/tex">O(2^n)</script></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/11/18/【九章算法基础班】动态规划(上)/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/18/【九章算法强化班】堆Heap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siyao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/小鸡.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siyao's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/18/【九章算法强化班】堆Heap/" itemprop="url">【九章算法强化班】堆Heap&双端队列Dequeue</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-18T15:15:48+08:00">
+                2017-11-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/九章算法/" itemprop="url" rel="index">
+                    <span itemprop="name">九章算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  7,915
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  36
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h1><h3 id="基本性质"><a href="#基本性质" class="headerlink" title="基本性质"></a>基本性质</h3><ul>
+<li><p>支持操作：Add <script type="math/tex">O(logN)</script>/Remove<script type="math/tex">O(logN)</script>/Min or Max<script type="math/tex">O(1)</script></p>
+</li>
+<li><p>heap可以用来求最大值或者最小值，不能同时求最大和最小值。</p>
+</li>
+<li><p>Heap结构：</p>
+<p>一颗尽量填满的二叉树，每次插入节点时，插到最后一行的最左端的空余位置，如果本层没有空余位置了，另起一行。因此节点数目为N的堆对应的二叉树高度为<script type="math/tex">O(logN)</script></p>
+</li>
+</ul>
+<ul>
+<li><p>MaxHeap vs MinHeap</p>
+<ul>
+<li>MaxHeap：父亲节点比左右孩子都大</li>
+<li>MinHeap：父亲节点比左右孩子都小</li>
+</ul>
+<p>因此当取最大或最小时，将root值取出即可，因此getMin/Max的时间复杂度为<script type="math/tex">O(1)</script></p>
+</li>
+<li><p>堆的存储</p>
+<p>由于我们需要频繁的对堆进行增加删除，所以一般堆的底层都是通过数组来实现（而不能用链表，因为链表需要频繁new 或 delete对象，非常慢）</p>
+<p>对于元素A[i]：</p>
+<ul>
+<li>父节点：A[i-2/2] (右移1)</li>
+<li>左孩子：A[2i+1] (左移1，可得到2i)</li>
+<li>右孩子：A[2i+2] (左移1，低位+1，可得到2i+1)</li>
+</ul>
+</li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/11/18/【九章算法强化班】堆Heap/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/17/【九章算法强化班】扫描线/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1544,7 +1958,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  480
+                  468
                 </span>
               
 
@@ -1804,384 +2218,6 @@ struct Node&#123;  int x;  int y;;  int val;  Node()：x(0),y(0),z(0)&#123;&#125
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/04/c-STL中vector的一些操作/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Siyao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/小鸡.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Siyao's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/04/c-STL中vector的一些操作/" itemprop="url">c++STL中vector的一些操作</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-04T16:36:41+08:00">
-                2017-11-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/c/" itemprop="url" rel="index">
-                    <span itemprop="name">c++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  144
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          记录c++STL中vector的一些操作
-指定长度vector声明vector&lt;int&gt; vec(n);//长度为nvector&lt;int&gt; vec(n,t);//长度为n,值为t
-指定长度二维vector声明声明一个m*n维的矩阵：
-vector&lt;vector&lt;int&gt; &gt; vec(m,vector&lt;int&gt;(n));vector&lt;vector&lt;int&gt; &gt; vec(n,vector&lt;int&gt;(n,0));//所有元素都是0
-vector排序#include&lt;algorithm&gt;sort
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/11/04/c-STL中vector的一些操作/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/04/回溯法、【leetcode】51-52-N-Queens/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Siyao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/小鸡.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Siyao's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/04/回溯法、【leetcode】51-52-N-Queens/" itemprop="url">回溯法、【leetcode】51.52 N-Queens</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-04T16:35:06+08:00">
-                2017-11-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">leetcode</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  9,070
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  45
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          什么是回溯回溯是一种穷举，但与brute force有一些区别，回溯带了两点脑子的，并不多，brute force一点也没带。如果用爬山来比喻：第一点脑子是回溯知道回头；相反如果是brute force,发现走不通立刻跳下山摔死，换第二条命从头换一条路走。第二点脑子是回溯知道剪枝；如果有一条岔路走不通，那这条路我们不走，就可以少走很多不必要走的路。
-识别回溯问题判断回溯很简单，拿到一个问题，你感觉如果不穷举一下就没法知道答案，那就可以开始回溯了。一般回溯的问题有三种：
-
-Find a path to success 有没有解
-Find all paths to success 求所有解
-求所有
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/11/04/回溯法、【leetcode】51-52-N-Queens/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2236,7 +2272,7 @@ Find all paths to success 求所有解
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">108</span>
+                  <span class="site-state-item-count">110</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2327,7 +2363,7 @@ Find all paths to success 求所有解
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">192.1k</span>
+    <span title="Site words total count">194.7k</span>
   
         
 <div class="busuanzi-count">

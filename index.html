@@ -367,7 +367,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  758
+                  771
                 </span>
               
 
@@ -413,11 +413,13 @@
 <li><a href="https://siyaozhang.github.io/2017/07/20/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/" target="_blank" rel="external">插入排序</a></li>
 <li><a href="https://siyaozhang.github.io/2017/07/20/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/" target="_blank" rel="external">冒泡排序</a></li>
 <li><a href="https://siyaozhang.github.io/2017/07/17/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" target="_blank" rel="external">快速排序</a></li>
+<li>堆排序</li>
 <li>排序总结</li>
 </ul>
 <h3 id="1-3-数与数组"><a href="#1-3-数与数组" class="headerlink" title="1.3 数与数组"></a>1.3 数与数组</h3><ul>
 <li><a href="https://siyaozhang.github.io/2017/12/07/%E3%80%90%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%8F%AD%E3%80%91%E4%BA%8C%E5%88%86%E6%B3%95/" target="_blank" rel="external">【九章算法基础班】二分法</a></li>
 <li><a href="https://siyaozhang.github.io/2017/12/24/%E3%80%90%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%8F%AD%E3%80%91%E6%95%B0%E4%B8%8E%E6%95%B0%E7%BB%84/" target="_blank" rel="external">【九章算法基础班】数与数组</a></li>
+<li><a href="/2018/02/02/【九章算法强化班】两指针/" title="【九章算法强化班】两指针">【九章算法强化班】两指针</a></li>
 <li><a href="https://siyaozhang.github.io/2017/11/17/%E3%80%90%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95%E5%BC%BA%E5%8C%96%E7%8F%AD%E3%80%91%E6%89%AB%E6%8F%8F%E7%BA%BF/" target="_blank" rel="external">【九章算法强化班】扫描线</a></li>
 </ul>
 <h3 id="1-2-动态规划"><a href="#1-2-动态规划" class="headerlink" title="1.2 动态规划"></a>1.2 动态规划</h3><ul>
@@ -550,6 +552,326 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/09/【面经】开发相关基础知识/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siyao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/小鸡.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siyao's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/09/【面经】开发相关基础知识/" itemprop="url">【面经】开发相关基础知识</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-09T23:46:50+08:00">
+                2018-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,579
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          亚马逊1. JDK和JRE、JVM的区别是什么JRE（Java运行时环境）： Java Runtime Environment
+JRE顾名思义是java运行时环境，包含了java虚拟机，java基础类库。是使用java语言编写的程序运行所需要的软件环境，是提供给想运行java程序的用户使用的。
+JDK（Java 开发工具包）：Java Development Kit
+JDK顾名思义是java开发工具包，是程序员使用java语言编写java程序所需的开发工具包，是提供给程序员使用的。JDK包含了JRE，同时还包含了编译java源码的编译器javac，还包含了很多java程序调试和分析的工具：jc
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/09/【面经】开发相关基础知识/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/09/【本科毕设】pub-sub框架/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siyao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/小鸡.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siyao's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/09/【本科毕设】pub-sub框架/" itemprop="url">【本科毕设】pub/sub框架</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-09T21:58:01+08:00">
+                2018-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  858
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          1. 背景 
+本文中研究的问题为位置感知的发布/订阅框架设计与实现。订阅者以订阅（subscription）的形式向发布/订阅系统注册，表达对特定事件的兴趣；发布者发布消息到发布/订阅系统；发布/订阅系统充当订阅者和发布者的中介，负责订阅的管理，并以通知的形式发送消息到感兴趣的订阅者。
+与传统的基于文本的发布订阅问题不同，在我们所研究的问题中，发布者发布的消息和订阅者的订阅都是同时包含了空间位置和文本描述两种信息。
+​    订阅者对于空间位置和文本描述的相似性有着不同的偏好，比如一些订阅者更希望得到与自己的订阅文本相似程度更高的消息，而另一些订阅者则更关注获得的消息与自己所在的空间位置的相近
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/09/【本科毕设】pub-sub框架/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/09/生成模型vs判别模型、有监督vs无监督/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -613,7 +935,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,075
+                  1,074
                 </span>
               
 
@@ -776,7 +1098,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  6,612
+                  6,703
                 </span>
               
 
@@ -792,7 +1114,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  23
+                  24
                 </span>
               
             </div>
@@ -1297,7 +1619,7 @@ R树：空间数据库索引
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  7,781
+                  7,885
                 </span>
               
 
@@ -1313,7 +1635,7 @@ R树：空间数据库索引
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  39
+                  40
                 </span>
               
             </div>
@@ -1730,329 +2052,6 @@ f[i%2] = max(f[(i-1)%2],f[(i-2)%2])
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/07/【腾讯社交广告算法大赛】贝叶斯平滑/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Siyao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/小鸡.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Siyao's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/07/【腾讯社交广告算法大赛】贝叶斯平滑/" itemprop="url">【腾讯社交广告算法大赛】贝叶斯平滑</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-07T13:46:12+08:00">
-                2018-03-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  663
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          等周末邓邓给讲了在写
-概述电商领域中经常需要计算或预测一些转化率指标，如最典型的CTR（点击率，Click-Through Rate）。这些转化率可以是模型的预测值，也可以作为模型的特征（feature）使用。以商品点击率预测为例，CTR的值等于点击量（Click）除以曝光量（Impression或Exposure）。以r表示点击率，
-r = C/I但在实际应用过程中会碰到两个问题：
-
-新商品点击率的预测与计算对于新上线的商品，其曝光为0，点击量也为0，此时这件商品的CTR应该设为0还是赋一个初始值？
-不同商品点击率之间的比较有两件商品A和B，其点击率分别为r_A=5/10和r_B=50/10
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/03/07/【腾讯社交广告算法大赛】贝叶斯平滑/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/06/【腾讯转化率预估】比赛总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Siyao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/小鸡.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Siyao's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/06/【腾讯转化率预估】比赛总结/" itemprop="url">【腾讯转化率预估比赛】总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-06T13:50:10+08:00">
-                2018-03-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  6,727
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  24
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          第一届腾讯社交广告算法大赛复赛成绩0.101941，排名26名，在此总结一下。
-
-1. 题目简介1.1 移动App广告转化率预估详细赛题见官方网站
-
-计算广告是互联网最重要的商业模式之一，广告投放效果通常通过曝光、点击和转化各环节来衡量，大多数广告系统受广告效果数据回流的限制只能通过曝光或点击作为投放效果的衡量标准开展优化。腾讯社交广告(http://ads.tencent.com)发挥特有的用户识别和转化跟踪数据能力，帮助广告主跟踪广告投放后的转化效果，基于广告转化数据训练转化率预估模型(pCVR，Predicted Conversion Rate)，在广告排序中引入pCVR因子优化广告投放
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/03/06/【腾讯转化率预估】比赛总结/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2107,7 +2106,7 @@ r = C/I但在实际应用过程中会碰到两个问题：
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">108</span>
+                  <span class="site-state-item-count">110</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2198,7 +2197,7 @@ r = C/I但在实际应用过程中会碰到两个问题：
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">192.1k</span>
+    <span title="Site words total count">194.7k</span>
   
         
 <div class="busuanzi-count">

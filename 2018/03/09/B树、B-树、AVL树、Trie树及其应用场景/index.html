@@ -391,7 +391,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  6,612
+                  6,703
                 </span>
               
 
@@ -407,7 +407,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  23
+                  24
                 </span>
               
             </div>
@@ -560,7 +560,12 @@
 </ul>
 <h2 id="6-R树"><a href="#6-R树" class="headerlink" title="6. R树"></a>6. R树</h2><h3 id="6-1-R树的结构"><a href="#6-1-R树的结构" class="headerlink" title="6.1 R树的结构"></a>6.1 R树的结构</h3><p>​    R树是B树在<strong>高维</strong>空间的扩展，是一棵<strong>平衡树</strong>。每个R树的叶子结点包含了多个指向不同数据的指针，这些数据可以是存放在硬盘中的，也可以是存在内存中。根据R树的这种数据结构，当我们需要进行一个高维空间查询时，我们只需要遍历少数几个叶子结点所包含的指针，查看这些指针指向的数据是否满足要求即可。这种方式使我们不必遍历所有数据即可获得答案，效率显著提高。下图1是R树的一个简单实例：</p>
 <p><img src="https://images2015.cnblogs.com/blog/1051369/201704/1051369-20170404131434878-399064987.jpg" alt="img"></p>
-<p>在R树中存放的数据并不是原始数据，而是这些数据的<strong>最小边界矩形（MBR</strong>），空间对象的MBR被包含于R树的叶结点中</p>
+<p>在R树中存放的数据并不是原始数据，而是这些数据的<strong>最小边界矩形（MBR</strong>），空间对象的MBR被包含于R树的叶结点中。</p>
+<p>R树满足如下的性质：</p>
+<p>1)       根结点至少有两个子结点，除非它同时是叶子结点</p>
+<p>2)       每一个叶子结点包含 m至M个索引项记录，通常， m=M/2。</p>
+<p>3)       每一个非叶子节点拥有m至M个子节点，除非它是跟节点。</p>
+<p>4)       所有叶子节点都位于同一层。</p>
 <p>支持搜索、增加、删除等操作，可以自定义矩形的最大子节点数。</p>
 <p>更详细的内容可以参考<a href="http://www.cnblogs.com/cmi-sh-love/p/kong-jian-shud-ju-suo-yinRTree-wan-quan-jie-xi-jiJa.html" target="_blank" rel="external">空间数据索引RTree（R树）完全解析及Java实现</a></p>
 <h2 id="7-对比"><a href="#7-对比" class="headerlink" title="7. 对比"></a>7. 对比</h2><h3 id="7-1-B树和B-树的区别"><a href="#7-1-B树和B-树的区别" class="headerlink" title="7.1 B树和B+树的区别"></a>7.1 B树和B+树的区别</h3><p>​    B/B+树用在磁盘文件组织、数据索引和数据库索引中。其中B+树比B 树更适合实际应用中操作系统的文件索引和数据库索引，因为：<br><strong>1、B+树的磁盘读写代价更低</strong><br>B+树的内部结点并没有指向关键字具体信息的指针。因此其<strong>内部结点</strong>相对B 树<strong>更小</strong>。如果把所有同一内部结点的关键字存放在同一盘块中，那么盘块所能容纳的关键字数量也越多。一次性读入内存中的需要查找的关键字也就越多。相对来说IO读写次数也就降低了。</p>
@@ -698,7 +703,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">108</span>
+                  <span class="site-state-item-count">110</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -805,7 +810,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">192.1k</span>
+    <span title="Site words total count">194.7k</span>
   
         
 <div class="busuanzi-count">

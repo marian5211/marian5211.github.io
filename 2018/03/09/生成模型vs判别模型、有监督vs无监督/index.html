@@ -84,7 +84,7 @@
 <meta property="og:site_name" content="Siyao&#39;s Blog">
 <meta property="og:description" content="1. 监督学习 vs 无监督学习 有监督学习：输入数据有标签，比如分类回归 无监督学习：输入数据没有标签，比如聚类 半监督学习：输入数据部分有标签，部分没有，或者有标签的部分不确定是否正确，让学习器不依赖外界交互、自动地利用未标记样本来提升学习性能，就是半监督学习  2. 生成模型 vs 判别模型监督学习方法又可以分为生成方法(generative approach)和判别方法(discrimin">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-09T12:21:46.371Z">
+<meta property="og:updated_time" content="2018-03-09T13:41:46.376Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="生成模型vs判别模型、有监督vs无监督">
 <meta name="twitter:description" content="1. 监督学习 vs 无监督学习 有监督学习：输入数据有标签，比如分类回归 无监督学习：输入数据没有标签，比如聚类 半监督学习：输入数据部分有标签，部分没有，或者有标签的部分不确定是否正确，让学习器不依赖外界交互、自动地利用未标记样本来提升学习性能，就是半监督学习  2. 生成模型 vs 判别模型监督学习方法又可以分为生成方法(generative approach)和判别方法(discrimin">
@@ -370,7 +370,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,075
+                  1,074
                 </span>
               
 
@@ -433,7 +433,25 @@
 <li><strong>缺点是不能反映训练数据本身的特性</strong></li>
 </ul>
 </blockquote>
-<h3 id="2-3-生成模型和判别模型对比"><a href="#2-3-生成模型和判别模型对比" class="headerlink" title="2.3 生成模型和判别模型对比"></a>2.3 生成模型和判别模型对比</h3><p>（1）训练时，二者优化准则不同<br>生成模型优化训练数据的联合分布概率；<br>判别模型优化训练数据的条件分布概率，判别模型与序列标记问题有较好的对应性。<br>（2）对于观察序列的处理不同<br>生成模型中，观察序列作为模型的一部分；<br><strong>判别模型中，观察序列只作为条件，因此可以针对观察序列设计灵活的特征。</strong><br>（3）训练复杂度不同<br><strong>判别模型训练复杂度较高</strong>。<br>（4）是否支持无指导训练<br>生成模型支持无指导训练。<br>（5）本质区别<br>discriminative model 估计的是条件概率分布(conditional distribution)p(class|context)<br>generative model 估计的是联合概率分布（joint probability distribution）p()</p>
+<h3 id="2-3-生成模型和判别模型对比"><a href="#2-3-生成模型和判别模型对比" class="headerlink" title="2.3 生成模型和判别模型对比"></a>2.3 生成模型和判别模型对比</h3><ul>
+<li><p>训练时，二者优化准则不同</p>
+<p>生成模型优化训练数据的联合分布概率；</p>
+<p>判别模型优化训练数据的条件分布概率，判别模型与序列标记问题有较好的对应性。</p>
+</li>
+<li><p>对于观察序列的处理不同</p>
+<p>生成模型中，观察序列作为模型的一部分；</p>
+<p><strong>判别模型中，观察序列只作为条件，因此可以针对观察序列设计灵活的特征。</strong></p>
+<p>训练复杂度不同</p>
+<p><strong>判别模型训练复杂度较高</strong>。</p>
+</li>
+<li><p>是否支持无指导训练</p>
+<p>生成模型支持无指导训练。</p>
+</li>
+<li><p>本质区别</p>
+<p>判别估计的是条件概率分布(conditional distribution)p(Y|X)</p>
+<p>生成模型估计的是联合概率分布（joint probability distribution）p(X,Y)</p>
+</li>
+</ul>
 <p>另外，由生成模型可以得到判别模型，但由判别模型得不到生成模型。</p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://www.jianshu.com/p/d195b887a32e" target="_blank" rel="external">【机器学习基础】生成模型和判别模型</a></p>
 
@@ -469,6 +487,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/09/【本科毕设】pub-sub框架/" rel="prev" title="【本科毕设】pub/sub框架">
+                【本科毕设】pub/sub框架 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -549,7 +571,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">108</span>
+                  <span class="site-state-item-count">110</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -656,7 +678,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">192.1k</span>
+    <span title="Site words total count">194.7k</span>
   
         
 <div class="busuanzi-count">
