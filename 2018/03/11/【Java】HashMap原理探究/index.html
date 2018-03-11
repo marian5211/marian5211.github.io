@@ -86,8 +86,9 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-01-14-21-36-42.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-01-14-21-57-57.png">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7853175-ab75cd3738471507.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
 <meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2018-03-11-13-17-37.png">
-<meta property="og:updated_time" content="2018-03-11T05:42:14.735Z">
+<meta property="og:updated_time" content="2018-03-11T05:55:47.091Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Java】HashMap原理探究">
 <meta name="twitter:description" content="1. HashMap概述HashMap是基于哈希表的Map接口的非同步实现。此实现提供所有可选的映射操作，并允许使用null值和null键。此类不保证映射的顺序，特别是不保证该顺序恒久不变。 此实现假定哈希函数将元素适当地分布在各桶之间，可为基本操作（get和put）提供稳定的性能。 迭代colletction视图所需要的时间与HashMap实例的“容量”（桶的数量）及其大小（键-值映射关系数）成">
@@ -374,7 +375,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  5,798
+                  6,482
                 </span>
               
 
@@ -390,7 +391,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  23
+                  26
                 </span>
               
             </div>
@@ -546,16 +547,23 @@
 <p>效率高,以后一定要使用此种方式！</p>
 <h2 id="4-6-第二种"><a href="#4-6-第二种" class="headerlink" title="4.6. 第二种"></a>4.6. 第二种</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">　　Map map = new HashMap();</div><div class="line">　　Iterator iter = map.keySet().iterator();</div><div class="line">　　while (iter.hasNext()) &#123;</div><div class="line">Object key = iter.next();</div><div class="line">Object val = map.get(key);</div><div class="line">　　&#125;</div></pre></td></tr></table></figure>
 <p>效率低,以后尽量少使用！</p>
-<h1 id="5-HashSet-HashTable-currentHashMap-LinkedHashMap"><a href="#5-HashSet-HashTable-currentHashMap-LinkedHashMap" class="headerlink" title="5. HashSet\HashTable\currentHashMap\LinkedHashMap"></a>5. HashSet\HashTable\currentHashMap\LinkedHashMap</h1><h3 id="5-1-HashSet"><a href="#5-1-HashSet" class="headerlink" title="5.1 HashSet"></a>5.1 HashSet</h3><p>在Java里，其实<strong>HashSet</strong>内部是一个HashMap。此处不再过多阐述。</p>
+<h1 id="5-为什么HashMap线程不安全？"><a href="#5-为什么HashMap线程不安全？" class="headerlink" title="5. 为什么HashMap线程不安全？"></a>5. 为什么HashMap线程不安全？</h1><h2 id="5-1-put的时候导致的多线程数据不一致。"><a href="#5-1-put的时候导致的多线程数据不一致。" class="headerlink" title="5.1 put的时候导致的多线程数据不一致。"></a>5.1 put的时候导致的多线程数据不一致。</h2><p>​    这个问题比较好想象，比如有两个线程A和B，首先A希望插入一个key-value对到HashMap中，首先计算记录所要落到的桶的索引坐标，然后获取到该桶里面的链表头结点，此时线程A的时间片用完了，而此时线程B被调度得以执行，和线程A一样执行，只不过线程B成功将记录插到了桶里面，假设线程A插入的记录计算出来的桶索引和线程B要插入的记录计算出来的桶索引是一样的，那么当线程B成功插入之后，线程A再次被调度运行时，它依然持有过期的链表头但是它对此一无所知，以至于它认为它应该这样做，如此一来就覆盖了线程B插入的记录，这样线程B插入的记录就凭空消失了，造成了数据不一致的行为。</p>
+<h2 id="5-2-get操作可能因为resize而引起死循环（cpu100-）"><a href="#5-2-get操作可能因为resize而引起死循环（cpu100-）" class="headerlink" title="5.2 get操作可能因为resize而引起死循环（cpu100%）"></a>5.2 get操作可能因为resize而引起死循环（cpu100%）</h2><p>下面的代码是resize的核心内容：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">void transfer(Entry[] newTable, boolean rehash) &#123;  </div><div class="line">        int newCapacity = newTable.length;  </div><div class="line">        for (Entry&lt;K,V&gt; e : table) &#123;  </div><div class="line">  </div><div class="line">            while(null != e) &#123;  </div><div class="line">                Entry&lt;K,V&gt; next = e.next;           </div><div class="line">                if (rehash) &#123;  </div><div class="line">                    e.hash = null == e.key ? 0 : hash(e.key);  </div><div class="line">                &#125;  </div><div class="line">                int i = indexFor(e.hash, newCapacity);   </div><div class="line">                e.next = newTable[i];  </div><div class="line">                newTable[i] = e;  </div><div class="line">                e = next;  </div><div class="line">            &#125; </div><div class="line">        &#125;  </div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>这个方法的功能是将原来的记录重新计算在新桶的位置，然后迁移过去。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/7853175-ab75cd3738471507.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="img"></p>
+<p>​    我们假设有两个线程同时需要执行resize操作，我们原来的桶数量为2，记录数为3，需要resize桶到4，原来的记录分别为：[3,A],[7,B],[5,C]，在原来的map里面，我们发现这三个entry都落到了第二个桶里面。<br>​    假设线程thread1执行到了transfer方法的Entry next = e.next这一句，然后时间片用完了，此时的e = [3,A], next = [7,B]。线程thread2被调度执行并且顺利完成了resize操作，需要注意的是，此时的[7,B]的next为[3,A]。此时线程thread1重新被调度运行，此时的thread1持有的引用是已经被thread2 resize之后的结果。线程thread1首先将[3,A]迁移到新的数组上，然后再处理[7,B]，而[7,B]被链接到了[3,A]的后面，处理完[7,B]之后，就需要处理[7,B]的next了啊，而通过thread2的resize之后，[7,B]的next变为了[3,A]，此时，[3,A]和[7,B]形成了环形链表，在get的时候，如果get的key的桶索引和[3,A]和[7,B]一样，那么就会陷入死循环。</p>
+<p>参考：<a href="https://www.jianshu.com/p/e2f75c8cce01" target="_blank" rel="external">一字马胡链接</a></p>
+<h1 id="6-HashSet-HashTable-currentHashMap-LinkedHashMap"><a href="#6-HashSet-HashTable-currentHashMap-LinkedHashMap" class="headerlink" title="6. HashSet\HashTable\currentHashMap\LinkedHashMap"></a>6. HashSet\HashTable\currentHashMap\LinkedHashMap</h1><h2 id="6-1-HashSet"><a href="#6-1-HashSet" class="headerlink" title="6.1 HashSet"></a>6.1 HashSet</h2><p>在Java里，其实<strong>HashSet</strong>内部是一个HashMap。此处不再过多阐述。</p>
 <p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-11-13-17-37.png" alt=""> </p>
-<h3 id="5-2-HashSet"><a href="#5-2-HashSet" class="headerlink" title="5.2 HashSet"></a>5.2 HashSet</h3><p><strong>Hashtable</strong>和 HashMap 一样， 也是一个散列表，它存储的内容是键值对，继承于 Dictionary 类</p>
+<h2 id="6-2-HashSet"><a href="#6-2-HashSet" class="headerlink" title="6.2 HashSet"></a>6.2 HashSet</h2><p><strong>Hashtable</strong>和 HashMap 一样， 也是一个散列表，它存储的内容是键值对，继承于 Dictionary 类</p>
 <p><strong>Hashtable 与 HashMap 的简单比较</strong></p>
 <ol>
 <li>HashTable 基于 Dictionary 类，而 HashMap 是基于 AbstractMap。Dictionary 是任何可将键映射到相应值的类的抽象父类，而 AbstractMap 是基于 Map 接口的实现，它以最大限度地减少实现此接口所需的工作。</li>
 <li>HashMap 的 key 和 value 都允许为 null，而 Hashtable 的 key 和 value 都不允许为 null。HashMap 遇到 key 为 null 的时候，调用 putForNullKey 方法进行处理，而对 value 没有处理；Hashtable遇到 null，直接返回 NullPointerException。</li>
 <li><strong>Hashtable 方法是同步的，而HashMap则不是，也就是说Hashtable是线程安全的</strong>。我们可以看一下源码，Hashtable 中的几乎所有的 public 的方法都是 synchronized 的，而有些方法也是在内部通过 synchronized 代码块来实现。所以有人一般都建议如果是涉及到多线程同步时采用 HashTable，没有涉及就采用 HashMap，但是在 Collections 类中存在一个静态方法：synchronizedMap()，该方法创建了一个线程安全的 Map 对象，并把它作为一个封装的对象来返回。</li>
 </ol>
-<h3 id="5-3-currentHashMap"><a href="#5-3-currentHashMap" class="headerlink" title="5.3 currentHashMap"></a>5.3 currentHashMap</h3><p>​    我们在之前的博文中了解到关于 HashMap 和 Hashtable 这两种集合。其中 HashMap 是非线程安全的，当我们只有一个线程在使用 HashMap 的时候，自然不会有问题，但如果涉及到多个线程，并且有读有写的过程中，HashMap 就不能满足我们的需要了(fail-fast)。在不考虑性能问题的时候，我们的解决方案有 Hashtable 或者Collections.synchronizedMap(hashMap)，这两种方式基本都是对整个 hash 表结构做锁定操作的，这样在锁表的期间，别的线程就需要等待了，无疑性能不高。</p>
+<h2 id="6-3-currentHashMap"><a href="#6-3-currentHashMap" class="headerlink" title="6.3 currentHashMap"></a>6.3 currentHashMap</h2><p>​    我们在之前的博文中了解到关于 HashMap 和 Hashtable 这两种集合。其中 HashMap 是非线程安全的，当我们只有一个线程在使用 HashMap 的时候，自然不会有问题，但如果涉及到多个线程，并且有读有写的过程中，HashMap 就不能满足我们的需要了(fail-fast)。在不考虑性能问题的时候，我们的解决方案有 Hashtable 或者Collections.synchronizedMap(hashMap)，这两种方式基本都是对整个 hash 表结构做锁定操作的，这样在锁表的期间，别的线程就需要等待了，无疑性能不高。</p>
 <p>​    <strong>currentHashMap的加锁操作是针对的 hash 值对应的某个 Segment</strong>，而不是整个 ConcurrentHashMap。因为 put 操作只是在这个 Segment 中完成，所以并不需要对整个 ConcurrentHashMap 加锁。所以，此时，其他的线程也可以对另外的 Segment 进行 put 操作，因为虽然该 Segment 被锁住了，但其他的 Segment 并没有加锁。同时，读线程并不会因为本线程的加锁而阻塞。</p>
 <p>​    正是因为其内部的结构以及机制，所以 ConcurrentHashMap 在并发访问的性能上要比Hashtable和同步包装之后的HashMap的性能提高很多。在理想状态下，ConcurrentHashMap 可以支持 16 个线程执行并发写操作（如果并发级别设置为 16），及任意数量线程的读操作。</p>
 <p>​    ConcurrentHashMap 针对读操作做了大量的优化。通过 HashEntry 对象的不变性和用 volatile 型变量协调线程间的内存可见性，使得 大多数时候，读操作不需要加锁就可以正确获得值。这个特性使得 ConcurrentHashMap 的并发性能在分离锁的基础上又有了近一步的提高。</p>
@@ -566,11 +574,11 @@
 <li>通过对同一个 Volatile 变量的写 / 读访问，协调不同线程间读 / 写操作的内存可见性。</li>
 </ul>
 <p><a href="http://wiki.jikexueyuan.com/project/java-collection/concurrenthashmap.html" target="_blank" rel="external">极客学院Java集合学习指南</a></p>
-<h3 id="5-4-LinkedHashMap"><a href="#5-4-LinkedHashMap" class="headerlink" title="5.4 LinkedHashMap"></a>5.4 LinkedHashMap</h3><p>HashMap 是无序的，HashMap 在 put 的时候是根据 key 的 hashcode 进行 hash 然后放入对应的地方。所以在按照一定顺序 put 进 HashMap 中，然后遍历出 HashMap 的顺序跟 put 的顺序不同（除非在 put 的时候 key 已经按照 hashcode 排序号了，这种几率非常小）</p>
+<h2 id="6-4-LinkedHashMap"><a href="#6-4-LinkedHashMap" class="headerlink" title="6.4 LinkedHashMap"></a>6.4 LinkedHashMap</h2><p>HashMap 是无序的，HashMap 在 put 的时候是根据 key 的 hashcode 进行 hash 然后放入对应的地方。所以在按照一定顺序 put 进 HashMap 中，然后遍历出 HashMap 的顺序跟 put 的顺序不同（除非在 put 的时候 key 已经按照 hashcode 排序号了，这种几率非常小）</p>
 <p>JAVA 在 JDK1.4 以后提供了 <strong>LinkedHashMap 来帮助我们实现了有序的 HashMap</strong>！</p>
 <p><strong>LinkedHashMap 实现与 HashMap 的不同之处在于，LinkedHashMap 维护着一个运行于所有条目的双重链接列表。此链接列表定义了迭代顺序，该迭代顺序可以是插入顺序或者是访问顺序。</strong></p>
 <p>根据链表中元素的顺序可以分为：按插入顺序的链表，和按访问顺序(调用 get 方法)的链表。默认是按插入顺序排序，如果指定按访问顺序排序，那么调用get方法后，会将这次访问的元素移至链表尾部，不断访问可以形成按访问顺序排序的链表。</p>
-<h1 id="6-参考资料"><a href="#6-参考资料" class="headerlink" title="6. 参考资料"></a>6. 参考资料</h1><ol>
+<h1 id="7-参考资料"><a href="#7-参考资料" class="headerlink" title="7. 参考资料"></a>7. 参考资料</h1><ol>
 <li><a href="http://wiki.jikexueyuan.com/project/java-collection/hashmap.html" target="_blank" rel="external">极客学院，HashMap 的实现原理</a></li>
 <li><a href="https://tech.meituan.com/java-hashmap.html" target="_blank" rel="external">美团点评技术团队，Java 8系列之重新认识HashMap</a></li>
 </ol>
@@ -744,7 +752,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-HashMap概述"><span class="nav-number">1.</span> <span class="nav-text">1. HashMap概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-HashMap的数据结构"><span class="nav-number">2.</span> <span class="nav-text">2. HashMap的数据结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-HashMap核心方法解读"><span class="nav-number">3.</span> <span class="nav-text">3. HashMap核心方法解读</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-put-方法"><span class="nav-number">3.1.</span> <span class="nav-text">3.1. put()方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-get-方法"><span class="nav-number">3.2.</span> <span class="nav-text">3.2. get()方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-归纳"><span class="nav-number">3.3.</span> <span class="nav-text">3.3. 归纳</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-HashMap相关机制"><span class="nav-number">4.</span> <span class="nav-text">4. HashMap相关机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-resize机制（rehash）"><span class="nav-number">4.1.</span> <span class="nav-text">4.1. resize机制（rehash）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-HashMap的构造器"><span class="nav-number">4.2.</span> <span class="nav-text">4.2. HashMap的构造器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-Fail-Fast机制"><span class="nav-number">4.3.</span> <span class="nav-text">4.3. Fail-Fast机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-HashMap的两种遍历方式"><span class="nav-number">4.4.</span> <span class="nav-text">4.4. HashMap的两种遍历方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-5-第一种"><span class="nav-number">4.5.</span> <span class="nav-text">4.5. 第一种</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-6-第二种"><span class="nav-number">4.6.</span> <span class="nav-text">4.6. 第二种</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-HashSet-HashTable-currentHashMap-LinkedHashMap"><span class="nav-number">5.</span> <span class="nav-text">5. HashSet\HashTable\currentHashMap\LinkedHashMap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-HashSet"><span class="nav-number">5.0.1.</span> <span class="nav-text">5.1 HashSet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-HashSet"><span class="nav-number">5.0.2.</span> <span class="nav-text">5.2 HashSet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-currentHashMap"><span class="nav-number">5.0.3.</span> <span class="nav-text">5.3 currentHashMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-LinkedHashMap"><span class="nav-number">5.0.4.</span> <span class="nav-text">5.4 LinkedHashMap</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-参考资料"><span class="nav-number">6.</span> <span class="nav-text">6. 参考资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-HashMap概述"><span class="nav-number">1.</span> <span class="nav-text">1. HashMap概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-HashMap的数据结构"><span class="nav-number">2.</span> <span class="nav-text">2. HashMap的数据结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-HashMap核心方法解读"><span class="nav-number">3.</span> <span class="nav-text">3. HashMap核心方法解读</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-put-方法"><span class="nav-number">3.1.</span> <span class="nav-text">3.1. put()方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-get-方法"><span class="nav-number">3.2.</span> <span class="nav-text">3.2. get()方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-归纳"><span class="nav-number">3.3.</span> <span class="nav-text">3.3. 归纳</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-HashMap相关机制"><span class="nav-number">4.</span> <span class="nav-text">4. HashMap相关机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-resize机制（rehash）"><span class="nav-number">4.1.</span> <span class="nav-text">4.1. resize机制（rehash）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-HashMap的构造器"><span class="nav-number">4.2.</span> <span class="nav-text">4.2. HashMap的构造器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-Fail-Fast机制"><span class="nav-number">4.3.</span> <span class="nav-text">4.3. Fail-Fast机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-HashMap的两种遍历方式"><span class="nav-number">4.4.</span> <span class="nav-text">4.4. HashMap的两种遍历方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-5-第一种"><span class="nav-number">4.5.</span> <span class="nav-text">4.5. 第一种</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-6-第二种"><span class="nav-number">4.6.</span> <span class="nav-text">4.6. 第二种</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-为什么HashMap线程不安全？"><span class="nav-number">5.</span> <span class="nav-text">5. 为什么HashMap线程不安全？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-put的时候导致的多线程数据不一致。"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 put的时候导致的多线程数据不一致。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-get操作可能因为resize而引起死循环（cpu100-）"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 get操作可能因为resize而引起死循环（cpu100%）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-HashSet-HashTable-currentHashMap-LinkedHashMap"><span class="nav-number">6.</span> <span class="nav-text">6. HashSet\HashTable\currentHashMap\LinkedHashMap</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-HashSet"><span class="nav-number">6.1.</span> <span class="nav-text">6.1 HashSet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2-HashSet"><span class="nav-number">6.2.</span> <span class="nav-text">6.2 HashSet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-3-currentHashMap"><span class="nav-number">6.3.</span> <span class="nav-text">6.3 currentHashMap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-4-LinkedHashMap"><span class="nav-number">6.4.</span> <span class="nav-text">6.4 LinkedHashMap</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-参考资料"><span class="nav-number">7.</span> <span class="nav-text">7. 参考资料</span></a></li></ol></div>
             
 
           </div>
@@ -794,7 +802,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">204.1k</span>
+    <span title="Site words total count">204.7k</span>
   
         
 <div class="busuanzi-count">
