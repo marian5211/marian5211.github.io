@@ -77,17 +77,17 @@
 
 
 
-<meta name="description" content="1. 海量数据选取TOPKbaseline： 用堆，如果取最大的K个，就用最小堆，遍历数组，遇到比堆顶元素大的元素就入堆，同时堆中元素超过k个需要poll操作，保证堆中只有K个元素，最终的topk元素在堆中。 时间复杂度分析: O(n*logk)$$ ，元素入堆复杂度$$O(logk)O(n)$$算法：  先用quick select方法找到第K大的元素，复杂度$$O(n)然后再遍历一遍，将大于K">
+<meta name="description" content="1. 海量数据选取TOPKbaseline： 用堆，如果取最大的K个，就用最小堆，遍历数组，遇到比堆顶元素大的元素就入堆，同时堆中元素超过k个需要poll操作，保证堆中只有K个元素，最终的topk元素在堆中。 时间复杂度分析: O(n*logk)$$ ，元素入堆复杂度$$O(logk)O(n)算法： 先用quick select方法找到第K大的元素，复杂度O(n) 然后再遍历一遍，将大于K的元素取">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【面经】算法相关">
 <meta property="og:url" content="http://yoursite.com/2018/03/07/【面经】算法相关/index.html">
 <meta property="og:site_name" content="Siyao&#39;s Blog">
-<meta property="og:description" content="1. 海量数据选取TOPKbaseline： 用堆，如果取最大的K个，就用最小堆，遍历数组，遇到比堆顶元素大的元素就入堆，同时堆中元素超过k个需要poll操作，保证堆中只有K个元素，最终的topk元素在堆中。 时间复杂度分析: O(n*logk)$$ ，元素入堆复杂度$$O(logk)O(n)$$算法：  先用quick select方法找到第K大的元素，复杂度$$O(n)然后再遍历一遍，将大于K">
+<meta property="og:description" content="1. 海量数据选取TOPKbaseline： 用堆，如果取最大的K个，就用最小堆，遍历数组，遇到比堆顶元素大的元素就入堆，同时堆中元素超过k个需要poll操作，保证堆中只有K个元素，最终的topk元素在堆中。 时间复杂度分析: O(n*logk)$$ ，元素入堆复杂度$$O(logk)O(n)算法： 先用quick select方法找到第K大的元素，复杂度O(n) 然后再遍历一遍，将大于K的元素取">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-03-10T09:31:43.517Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【面经】算法相关">
-<meta name="twitter:description" content="1. 海量数据选取TOPKbaseline： 用堆，如果取最大的K个，就用最小堆，遍历数组，遇到比堆顶元素大的元素就入堆，同时堆中元素超过k个需要poll操作，保证堆中只有K个元素，最终的topk元素在堆中。 时间复杂度分析: O(n*logk)$$ ，元素入堆复杂度$$O(logk)O(n)$$算法：  先用quick select方法找到第K大的元素，复杂度$$O(n)然后再遍历一遍，将大于K">
+<meta name="twitter:description" content="1. 海量数据选取TOPKbaseline： 用堆，如果取最大的K个，就用最小堆，遍历数组，遇到比堆顶元素大的元素就入堆，同时堆中元素超过k个需要poll操作，保证堆中只有K个元素，最终的topk元素在堆中。 时间复杂度分析: O(n*logk)$$ ，元素入堆复杂度$$O(logk)O(n)算法： 先用quick select方法找到第K大的元素，复杂度O(n) 然后再遍历一遍，将大于K的元素取">
 
 
 
@@ -370,7 +370,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  140
+                  241
                 </span>
               
 
@@ -410,15 +410,19 @@
         <h3 id="1-海量数据选取TOPK"><a href="#1-海量数据选取TOPK" class="headerlink" title="1. 海量数据选取TOPK"></a>1. 海量数据选取TOPK</h3><p>baseline：</p>
 <p>用堆，如果取最大的K个，就用最小堆，遍历数组，遇到比堆顶元素大的元素就入堆，同时堆中元素超过k个需要poll操作，保证堆中只有K个元素，最终的topk元素在堆中。</p>
 <p>时间复杂度分析:</p>
-<script type="math/tex; mode=display">O(n*logk)$$ ，元素入堆复杂度$$O(logk)</script><script type="math/tex; mode=display">O(n)$$算法：
-
-先用quick select方法找到第K大的元素，复杂度$$O(n)</script><p>然后再遍历一遍，将大于K的元素取出，复杂度<script type="math/tex">O(n)</script></p>
+<script type="math/tex; mode=display">O(n*logk)$$ ，元素入堆复杂度$$O(logk)</script><p><strong><script type="math/tex">O(n)</script>算法：</strong></p>
+<p>先用quick select方法找到第K大的元素，复杂度<script type="math/tex">O(n)</script></p>
+<p>然后再遍历一遍，将大于K的元素取出，复杂度<script type="math/tex">O(n)</script></p>
 <p>总复杂度<script type="math/tex">O(n)</script></p>
 <p>！！！！！卧槽！神奇！！！！</p>
 <p><strong>follow up：海量数据选取第K大</strong></p>
 <p>Quick Select，详见<a href="/2018/02/02/【九章算法强化班】两指针/" title="【九章算法强化班】两指针">【九章算法强化班】两指针</a> </p>
 <p>时间复杂度<script type="math/tex">O(n)</script></p>
-<h3 id="2"><a href="#2" class="headerlink" title="2."></a>2.</h3>
+<h3 id="2-大数排序问题"><a href="#2-大数排序问题" class="headerlink" title="2. 大数排序问题"></a>2. 大数排序问题</h3><p>海量数据排序怎么做？</p>
+<p>baseline：快排，问题：数据量很大，内存根本存不下，不可行</p>
+<p><strong>桶排序：</strong></p>
+<p>将数据分桶，每个桶存入一个文件，然后文件内部有序，取出合并的时候可以用K路归并，优化：k路可以建个堆</p>
+
       
     </div>
     
@@ -535,7 +539,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">112</span>
+                  <span class="site-state-item-count">113</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -592,7 +596,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-海量数据选取TOPK"><span class="nav-number">1.</span> <span class="nav-text">1. 海量数据选取TOPK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2"><span class="nav-number">2.</span> <span class="nav-text">2.</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-海量数据选取TOPK"><span class="nav-number">1.</span> <span class="nav-text">1. 海量数据选取TOPK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-大数排序问题"><span class="nav-number">2.</span> <span class="nav-text">2. 大数排序问题</span></a></li></ol></div>
             
 
           </div>
@@ -642,7 +646,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">195.3k</span>
+    <span title="Site words total count">204.1k</span>
   
         
 <div class="busuanzi-count">

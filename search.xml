@@ -3,6 +3,177 @@
   
     
     <entry>
+      <title><![CDATA[【Java】HashMap原理探究]]></title>
+      <url>/2018/03/11/%E3%80%90Java%E3%80%91HashMap%E5%8E%9F%E7%90%86%E6%8E%A2%E7%A9%B6/</url>
+      <content type="html"><![CDATA[<h1 id="1-HashMap概述"><a href="#1-HashMap概述" class="headerlink" title="1. HashMap概述"></a>1. HashMap概述</h1><p>HashMap是基于哈希表的Map接口的非同步实现。此实现提供所有可选的映射操作，并允许使用null值和null键。此类不保证映射的顺序，特别是不保证该顺序恒久不变。</p>
+<p>此实现假定哈希函数将元素适当地分布在各桶之间，可为基本操作（get和put）提供稳定的性能。</p>
+<p>迭代colletction视图所需要的时间与HashMap实例的“容量”（桶的数量）及其大小（键-值映射关系数）成比例。所以如果迭代性能很重要，则不能将初始容量设置得太高，或者将加载因子设置的太低。</p>
+<p>需要注意的是，HashMap是不同步的。如果多个线程同时访问一个HashMap，若其中某个线程修改了HashMap的结构（即删除或者添加映射关系），那么必须要保持外部同步。</p>
+<h1 id="2-HashMap的数据结构"><a href="#2-HashMap的数据结构" class="headerlink" title="2. HashMap的数据结构"></a>2. HashMap的数据结构</h1><p>在Java中，最基本的结构就是数组和指针（引用）。HashMap就是结合了这两种结构进行实现。</p>
+<p><strong>HashMap实际上是一个“链表散列”的数据结构，即数组和链表的结合体</strong></p>
+<p><a href="http://om1bxijvl.bkt.clouddn.com/2018-01-14-21-36-42.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-01-14-21-36-42.png" alt="img"></a></p>
+<p>从上图中可以看出，HashMap 底层就是一个数组结构，数组中的每一项又是一个链表。当新建一个 HashMap 的时候，就会初始化一个数组。</p>
+<p>我们通过 JDK 中的 HashMap 源码进行一些学习，首先看一下构造函数：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">public HashMap(int initialCapacity, float loadFactor) &#123;</div><div class="line">        if (initialCapacity &lt; 0)</div><div class="line">            throw new IllegalArgumentException(&quot;Illegal initial capacity: &quot; +</div><div class="line">                                               initialCapacity);</div><div class="line">        if (initialCapacity &gt; MAXIMUM_CAPACITY)</div><div class="line">            initialCapacity = MAXIMUM_CAPACITY;</div><div class="line">        if (loadFactor &lt;= 0 || Float.isNaN(loadFactor))</div><div class="line">            throw new IllegalArgumentException(&quot;Illegal load factor: &quot; +</div><div class="line">                                               loadFactor);</div><div class="line"></div><div class="line">        // Find a power of 2 &gt;= initialCapacity</div><div class="line">        int capacity = 1;</div><div class="line">        while (capacity &lt; initialCapacity)</div><div class="line">            capacity &lt;&lt;= 1;</div><div class="line"></div><div class="line">        this.loadFactor = loadFactor;</div><div class="line">        threshold = (int)Math.min(capacity * loadFactor, MAXIMUM_CAPACITY + 1);</div><div class="line">        table = new Entry[capacity]; // 新建数组</div><div class="line">        useAltHashing = sun.misc.VM.isBooted() &amp;&amp;</div><div class="line">                (capacity &gt;= Holder.ALTERNATIVE_HASHING_THRESHOLD);</div><div class="line">        init();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们看到第18行<code>table = new Entry[capacity];</code> 其实是创建了一个<code>Entry</code> 的数组，其大小为<code>capacity</code> 。那么<code>Entry</code> 又是什么呢？看一下源码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">static class Entry&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; &#123;</div><div class="line">    final K key; //键</div><div class="line">    V value;     //值</div><div class="line">    Entry&lt;K,V&gt; next; //指向下一个元素的引用 --&gt; 构成了链表</div><div class="line">    final int hash;</div><div class="line">    ……</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们目前还是只着重核心的部分，Entry 是一个 static class，其中包含了 key 和 value，也就是键值对，另外还包含了一个 next 的 Entry 指针。我们可以总结出：Entry 就是数组中的元素，每个 Entry 其实就是一个 key-value 对，它持有一个指向下一个元素的引用，这就构成了链表。</p>
+<h1 id="3-HashMap核心方法解读"><a href="#3-HashMap核心方法解读" class="headerlink" title="3. HashMap核心方法解读"></a>3. HashMap核心方法解读</h1><h2 id="3-1-put-方法"><a href="#3-1-put-方法" class="headerlink" title="3.1. put()方法"></a>3.1. put()方法</h2><p><strong>流程图</strong></p>
+<p>下面这个流程图很好地说明了总过程，接下来我们会一步步分析这个步骤。</p>
+<p><a href="http://om1bxijvl.bkt.clouddn.com/2018-01-14-21-57-57.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-01-14-21-57-57.png" alt="img"></a></p>
+<p><strong>put()主方法</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">/**</div><div class="line">     * Associates the specified value with the specified key in this map.</div><div class="line">     * If the map previously contained a mapping for the key, the old</div><div class="line">     * value is replaced.</div><div class="line">     *</div><div class="line">     * @param key key with which the specified value is to be associated</div><div class="line">     * @param value value to be associated with the specified key</div><div class="line">     * @return the previous value associated with &lt;tt&gt;key&lt;/tt&gt;, or</div><div class="line">     *         &lt;tt&gt;null&lt;/tt&gt; if there was no mapping for &lt;tt&gt;key&lt;/tt&gt;.</div><div class="line">     *         (A &lt;tt&gt;null&lt;/tt&gt; return can also indicate that the map</div><div class="line">     *         previously associated &lt;tt&gt;null&lt;/tt&gt; with &lt;tt&gt;key&lt;/tt&gt;.)</div><div class="line">     */</div><div class="line">public V put(K key, V value) &#123;</div><div class="line">        //其允许存放null的key和null的value，当其key为null时，调用putForNullKey方法，放入到table[0]的这个位置</div><div class="line">        if (key == null)</div><div class="line">            return putForNullKey(value);</div><div class="line">        </div><div class="line">		//1. 通过调用hash方法对key进行哈希，得到哈希之后的数值。</div><div class="line">        int hash = hash(key);</div><div class="line">  </div><div class="line">        //2. 根据上一步骤中求出的hash得到在数组中是索引i</div><div class="line">        int i = indexFor(hash, table.length);</div><div class="line">  </div><div class="line">        //3.1 如果i处的Entry不为null，则寻找是否存在过key</div><div class="line">        for (Entry&lt;K,V&gt; e = table[i]; e != null; e = e.next) &#123;</div><div class="line">            Object k;</div><div class="line">             // 3.1.1若曾经有过key值，则直接覆盖</div><div class="line">            if (e.hash == hash &amp;&amp; ((k = e.key) == key || key.equals(k))) &#123;</div><div class="line">                V oldValue = e.value;</div><div class="line">                e.value = value;</div><div class="line">                e.recordAccess(this);</div><div class="line">                return oldValue;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">		// 3.2、3.1.2 : 如果i处Entry为空，或者不曾存在过key，则添加key</div><div class="line">        modCount++;</div><div class="line">        addEntry(hash, key, value, i); //根据计算出的 hash 值，将 key-value 对放在数组 table 的 i 索引处</div><div class="line">        return null;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们看一下方法的标准注释：在注释中首先提到了，当我们 put 的时候，如果 key 存在了，那么新的 value 会代替旧的 value，并且如果 key 存在的情况下，该方法返回的是旧的 value，如果 key 不存在，那么返回 null。</p>
+<p>从上面的源代码中可以看出：当我们往 HashMap 中 put 元素的时候，先根据 key 的 hashCode 重新计算 hash 值，根据 hash 值得到这个元素在数组中的位置（即下标），如果数组该位置上已经存放有其他元素了，那么在这个位置上的元素将以链表的形式存放，新加入的放在链头，最先加入的放在链尾。如果数组该位置上没有元素，就直接将该元素放到此数组中的该位置上。</p>
+<p>也就是说，put方法主要做了以下几个步骤：</p>
+<ol>
+<li>计算key的hashCode值。其目的是为了尽可能的让键值对可以分不到不同的桶中</li>
+<li>根据hashCode得到在table中的索引i</li>
+<li>将value插入到table中：<ol>
+<li>如果table[i]不为空，则表示两个key的hash值重叠了。那就根据key将值插入table[i]指向的链表中：<ol>
+<li>要么覆盖原来的值（曾经有过这个key）</li>
+<li>要么插入链表末尾（曾经没有过这个key） –&gt; 调用<code>addEntry()</code></li>
+</ol>
+</li>
+<li>如果table[i]为空，就直接插入 –&gt; 调用<code>addEntry()</code></li>
+</ol>
+</li>
+</ol>
+<p><strong>addEntry()方法</strong></p>
+<p>addEntry(hash, key, value, i)方法根据计算出的 hash 值，将 key-value 对放在数组 table 的 i 索引处。addEntry 是 HashMap 提供的一个包访问权限的方法，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">/**</div><div class="line">     * Adds a new entry with the specified key, value and hash code to</div><div class="line">     * the specified bucket.  It is the responsibility of this</div><div class="line">     * method to resize the table if appropriate.</div><div class="line">     *</div><div class="line">     * Subclass overrides this to alter the behavior of put method.</div><div class="line">     */</div><div class="line">void addEntry(int hash, K key, V value, int bucketIndex) &#123;</div><div class="line">        if ((size &gt;= threshold) &amp;&amp; (null != table[bucketIndex])) &#123;</div><div class="line">            resize(2 * table.length);</div><div class="line">            hash = (null != key) ? hash(key) : 0;</div><div class="line">            bucketIndex = indexFor(hash, table.length);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        createEntry(hash, key, value, bucketIndex);</div><div class="line">&#125;</div><div class="line">void createEntry(int hash, K key, V value, int bucketIndex) &#123;</div><div class="line">        // 获取指定 bucketIndex 索引处的 Entry</div><div class="line">        Entry&lt;K,V&gt; e = table[bucketIndex];</div><div class="line">        // 将新创建的 Entry 放入 bucketIndex 索引处，并让新的 Entry 指向原来的 Entr</div><div class="line">        table[bucketIndex] = new Entry&lt;&gt;(hash, key, value, e);</div><div class="line">        size++;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当系统决定存储 HashMap 中的 key-value 对时，完全没有考虑 Entry 中的 value，仅仅只是根据 key 来计算并决定每个 Entry 的存储位置。我们完全可以把 Map 集合中的 value 当成 key 的附属，当系统决定了 key 的存储位置之后，value 随之保存在那里即可。</p>
+<p><strong>hash()方法</strong></p>
+<p>hash(int h)方法根据 key 的 hashCode 重新计算一次散列。此算法加入了高位计算，防止低位不变，高位变化时，造成的 hash 冲突。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">final int hash(Object k) &#123;</div><div class="line">        int h = 0;</div><div class="line">        if (useAltHashing) &#123;</div><div class="line">            if (k instanceof String) &#123;</div><div class="line">                return sun.misc.Hashing.stringHash32((String) k);</div><div class="line">            &#125;</div><div class="line">            h = hashSeed;</div><div class="line">        &#125;</div><div class="line">        //得到k的hashcode值</div><div class="line">        h ^= k.hashCode();</div><div class="line">        //进行计算</div><div class="line">        h ^= (h &gt;&gt;&gt; 20) ^ (h &gt;&gt;&gt; 12);</div><div class="line">        return h ^ (h &gt;&gt;&gt; 7) ^ (h &gt;&gt;&gt; 4);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们可以看到在 HashMap 中要找到某个元素，需要根据 key 的 hash 值来求得对应数组中的位置。如何计算这个位置就是 hash 算法。前面说过 HashMap 的数据结构是数组和链表的结合，所以我们当然希望这个 HashMap 里面的 元素位置尽量的分布均匀些，尽量使得每个位置上的元素数量只有一个，那么当我们用 hash 算法求得这个位置的时候，马上就可以知道对应位置的元素就是我们要的，而不用再去遍历链表，这样就大大优化了查询的效率。</p>
+<p>对于任意给定的对象，只要它的 hashCode() 返回值相同，那么程序调用 hash(int h) 方法所计算得到的 hash 码值总是相同的。我们首先想到的就是把 hash 值对数组长度取模运算，这样一来，元素的分布相对来说是比较均匀的。但是，“模”运算的消耗还是比较大的，在 HashMap 中是这样做的：调用 indexFor(int h, int length) 方法来计算该对象应该保存在 table 数组的哪个索引处。indexFor(int h, int length) 方法的代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">/**</div><div class="line">     * Returns index for hash code h.</div><div class="line">     */</div><div class="line">static int indexFor(int h, int length) &#123;  </div><div class="line">    return h &amp; (length-1);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个方法非常巧妙，它通过 h &amp; (table.length -1) 来得到该对象的保存位，而 HashMap 底层数组的长度总是 2 的 n 次方，这是 HashMap 在速度上的优化。在 HashMap 构造器中有如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">// Find a power of 2 &gt;= initialCapacity</div><div class="line">int capacity = 1;</div><div class="line">    while (capacity &lt; initialCapacity)  </div><div class="line">        capacity &lt;&lt;= 1;</div></pre></td></tr></table></figure>
+<p><strong>这段代码保证初始化时 HashMap 的容量总是 2 的 n 次方</strong>，即底层数组的长度总是为 2 的 n 次方。</p>
+<p>当 length 总是 2 的 n 次方时，h&amp; (length-1)运算等价于对 length 取模，也就是 h%length，但是 &amp; 比 % 具有更高的效率。这看上去很简单，其实比较有玄机的，我们举个例子来说明：</p>
+<p>假设数组长度分别为 15 和 16，优化后的 hash 码分别为 8 和 9，那么 &amp; 运算后的结果如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>h &amp; (table.length-1)</th>
+<th>hash</th>
+<th></th>
+<th>table.length-1</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8 &amp; (15-1)：</td>
+<td>0100</td>
+<td>&amp;</td>
+<td>1110</td>
+<td>= 0100</td>
+</tr>
+<tr>
+<td>9 &amp; (15-1)：</td>
+<td>0101</td>
+<td>&amp;</td>
+<td>1110</td>
+<td>= 0100</td>
+</tr>
+<tr>
+<td>8 &amp; (16-1)：</td>
+<td>0100</td>
+<td>&amp;</td>
+<td>1111</td>
+<td>= 0100</td>
+</tr>
+<tr>
+<td>9 &amp; (16-1)：</td>
+<td>0101</td>
+<td>&amp;</td>
+<td>1111</td>
+<td>= 0101</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>从上面的例子中可以看出：当它们和 15-1（1110）“与”的时候，产生了相同的结果，也就是说它们会定位到数组中的同一个位置上去，这就产生了碰撞，8 和 9 会被放到数组中的同一个位置上形成链表，那么查询的时候就需要遍历这个链 表，得到8或者9，这样就降低了查询的效率。同时，我们也可以发现，当数组长度为 15 的时候，hash 值会与 15-1（1110）进行“与”，那么最后一位永远是 0，而 0001，0011，0101，1001，1011，0111，1101 这几个位置永远都不能存放元素了，空间浪费相当大，更糟的是这种情况中，数组可以使用的位置比数组长度小了很多，这意味着进一步增加了碰撞的几率，减慢了查询的效率！而当数组长度为16时，即为2的n次方时，2n-1 得到的二进制数的每个位上的值都为 1，这使得在低位上&amp;时，得到的和原 hash 的低位相同，加之 hash(int h)方法对 key 的 hashCode 的进一步优化，加入了高位计算，就使得只有相同的 hash 值的两个值才会被放到数组中的同一个位置上形成链表。</p>
+<p>所以说，<strong>当数组长度为 2 的 n 次幂的时候，不同的 key 算得得 index 相同的几率较小，那么数据在数组上分布就比较均匀，也就是说碰撞的几率小，相对的，查询的时候就不用遍历某个位置上的链表，这样查询效率也就较高了。</strong></p>
+<p><strong>总结</strong></p>
+<p>根据上面 put 方法的源代码可以看出，当程序试图将一个key-value对放入HashMap中时，程序首先根据该 key 的 hashCode() 返回值决定该 Entry 的存储位置：如果两个 Entry 的 key 的 hashCode() 返回值相同，那它们的存储位置相同。如果这两个 Entry 的 key 通过 equals 比较返回 true，新添加 Entry 的 value 将覆盖集合中原有 Entry 的 value，但key不会覆盖。如果这两个 Entry 的 key 通过 equals 比较返回 false，新添加的 Entry 将与集合中原有 Entry 形成 Entry 链，而且新添加的 Entry 位于 Entry 链的头部——具体说明继续看 addEntry() 方法的说明。</p>
+<h2 id="3-2-get-方法"><a href="#3-2-get-方法" class="headerlink" title="3.2. get()方法"></a>3.2. get()方法</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">/**</div><div class="line">     * Returns the value to which the specified key is mapped,</div><div class="line">     * or &#123;@code null&#125; if this map contains no mapping for the key.</div><div class="line">     *</div><div class="line">     * &lt;p&gt;More formally, if this map contains a mapping from a key</div><div class="line">     * &#123;@code k&#125; to a value &#123;@code v&#125; such that &#123;@code (key==null ? k==null :</div><div class="line">     * key.equals(k))&#125;, then this method returns &#123;@code v&#125;; otherwise</div><div class="line">     * it returns &#123;@code null&#125;.  (There can be at most one such mapping.)</div><div class="line">     *</div><div class="line">     * &lt;p&gt;A return value of &#123;@code null&#125; does not &lt;i&gt;necessarily&lt;/i&gt;</div><div class="line">     * indicate that the map contains no mapping for the key; it&apos;s also</div><div class="line">     * possible that the map explicitly maps the key to &#123;@code null&#125;.</div><div class="line">     * The &#123;@link #containsKey containsKey&#125; operation may be used to</div><div class="line">     * distinguish these two cases.</div><div class="line">     *</div><div class="line">     * @see #put(Object, Object)</div><div class="line">     */</div><div class="line">    public V get(Object key) &#123;</div><div class="line">        if (key == null)</div><div class="line">            return getForNullKey();</div><div class="line">        Entry&lt;K,V&gt; entry = getEntry(key);</div><div class="line"></div><div class="line">        return null == entry ? null : entry.getValue();</div><div class="line">    &#125;</div><div class="line">    final Entry&lt;K,V&gt; getEntry(Object key) &#123;</div><div class="line">        int hash = (key == null) ? 0 : hash(key);</div><div class="line">        for (Entry&lt;K,V&gt; e = table[indexFor(hash, table.length)];</div><div class="line">             e != null;</div><div class="line">             e = e.next) &#123;</div><div class="line">            Object k;</div><div class="line">            if (e.hash == hash &amp;&amp;</div><div class="line">                ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))</div><div class="line">                return e;</div><div class="line">        &#125;</div><div class="line">        return null;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>有了上面存储时的 hash 算法作为基础，理解起来这段代码就很容易了。从上面的源代码中可以看出：从 HashMap 中 get 元素时，首先计算 key 的 hashCode，找到数组中对应位置的某一元素，然后通过 key 的 equals 方法在对应位置的链表中找到需要的元素。</p>
+<h2 id="3-3-归纳"><a href="#3-3-归纳" class="headerlink" title="3.3. 归纳"></a>3.3. 归纳</h2><p>简单地说，HashMap在底层将key-value当成一个整体进行处理，这个整体就是一个Entry对象。</p>
+<ul>
+<li>HashMap底层采用一个<code>Entry[]</code> 数组来保存所有的key-value对。</li>
+<li>当需要存储一个Entry对象时，会根据hash算法来决定其在数组中的存储位置，再根据equals方法决定其在该数组位置上的链表中的存储位置。</li>
+<li>当需要取出一个Entry时，也会根据hash算法找到其在数组中的存储位置，再根据equals方法从该位置的链表中取出该Entry。</li>
+</ul>
+<h1 id="4-HashMap相关机制"><a href="#4-HashMap相关机制" class="headerlink" title="4. HashMap相关机制"></a>4. HashMap相关机制</h1><h2 id="4-1-resize机制（rehash）"><a href="#4-1-resize机制（rehash）" class="headerlink" title="4.1. resize机制（rehash）"></a>4.1. resize机制（rehash）</h2><p>当HashMap中的元素越来越多的时候，hash冲突的几率也越来越高，因为数组的长度时固定的。所以为了提高查询的效率，就需要对HashMap的数组进行扩容。那么此时最消耗性能的点就出现了：原数组中的每一个数据必须重新计算其在新数组中的位置，并放进去，这就是resize操作。</p>
+<p>那么HashMap是什么时候进行扩容的呢？当HashMap中的元素超过<code>threshold = (int)(capacity * loadFactor)</code> 时，就会进行数组扩容。<strong>loadFactor的默认值为0.75。</strong>其中threshold是HashMap的一个字段。</p>
+<p><strong>每次扩容时，都新建一个2倍的数组，</strong>然后重新计算每一个元素在数组中的位置。这是一个非常耗时的操作。所以我们<strong>如果预知HashMap中的元素个数，那么预设元素的个数就能有效地提高HashMap的性能</strong>。</p>
+<p>而负载因子loadFactor 衡量的是一个散列表的空间使用程度。负载因子越大表示散列的装填程度越高。对于使用链表法的散列表来说，查找元素的平均时间是<script type="math/tex">O(1+a)</script> 。a是链表平均长度。因此如果负载因子越大，对空间的利用更充分，但查找效率就会更低。如果负载因子太小，散列表的数据又过于稀疏，对空间造成严重浪费。</p>
+<h2 id="4-2-HashMap的构造器"><a href="#4-2-HashMap的构造器" class="headerlink" title="4.2. HashMap的构造器"></a>4.2. HashMap的构造器</h2><p>HashMap包含以下几个构造器：</p>
+<ul>
+<li><code>HashMap()</code> : 构建一个初始容量为16，负载因子为0.75的HashMap。</li>
+<li><code>HashMap(int initialCapcity)</code> : 构建一个初始容量为initialCapcity, 负载因子为0.75的HashMap。</li>
+<li><code>HashMap(int initialCapacity, float loadFactor)</code>: 以指定初始容量、指定的负载因子创建一个HashMap。<ul>
+<li>initialCapcity * loadFactor过大时，会造成空间的严重浪费</li>
+<li>initialCapcity * loadFactor过小时，会造成查找效率很低</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-3-Fail-Fast机制"><a href="#4-3-Fail-Fast机制" class="headerlink" title="4.3. Fail-Fast机制"></a>4.3. Fail-Fast机制</h2><p>​    <strong>我们知道 java.util.HashMap 不是线程安全的</strong>，因此如果在使用迭代器的过程中有其他线程修改了 map，那么将抛出 ConcurrentModificationException，这就是所谓 fail-fast 策略。</p>
+<p>ail-fast 机制是 java 集合(Collection)中的一种错误机制。 当多个线程对同一个集合的内容进行操作时，就可能会产生 fail-fast 事件。</p>
+<p>例如：当某一个线程 A 通过 iterator去遍历某集合的过程中，若该集合的内容被其他线程所改变了；那么线程 A 访问集合时，就会抛出 ConcurrentModificationException 异常，产生 fail-fast 事件。</p>
+<p>这一策略在源码中的实现是通过 modCount 域，modCount 顾名思义就是修改次数，对 HashMap 内容（当然不仅仅是 HashMap 才会有，其他例如 ArrayList 也会）的修改都将增加这个值（大家可以再回头看一下其源码，在很多操作中都有 modCount++ 这句），那么在迭代器初始化过程中会将这个值赋给迭代器的 expectedModCount。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">HashIterator() &#123;</div><div class="line">    expectedModCount = modCount;</div><div class="line">    if (size &gt; 0) &#123; // advance to first entry</div><div class="line">    Entry[] t = table;</div><div class="line">    while (index &lt; t.length &amp;&amp; (next = t[index++]) == null)  </div><div class="line">        ;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在迭代过程中，判断 modCount 跟 expectedModCount 是否相等，如果不相等就表示已经有其他线程修改了 Map：</p>
+<p>注意到 modCount 声明为 volatile，保证线程之间修改的可见性。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">final Entry&lt;K,V&gt; nextEntry() &#123;</div><div class="line">    if (modCount != expectedModCount)</div><div class="line">        throw new ConcurrentModificationException();</div></pre></td></tr></table></figure>
+<p>在 HashMap 的 API 中指出：</p>
+<p>由所有 HashMap 类的“collection 视图方法”所返回的迭代器都是快速失败的：在迭代器创建之后，如果从结构上对映射进行修改，除非通过迭代器本身的 remove 方法，其他任何时间任何方式的修改，迭代器都将抛出 ConcurrentModificationException。因此，面对并发的修改，迭代器很快就会完全失败，而不冒在将来不确定的时间发生任意不确定行为的风险。</p>
+<p>注意，迭代器的快速失败行为不能得到保证，一般来说，存在非同步的并发修改时，不可能作出任何坚决的保证。快速失败迭代器尽最大努力抛出 ConcurrentModificationException。因此，编写依赖于此异常的程序的做法是错误的，正确做法是：迭代器的快速失败行为应该仅用于检测程序错误。</p>
+<p><strong>解决方案</strong></p>
+<p>在上文中也提到，f<strong>ail-fast 机制，是一种错误检测机制</strong>。它只能被用来检测错误，因为 JDK 并不保证 fail-fast 机制一定会发生。若在多线程环境下使用 fail-fast 机制的集合，建议使用“java.util.concurrent 包下的类”去取代“java.util 包下的类”。</p>
+<h2 id="4-4-HashMap的两种遍历方式"><a href="#4-4-HashMap的两种遍历方式" class="headerlink" title="4.4. HashMap的两种遍历方式"></a>4.4. HashMap的两种遍历方式</h2><h2 id="4-5-第一种"><a href="#4-5-第一种" class="headerlink" title="4.5. 第一种"></a>4.5. 第一种</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">　　Map map = new HashMap();</div><div class="line">　　Iterator iter = map.entrySet().iterator();</div><div class="line">　　while (iter.hasNext()) &#123;</div><div class="line">Map.Entry entry = (Map.Entry) iter.next();</div><div class="line">Object key = entry.getKey();</div><div class="line">Object val = entry.getValue();</div><div class="line">　　&#125;</div></pre></td></tr></table></figure>
+<p>效率高,以后一定要使用此种方式！</p>
+<h2 id="4-6-第二种"><a href="#4-6-第二种" class="headerlink" title="4.6. 第二种"></a>4.6. 第二种</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">　　Map map = new HashMap();</div><div class="line">　　Iterator iter = map.keySet().iterator();</div><div class="line">　　while (iter.hasNext()) &#123;</div><div class="line">Object key = iter.next();</div><div class="line">Object val = map.get(key);</div><div class="line">　　&#125;</div></pre></td></tr></table></figure>
+<p>效率低,以后尽量少使用！</p>
+<h1 id="5-HashSet-HashTable-currentHashMap-LinkedHashMap"><a href="#5-HashSet-HashTable-currentHashMap-LinkedHashMap" class="headerlink" title="5. HashSet\HashTable\currentHashMap\LinkedHashMap"></a>5. HashSet\HashTable\currentHashMap\LinkedHashMap</h1><h3 id="5-1-HashSet"><a href="#5-1-HashSet" class="headerlink" title="5.1 HashSet"></a>5.1 HashSet</h3><p>在Java里，其实<strong>HashSet</strong>内部是一个HashMap。此处不再过多阐述。</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-11-13-17-37.png" alt=""> </p>
+<h3 id="5-2-HashSet"><a href="#5-2-HashSet" class="headerlink" title="5.2 HashSet"></a>5.2 HashSet</h3><p><strong>Hashtable</strong>和 HashMap 一样， 也是一个散列表，它存储的内容是键值对，继承于 Dictionary 类</p>
+<p><strong>Hashtable 与 HashMap 的简单比较</strong></p>
+<ol>
+<li>HashTable 基于 Dictionary 类，而 HashMap 是基于 AbstractMap。Dictionary 是任何可将键映射到相应值的类的抽象父类，而 AbstractMap 是基于 Map 接口的实现，它以最大限度地减少实现此接口所需的工作。</li>
+<li>HashMap 的 key 和 value 都允许为 null，而 Hashtable 的 key 和 value 都不允许为 null。HashMap 遇到 key 为 null 的时候，调用 putForNullKey 方法进行处理，而对 value 没有处理；Hashtable遇到 null，直接返回 NullPointerException。</li>
+<li><strong>Hashtable 方法是同步的，而HashMap则不是，也就是说Hashtable是线程安全的</strong>。我们可以看一下源码，Hashtable 中的几乎所有的 public 的方法都是 synchronized 的，而有些方法也是在内部通过 synchronized 代码块来实现。所以有人一般都建议如果是涉及到多线程同步时采用 HashTable，没有涉及就采用 HashMap，但是在 Collections 类中存在一个静态方法：synchronizedMap()，该方法创建了一个线程安全的 Map 对象，并把它作为一个封装的对象来返回。</li>
+</ol>
+<h3 id="5-3-currentHashMap"><a href="#5-3-currentHashMap" class="headerlink" title="5.3 currentHashMap"></a>5.3 currentHashMap</h3><p>​    我们在之前的博文中了解到关于 HashMap 和 Hashtable 这两种集合。其中 HashMap 是非线程安全的，当我们只有一个线程在使用 HashMap 的时候，自然不会有问题，但如果涉及到多个线程，并且有读有写的过程中，HashMap 就不能满足我们的需要了(fail-fast)。在不考虑性能问题的时候，我们的解决方案有 Hashtable 或者Collections.synchronizedMap(hashMap)，这两种方式基本都是对整个 hash 表结构做锁定操作的，这样在锁表的期间，别的线程就需要等待了，无疑性能不高。</p>
+<p>​    <strong>currentHashMap的加锁操作是针对的 hash 值对应的某个 Segment</strong>，而不是整个 ConcurrentHashMap。因为 put 操作只是在这个 Segment 中完成，所以并不需要对整个 ConcurrentHashMap 加锁。所以，此时，其他的线程也可以对另外的 Segment 进行 put 操作，因为虽然该 Segment 被锁住了，但其他的 Segment 并没有加锁。同时，读线程并不会因为本线程的加锁而阻塞。</p>
+<p>​    正是因为其内部的结构以及机制，所以 ConcurrentHashMap 在并发访问的性能上要比Hashtable和同步包装之后的HashMap的性能提高很多。在理想状态下，ConcurrentHashMap 可以支持 16 个线程执行并发写操作（如果并发级别设置为 16），及任意数量线程的读操作。</p>
+<p>​    ConcurrentHashMap 针对读操作做了大量的优化。通过 HashEntry 对象的不变性和用 volatile 型变量协调线程间的内存可见性，使得 大多数时候，读操作不需要加锁就可以正确获得值。这个特性使得 ConcurrentHashMap 的并发性能在分离锁的基础上又有了近一步的提高。</p>
+<p><strong>总结一下：</strong>ConcurrentHashMap 的高并发性主要来自于三个方面：</p>
+<ul>
+<li>用分离锁实现多个线程间的更深层次的共享访问。</li>
+<li>用 HashEntery 对象的不变性来降低执行读操作的线程在遍历链表期间对加锁的需求。</li>
+<li>通过对同一个 Volatile 变量的写 / 读访问，协调不同线程间读 / 写操作的内存可见性。</li>
+</ul>
+<p><a href="http://wiki.jikexueyuan.com/project/java-collection/concurrenthashmap.html" target="_blank" rel="external">极客学院Java集合学习指南</a></p>
+<h3 id="5-4-LinkedHashMap"><a href="#5-4-LinkedHashMap" class="headerlink" title="5.4 LinkedHashMap"></a>5.4 LinkedHashMap</h3><p>HashMap 是无序的，HashMap 在 put 的时候是根据 key 的 hashcode 进行 hash 然后放入对应的地方。所以在按照一定顺序 put 进 HashMap 中，然后遍历出 HashMap 的顺序跟 put 的顺序不同（除非在 put 的时候 key 已经按照 hashcode 排序号了，这种几率非常小）</p>
+<p>JAVA 在 JDK1.4 以后提供了 <strong>LinkedHashMap 来帮助我们实现了有序的 HashMap</strong>！</p>
+<p><strong>LinkedHashMap 实现与 HashMap 的不同之处在于，LinkedHashMap 维护着一个运行于所有条目的双重链接列表。此链接列表定义了迭代顺序，该迭代顺序可以是插入顺序或者是访问顺序。</strong></p>
+<p>根据链表中元素的顺序可以分为：按插入顺序的链表，和按访问顺序(调用 get 方法)的链表。默认是按插入顺序排序，如果指定按访问顺序排序，那么调用get方法后，会将这次访问的元素移至链表尾部，不断访问可以形成按访问顺序排序的链表。</p>
+<h1 id="6-参考资料"><a href="#6-参考资料" class="headerlink" title="6. 参考资料"></a>6. 参考资料</h1><ol>
+<li><a href="http://wiki.jikexueyuan.com/project/java-collection/hashmap.html" target="_blank" rel="external">极客学院，HashMap 的实现原理</a></li>
+<li><a href="https://tech.meituan.com/java-hashmap.html" target="_blank" rel="external">美团点评技术团队，Java 8系列之重新认识HashMap</a></li>
+</ol>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[【九章系统设计】爬虫系统与搜索建议系统]]></title>
       <url>/2018/03/10/%E3%80%90%E4%B9%9D%E7%AB%A0%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E3%80%91%E7%88%AC%E8%99%AB%E7%B3%BB%E7%BB%9F%E4%B8%8E%E6%90%9C%E7%B4%A2%E5%BB%BA%E8%AE%AE%E7%B3%BB%E7%BB%9F/</url>
       <content type="html"></content>
@@ -12,7 +183,7 @@
     
     <entry>
       <title><![CDATA[排序算法终极大总结]]></title>
-      <url>/2018/03/10/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E7%BB%88%E6%9E%81%E5%A4%A7%E6%80%BB%E7%BB%93/</url>
+      <url>/2018/03/10/%E3%80%90%E6%8E%92%E5%BA%8F%E3%80%91%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E7%BB%88%E6%9E%81%E5%A4%A7%E6%80%BB%E7%BB%93/</url>
       <content type="html"><![CDATA[<p>常见的排序算法有以下几种：</p>
 <ul>
 <li>递归性排序<ul>
@@ -28,7 +199,7 @@
 </ul>
 </li>
 <li>非比较排序：非比较排序的时间复杂度可以达到$O(n)$ 。<ul>
-<li><a href="/2018/02/08/计数排序、基数排序、桶排序/" title="计数排序、基数排序、桶排序">计数排序、基数排序、桶排序</a>
+<li><a href="/2018/02/08/【排序】计数排序、基数排序、桶排序/" title="【排序】计数排序、基数排序、桶排序">【排序】计数排序、基数排序、桶排序</a>
 <ul>
 <li>计数排序：已知最大值K。利用数组<code>int[K]</code> 统计每个数字的小于等于它的个数，将这个个数作为这个数字的idx</li>
 <li>基数排序：分别对数字的个位、十位、…、d位依次进行计数排序</li>
@@ -63,7 +234,7 @@
 <td>$O(nlogn)$</td>
 <td>$O(n^2)$</td>
 <td>$O(1)$</td>
-<td>快速选择  <br>快排优化算法<br></td>
+<td>快速选择<a href="/2018/02/02/【九章算法强化班】两指针/" title="【九章算法强化班】两指针">【九章算法强化班】两指针</a> <br>快排优化算法：随机选择pivot<br></td>
 </tr>
 <tr>
 <td>插入、<br>选择、<br>冒泡、<br>希尔</td>
@@ -104,7 +275,7 @@
     <entry>
       <title><![CDATA[【面经】开发相关基础知识]]></title>
       <url>/2018/03/09/%E3%80%90%E9%9D%A2%E7%BB%8F%E3%80%91%E5%BC%80%E5%8F%91%E7%9B%B8%E5%85%B3%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</url>
-      <content type="html"><![CDATA[<h2 id="亚马逊"><a href="#亚马逊" class="headerlink" title="亚马逊"></a>亚马逊</h2><h3 id="1-JDK和JRE、JVM的区别是什么"><a href="#1-JDK和JRE、JVM的区别是什么" class="headerlink" title="1. JDK和JRE、JVM的区别是什么"></a>1. JDK和JRE、JVM的区别是什么</h3><p><strong>JRE（Java运行时环境）： Java Runtime Environment</strong></p>
+      <content type="html"><![CDATA[<h2 id="1-JDK和JRE、JVM的区别是什么"><a href="#1-JDK和JRE、JVM的区别是什么" class="headerlink" title="1. JDK和JRE、JVM的区别是什么"></a>1. JDK和JRE、JVM的区别是什么</h2><p><strong>JRE（Java运行时环境）： Java Runtime Environment</strong></p>
 <p>JRE顾名思义是java运行时环境，包含了java虚拟机，java基础类库。是使用java语言编写的程序运行所需要的软件环境，是提供给想运行java程序的用户使用的。</p>
 <p><strong>JDK（Java 开发工具包）：Java Development Kit</strong></p>
 <p>JDK顾名思义是java开发工具包，是程序员使用java语言编写java程序所需的开发工具包，是提供给程序员使用的。JDK包含了JRE，同时还包含了编译java源码的编译器javac，还包含了很多java程序调试和分析的工具：jconsole，jvisualvm等工具软件，还包含了java程序编写所需的文档和demo例子程序。</p>
@@ -116,7 +287,99 @@
 <li>JDK和JRE都包含了JVM，从而使得我们可以运行Java程序。</li>
 <li>JVM是Java编程语言的核心并且具有平台独立性。</li>
 </ul>
-<h3 id="2-常见设计原则和设计模式"><a href="#2-常见设计原则和设计模式" class="headerlink" title="2. 常见设计原则和设计模式"></a>2. 常见设计原则和设计模式</h3><p>6大设计原则：</p>
+<h2 id="2-进程和线程"><a href="#2-进程和线程" class="headerlink" title="2. 进程和线程"></a>2. 进程和线程</h2><h3 id="2-1-定义"><a href="#2-1-定义" class="headerlink" title="2.1 定义"></a>2.1 定义</h3><p><strong>程序</strong></p>
+<p>​    程序是指令和数据的有序集合，其本身没有任何运动的含义，是一个静态的概念，而进程则是在处理机上的一次执行过程，它是一个动态的概念。进程是包含程序的，进程的执行离不开程序，进程中的文本区域就是代码区，也就是程序。</p>
+<p><strong>进程(process)</strong></p>
+<p>狭义的定义：进程就是一段程序的执行过程。</p>
+<p>广义定义：进程是一个具有一定独立功能的程序关于某次数据集合的一次运行活动，它是操作系统分配资源的基本单元。</p>
+<p>​    简单来讲进程的概念主要有两点：第一，进程是一个实体。<strong>每一个进程都有它自己的地址空间</strong>，一般情况下，包括<strong>文本区域（text region）、数据区域（data region）和堆栈（stack region）</strong>。文本区域存储处理器执行的代码；数据区域存储变量和进程执行期间使用的动态分配的内存；堆栈区域存储着活动过程中调用的指令和本地变量。第二，进程是一个“执行中的程序”。程序是一个没有生命的实体，只有处理器赋予程序生命时，它才能成为一个活动的实体，我们称其为进程。</p>
+<p>​    进程状态：进程有三个状态，就绪，运行和阻塞。就绪状态其实就是获取了除cpu外的所有资源，只要处理器分配资源马上就可以运行。运行态就是获取了处理器分配的资源，程序开始执行，阻塞态，当程序条件不够时，需要等待条件满足时候才能执行，如等待I/O操作的时候，此刻的状态就叫阻塞态。</p>
+<p><strong>线程(thread)</strong></p>
+<p>​    通常在一个进程中可以包含若干个线程，当然一个进程中至少有一个线程，不然没有存在的意义。线程可以利用进程所拥有的资源，在引入线程的操作系统中，通常都是把进程作为分配资源的基本单位，而把线程作为独立运行和独立调度的基本单位，由于线程比进程更小，基本上不拥有系统资源，故对它的调度所付出的开销就会小得多，能更高效的提高系统多个程序间并发执行的程度。</p>
+<h3 id="2-2进程与线程的区别"><a href="#2-2进程与线程的区别" class="headerlink" title="2.2进程与线程的区别"></a>2.2进程与线程的区别</h3><p>​    进程和线程的主要差别在于它们是不同的操作系统资源管理方式。<strong>进程有独立的地址空间</strong>，一个进程崩溃后，在保护模式下不会对其它进程产生影响，而线程只是一个进程中的不同执行路径。<strong>线程有自己的堆栈和局部变量，但线程之间没有单独的地址空间</strong>，<strong>一个线程死掉就等于整个进程死掉</strong>，<strong>所以多进程的程序要比多线程的程序健壮</strong>，但在进程切换时，耗费资源较大，效率要差一些。但对于一些要求同时进行并且又要共享某些变量的并发操作，只能用线程，不能用进程。</p>
+<p>1) 简而言之,一个程序至少有一个进程,一个进程至少有一个线程.</p>
+<p>2) 线程的划分尺度小于进程，使得多线程程序的并发性高。</p>
+<p>3) 另外，<strong>进程在执行过程中拥有独立的内存单元，而多个线程共享内存，从而极大地提高了程序的运行效率</strong>。</p>
+<p>4) 线程在执行过程中与进程还是有区别的。每个独立的线程有一个程序运行的入口、顺序执行序列和程序的出口。但是线程不能够独立执行，必须依存在应用程序中，由应用程序提供多个线程执行控制。</p>
+<p>5) 从逻辑角度来看，多线程的意义在于一个应用程序中，有多个执行部分可以同时执行。但操作系统并没有将多个线程看做多个独立的应用，来实现进程的调度和管理以及资源分配。这就是进程和线程的重要区别。</p>
+<h3 id="2-3-优缺点"><a href="#2-3-优缺点" class="headerlink" title="2.3 优缺点"></a>2.3 优缺点</h3><p>​    线程和进程在使用上各有优缺点：线程执行开销小，但不利于资源的管理和保护；而进程正相反。同时，线程适合于在SMP(多核处理机)机器上运行，而进程则可以跨机器迁移。</p>
+<p><a href="http://www.ruanyifeng.com/blog/2013/04/processes_and_threads.html" target="_blank" rel="external">用一个工厂的形象的解释进程和线程</a></p>
+<p><a href="https://www.jianshu.com/p/7ce30a806c51" target="_blank" rel="external">简书的王布斯</a></p>
+<h2 id="3-如何预防死锁"><a href="#3-如何预防死锁" class="headerlink" title="3. 如何预防死锁"></a>3. 如何预防死锁</h2><h3 id="3-1-死锁"><a href="#3-1-死锁" class="headerlink" title="3.1 死锁"></a>3.1 死锁</h3><p>​    当线程A持有独占锁a，并尝试去获取独占锁b的同时，线程B持有独占锁b，并尝试获取独占锁a的情况下，就会发生AB两个线程由于互相持有对方需要的锁，而发生的阻塞现象，我们称为死锁。</p>
+<h3 id="3-2-造成死锁必须达成的4个条件（原因）"><a href="#3-2-造成死锁必须达成的4个条件（原因）" class="headerlink" title="3.2 造成死锁必须达成的4个条件（原因）"></a>3.2 造成死锁必须达成的4个条件（原因）</h3><ul>
+<li>互斥：指进程对所分配到的资源进行排他性使用，即一段时间内某资源只能由一个进程占用</li>
+<li>请求和保持：一个线程因请求资源而阻塞时，对已获得的资源保持不放。</li>
+<li>不剥夺：指进程已获得的资源在未使用完之前不能被剥夺，只能在使用完时自己释放</li>
+<li>循环等待：若干线程之间形成一种头尾相接的循环等待资源关系。</li>
+</ul>
+<h3 id="3-3死锁的预防"><a href="#3-3死锁的预防" class="headerlink" title="3.3死锁的预防"></a>3.3<strong>死锁的预防</strong></h3><blockquote>
+<p>破坏互斥条件</p>
+</blockquote>
+<ul>
+<li>一般来说在所列的四个条件中，“互斥”条件是无法破坏的</li>
+</ul>
+<blockquote>
+<p>破坏请求和保持条件</p>
+</blockquote>
+<ul>
+<li>一次性分配方案</li>
+<li>要求每个进程提出新的资源申请前，释放它所占有的资源</li>
+</ul>
+<blockquote>
+<p>破坏不剥夺条件</p>
+</blockquote>
+<ul>
+<li>如果占有某些资源的一个进程进行进一步资源请求被拒绝，则该进程必须释放它最初占有的资源</li>
+<li>进程划分优先级，高优先级进程可以剥夺低优先级进程的资源</li>
+</ul>
+<blockquote>
+<p>破坏循环等待条件</p>
+</blockquote>
+<ul>
+<li>将系统中的所有资源统一编号，进程提出的所有资源申请必须按照资源的编号顺序提出</li>
+</ul>
+<h2 id="4-tcp-udp-区别"><a href="#4-tcp-udp-区别" class="headerlink" title="4. tcp udp 区别"></a>4. tcp udp 区别</h2><p><strong>TCP（传输控制协议）是一种面向连接的、可靠的、基于字节流的传输层通信协议。</strong></p>
+<p>1)提供IP环境下的数据可靠传输(一台计算机发出的字节流会无差错的发往网络上的其他计算机，而且计算机A接收数据包的时候，也会向计算机B回发数据包，这也会产生部分通信量)，有效流控，全双工操作(数据在两个方向上能同时传递)，多路复用服务，是面向连接，端到端的传输;</p>
+<p>2)面向连接：正式通信前必须要与对方建立连接。事先为所发送的数据开辟出连接好的通道，然后再进行数据发送，像打电话。</p>
+<p>3)TCP支持的应用协议：Telnet(远程登录)、FTP(文件传输协议)、SMTP(简单邮件传输协议)。TCP用于传输数据量大，可靠性要求高的应用。</p>
+<p><strong>UDP(用户数据报协议）是OSI参考模型中一种无连接的传输层协议，提供面向事务的简单不可靠信息传送服务。</strong></p>
+<p>1)面向非连接的(正式通信前不必与对方建立连接，不管对方状态就直接发送，像短信，QQ)，不能提供可靠性、流控、差错恢复功能。UDP用于一次只传送少量数据，可靠性要求低、传输经济等应用。</p>
+<ol>
+<li>UDP支持的应用协议：NFS(网络文件系统)、SNMP(简单网络管理系统)、DNS(主域名称系统)、TFTP(通用文件传输协议)等。</li>
+</ol>
+<p><strong>总结：</strong></p>
+<p><strong>TCP：面向连接、传输可靠(保证数据正确性,保证数据顺序)、用于传输大量数据(流模式)、速度慢，建立连接需要开销较多(时间，系统资源)。</strong></p>
+<p><strong>UDP：面向非连接、传输不可靠、用于传输少量数据(数据包模式)、速度快。</strong></p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-11-01-23-00.png" alt=""> </p>
+<h3 id="5-TCP-IP-协议族常用协议"><a href="#5-TCP-IP-协议族常用协议" class="headerlink" title="5. TCP/IP 协议族常用协议"></a>5. TCP/IP 协议族常用协议</h3><p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-11-01-26-11.png" alt=""> </p>
+<h2 id="6-三次握手四次挥手"><a href="#6-三次握手四次挥手" class="headerlink" title="6. 三次握手四次挥手"></a>6. 三次握手四次挥手</h2><h3 id="6-1-TCP特性"><a href="#6-1-TCP特性" class="headerlink" title="6.1 TCP特性"></a>6.1 TCP特性</h3><ul>
+<li>TCP 提供一种<strong>面向连接的、可靠的</strong>字节流服务</li>
+<li>在一个 TCP 连接中，仅有两方进行彼此通信。广播和多播不能用于 TCP</li>
+<li>TCP 使用校验和，确认和重传机制来保证可靠传输</li>
+<li>TCP 给数据分节进行排序，并使用累积确认保证数据的顺序不变和非重复</li>
+<li>TCP 使用<strong>滑动窗口机制</strong>来实现流量控制，通过动态改变窗口的大小进行拥塞控制</li>
+</ul>
+<p><strong>那为什么需要三次握手呢？</strong>请看如下的过程：</p>
+<ol>
+<li>A向B发起建立连接请求：A——&gt;B；</li>
+<li>B收到A的发送信号，并且向A发送确认信息：B——&gt;A；</li>
+<li>A收到B的确认信号，并向B发送确认信号：A——&gt;B。</li>
+</ol>
+<p>三次握手大概就是这么个过程。<br>通过第一次握手，B知道A能够发送数据。通过第二次握手，A知道B能发送数据。结合第一次握手和第二次握手，A知道B能接收数据。结合第三次握手，B知道A能够接收数据。</p>
+<p>至此，完成了握手过程，A知道B能收能发，B知道A能收能发，通信连接至此建立。三次连接是保证可靠的最小握手次数，再多次握手也不能提高通信成功的概率，反而浪费资源。</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-11-12-21-02.png" alt=""> </p>
+<p><strong>那为什么需要四次挥手呢？</strong>请看如下过程：</p>
+<ol>
+<li>A向B发起请求，表示A没有数据要发送了：A——&gt;B；</li>
+<li>B向A发送信号，确认A的断开请求请求：B——&gt;A；</li>
+<li>B向A发送信号，请求断开连接，表示B没有数据要发送了：B——&gt;A；</li>
+<li>A向B发送确认信号，同意断开：A——&gt;B。</li>
+</ol>
+<p>B收到确认信号，断开连接，而A在一段时间内没收到B的信号，表明B已经断开了，于是A也断开了连接。至此，完成挥手过程。</p>
+<p>可能有捧油会问，为什么2、3次挥手不能合在一次挥手中？那是因为此时A虽然不再发送数据了，但是还可以接收数据，B可能还有数据要发送给A，所以两次挥手不能合并为一次。</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-11-12-21-13.png" alt=""> </p>
+<p>挥手次数比握手多一次，是因为握手过程，通信只需要处理<strong>连接</strong>。而挥手过程，通信需要处理<strong>数据+连接</strong>。</p>
+<h2 id="2-常见设计原则和设计模式"><a href="#2-常见设计原则和设计模式" class="headerlink" title="2. 常见设计原则和设计模式"></a>2. 常见设计原则和设计模式</h2><p>6大设计原则：</p>
 <ol>
 <li><strong>单一职责原则</strong>：就是开发人员经常说的”高内聚，低耦合”。也就是说，每个类应该只有一个职责，对外只能提供一种功能，而引起类变化的原因应该只有一个。在设计模式中，所有的设计模式都遵循这一原则。</li>
 <li><strong>开闭原则</strong>：一个对象对扩展开放，对修改关闭。也就是说，对类的改动是通过增加代码进行的，而不是修改现有代码。软件开发人员一旦写出了可以运行的代码，就不应该去改动它，而是要保证它能一直运行下去，如何能够做到这一点呢?这就需要借助于抽象和多态，即把可能变化的内容抽象出来，从而使抽象的部分是相对稳定的，而具体的实现则是可以改变和扩展的。</li>
@@ -146,12 +409,8 @@
 <h3 id="2-volatile关键字作用是什么"><a href="#2-volatile关键字作用是什么" class="headerlink" title="2. volatile关键字作用是什么"></a>2. volatile关键字作用是什么</h3><p>英文翻译：不稳定的</p>
 <p>弱同步机制</p>
 <p>在多线程的化境下，Volatile 修饰的成员变量在每次被线程访问时，都强迫从共享内存中重读该成员变量的值。而且，当成员变量发生变化时，强迫线程将变化值回写到共享内存。这样在任何时刻，两个不同的线程总是看到某个成员变量的同一个值。</p>
-<p>进程线程</p>
 <p>垃圾回收</p>
 <p>hashmap原理、HashMap为什么不是线程安全的</p>
-<p>tcp udp 区别</p>
-<p>如何预防死锁</p>
-<p>描述下tcp三次握手</p>
 <p>函数的参数存在哪里 为什么存在栈里</p>
 <p>数据量过大内存存不下了怎么办</p>
 ]]></content>
@@ -503,14 +762,13 @@
       <url>/2018/03/08/%E3%80%90%E6%9C%AC%E7%AB%99%E7%9B%AE%E5%BD%95%E3%80%91/</url>
       <content type="html"><![CDATA[<p>文章渐渐多了起来，为了方面复习和查找，对本站文章做个目录~</p>
 <h1 id="1-算法与数据结构"><a href="#1-算法与数据结构" class="headerlink" title="1. 算法与数据结构"></a>1. 算法与数据结构</h1><h3 id="1-1-排序算法"><a href="#1-1-排序算法" class="headerlink" title="1.1 排序算法"></a>1.1 排序算法</h3><ul>
-<li><a href="https://siyaozhang.github.io/2018/02/08/%E8%AE%A1%E6%95%B0%E6%8E%92%E5%BA%8F%E3%80%81%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F%E3%80%81%E6%A1%B6%E6%8E%92%E5%BA%8F/" target="_blank" rel="external">计数排序、计数排序、桶排序</a> ，三种非比较排序，理想情况下时间复杂度可以降到<script type="math/tex">O(n)</script></li>
-<li><a href="https://siyaozhang.github.io/2017/07/23/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" target="_blank" rel="external">归并排序</a></li>
-<li><a href="https://siyaozhang.github.io/2017/07/22/%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/" target="_blank" rel="external">选择排序</a></li>
-<li><a href="https://siyaozhang.github.io/2017/07/20/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/" target="_blank" rel="external">插入排序</a></li>
-<li><a href="https://siyaozhang.github.io/2017/07/20/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/" target="_blank" rel="external">冒泡排序</a></li>
-<li><a href="https://siyaozhang.github.io/2017/07/17/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" target="_blank" rel="external">快速排序</a></li>
-<li>堆排序</li>
-<li><a href="/2018/03/10/排序算法终极大总结/" title="排序算法终极大总结">排序算法终极大总结</a> 
+<li><a href="/2018/02/08/【排序】计数排序、基数排序、桶排序/" title="计数排序、基数排序、桶排序">计数排序、基数排序、桶排序</a>，三种非比较排序，理想情况下时间复杂度可以降到<script type="math/tex">O(n)</script></li>
+<li><a href="/2017/07/23/归并排序/" title="归并排序">归并排序</a></li>
+<li><a href="/2017/07/22/选择排序/" title="选择排序">选择排序</a></li>
+<li><a href="/2017/07/20/冒泡排序/" title="冒泡排序">冒泡排序</a></li>
+<li><a href="/2017/07/17/快速排序/" title="快速排序">快速排序</a></li>
+<li><a href="/2018/01/31/堆排序/" title="堆排序">堆排序</a></li>
+<li><a href="/2018/03/10/【排序】排序算法终极大总结/" title="排序算法终极大总结">排序算法终极大总结</a> 
 </li>
 </ul>
 <h3 id="1-3-数与数组"><a href="#1-3-数与数组" class="headerlink" title="1.3 数与数组"></a>1.3 数与数组</h3><ul>
@@ -549,9 +807,11 @@
 <li><a href="https://siyaozhang.github.io/2017/11/04/%E3%80%90%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95%E5%BC%BA%E5%8C%96%E7%8F%AD%E3%80%91%E7%AC%ACk%E5%A4%A7/" target="_blank" rel="external">第K大问题——堆</a></li>
 </ul>
 <h1 id="2-系统设计"><a href="#2-系统设计" class="headerlink" title="2. 系统设计"></a>2. 系统设计</h1><ul>
-<li><a href="https://siyaozhang.github.io/2018/01/27/%E3%80%90%E4%B9%9D%E7%AB%A0%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E3%80%91%E6%96%B0%E9%B2%9C%E4%BA%8B%E7%B3%BB%E7%BB%9F/" target="_blank" rel="external">【九章系统设计】新鲜事系统</a></li>
-<li><a href="https://siyaozhang.github.io/2018/01/30/%E3%80%90%E4%B9%9D%E7%AB%A0%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E3%80%91%E4%BB%8E%E7%94%A8%E6%88%B7%E7%B3%BB%E7%BB%9F%E7%90%86%E8%A7%A3%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E7%BC%93%E5%AD%98/" target="_blank" rel="external">【九章系统设计】从用户系统理解数据库和缓存</a></li>
-<li><a href="https://siyaozhang.github.io/2018/03/05/%E3%80%90%E4%B9%9D%E7%AB%A0%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E3%80%91%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C-%E7%9F%AD%E7%BD%91%E5%9D%80%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" target="_blank" rel="external">【九章系统设计】一致性哈希&amp;短网址系统设计</a></li>
+<li><a href="/2018/01/27/【九章系统设计】新鲜事系统/" title="【九章系统设计】新鲜事系统">【九章系统设计】新鲜事系统</a></li>
+<li><a href="/2018/01/30/【九章系统设计】从用户系统理解数据库和缓存/" title="【九章系统设计】从用户系统理解数据库和缓存">【九章系统设计】从用户系统理解数据库和缓存</a></li>
+<li><a href="/2018/03/05/【九章系统设计】一致性哈希-短网址系统设计/" title="【九章系统设计】一致性哈希&短网址系统设计">【九章系统设计】一致性哈希&短网址系统设计</a></li>
+<li><a href="/2018/03/10/【九章系统设计】爬虫系统与搜索建议系统/" title="【九章系统设计】爬虫系统与搜索建议系统">【九章系统设计】爬虫系统与搜索建议系统</a>
+</li>
 </ul>
 <h1 id="3-机器学习"><a href="#3-机器学习" class="headerlink" title="3. 机器学习"></a>3. 机器学习</h1><h3 id="3-1-线性模型"><a href="#3-1-线性模型" class="headerlink" title="3.1 线性模型"></a>3.1 线性模型</h3><ul>
 <li>LR</li>
@@ -588,6 +848,8 @@
 <h1 id="5-语言相关"><a href="#5-语言相关" class="headerlink" title="5. 语言相关"></a>5. 语言相关</h1><ul>
 <li><a href="https://siyaozhang.github.io/2018/01/27/Java%E5%B8%B8%E7%94%A8%E7%AC%94%E8%AE%B0/" target="_blank" rel="external">Java常用笔记</a> 写代码的时候总忘记的小东西</li>
 <li><a href="https://siyaozhang.github.io/2018/01/24/Java%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" target="_blank" rel="external">Java垃圾回收机制</a></li>
+<li><a href="/2018/03/11/【Java】HashMap原理探究/" title="【Java】HashMap原理探究">【Java】HashMap原理探究</a>
+</li>
 </ul>
 <h1 id="6-面试必备"><a href="#6-面试必备" class="headerlink" title="6. 面试必备"></a>6. 面试必备</h1><ul>
 <li><a href="/2018/03/09/【面经】开发相关基础知识/" title="【面经】开发相关基础知识">【面经】开发相关基础知识</a> </li>
@@ -1384,15 +1646,19 @@
       <content type="html"><![CDATA[<h3 id="1-海量数据选取TOPK"><a href="#1-海量数据选取TOPK" class="headerlink" title="1. 海量数据选取TOPK"></a>1. 海量数据选取TOPK</h3><p>baseline：</p>
 <p>用堆，如果取最大的K个，就用最小堆，遍历数组，遇到比堆顶元素大的元素就入堆，同时堆中元素超过k个需要poll操作，保证堆中只有K个元素，最终的topk元素在堆中。</p>
 <p>时间复杂度分析:</p>
-<script type="math/tex; mode=display">O(n*logk)$$ ，元素入堆复杂度$$O(logk)</script><script type="math/tex; mode=display">O(n)$$算法：
-
-先用quick select方法找到第K大的元素，复杂度$$O(n)</script><p>然后再遍历一遍，将大于K的元素取出，复杂度<script type="math/tex">O(n)</script></p>
+<script type="math/tex; mode=display">O(n*logk)$$ ，元素入堆复杂度$$O(logk)</script><p><strong><script type="math/tex">O(n)</script>算法：</strong></p>
+<p>先用quick select方法找到第K大的元素，复杂度<script type="math/tex">O(n)</script></p>
+<p>然后再遍历一遍，将大于K的元素取出，复杂度<script type="math/tex">O(n)</script></p>
 <p>总复杂度<script type="math/tex">O(n)</script></p>
 <p>！！！！！卧槽！神奇！！！！</p>
 <p><strong>follow up：海量数据选取第K大</strong></p>
 <p>Quick Select，详见<a href="/2018/02/02/【九章算法强化班】两指针/" title="【九章算法强化班】两指针">【九章算法强化班】两指针</a> </p>
 <p>时间复杂度<script type="math/tex">O(n)</script></p>
-<h3 id="2"><a href="#2" class="headerlink" title="2."></a>2.</h3>]]></content>
+<h3 id="2-大数排序问题"><a href="#2-大数排序问题" class="headerlink" title="2. 大数排序问题"></a>2. 大数排序问题</h3><p>海量数据排序怎么做？</p>
+<p>baseline：快排，问题：数据量很大，内存根本存不下，不可行</p>
+<p><strong>桶排序：</strong></p>
+<p>将数据分桶，每个桶存入一个文件，然后文件内部有序，取出合并的时候可以用K路归并，优化：k路可以建个堆</p>
+]]></content>
       
         
     </entry>
@@ -2581,7 +2847,7 @@
     
     <entry>
       <title><![CDATA[计数排序、基数排序、桶排序]]></title>
-      <url>/2018/02/08/%E8%AE%A1%E6%95%B0%E6%8E%92%E5%BA%8F%E3%80%81%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F%E3%80%81%E6%A1%B6%E6%8E%92%E5%BA%8F/</url>
+      <url>/2018/02/08/%E3%80%90%E6%8E%92%E5%BA%8F%E3%80%91%E8%AE%A1%E6%95%B0%E6%8E%92%E5%BA%8F%E3%80%81%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F%E3%80%81%E6%A1%B6%E6%8E%92%E5%BA%8F/</url>
       <content type="html"><![CDATA[<h2 id="非比较排序"><a href="#非比较排序" class="headerlink" title="非比较排序"></a>非比较排序</h2><p>插入排序、归并排序、堆排序、快速排序这四种排序算法，他们的运行时间上界不会超过O(nlgn)。这些算法都有一个有趣的性质：在排序的最终结果中，各元素的次序依赖于它们之间的比较。我们把这类排序算法称为比较排序。</p>
 <p>可以证明，基于比较的排序算法在最坏情况下的时间下界是Ω(nlgn)。堆排序和归并排序的运行时间上界为O(nlgn)，因此这两种排序算法都是渐进最优的比较排序算法。</p>
 <p>而<strong>非基于比较的排序</strong>，如计数排序，桶排序，和在此基础上的基数排序，则可以突破O(NlogN)时间下限，达到线性时间复杂度<script type="math/tex">O(n)</script>。但要注意的是，非基于比较的排序算法的使用都是有条件限制的，例如元素的大小限制，相反，基于比较的排序则没有这种限制(在一定范围内)。但并非因为有条件限制就会使非基于比较的排序算法变得无用，对于特定场合有着特殊的性质数据，非基于比较的排序算法则能够非常巧妙地解决。</p>
@@ -2617,7 +2883,8 @@
 <p><img src="http://upload-images.jianshu.io/upload_images/1186132-1ea2b9a00e9dbeb5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/675" alt="img"></p>
 <p>桶排序.png</p>
 <p>创建一个长度也为10的数组，将A中的元素按照大小找到B中合适的位置，插入链表。之后，分别对B中每个链表中的元素执行插入排序。最后将B中的所有元素依次取出即可。</p>
-<p>现在分析桶排序的时间代价。将A中元素放入B用时Θ(n)，B中每个链表执行插入排序的用时，可以证明是O(2 - 1/n)，于是总用时就是Θ(n) + n * O(2 - 1/n) = Θ(n)。具体证明过程比较难理解，这里我想给出一个容易理解的解释，虽然不一定对，但还是可以帮助理解为什么总用时是Θ(n)。n个数放入n个桶，平均下来每个桶只有一个数，在实际中，可能有的多有的少，但都不会差得太离谱。因此我们可以认为每个桶中只有常数个数，那么对常数个数执行插入排序所用的时间当然也就是O(1)了。于是n个桶总用时就是O(n)，加上前面的Θ(n)，桶排序总用时就是Θ(n)了。</p>
+<p>现在分析桶排序的时间代价。将A中元素放入B用时Θ(n)，B中每个链表执行插入排序的用时，可以证明是O(2 - 1/n)，于是总用时就是Θ(n) + n <em> O(2 - 1/n) = Θ(n)。具体证明过程比较难理解，这里我想给出一个容易理解的解释，虽然不一定对，但还是可以帮助理解为什么总用时是Θ(n)。n个数放入n个桶，平均下来每个桶只有一个数，在实际中，可能有的多有的少，但都不会差得太离谱。因此<em>*我们可以认为每个桶中只有常数个数，那么对常数个数执行插入排序所用的时间当然也就是O(1)了。于是n个桶总用时就是O(n)</em></em>，加上前面的Θ(n)，桶排序总用时就是Θ(n)了。</p>
+<p>通常模一个很大的素数。</p>
 ]]></content>
       
         <categories>
@@ -8723,7 +8990,7 @@ return count;
     <entry>
       <title><![CDATA[【九章算法强化班习题集】]]></title>
       <url>/2017/11/05/%E3%80%90%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95%E5%BC%BA%E5%8C%96%E7%8F%AD%E4%B9%A0%E9%A2%98%E9%9B%86%E3%80%91/</url>
-      <content type="html"><![CDATA[<link href="/style.css" rel="stylesheet" type="text/css"><script src="/crypto-js.js"></script><script src="/mcommon.js"></script><script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script> <div id="security"> <div> <div class="input-container"> <input type="password" class="form-control" id="pass" placeholder=" 请输入文章密码！ "/> <label for="pass"> 请输入文章密码！ </label> <div class="bottom-line"></div> </div> </div> </div> <div id="encrypt-blog" style="display:none"> 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 </div>]]></content>
+      <content type="html"><![CDATA[<link href="/style.css" rel="stylesheet" type="text/css"><script src="/crypto-js.js"></script><script src="/mcommon.js"></script><script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script> <div id="security"> <div> <div class="input-container"> <input type="password" class="form-control" id="pass" placeholder=" 请输入文章密码！ "/> <label for="pass"> 请输入文章密码！ </label> <div class="bottom-line"></div> </div> </div> </div> <div id="encrypt-blog" style="display:none"> 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 </div>]]></content>
       
         <categories>
             

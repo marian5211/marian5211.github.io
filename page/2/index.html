@@ -304,6 +304,218 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/08/【九章算法强化班】动态规划/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Siyao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/小鸡.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Siyao's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/08/【九章算法强化班】动态规划/" itemprop="url">【九章算法强化班】动态规划</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-08T09:37:45+08:00">
+                2018-03-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/九章算法/" itemprop="url" rel="index">
+                    <span itemprop="name">九章算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  7,885
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  40
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          outline滚动数组
+
+house robber I/II
+Maximal Square
+
+记忆化搜索
+
+longest increasing subsequence
+coins in a line
+
+动态规划四要素
+状态
+转移方程
+初始化
+答案
+
+滚动数组优化f[i] = max(f[i-1],f[i-2]+A[i]);
+转化为：
+f[i%2] = max(f[(i-1)%2],f[(i-2)%2])
+滚动数组优化不会对时间复杂度进行优化，而只是对空间进行优化
+例题1. House Robber给定一个数组，代表抢劫商店可以获得的价值，不可以抢劫相邻的商店，计算能够获得的最大价值
+思路：
+
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/08/【九章算法强化班】动态规划/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/07/【面经】算法相关/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -367,7 +579,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  140
+                  241
                 </span>
               
 
@@ -409,16 +621,16 @@
           1. 海量数据选取TOPKbaseline：
 用堆，如果取最大的K个，就用最小堆，遍历数组，遇到比堆顶元素大的元素就入堆，同时堆中元素超过k个需要poll操作，保证堆中只有K个元素，最终的topk元素在堆中。
 时间复杂度分析:
-O(n*logk)$$ ，元素入堆复杂度$$O(logk)O(n)$$算法：
-
-先用quick select方法找到第K大的元素，复杂度$$O(n)然后再遍历一遍，将大于K的元素取出，复杂度O(n)
+O(n*logk)$$ ，元素入堆复杂度$$O(logk)O(n)算法：
+先用quick select方法找到第K大的元素，复杂度O(n)
+然后再遍历一遍，将大于K的元素取出，复杂度O(n)
 总复杂度O(n)
 ！！！！！卧槽！神奇！！！！
 follow up：海量数据选取第K大
 Quick Select，详见【九章算法强化班】两指针 
 时间复杂度O(n)
-2.
-          
+2. 大数排序
+          ...
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/03/07/【面经】算法相关/#more" rel="contents">
@@ -1506,7 +1718,7 @@ You may imagine
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/08/计数排序、基数排序、桶排序/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/08/【排序】计数排序、基数排序、桶排序/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Siyao">
@@ -1525,7 +1737,7 @@ You may imagine
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/02/08/计数排序、基数排序、桶排序/" itemprop="url">计数排序、基数排序、桶排序</a></h1>
+                <a class="post-title-link" href="/2018/02/08/【排序】计数排序、基数排序、桶排序/" itemprop="url">计数排序、基数排序、桶排序</a></h1>
         
 
         <div class="post-meta">
@@ -1591,7 +1803,7 @@ You may imagine
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,521
+                  1,531
                 </span>
               
 
@@ -1607,7 +1819,7 @@ You may imagine
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5
+                  6
                 </span>
               
             </div>
@@ -1636,7 +1848,7 @@ You may imagine
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/02/08/计数排序、基数排序、桶排序/#more" rel="contents">
+            <a class="btn" href="/2018/02/08/【排序】计数排序、基数排序、桶排序/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1839,170 +2051,6 @@ Note: The result may be very larg
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/02/【九章算法强化班】两指针/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Siyao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/小鸡.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Siyao's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/02/【九章算法强化班】两指针/" itemprop="url">【九章算法强化班】两指针</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-02T12:31:57+08:00">
-                2018-02-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  3,769
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  18
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          outline
-一个数组，从两边往中间移动（对撞型）
-一个数组，同时向前移动（前向型）
-两个数组两根指针（并行型）
-
-1.对撞型或相会型 
-leetcode 11.Container With Most Water题目
-Given n non-negative integers a1, a2, …, an, where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). F
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/02/02/【九章算法强化班】两指针/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2057,7 +2105,7 @@ Given n non-negative integers a1, a2, …, an, where each represents a point at 
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">112</span>
+                  <span class="site-state-item-count">113</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2148,7 +2196,7 @@ Given n non-negative integers a1, a2, …, an, where each represents a point at 
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">195.3k</span>
+    <span title="Site words total count">204.1k</span>
   
         
 <div class="busuanzi-count">
