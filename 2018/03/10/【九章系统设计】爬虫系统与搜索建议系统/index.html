@@ -77,17 +77,22 @@
 
 
 
-<meta name="description" content="siyao小朋友画圈圈的地方">
+<meta name="description" content="1. outline Design a web crawler 爬虫 Design thread-safe producer and  consumer 线程安全的生产者-消费者 Design a Typeahead 搜索建议  2. 爬虫2.1 Scenario思考：搜索引擎是如爬取网页的？我们需要获取什么样的表格？ URL-网页内容   爬到了这些数据怎么用呢？ 用户搜索关键词，google去">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【九章系统设计】爬虫系统与搜索建议系统">
 <meta property="og:url" content="http://yoursite.com/2018/03/10/【九章系统设计】爬虫系统与搜索建议系统/index.html">
 <meta property="og:site_name" content="Siyao&#39;s Blog">
-<meta property="og:description" content="siyao小朋友画圈圈的地方">
+<meta property="og:description" content="1. outline Design a web crawler 爬虫 Design thread-safe producer and  consumer 线程安全的生产者-消费者 Design a Typeahead 搜索建议  2. 爬虫2.1 Scenario思考：搜索引擎是如爬取网页的？我们需要获取什么样的表格？ URL-网页内容   爬到了这些数据怎么用呢？ 用户搜索关键词，google去">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-10T09:08:29.658Z">
+<meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2018-03-12-21-08-16.png">
+<meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2018-03-12-21-09-32.png">
+<meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2018-03-12-21-11-23.png">
+<meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2018-03-12-21-25-03.png">
+<meta property="og:updated_time" content="2018-03-12T13:26:24.604Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【九章系统设计】爬虫系统与搜索建议系统">
-<meta name="twitter:description" content="siyao小朋友画圈圈的地方">
+<meta name="twitter:description" content="1. outline Design a web crawler 爬虫 Design thread-safe producer and  consumer 线程安全的生产者-消费者 Design a Typeahead 搜索建议  2. 爬虫2.1 Scenario思考：搜索引擎是如爬取网页的？我们需要获取什么样的表格？ URL-网页内容   爬到了这些数据怎么用呢？ 用户搜索关键词，google去">
+<meta name="twitter:image" content="http://omaby2s5z.bkt.clouddn.com/2018-03-12-21-08-16.png">
 
 
 
@@ -370,7 +375,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  0
+                  361
                 </span>
               
 
@@ -407,7 +412,30 @@
       
 
       
-        
+        <h1 id="1-outline"><a href="#1-outline" class="headerlink" title="1. outline"></a>1. outline</h1><ul>
+<li>Design a web crawler 爬虫</li>
+<li>Design thread-safe producer and  consumer 线程安全的生产者-消费者</li>
+<li>Design a Typeahead 搜索建议</li>
+</ul>
+<h1 id="2-爬虫"><a href="#2-爬虫" class="headerlink" title="2. 爬虫"></a>2. 爬虫</h1><h2 id="2-1-Scenario"><a href="#2-1-Scenario" class="headerlink" title="2.1 Scenario"></a>2.1 Scenario</h2><p>思考：搜索引擎是如爬取网页的？我们需要获取什么样的表格？</p>
+<p>URL-网页内容</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-12-21-08-16.png" alt=""> </p>
+<p>爬到了这些数据怎么用呢？</p>
+<p>用户搜索关键词，google去数据表中的网页内容字段寻找包含用户query的数据，返回对应的url给用户，之后进行排序等优化操作。</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-12-21-09-32.png" alt=""> </p>
+<p>那么想要用程序完成爬取互联网上所有网页及其内容这个目标，我们首先要知道一个事实，也就是互联网上的内容其实是互相索引的，也就是就像如下的大网一样：</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-12-21-11-23.png" alt=""> </p>
+<p><strong>总结分析爬虫的工作量：</strong></p>
+<p><strong>假设我们需要在一周内爬取互联网中所有的网页，之后至少一周更新一次。</strong></p>
+<ol>
+<li>互联网上共有1trillion个网页，则每秒需要爬取1.6m个网页</li>
+<li><strong>每个网页大概10K</strong>，那么将这些网页存下来需要<strong>10P</strong>的存储空间</li>
+</ol>
+<p>把互联网上的网页看成是一张图，爬虫相当于遍历这个图，有DFS和BFS两种实现方式，一般采用BFS进行爬取，因为DFS不好并行爬取。</p>
+<p>单线程爬虫</p>
+<p>对于单线程的爬虫来说，就是搞一个队列，用DFS：</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-12-21-25-03.png" alt=""> </p>
+
       
     </div>
     
@@ -495,8 +523,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -515,7 +552,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">115</span>
+                  <span class="site-state-item-count">116</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -563,6 +600,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-outline"><span class="nav-number">1.</span> <span class="nav-text">1. outline</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-爬虫"><span class="nav-number">2.</span> <span class="nav-text">2. 爬虫</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Scenario"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Scenario</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -606,7 +659,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">213.7k</span>
+    <span title="Site words total count">217.7k</span>
   
         
 <div class="busuanzi-count">
