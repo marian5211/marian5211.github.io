@@ -88,6 +88,17 @@
 <meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2018-03-12-21-09-32.png">
 <meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2018-03-12-21-11-23.png">
 <meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2018-03-12-21-25-03.png">
+<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-03-11-21-16-37.png">
+<meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2018-03-12-21-37-28.png">
+<meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2018-03-12-21-38-56.png">
+<meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2018-03-12-22-02-00.png">
+<meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2018-03-12-22-08-58.png">
+<meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2018-03-12-22-09-49.png">
+<meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2018-03-12-22-26-40.png">
+<meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2018-03-12-23-51-10.png">
+<meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2018-03-12-23-54-59.png">
+<meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2018-03-12-23-55-53.png">
+<meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2018-03-13-00-24-11.png">
 <meta property="og:updated_time" content="2018-03-12T13:26:24.604Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【九章系统设计】爬虫系统与搜索建议系统">
@@ -375,7 +386,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  361
+                  1,714
                 </span>
               
 
@@ -391,7 +402,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  6
                 </span>
               
             </div>
@@ -431,11 +442,85 @@
 <li>互联网上共有1trillion个网页，则每秒需要爬取1.6m个网页</li>
 <li><strong>每个网页大概10K</strong>，那么将这些网页存下来需要<strong>10P</strong>的存储空间</li>
 </ol>
-<p>把互联网上的网页看成是一张图，爬虫相当于遍历这个图，有DFS和BFS两种实现方式，一般采用BFS进行爬取，因为DFS不好并行爬取。</p>
-<p>单线程爬虫</p>
-<p>对于单线程的爬虫来说，就是搞一个队列，用DFS：</p>
+<p>把互联网上的网页看成是一张图，爬虫相当于遍历这个图，有DFS和BFS两种实现方式，<strong>一般采用BFS进行爬取</strong>，因为DFS不好并行爬取。</p>
+<h3 id="2-1-1单线程爬取"><a href="#2-1-1单线程爬取" class="headerlink" title="2.1.1单线程爬取"></a>2.1.1单线程爬取</h3><p>对于单线程的爬虫来说，就是搞一个队列，用BFS爬取集合：</p>
 <p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-12-21-25-03.png" alt=""> </p>
-
+<h3 id="2-1-2-生产者消费者模型"><a href="#2-1-2-生产者消费者模型" class="headerlink" title="2.1.2 生产者消费者模型"></a>2.1.2 生产者消费者模型</h3><p>producer-consumer pattern生产者消费者模型</p>
+<p>由于存取速度不一样，所以二者中间有一个buffer</p>
+<p><img src="http://om1bxijvl.bkt.clouddn.com/2018-03-11-21-16-37.png" alt="img"></p>
+<p>但是单线程有一个问题，就是慢的很。解决——多线程爬虫</p>
+<h3 id="2-1-3-多线程爬取"><a href="#2-1-3-多线程爬取" class="headerlink" title="2.1.3 多线程爬取"></a>2.1.3 多线程爬取</h3><p> 不同线程之间共享同一个队列</p>
+<p>为什么多线程会比单线程快呢？</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-12-21-37-28.png" alt=""> </p>
+<p>多线程存在的问题：</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-12-21-38-56.png" alt=""> </p>
+<p>多个线程都会从队列里向外拿URL，相当于对队列的一次写操作，这时候就会发生冲突，也就是互斥</p>
+<p>需要注意的是，争取共享资源，就要<strong>考虑以下三个机制</strong>：</p>
+<ul>
+<li>sleep —— 就是睡一会，设置一定的时间，然后回来看看资源能用了不。但问题是：在道资源可以使用的第一时间知道，效率很低</li>
+<li>condition variable 信号量（实现互斥）—— 相当于所有的线程都在等着，然后信号量通知他们能用的时候，就都立马去抢占用资源，谁抢到算谁的</li>
+<li>semaphore —— 就像门上挂上五把钥匙一样，每次可以进去5个人，出来的时候还钥匙，也就是允许同一时间有多个线程访问用一个资源。</li>
+</ul>
+<p>单线程 –&gt; 多线程：</p>
+<p>思考一个问题，既然多线程这么快，是否可以尽量多的开线程，比如开一万个？</p>
+<p>不行，原因如下：</p>
+<ul>
+<li>线程之间来回切换(context switch)还是有花费（需要保存线程执行状态，还需要切换二级缓存等）的，因此线程不能太多，线程过多效率会很低</li>
+<li>一个CPU在同一时间只能处理一个线程，如果机器只有一个CPU线程依然在排队</li>
+<li>线程端口数目是有限的（TCP/IP协议中，端口只有2个字节，也就是65536个端口，操作系统还会预留一些端口给其他服务）</li>
+<li>网络带宽有限制，线程很多，单台的带宽是不能够满足的</li>
+</ul>
+<p>因此我们可以改进一下：</p>
+<h3 id="2-1-4-分布式爬取"><a href="#2-1-4-分布式爬取" class="headerlink" title="2.1.4 分布式爬取"></a>2.1.4 分布式爬取</h3><p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-12-22-02-00.png" alt=""> </p>
+<p>分多台机器爬取，就可以突破单台机器的限制了！此时分布式爬虫依然共享一个内存中的URL queue.</p>
+<p>分布式爬虫虽然解决了线程不能太多的问题，但是又带来了一个问题：URL队列在内存中放不下了（假设1trillion，差不多要40T的内存）！这是不行的。那么我们考虑一下把URL queue存在硬盘里，也就是数据库里。</p>
+<p>但是放到数据库里之后，又有一个很要命的限制是：没有办法控制网页抓取的顺序和优先级啊！</p>
+<p>解决：给数据库加入一个优先级的列，再加一个频率的列</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-12-22-08-58.png" alt=""> </p>
+<p>每一行是一个任务：</p>
+<ul>
+<li>ID,URL</li>
+<li>state：是否正在运行的状态（即能去重，也能防止重复运算）</li>
+<li>priority：优先级</li>
+<li>available_time：控制抓取频率，也就是这个时刻之后再进行抓取。如果本次有更新，那么就把时间设置地更近一些；如果本次没有更新，那么就把时间设置地更远一些</li>
+</ul>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-12-22-09-49.png" alt=""> </p>
+<ul>
+<li>webPage Storage : 分布式存储系统，存储爬取的东西</li>
+<li>分布式爬虫</li>
+<li>Task table : 就是上面的任务表</li>
+</ul>
+<h2 id="2-4-Scale-优化"><a href="#2-4-Scale-优化" class="headerlink" title="2.4 Scale 优化"></a>2.4 Scale 优化</h2><h3 id="2-4-1-Task-Table-拆分"><a href="#2-4-1-Task-Table-拆分" class="headerlink" title="2.4.1 Task Table 拆分"></a>2.4.1 Task Table 拆分</h3><p><strong>task table 最终会非常大！1 trillion 个task，而且会越来越大</strong></p>
+<p>解决——拆表sharding，加速访问</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-12-22-26-40.png" alt=""> </p>
+<p>那么拆表就有一个细节需要注意，需要一个scheduler，用来安排去哪里要数据。</p>
+<h3 id="2-4-2-抓取频率问题"><a href="#2-4-2-抓取频率问题" class="headerlink" title="2.4.2 抓取频率问题"></a>2.4.2 抓取频率问题</h3><p>如何控制抓取频率呢？有一个暴力的方法：</p>
+<ul>
+<li>如果本次抓了有更新（更新频繁），那就把下次抓取的时间提前一半</li>
+<li>如果本次抓了没更新（更新不频繁），就把下次抓取的时间往后移2倍</li>
+</ul>
+<p>调整合适的抓频率可以优化计算资源</p>
+<h3 id="2-4-3-死循环问题"><a href="#2-4-3-死循环问题" class="headerlink" title="2.4.3 死循环问题"></a>2.4.3 死循环问题</h3><p>比如爬取新浪新闻，基本上连接也都是新浪新闻，</p>
+<p>有些网站是互相指向的，比如sina.com。而且所有的URL都是与sina.com差不多的。这样就会使用大量的资源去抓取这种巨型网站，太耗费资源了。对于那些小博客就不公平。</p>
+<p>解决办法：单位时间对同一个网站，不要分配过多的计算资源给巨型网站就好啦。</p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-12-23-51-10.png" alt=""> </p>
+<h3 id="2-4-4-分区域问题"><a href="#2-4-4-分区域问题" class="headerlink" title="2.4.4 分区域问题"></a>2.4.4 分区域问题</h3><p>中国的爬虫爬美国的网站，或者网站在美国爬中国的网站就会很慢</p>
+<p>解决：分区域爬取，分区域简历task table，然后定期和全世界的数据库进行同步</p>
+<h1 id="3-Typeahead-搜索建议"><a href="#3-Typeahead-搜索建议" class="headerlink" title="3. Typeahead 搜索建议"></a>3. Typeahead 搜索建议</h1><p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-12-23-54-59.png" alt=""> </p>
+<p><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-12-23-55-53.png" alt=""> </p>
+<h2 id="3-1-scenario-场景分析"><a href="#3-1-scenario-场景分析" class="headerlink" title="3.1 scenario 场景分析"></a>3.1 scenario 场景分析</h2><p>我们以google Suggesion为例分析</p>
+<ul>
+<li>DAU日活跃用户：500m</li>
+<li>搜索量：4 x 6 x 500m = 12b （每人搜索6次，输入4个单词 = 使用了typeahead四次）</li>
+<li>QPS : 12b / 86400 = 138k</li>
+<li>Peak QPS = QPS X 2 = 276k</li>
+</ul>
+<p>typeahead的最关键问题是快！一定要在用户敲字母的同时给出建议</p>
+<h2 id="3-2-service-需求"><a href="#3-2-service-需求" class="headerlink" title="3.2 service 需求"></a>3.2 service 需求</h2><ol>
+<li>query survice 处理检索，在极短的时间内返回以输入为前缀的建议热门词</li>
+<li>data collection service 收集某段时间内用户搜索的热门词</li>
+</ol>
+<h3 id=""><a href="#" class="headerlink" title=""></a><img src="http://omaby2s5z.bkt.clouddn.com/2018-03-13-00-24-11.png" alt=""></h3><h2 id="3-3-Storage"><a href="#3-3-Storage" class="headerlink" title="3.3 Storage"></a>3.3 Storage</h2>
       
     </div>
     
@@ -609,7 +694,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-outline"><span class="nav-number">1.</span> <span class="nav-text">1. outline</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-爬虫"><span class="nav-number">2.</span> <span class="nav-text">2. 爬虫</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Scenario"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Scenario</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-outline"><span class="nav-number">1.</span> <span class="nav-text">1. outline</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-爬虫"><span class="nav-number">2.</span> <span class="nav-text">2. 爬虫</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Scenario"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Scenario</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1单线程爬取"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1单线程爬取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2-生产者消费者模型"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.2 生产者消费者模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3-多线程爬取"><span class="nav-number">2.1.3.</span> <span class="nav-text">2.1.3 多线程爬取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-4-分布式爬取"><span class="nav-number">2.1.4.</span> <span class="nav-text">2.1.4 分布式爬取</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-Scale-优化"><span class="nav-number">2.2.</span> <span class="nav-text">2.4 Scale 优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-1-Task-Table-拆分"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.4.1 Task Table 拆分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-2-抓取频率问题"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.4.2 抓取频率问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-3-死循环问题"><span class="nav-number">2.2.3.</span> <span class="nav-text">2.4.3 死循环问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-4-分区域问题"><span class="nav-number">2.2.4.</span> <span class="nav-text">2.4.4 分区域问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Typeahead-搜索建议"><span class="nav-number">3.</span> <span class="nav-text">3. Typeahead 搜索建议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-scenario-场景分析"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 scenario 场景分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-service-需求"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 service 需求</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">3.2.1.</span> <span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-Storage"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 Storage</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -659,7 +744,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">217.7k</span>
+    <span title="Site words total count">219.0k</span>
   
         
 <div class="busuanzi-count">

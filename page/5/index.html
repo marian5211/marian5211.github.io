@@ -505,7 +505,7 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findPosition</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (nums.length &lt;= <span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// write your code here</span></div><div class="line">        <span class="keyword">int</span> start = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> end = nums.length - <span class="number">1</span>;</div><div class="line">        <span class="keyword">while</span> (start + <span class="number">1</span> &lt; end) &#123;</div><div class="line">            <span class="comment">//中值</span></div><div class="line">            <span class="keyword">int</span> mid = start + (end - start) / <span class="number">2</span>;</div><div class="line">            <span class="comment">//三种情况讨论</span></div><div class="line">            <span class="keyword">if</span> (nums[mid] == target) &#123;</div><div class="line">                end = mid;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (nums[mid] &lt; target) &#123;</div><div class="line">                start = mid;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (nums[mid] &gt; target) &#123;</div><div class="line">                end = mid;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//结果</span></div><div class="line">        <span class="keyword">if</span> (nums[start] == target) &#123;</div><div class="line">            <span class="keyword">return</span> start;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (nums[end] == target) &#123;</div><div class="line">            <span class="keyword">return</span> end;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/07/【九章算法基础班】二分法/#espandi" rel="contents">
+            <a class="btn" href="/2017/12/07/【九章算法基础班】二分法/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -660,7 +660,7 @@
           <p><img src="http://omaby2s5z.bkt.clouddn.com/2017-12-07-14-24-15.png" alt="所致"> </p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/07/WAND算法/#espandi" rel="contents">
+            <a class="btn" href="/2017/12/07/WAND算法/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -850,7 +850,7 @@
 <h2 id="1-树形分析法求解时间复杂度："><a href="#1-树形分析法求解时间复杂度：" class="headerlink" title="1. 树形分析法求解时间复杂度："></a>1. 树形分析法求解时间复杂度：</h2><script type="math/tex; mode=display">T(n) = T(n/2)+O(1)   ->  O(logn)</script><script type="math/tex; mode=display">T(n) = T(n/2)+O(n) -> O(n)</script><script type="math/tex; mode=display">T(n) = 2T(n/2) + O(1) -> O(n)</script><figure class="highlight java"><table><tr><td class="code"><pre><div class="line">T(n) = <span class="number">2</span>T(n/<span class="number">2</span>) + O(<span class="number">1</span>) -&gt; O(n)</div><div class="line">O(<span class="number">1</span>)：一次拆分所需时间</div><div class="line"> --	 			        n</div><div class="line">  |               ↙             ↘       ················O(<span class="number">1</span>)拆分所需时间</div><div class="line">  |            n/<span class="number">2</span>                n/<span class="number">2</span></div><div class="line">log(n)      ↙       ↘          ↙       ↘	················O(<span class="number">2</span>)</div><div class="line">  |       n/<span class="number">4</span>       n/<span class="number">4</span>       n/<span class="number">4</span>       n/<span class="number">4</span></div><div class="line">  |      ↙  ↘      ↙  ↘     ↙  ↘      ↙  ↘	················O(<span class="number">4</span>)</div><div class="line">  |    n/<span class="number">8</span>  n/<span class="number">8</span>  n/<span class="number">8</span>  n/<span class="number">8</span>  n/<span class="number">8</span>  n/<span class="number">8</span>   n/<span class="number">8</span>  n/<span class="number">8</span>   			</div><div class="line">  |			················				················O(n)</div><div class="line">  | n/n	n/n	n/n		·············	n/n	n/n	n/n</div><div class="line"> --</div><div class="line"> O(<span class="number">1</span>+<span class="number">2</span>+<span class="number">4</span>+....+n) = O(<span class="number">2</span>n-<span class="number">1</span>) = O(n)</div><div class="line"> 由此如果T(n) = <span class="number">2</span>T(n/<span class="number">2</span>) + O(<span class="number">1</span>)，则时间复杂度为O(n)</div></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/29/【九章算法基础班】二叉树与分治法/#espandi" rel="contents">
+            <a class="btn" href="/2017/11/29/【九章算法基础班】二叉树与分治法/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1028,7 +1028,7 @@
 <p>实时竞价：找准正确的广告信息和广告位信息，以一个能够反映真实价格的竞拍价格参与广告展示机会的竞价</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/27/Bid-Optimizing-and-Inventory-Scoring-in-Targeted-Online论文笔记/#espandi" rel="contents">
+            <a class="btn" href="/2017/11/27/Bid-Optimizing-and-Inventory-Scoring-in-Targeted-Online论文笔记/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1183,7 +1183,7 @@
           <h2 id="Fagin’s-Algorithm-and-Threshold-Algorithm"><a href="#Fagin’s-Algorithm-and-Threshold-Algorithm" class="headerlink" title="Fagin’s Algorithm and Threshold Algorithm"></a>Fagin’s Algorithm and Threshold Algorithm</h2><p>Fagin算法和Threshold算法都是Top-K排序领域的经典算法(K代表只要对前K个值排序值)，不同于传统Top-k对一维数组前K个值排序，Fargin和Threshhold算法适用于<strong>参考多个排序指标时对前k个物品排序</strong>。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/22/搜索引擎Top-k快速检索问题/#espandi" rel="contents">
+            <a class="btn" href="/2017/11/22/搜索引擎Top-k快速检索问题/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1384,7 +1384,7 @@
 <li><p><a href="http://www.kdd.org/kdd2016/papers/files/adp0722-geyikA.pdf" target="_blank" rel="external">Joint Optimization of Multiple Performance Metrics in Online Video Advertising</a> by Sahin Cem Geyik et al. KDD 2016.</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/20/【RTB论文笔记】/#espandi" rel="contents">
+            <a class="btn" href="/2017/11/20/【RTB论文笔记】/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1584,7 +1584,7 @@
 <p>时间复杂度<script type="math/tex">O(2^n)</script></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/18/【九章算法基础班】动态规划(上)/#espandi" rel="contents">
+            <a class="btn" href="/2017/11/18/【九章算法基础班】动态规划(上)/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1798,7 +1798,7 @@
 </ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/18/【九章算法强化班】堆Heap/#espandi" rel="contents">
+            <a class="btn" href="/2017/11/18/【九章算法强化班】堆Heap/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1995,7 +1995,7 @@
 <p><strong>需要注意的是</strong>：在同一点上会同时有开始点和结尾点，此时应该把结尾点放在前面，否则会出现多计算的情况。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/17/【九章算法强化班】扫描线/#espandi" rel="contents">
+            <a class="btn" href="/2017/11/17/【九章算法强化班】扫描线/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2183,7 +2183,7 @@
           <p>leetcode刷题总结</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/16/【leetcode】题目摘要/#espandi" rel="contents">
+            <a class="btn" href="/2017/11/16/【leetcode】题目摘要/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2366,7 +2366,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">217.7k</span>
+    <span title="Site words total count">219.0k</span>
   
         
 <div class="busuanzi-count">
