@@ -110,7 +110,7 @@
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-53-21.png">
 <meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2017-06-07-21-59-59.png">
 <meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2018-03-07-17-03-21.png">
-<meta property="og:updated_time" content="2018-03-12T13:26:24.602Z">
+<meta property="og:updated_time" content="2018-03-13T03:26:28.991Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【腾讯转化率预估】总结">
 <meta name="twitter:description" content="第一届腾讯社交广告算法大赛复赛成绩0.101941，排名26名，在此总结一下。  1. 题目简介1.1 移动App广告转化率预估详细赛题见官方网站  计算广告是互联网最重要的商业模式之一，广告投放效果通常通过曝光、点击和转化各环节来衡量，大多数广告系统受广告效果数据回流的限制只能通过曝光或点击作为投放效果的衡量标准开展优化。腾讯社交广告(http://ads.tencent.com)发挥特有的用户">
@@ -397,7 +397,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  6,866
+                  6,808
                 </span>
               
 
@@ -747,8 +747,6 @@
 <p> 例如对我们数据中存在的 root -&gt; advertiser -&gt; campaign -&gt; ad -&gt; creative 层级关系(root为训练集中全部样本), 这样的层级关系隐喻了在同一个父节点下的子节点, 其来自于同一个Beta分布, 所以我逐层进行了贝叶斯平滑, 且建立层级关系还有一个好处, 即对预测集出现的数据, 若该creativeID 在训练集从未出现过, 则在pandas.merge时该值为空, 则向上寻找其父节点的统计值, 最高一层为root, 是基与全部训练数据的统计, root的值不进行贝叶斯平滑, 且一定存在, 这就保证了当在预测集中遇到了未出现的样本时, 使用最合理的缺省值进行补全.</p>
 <p><img src="https://blog-10039692.file.myqcloud.com/1496913643639_4485_1496913644532.png" alt="img"></p>
 <p>关于贝叶斯平滑，其核心思想就是说，当某些广告投放量比较少时，或者还未投放时，根据历史数据所统计的转化率特征是不准确的，比如有广告A和B，<script type="math/tex">r_A = 5/10</script>,<script type="math/tex">r_B = 50/100</script>,由于广告A的投放量还比较少，通过历史数据计算而得的<script type="math/tex">r_B</script> 就很有可能不准确，在比如如果某一个广告还未投放过，那么根据历史数据计算其转化率为0，放入模型中训练，也是非常不合理的，所以我们该如何解决呢？</p>
-<p>假设</p>
-<p>我们假设广告的转化率是服从伯努利分布的，也就是只有转化和不转化两种情况，伯努利的共轭显先验分布是贝塔分布，因此可以采用</p>
 <p>对于贝叶斯平滑参数的估计方法，可以采用矩估计、极大似然估计和EM算法，这里由于速度的限制，我们采用的是矩估计的方式，代码<a href="https://github.com/zsyandjyhouse/TencentAD_contest" target="_blank" rel="external">TencentAD_contest</a></p>
 <p>关于贝叶斯平滑，有待补习，参考文章：</p>
 <p><a href="http://blog.csdn.net/jinping_shi/article/details/53444100" target="_blank" rel="external">贝叶斯参数估计的理解</a></p>
