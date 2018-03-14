@@ -66,7 +66,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="DP,算法导论," />
 
 
 
@@ -77,22 +77,23 @@
 
 
 
-<meta name="description" content="1. 线段树入门本文主要参考自jiayi797的专栏 、 JustDoIT 和 线段树知识点总结 线段树，类似区间树，它在各个节点保存一条线段（数组中的一段子数组），主要用于高效解决连续区间的动态查询问题，由于二叉结构的特性，它基本能保持每个操作的复杂度为O(logn)。 线段树的每个节点表示一个区间，子节点则分别表示父节点的左右半区间，例如父亲的区间是[a,b]，那么(c=(a+b)/2)左儿子">
+<meta name="description" content="1. 动态规划（Dynamic programming）这里programming指的是表格，而非编程。动态规划通常用来求解最优化问题 与分治法对比：  相同点：都是通过子问题组合求解原问题 不同点：分治法将问题划分为不相交的子问题，求解再合并，动态规划应用于子问题重叠的情况，即不同的子问题具有公共的子子问题，此时如果用分治法就会出现重复计算求解。为了避免重复动态规划对子问题只求解一次，将其保存在">
+<meta name="keywords" content="DP,算法导论">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【leetcode】线段树">
-<meta property="og:url" content="http://yoursite.com/2018/02/08/【leetcode】线段树/index.html">
+<meta property="og:title" content="【算法导论】动态规划（一）钢条切割">
+<meta property="og:url" content="http://yoursite.com/2017/10/31/【算法导论】钢条切割/index.html">
 <meta property="og:site_name" content="Siyao&#39;s Blog">
-<meta property="og:description" content="1. 线段树入门本文主要参考自jiayi797的专栏 、 JustDoIT 和 线段树知识点总结 线段树，类似区间树，它在各个节点保存一条线段（数组中的一段子数组），主要用于高效解决连续区间的动态查询问题，由于二叉结构的特性，它基本能保持每个操作的复杂度为O(logn)。 线段树的每个节点表示一个区间，子节点则分别表示父节点的左右半区间，例如父亲的区间是[a,b]，那么(c=(a+b)/2)左儿子">
+<meta property="og:description" content="1. 动态规划（Dynamic programming）这里programming指的是表格，而非编程。动态规划通常用来求解最优化问题 与分治法对比：  相同点：都是通过子问题组合求解原问题 不同点：分治法将问题划分为不相交的子问题，求解再合并，动态规划应用于子问题重叠的情况，即不同的子问题具有公共的子子问题，此时如果用分治法就会出现重复计算求解。为了避免重复动态规划对子问题只求解一次，将其保存在">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-01-23-18-59-58.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-01-23-19-01-44.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-01-23-20-15-07.png">
-<meta property="og:image" content="http://om1bxijvl.bkt.clouddn.com/2018-01-23-20-16-03.png">
-<meta property="og:updated_time" content="2018-02-11T13:34:17.854Z">
+<meta property="og:image" content="https://i.loli.net/2017/10/31/59f7536b8fc8f.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/10/30/59f73938d2f50.png">
+<meta property="og:image" content="https://i.loli.net/2017/10/31/59f759167976c.png">
+<meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2017-10-31-22-25-25.png">
+<meta property="og:updated_time" content="2017-12-07T11:41:16.225Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【leetcode】线段树">
-<meta name="twitter:description" content="1. 线段树入门本文主要参考自jiayi797的专栏 、 JustDoIT 和 线段树知识点总结 线段树，类似区间树，它在各个节点保存一条线段（数组中的一段子数组），主要用于高效解决连续区间的动态查询问题，由于二叉结构的特性，它基本能保持每个操作的复杂度为O(logn)。 线段树的每个节点表示一个区间，子节点则分别表示父节点的左右半区间，例如父亲的区间是[a,b]，那么(c=(a+b)/2)左儿子">
-<meta name="twitter:image" content="http://om1bxijvl.bkt.clouddn.com/2018-01-23-18-59-58.png">
+<meta name="twitter:title" content="【算法导论】动态规划（一）钢条切割">
+<meta name="twitter:description" content="1. 动态规划（Dynamic programming）这里programming指的是表格，而非编程。动态规划通常用来求解最优化问题 与分治法对比：  相同点：都是通过子问题组合求解原问题 不同点：分治法将问题划分为不相交的子问题，求解再合并，动态规划应用于子问题重叠的情况，即不同的子问题具有公共的子子问题，此时如果用分治法就会出现重复计算求解。为了避免重复动态规划对子问题只求解一次，将其保存在">
+<meta name="twitter:image" content="https://i.loli.net/2017/10/31/59f7536b8fc8f.png">
 
 
 
@@ -122,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/02/08/【leetcode】线段树/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/10/31/【算法导论】钢条切割/"/>
 
 
 
 
 
-  <title>【leetcode】线段树 | Siyao's Blog</title>
+  <title>【算法导论】动态规划（一）钢条切割 | Siyao's Blog</title>
   
 
 
@@ -309,7 +310,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/08/【leetcode】线段树/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/31/【算法导论】钢条切割/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Siyao">
@@ -326,7 +327,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【leetcode】线段树</h1>
+          <h1 class="post-title" itemprop="name headline">【算法导论】动态规划（一）钢条切割</h1>
         
 
         <div class="post-meta">
@@ -338,8 +339,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-08T22:27:03+08:00">
-                2018-02-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-31T22:44:19+08:00">
+                2017-10-31
               </time>
             
 
@@ -348,6 +349,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法导论/" itemprop="url" rel="index">
+                    <span itemprop="name">算法导论</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -375,7 +398,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,228
+                  1,389
                 </span>
               
 
@@ -391,7 +414,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5
+                  6
                 </span>
               
             </div>
@@ -412,41 +435,67 @@
       
 
       
-        <h1 id="1-线段树入门"><a href="#1-线段树入门" class="headerlink" title="1. 线段树入门"></a>1. 线段树入门</h1><p>本文主要参考自<a href="https://jiayi797.github.io/2018/01/23/%E7%AE%97%E6%B3%95-%E7%BA%BF%E6%AE%B5%E6%A0%91/" target="_blank" rel="external">jiayi797的专栏</a> 、 <a href="http://www.cnblogs.com/TenosDoIt/" target="_blank" rel="external">JustDoIT</a> 和 <a href="https://www.jiuzhang.com/article/kSiBNt/" target="_blank" rel="external">线段树知识点总结</a></p>
-<p>线段树，类似区间树，它在各个节点保存一条线段（数组中的一段子数组），主要用于高效解决连续区间的动态查询问题，由于二叉结构的特性，它基本能保持每个操作的复杂度为O(logn)。</p>
-<p>线段树的每个节点表示一个区间，子节点则分别表示父节点的左右半区间，例如父亲的区间是[a,b]，那么(c=(a+b)/2)左儿子的区间是[a,c]，右儿子的区间是[c+1,b]。线段树形如：</p>
-<p><a href="http://om1bxijvl.bkt.clouddn.com/2018-01-23-18-59-58.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-01-23-18-59-58.png" alt="img"></a></p>
-<p>下面我们从一个经典的例子来了解线段树，问题描述如下:从数组arr[0…n-1]中查找某个数组某个区间内的最大值，其中数组大小固定，但是数组中的元素的值可以随时更新。从这题可以看出：区间(a,b)的最大值和区间(b,c)的最大值中，取较大的就是区间(a,c)的最大值。很明显这个操作具有区间的性质。</p>
-<p>我们可以用线段树来解决这个区间最大值问题。根据这个问题我们构造如下的二叉线段树。区间的第三维就是区间的最大值。</p>
-<p><a href="http://om1bxijvl.bkt.clouddn.com/2018-01-23-19-01-44.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-01-23-19-01-44.png" alt="img"></a></p>
-<p>加入第三维的时候，只需要在构建完左右区间后，根据左右区间的最大值更新当前区间最大值即可。</p>
-<p>因为每次将区间长度一分为二，所有构造的节点个数为：</p>
-<p>n + 1/2 <em>n + 1/4 </em>n + 1/8 * n + …</p>
-<p>= (1 + 1/2 + 1/4 + 1/8 + …) * n</p>
-<p>= 2n</p>
-<p>所以构造线段树的时空复杂度都为O(n)。</p>
-<h2 id="1-1-线段树常见题型"><a href="#1-1-线段树常见题型" class="headerlink" title="1.1. 线段树常见题型"></a>1.1. 线段树常见题型</h2><p>一道题可不可以用线段树来做，基本是看这道题的操作有没有<strong>区间的性质</strong>。也就是在一个区间上的操作是否可以转化为两个子区间上的操作。</p>
+        <h2 id="1-动态规划（Dynamic-programming）"><a href="#1-动态规划（Dynamic-programming）" class="headerlink" title="1. 动态规划（Dynamic programming）"></a>1. 动态规划（Dynamic programming）</h2><p>这里programming指的是<strong>表格</strong>，而非编程。动态规划通常用来<strong>求解最优化问题</strong></p>
+<p>与分治法对比：</p>
+<ol>
+<li>相同点：都是通过子问题组合求解原问题</li>
+<li>不同点：分治法将问题划分为<strong>不相交</strong>的子问题，求解再合并，动态规划应用于<strong>子问题重叠</strong>的情况，即不同的子问题具有公共的子子问题，此时如果用分治法就会出现重复计算求解。为了避免重复动态规划对子问题只求解一次，将其保存在表格中，从而无需每求解一个子子问题时重复计算。</li>
+</ol>
+<h2 id="2-求解步骤"><a href="#2-求解步骤" class="headerlink" title="2. 求解步骤"></a>2. 求解步骤</h2><ol>
+<li>刻画最优解的结构特征</li>
+<li>递归定义最优解的值</li>
+<li>计算最优解的值，通常采用自底向上的方法</li>
+<li>利用计算出的信息构造最优解</li>
+</ol>
+<p>其中不是所有的题目都会要求4，仅仅要求3，要求4的时候，我们需要在得到3的同事维护一些额外的信息来求出4。</p>
+<p>看到这四个步骤的时候，还是挺懵逼的，继续往下看=.=</p>
+<a id="more"></a>
+<h2 id="3-钢条切割问题"><a href="#3-钢条切割问题" class="headerlink" title="3. 钢条切割问题"></a>3. 钢条切割问题</h2><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>Serling公司购买一根长钢管，将其切割成短钢管出售，给定钢管长度和对应的价钱如下表：</p>
+<p><img src="https://i.loli.net/2017/10/31/59f7536b8fc8f.png" alt=""> </p>
+<p>问题要求根据上面的价格，给出最佳的切割方案，使得收益最大。</p>
+<p>以n=4为例，可以将钢条切割成如下图所示的8种情况，其中收益岁大的是(c)：</p>
+<p><img src="https://ooo.0o0.ooo/2017/10/30/59f73938d2f50.png" alt=""> </p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>钢条长度为n时，共有$2^{n-1}$种分割方式。</p>
+<ol>
+<li><p>递归</p>
+<p>把长度为n的钢条切割问题转化为：将钢条从左边切下长度为i的一段，对右边剩下的长度为n-i的钢条进行进一步的切割。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">CUT-ROD(p,n)//p:价格数组，n：钢条长度</div><div class="line">1 if n==0:</div><div class="line">2 	return 0</div><div class="line">3 q=MIN</div><div class="line">4 for i = 1 to n:</div><div class="line">5 	q=max(q,p[i],CUT-ROD(p,n-i))</div><div class="line">6 return q</div></pre></td></tr></table></figure>
+<p>当n=4时，上面递推方式的工作量如图所示，复杂度为$T(n)=2^n$</p>
+<p><img src="https://i.loli.net/2017/10/31/59f759167976c.png" alt=""> </p>
+</li>
+<li><p>动态规划（DP）</p>
+<p>可以看出来用上面递归的方式计算，中间会重复求解相同子问题。使用动态规划，<strong>仔细安排求解顺序，对每个子问题只求解一次所以，并把结果保存下来</strong>，供后续使用避免重复计算。</p>
+<p>​    对于钢条切割的问题，我们可以将长度为n的钢条切割问题转化为规模更小的子问题：当完成首次切割后，将两段钢条看成<strong>两个独立的钢条切割</strong>问题，通过<strong>组合</strong>两个相关子问题的最优解，选取组合收益最大者，构成原问题的最优解。</p>
+<p>因此，将长度为n的钢条切割成两段，共有下面n种切割方式，求解下面n个子问题的最优解，再选取其中最大的作为原问题的最优解。</p>
+<script type="math/tex; mode=display">
+r_n=max(p_n,r_{1}+r_{n-1},r_{2}+r_{n-2},...,r_{n-1}+r_1)</script><p>​以n=4为例：</p>
+<p>$r_1=1$</p>
+<p>$r_2=max(p_2,max(r_1)+max(r_1))=max(5,1+1)=5$</p>
+<p>$r_3=max(p_3,max(r_1)+max(r_2))=max(8,5+1)=8$</p>
+<p>$r_4=max(p_4,max(r_1)+max(r_3),max(r_2)+max(r_2))=max(9,8+1,5+5)=10$</p>
+<p>…</p>
+<p>​    动态规划两种实现方法：</p>
+</li>
+</ol>
 <ul>
-<li>求区间和，积，最小值，gcd等</li>
-<li>以当前节点的值作为节点处理。例如给出N个数字，再给一个数，问比这个数大的有多少个。</li>
-<li>区间加减同一个值，或者区间同时赋一个值。</li>
+<li><p>自顶向下：</p>
+<p>仍按照递归的方式实现，过程中保存每个子问题的解，后续过程中先检查是否已经保存过此解，如果是，直接返回保存的值。就好像带了一个“备忘录”。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">memorized-CUT-ROD[] = MIN//用于记录子问题结果</div><div class="line">CUT-ROD(p,n)//p:价格数组，n：钢条长度</div><div class="line">1 if memorized-CUT-ROD[n] &gt; 0:</div><div class="line">2 	return memorized-CUT-ROD[n]</div><div class="line">3 else</div><div class="line">4 	for i = 1 to n:</div><div class="line">5 	q=max(q,p[i],memorized-CUT-ROD(p,n-i))</div><div class="line">6 memorized-CUT-ROD[n] = q</div></pre></td></tr></table></figure>
+<p>​</p>
+</li>
 </ul>
-<h2 id="1-2-链式线段树"><a href="#1-2-链式线段树" class="headerlink" title="1.2. 链式线段树"></a>1.2. 链式线段树</h2><p>我们常见的二叉树都是链式结构。因此我们先完成链式的线段树。</p>
-<h3 id="建树"><a href="#建树" class="headerlink" title="建树"></a>建树</h3><p>复杂度O(n)</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SegmentTree</span> </span>&#123;</div><div class="line">    <span class="comment">//线段树节点定义</span></div><div class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SegmentTreeNode</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> start;</div><div class="line">        <span class="keyword">int</span> end;</div><div class="line">        <span class="keyword">int</span> max;</div><div class="line">        SegmentTreeNode left = <span class="keyword">null</span>;<span class="comment">//定义左右节点</span></div><div class="line">        SegmentTreeNode right = <span class="keyword">null</span>;</div><div class="line">        SegmentTreeNode(<span class="keyword">int</span> start,<span class="keyword">int</span> end,<span class="keyword">int</span> max)&#123;</div><div class="line">            <span class="keyword">this</span>.start = start;</div><div class="line">            <span class="keyword">this</span>.end = end;</div><div class="line">            <span class="keyword">this</span>.max = max;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> SegmentTreeNode <span class="title">builder</span><span class="params">(<span class="keyword">int</span>[] A)</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> helper(<span class="number">0</span>,A.length-<span class="number">1</span>,A);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> SegmentTreeNode <span class="title">helper</span><span class="params">(<span class="keyword">int</span> low,<span class="keyword">int</span> high,<span class="keyword">int</span>[] A)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span> (low &gt; high)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        SegmentTreeNode root = <span class="keyword">new</span> SegmentTreeNode(low,high,A[low]);</div><div class="line">        <span class="keyword">if</span>(low == high)&#123;</div><div class="line">            <span class="keyword">return</span> root;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span>&#123;</div><div class="line">            root.left = helper(low,high/<span class="number">2</span>,A);</div><div class="line">            root.left = helper(high/<span class="number">2</span>+<span class="number">1</span>,high,A);</div><div class="line">            root.max = Math.max(root.left.max,root.right.max);<span class="comment">//更新当前节点max值</span></div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> root;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="区间查询"><a href="#区间查询" class="headerlink" title="区间查询"></a>区间查询</h3><p>复杂度 O(log(n))O(log(n))</p>
-<p>构造线段树目的是为了更快地查询。例如给定区间，要求区间中的最大值。而线段树的区间查询操作就是将当前区间分解为较小的子区间，然后由子区间的最大值就可以快速得到需要查询区间的最大值。例如</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">query(1,3) = max(query(1,1), query(2,3)) = max(4,3) = 4</div></pre></td></tr></table></figure>
-<p>查询实现：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="comment">//在线段树中查找[low,high]区间的最大值</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">query</span><span class="params">(SegmentTreeNode root,<span class="keyword">int</span> low,<span class="keyword">int</span> high)</span></span>&#123;</div><div class="line">    <span class="keyword">if</span>(root.start == low &amp;&amp; root.end == high)&#123;</div><div class="line">        <span class="keyword">return</span> root.max;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> mid = (root.start + root.end) / <span class="number">2</span>;</div><div class="line">    <span class="keyword">int</span> result = Integer.MIN_VALUE;</div><div class="line">    <span class="keyword">if</span>(mid &gt;= low)&#123;<span class="comment">//查询区间与左半区间有交集，最大值有可能在左半区间</span></div><div class="line">        result = Math.max(result,query(root.left,low,mid));</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(mid+<span class="number">1</span> &lt;= high)&#123; <span class="comment">//查询区间与右半区间有交集，最大值有可能在右半区间</span></div><div class="line">        result = Math.max(result,query(root.right,mid+<span class="number">1</span>,high));</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="单点更新"><a href="#单点更新" class="headerlink" title="单点更新"></a>单点更新</h3><p>复杂度 O(log(n))O(log(n))</p>
-<p>更新序列中的一个节点，那么如何把这种变化体现到线段树中呢？</p>
-<p><a href="http://om1bxijvl.bkt.clouddn.com/2018-01-23-20-15-07.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-01-23-20-15-07.png" alt="img"></a></p>
-<p>例如要将第4个点更新为5.就要变动3个区间的值，分别为[3,3], [2,3], [0,3]</p>
-<p><a href="http://om1bxijvl.bkt.clouddn.com/2018-01-23-20-16-03.png" target="_blank" rel="external"><img src="http://om1bxijvl.bkt.clouddn.com/2018-01-23-20-16-03.png" alt="img"></a></p>
-<p>改动一个节点，与这个节点对应的叶子结点都要变动。并且，这个节点变动后，这个节点的属性值也有可能会变动，那么就有可能影响到这个节点的父亲节点的属性值（例如可能影响到最大值）。所以需要从叶子节点一路走到根节点。</p>
-<p>单点更新实现：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">modify</span><span class="params">(SegmentTreeNode root,<span class="keyword">int</span> idx,<span class="keyword">int</span> val)</span></span>&#123;</div><div class="line">    <span class="comment">////如果找到相应叶子节点了</span></div><div class="line">    <span class="keyword">if</span>(root.start == root.end &amp;&amp; root.start == idx)&#123;</div><div class="line">        root.max = val;<span class="comment">//修改max值</span></div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> mid = (root.start + root.end) / <span class="number">2</span>;</div><div class="line">    <span class="keyword">if</span>(idx &lt;= mid)&#123;<span class="comment">//要修改的在左边</span></div><div class="line">        modify(root.left,idx,val);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> &#123;</div><div class="line">        modify(root.right,idx,val);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//跟新root的max</span></div><div class="line">    root.max = Math.max(root.left.max,root.right.max);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>自底向上</p>
+<p>需要恰当定义子问题的“规模”，使得任何子问题的求解都只依赖于“更小的”子问题，进而将子问题按规律排序，按由小到大的顺序进行求解，当求解某个自问题时，它所以来的子问题都已经求解完毕。</p>
+<p>伪代码略，直接上代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">cut_rod</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; p,<span class="keyword">int</span> n)</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> len = p.size();</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; maxvalue(len,<span class="number">0</span>);</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;i++)&#123;<span class="comment">//i=n-1</span></div><div class="line">        maxvalue[i] = p[i];</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= (i+<span class="number">1</span>)/<span class="number">2</span>;j++)&#123;</div><div class="line">            maxvalue[i] = max(maxvalue[i],maxvalue[j<span class="number">-1</span>]+maxvalue[i-j]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> maxvalue[n<span class="number">-1</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p> 至此，可以求出该问题的最优解了~</p>
+</li>
+</ul>
+<h3 id="重构解"><a href="#重构解" class="headerlink" title="重构解"></a>重构解</h3><p>​    上面的求解过程可以求出最优解的值，但并没有返回解本身（具体的切割方案），为了得到最优解，需要在求解最优解的同时，保存切割信息。扩展上面的算法，使之对子问题不仅保存最优收益值$r_j$，还保存该最优方案对应的第一段钢条的切割长度，也就是第一段钢条的切割位置距离钢条左端的长度$s_j$，最后输出最优方案时，根据$s_j$即可复原出最优解。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">cut_rod</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; p,<span class="keyword">int</span> n)</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> len = p.size();</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; maxvalue(len,<span class="number">0</span>);<span class="comment">//记录最优方案值</span></div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; leftlen(len,<span class="number">0</span>);<span class="comment">//记录第一段钢条距左端距离</span></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;i++)&#123;<span class="comment">//i=n-1</span></div><div class="line">        maxvalue[i] = p[i];</div><div class="line">        leftlen[i] = i+<span class="number">1</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= (i+<span class="number">1</span>)/<span class="number">2</span>;j++)&#123;</div><div class="line">            <span class="keyword">if</span>(maxvalue[j<span class="number">-1</span>]+maxvalue[i-j]&gt;maxvalue[i])&#123;</div><div class="line">                maxvalue[i] = maxvalue[j<span class="number">-1</span>]+maxvalue[i-j];</div><div class="line">                leftlen[i] = j;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//输出最优解方案</span></div><div class="line">    <span class="keyword">int</span> m = n<span class="number">-1</span>;</div><div class="line">    <span class="keyword">while</span>(m&gt;=<span class="number">0</span>)&#123;</div><div class="line">        <span class="built_in">cout</span>&lt;&lt;leftlen[m]&lt;&lt;<span class="string">"\t"</span>;</div><div class="line">        m -= leftlen[m];</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> maxvalue[n<span class="number">-1</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>结果如图：</p>
+<p>​                <img src="http://omaby2s5z.bkt.clouddn.com/2017-10-31-22-25-25.png" alt=""> </p>
 
       
     </div>
@@ -462,6 +511,14 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/DP/" rel="tag"># DP</a>
+          
+            <a href="/tags/算法导论/" rel="tag"># 算法导论</a>
+          
+        </div>
+      
 
       
       
@@ -471,8 +528,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/02/08/【排序】计数排序、基数排序、桶排序/" rel="next" title="计数排序、基数排序、桶排序">
-                <i class="fa fa-chevron-left"></i> 计数排序、基数排序、桶排序
+              <a href="/2017/10/26/【leetcode】713-Subarray-Product-Less-Than-K-md/" rel="next" title="【leetcode】713.Subarray-Product-Less-Than-K.md">
+                <i class="fa fa-chevron-left"></i> 【leetcode】713.Subarray-Product-Less-Than-K.md
               </a>
             
           </div>
@@ -481,8 +538,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/02/26/【九章算法强化班】follow-up/" rel="prev" title="【九章算法强化班】follow up">
-                【九章算法强化班】follow up <i class="fa fa-chevron-right"></i>
+              <a href="/2017/11/01/【算法导论】矩阵链乘法/" rel="prev" title="【算法导论】动态规划（二）矩阵链乘法">
+                【算法导论】动态规划（二）矩阵链乘法 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -621,7 +678,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-线段树入门"><span class="nav-number">1.</span> <span class="nav-text">1. 线段树入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-线段树常见题型"><span class="nav-number">1.1.</span> <span class="nav-text">1.1. 线段树常见题型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-链式线段树"><span class="nav-number">1.2.</span> <span class="nav-text">1.2. 链式线段树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#建树"><span class="nav-number">1.2.1.</span> <span class="nav-text">建树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区间查询"><span class="nav-number">1.2.2.</span> <span class="nav-text">区间查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单点更新"><span class="nav-number">1.2.3.</span> <span class="nav-text">单点更新</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-动态规划（Dynamic-programming）"><span class="nav-number">1.</span> <span class="nav-text">1. 动态规划（Dynamic programming）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-求解步骤"><span class="nav-number">2.</span> <span class="nav-text">2. 求解步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-钢条切割问题"><span class="nav-number">3.</span> <span class="nav-text">3. 钢条切割问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">3.1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">3.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重构解"><span class="nav-number">3.3.</span> <span class="nav-text">重构解</span></a></li></ol></li></ol></div>
             
 
           </div>
