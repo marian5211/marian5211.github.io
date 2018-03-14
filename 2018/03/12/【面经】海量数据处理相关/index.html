@@ -370,7 +370,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,379
+                  1,524
                 </span>
               
 
@@ -448,7 +448,11 @@
 </ol>
 </li>
 </ol>
-<h3 id="8-有10个文件，每个文件1G，每个文件的每一行存放的都是用户的query，每个文件的query都可能重复。要求你按照query的频度排序。"><a href="#8-有10个文件，每个文件1G，每个文件的每一行存放的都是用户的query，每个文件的query都可能重复。要求你按照query的频度排序。" class="headerlink" title="8. 有10个文件，每个文件1G，每个文件的每一行存放的都是用户的query，每个文件的query都可能重复。要求你按照query的频度排序。"></a>8. 有10个文件，每个文件1G，每个文件的每一行存放的都是用户的query，每个文件的query都可能重复。要求你按照query的频度排序。</h3>
+<h3 id="8-有10个文件，每个文件1G，每个文件的每一行存放的都是用户的query，每个文件的query都可能重复。要求你按照query的频度排序。"><a href="#8-有10个文件，每个文件1G，每个文件的每一行存放的都是用户的query，每个文件的query都可能重复。要求你按照query的频度排序。" class="headerlink" title="8. 有10个文件，每个文件1G，每个文件的每一行存放的都是用户的query，每个文件的query都可能重复。要求你按照query的频度排序。"></a>8. 有10个文件，每个文件1G，每个文件的每一行存放的都是用户的query，每个文件的query都可能重复。要求你按照query的频度排序。</h3><h3 id="有海量个文件，知道每个文件的大小，给定100个桶，把这些文件塞到桶里，尽量使得每个桶里装的东西大小差不多"><a href="#有海量个文件，知道每个文件的大小，给定100个桶，把这些文件塞到桶里，尽量使得每个桶里装的东西大小差不多" class="headerlink" title="有海量个文件，知道每个文件的大小，给定100个桶，把这些文件塞到桶里，尽量使得每个桶里装的东西大小差不多"></a>有海量个文件，知道每个文件的大小，给定100个桶，把这些文件塞到桶里，尽量使得每个桶里装的东西大小差不多</h3><ol>
+<li>先对文件按照文件大小<strong>从大到小排序</strong> </li>
+<li>将文件顺序放入桶中，每次都选取当前容量最小的桶，这里就需要用一个堆来维护当前这100个桶里面的文件大小了，每次需要选出当前容量最小的桶，加了数据之后，更新这个桶的容量，再放回堆中。</li>
+</ol>
+
       
     </div>
     
@@ -622,7 +626,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一部分-分而治之-Hash映射-Hash-map统计-堆-快速-归并排序"><span class="nav-number">1.</span> <span class="nav-text">第一部分 分而治之/Hash映射 + Hash_map统计 + 堆/快速/归并排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-海量数据选取TOPK"><span class="nav-number">1.1.</span> <span class="nav-text">1. 海量数据选取TOPK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-海量数据选取第K大"><span class="nav-number">1.2.</span> <span class="nav-text">2. 海量数据选取第K大</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-大数排序问题"><span class="nav-number">1.3.</span> <span class="nav-text">3. 大数排序问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-海量日志数据，提取出某日访问百度次数最多的那个IP"><span class="nav-number">1.4.</span> <span class="nav-text">4. 海量日志数据，提取出某日访问百度次数最多的那个IP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-300万个查询字符串中统计最热门的10个查询"><span class="nav-number">1.5.</span> <span class="nav-text">5. 300万个查询字符串中统计最热门的10个查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-有一个1G大小的一个文件，里面每一行是一个词，词的大小不超过16字节，内存限制大小是1M。返回频数最高的100个词。"><span class="nav-number">1.6.</span> <span class="nav-text">6. 有一个1G大小的一个文件，里面每一行是一个词，词的大小不超过16字节，内存限制大小是1M。返回频数最高的100个词。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-海量数据分布在100台电脑中，想个办法高效统计出这批数据的TOP10。"><span class="nav-number">1.7.</span> <span class="nav-text">7. 海量数据分布在100台电脑中，想个办法高效统计出这批数据的TOP10。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-有10个文件，每个文件1G，每个文件的每一行存放的都是用户的query，每个文件的query都可能重复。要求你按照query的频度排序。"><span class="nav-number">1.8.</span> <span class="nav-text">8. 有10个文件，每个文件1G，每个文件的每一行存放的都是用户的query，每个文件的query都可能重复。要求你按照query的频度排序。</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一部分-分而治之-Hash映射-Hash-map统计-堆-快速-归并排序"><span class="nav-number">1.</span> <span class="nav-text">第一部分 分而治之/Hash映射 + Hash_map统计 + 堆/快速/归并排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-海量数据选取TOPK"><span class="nav-number">1.1.</span> <span class="nav-text">1. 海量数据选取TOPK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-海量数据选取第K大"><span class="nav-number">1.2.</span> <span class="nav-text">2. 海量数据选取第K大</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-大数排序问题"><span class="nav-number">1.3.</span> <span class="nav-text">3. 大数排序问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-海量日志数据，提取出某日访问百度次数最多的那个IP"><span class="nav-number">1.4.</span> <span class="nav-text">4. 海量日志数据，提取出某日访问百度次数最多的那个IP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-300万个查询字符串中统计最热门的10个查询"><span class="nav-number">1.5.</span> <span class="nav-text">5. 300万个查询字符串中统计最热门的10个查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-有一个1G大小的一个文件，里面每一行是一个词，词的大小不超过16字节，内存限制大小是1M。返回频数最高的100个词。"><span class="nav-number">1.6.</span> <span class="nav-text">6. 有一个1G大小的一个文件，里面每一行是一个词，词的大小不超过16字节，内存限制大小是1M。返回频数最高的100个词。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-海量数据分布在100台电脑中，想个办法高效统计出这批数据的TOP10。"><span class="nav-number">1.7.</span> <span class="nav-text">7. 海量数据分布在100台电脑中，想个办法高效统计出这批数据的TOP10。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-有10个文件，每个文件1G，每个文件的每一行存放的都是用户的query，每个文件的query都可能重复。要求你按照query的频度排序。"><span class="nav-number">1.8.</span> <span class="nav-text">8. 有10个文件，每个文件1G，每个文件的每一行存放的都是用户的query，每个文件的query都可能重复。要求你按照query的频度排序。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有海量个文件，知道每个文件的大小，给定100个桶，把这些文件塞到桶里，尽量使得每个桶里装的东西大小差不多"><span class="nav-number">1.9.</span> <span class="nav-text">有海量个文件，知道每个文件的大小，给定100个桶，把这些文件塞到桶里，尽量使得每个桶里装的东西大小差不多</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -672,7 +676,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">219.0k</span>
+    <span title="Site words total count">219.3k</span>
   
         
 <div class="busuanzi-count">
