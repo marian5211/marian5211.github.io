@@ -94,7 +94,7 @@
 <meta property="og:image" content="http://i.imgur.com/Xs2p2EN.jpg">
 <meta property="og:image" content="http://i.imgur.com/yDETU7x.jpg">
 <meta property="og:image" content="http://omaby2s5z.bkt.clouddn.com/2018-03-08-23-02-04.png">
-<meta property="og:updated_time" content="2018-03-12T12:35:15.789Z">
+<meta property="og:updated_time" content="2018-03-16T09:35:02.408Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="过拟合、欠拟合及其解决办法">
 <meta name="twitter:description" content="1. 过拟合与欠拟合​    机器学习中一个重要的话题便是模型的泛化能力，泛化能力强的模型才是好模型. ​    对于训练好的模型，若在训练集表现差，不必说在测试集表现同样会很差，这可能是欠拟合导致；若模型在训练集表现非常好，却在测试集上差强人意，则这便是过拟合导致的. ​    过拟合与欠拟合也可以用 Bias 与 Variance （偏差和方差）的角度来解释，欠拟合会导致高 Bias ，过拟合">
@@ -381,7 +381,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3,553
+                  3,576
                 </span>
               
 
@@ -430,6 +430,7 @@
 <p><strong>（3）DNN中常见的方法：</strong></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">1、早停策略。本质上是交叉验证策略，选择合适的训练次数，避免训练的网络过度拟合训练数据。</div><div class="line">2、集成学习策略。而DNN可以用Bagging的思路来正则化。首先我们要对原始的m个训练样本进行有放回随机采样，构建N组m个样本的数据集，然后分别用这N组数据集去训练我们的DNN。即采用我们的前向传播算法和反向传播算法得到N个DNN模型的W,b参数组合，最后对N个DNN模型的输出用加权平均法或者投票法决定最终输出。不过用集成学习Bagging的方法有一个问题，就是我们的DNN模型本来就比较复杂，参数很多。现在又变成了N个DNN模型，这样参数又增加了N倍，从而导致训练这样的网络要花更加多的时间和空间。因此一般N的个数不能太多，比如5-10个就可以了。</div><div class="line">3、DropOut策略。所谓的Dropout指的是在用前向传播算法和反向传播算法训练DNN模型时，一批数据迭代时，随机的从全连接DNN网络中去掉一部分隐藏层的神经元。　在对训练集中的一批数据进行训练时，我们随机去掉一部分隐藏层的神经元，并用去掉隐藏层的神经元的网络来拟合我们的一批训练数据。使用基于dropout的正则化比基于bagging的正则化简单，这显而易见，当然天下没有免费的午餐，由于dropout会将原始数据分批迭代，因此原始数据集最好较大，否则模型可能会欠拟合。</div></pre></td></tr></table></figure>
 <h2 id="3-L1和L2正则化方法"><a href="#3-L1和L2正则化方法" class="headerlink" title="3. L1和L2正则化方法"></a>3. L1和L2正则化方法</h2><p><strong>目的：防止过拟合，提高泛化能力</strong></p>
+<p>选择经验误差与结构化风险（模型复杂度）同时小的模型。</p>
 <h3 id="3-1-定义"><a href="#3-1-定义" class="headerlink" title="3.1 定义"></a>3.1 定义</h3><p>给定数据集<script type="math/tex">D={(x_1,y_1),(x_2,y_2),…(x_m,y_m)}</script>,其中<script type="math/tex">x\in R^d,y\in R</script>.</p>
 <p>考虑最简单的线性回归，以平方误差为损失函数，则优化目标为：</p>
 <script type="math/tex; mode=display">min_w\sum_{i=1}^m(y_i-w^Tx_i)^2</script><p>当样本特征很多，而样本数较少时，上式很容易陷入过拟合。解决方案，正则化项。</p>
@@ -622,7 +623,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">116</span>
+                  <span class="site-state-item-count">120</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -729,7 +730,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">219.3k</span>
+    <span title="Site words total count">221.8k</span>
   
         
 <div class="busuanzi-count">
